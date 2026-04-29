@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: 'inline' | 'block';
+}
+const { variant = 'block' } = Astro.props;
+---
+
+{variant === 'block' ? (
+  <aside class="my-12 p-8 rule-double" style="background: var(--color-paper-deep);">
+    <p class="eyebrow mb-2">Need a second opinion?</p>
+    <h3 class="mb-3" style="font-size: 1.5rem;">
+      Choosing a single-tenant LLM stack for a regulated workload?
+    </h3>
+    <p class="mb-5" style="color: var(--color-ink-soft); max-width: 38rem;">
+      I run the editorial here — and I also consult on AI delivery for
+      compliance-heavy buyers (FCA-regulated finance, healthcare, defence,
+      public sector). If you're scoping a deployment, a 30-minute call
+      will save you weeks of vendor evaluation.
+    </p>
+    <a href="/contact/" class="btn-primary">Book a 30-min call</a>
+  </aside>
+) : (
+  <p class="my-6 p-4 border-l-4" style="border-color: var(--color-accent); background: var(--color-accent-soft);">
+    <strong>Working on a single-tenant rollout?</strong>
+    <a href="/contact/">Book a 30-minute consult</a> — I help regulated
+    teams get from shortlist to production without surprises.
+  </p>
+)}

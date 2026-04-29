@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pub_date.valueOf() - a.data.pub_date.valueOf());
+---
+
+<BaseLayout
+  title="Analysis"
+  description="Long-form analysis on single-tenant LLM hosting, compliance, vendor strategy, and AI infrastructure for regulated industries."
+>
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <p class="eyebrow mb-3">Analysis</p>
+      <h1 class="m-0 mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">
+        The dispatches.
+      </h1>
+      <p class="text-lg max-w-3xl" style="color: var(--color-ink-soft);">
+        Long-form pieces on single-tenant LLM strategy, vendor moves, and the
+        compliance dimensions of deploying AI inside regulated boundaries.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-4xl px-6 py-16">
+      {articles.length === 0 ? (
+        <p style="color: var(--color-mute);">No articles published yet. Check back soon.</p>
+      ) : (
+        <ul class="list-none p-0 m-0">
+          {articles.map((article) => (
+            <li class="border-b border-[var(--color-rule)] py-8 m-0">
+              <p class="eyebrow mb-2">{article.data.category}</p>
+              <h2 class="mt-0 mb-3 pt-0 border-none" style="font-size: 1.75rem;">
+                <a href={`/blog/${article.id}/`} class="no-underline">
+                  {article.data.title}
+                </a>
+              </h2>
+              <p class="mb-3" style="color: var(--color-ink-soft);">
+                {article.data.description}
+              </p>
+              <p class="text-xs font-mono m-0" style="color: var(--color-mute);">
+                <time datetime={article.data.pub_date.toISOString()}>
+                  {article.data.pub_date.toLocaleDateString('en-GB', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                  })}
+                </time>
+                {' · '}{article.data.author}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</BaseLayout>

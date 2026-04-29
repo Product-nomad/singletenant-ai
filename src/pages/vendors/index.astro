@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VendorCard from '../../components/VendorCard.astro';
+
+const vendors = (await getCollection('vendors'))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<BaseLayout
+  title="LLM Hosting Vendors Directory"
+  description="Comprehensive directory of single-tenant LLM hosting providers. Compare deployment options, compliance certifications, and pricing across all major vendors."
+>
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <p class="eyebrow mb-3">The Directory</p>
+      <h1 class="m-0 mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">
+        All vendors, side by side.
+      </h1>
+      <p class="text-lg max-w-3xl" style="color: var(--color-ink-soft);">
+        {vendors.length} vendors offering single-tenant or VPC-deployable LLM
+        hosting, ordered alphabetically. Click any vendor for our full profile.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <div class="grid md:grid-cols-2 gap-6">
+        {vendors.map((v) => <VendorCard vendor={v} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,113 @@
+---
+title: "What is Single-Tenant LLM Hosting?"
+description: "A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify."
+pub_date: 2026-04-29
+author: "Simon Wilson"
+category: "guide"
+target_keyword: "single tenant LLM hosting"
+tags:
+  - fundamentals
+  - compliance
+  - architecture
+featured: true
+draft: false
+---
+
+The default for most cloud AI is multi-tenant. Your prompts go through OpenAI's
+or Anthropic's shared infrastructure alongside everyone else's traffic, and the
+provider's job is to keep the workloads isolated logically while sharing the
+underlying hardware. It's cheap, fast, and right for most use cases.
+
+Single-tenant hosting flips this. Your customer gets a dedicated, isolated
+deployment — their own model instance, their own GPUs, sometimes their own
+network boundary — so no other tenant's traffic touches their environment.
+Same model weights, fundamentally different deployment architecture.
+
+## Why this category exists
+
+The wedge is compliance. Regulated industries — finance, healthcare, defence,
+legal, government — can't legally or contractually run sensitive prompts
+through multi-tenant infrastructure regardless of what the provider's terms
+say. GDPR data residency requirements, HIPAA Business Associate Agreements,
+FedRAMP authorisation, the FCA's expectations on model risk management:
+all of these create a buyer who needs deployment isolation before they need
+model quality.
+
+The economics also flip at scale. Below roughly 2 million tokens per day,
+shared APIs win on cost. Above that — particularly with steady-state workloads
+running 24/7 — dedicated capacity becomes cheaper, often substantially.
+Compliance and cost converge as the case for going single-tenant.
+
+## What actually counts as single-tenant?
+
+Vendors use the term loosely, so it's worth being precise. Five deployment
+models make up the spectrum:
+
+**Shared API** — pay-per-token on a multi-tenant endpoint. OpenAI, Anthropic,
+Google, and the standard tier of every open-model host. Lowest cost, lowest
+isolation. Not single-tenant.
+
+**Dedicated endpoint** — reserved capacity on the vendor's infrastructure with
+predictable performance, but the underlying physical hardware is still shared.
+Better isolation than shared, not full single-tenant.
+
+**Single-tenant** — dedicated GPUs, dedicated network, dedicated container —
+but still inside the vendor's data centre. Full workload isolation. This is
+what most vendors mean when they say "single-tenant".
+
+**VPC deployment** — the vendor's software runs inside your own cloud VPC
+(typically AWS, Azure, or GCP). Your data never leaves your network boundary.
+Stricter than single-tenant from a network-security perspective.
+
+**Self-hosted / on-prem** — you operate the infrastructure entirely. Maximum
+control and compliance, maximum operational burden.
+
+A vendor offering only shared API and dedicated endpoints is not a single-tenant
+provider, even if their marketing says otherwise. When you're evaluating, ask
+to see the deployment architecture diagram and verify which network boundaries
+the data crosses.
+
+## Who actually buys this?
+
+Three buyer profiles dominate the demand:
+
+The **regulated enterprise** — a bank, hospital system, insurer, or law firm
+that needs to deploy LLMs against sensitive data without it leaving their
+compliance perimeter. They typically want VPC or self-hosted deployments,
+and they'll pay a substantial premium for it.
+
+The **government or defence buyer** — needs sovereign data residency, often
+demands air-gapped or on-prem deployment, and has procurement cycles measured
+in quarters rather than weeks. The "sovereign AI" trend is essentially this
+buyer profile scaled up to country level.
+
+The **scale-stage AI product** — has outgrown shared API economics. Their
+token bill is approaching seven figures annually and dedicated capacity is
+now cheaper than per-token pricing. Compliance often follows as a secondary
+driver once scale forces the deployment-architecture conversation.
+
+If you're not in one of these three profiles, you probably don't need
+single-tenant yet. The cost premium is real, and the operational complexity
+is non-trivial.
+
+## What to evaluate when shopping
+
+When comparing vendors offering single-tenant deployments, the dimensions
+that actually matter:
+
+1. **Network architecture** — where exactly does your data go? Get a
+   deployment diagram before you read pricing.
+2. **Compliance certifications** — which ones are *current* and audited
+   (not "in progress"), and which apply to your use case.
+3. **Data residency** — can you pin compute and storage to specific regions?
+4. **Hardware availability** — H100, H200, B200 — what can you actually
+   reserve, in what regions, and with what lead time?
+5. **Operational tooling** — observability, autoscaling, model rollback,
+   request tracing. Production-grade or hobbyist?
+6. **Pricing predictability** — flat dedicated rate vs token vs hybrid.
+   What does month 12 look like?
+7. **Contractual flexibility** — minimum commitment, cancellation, SLA terms.
+
+That's the canonical buyer's framework for this category. We'll be unpacking
+each dimension in detail across the rest of the site, with specific vendor
+data plugged into the analysis.

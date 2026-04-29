@@ -1,0 +1,31 @@
+---
+// Newsletter signup — submits to Buttondown via their public endpoint.
+// Replace BUTTONDOWN_USERNAME with your Buttondown username after setup.
+const buttondownUsername = 'singletenant';
+---
+
+<form
+  action={`https://buttondown.email/api/emails/embed-subscribe/${buttondownUsername}`}
+  method="post"
+  target="popupwindow"
+  onsubmit={`window.open('https://buttondown.email/${buttondownUsername}', 'popupwindow')`}
+  class="w-full max-w-md"
+>
+  <label for="bd-email" class="block eyebrow mb-2">Subscribe</label>
+  <div class="flex flex-col sm:flex-row gap-2">
+    <input
+      type="email"
+      name="email"
+      id="bd-email"
+      placeholder="you@company.com"
+      required
+      class="newsletter-input flex-1"
+    />
+    <button type="submit" class="btn-primary">
+      Subscribe
+    </button>
+  </div>
+  <p class="mt-3 text-xs" style="color: var(--color-mute);">
+    Free. Weekly. Unsubscribe anytime. We never share your address.
+  </p>
+</form>

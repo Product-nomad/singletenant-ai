@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  vendors: CollectionEntry<'vendors'>[];
+}
+
+const { vendors } = Astro.props;
+
+// Define rows in display order
+const rows = [
+  { label: 'Founded',              key: 'founded' },
+  { label: 'Headquartered',        key: 'headquartered' },
+  { label: 'Funding stage',        key: 'funding_stage' },
+  { label: 'Deployment options',   key: 'deployment_options', type: 'tags' },
+  { label: 'Hardware',             key: 'hardware', type: 'list' },
+  { label: 'Compliance',           key: 'compliance', type: 'tags' },
+  { label: 'Data residency',       key: 'data_residency', type: 'list' },
+  { label: 'Pricing model',        key: 'pricing_model' },
+  { label: 'Starts from',          key: 'starts_from' },
+  { label: 'Sweet spot',           key: 'sweet_spot' },
+  { label: 'Weakness',             key: 'weakness' },
+] as const;
+
+function getVal(vendor: CollectionEntry<'vendors'>, key: string): any {
+  return (vendor.data as any)[key];
+}
+---
+
+<div class="overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0">
+  <table class="data-table w-full">
+    <thead>
+      <tr>
+        <th class="w-44"></th>
+        {vendors.map((v) => (
+          <th class="text-left">
+            <a href={`/vendors/${v.data.slug}/`} class="no-underline">
+              <span class="font-display font-semibold text-base normal-case tracking-normal" style="color: var(--color-ink);">
+                {v.data.name}
+              </span>
+            </a>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td class="font-medium" style="font-family: var(--font-body); color: var(--color-mute); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;">
+            {row.label}
+          </td>
+          {vendors.map((v) => {
+            const val = getVal(v, row.key);
+            if (val === undefined || val === null) return <td>—</td>;
+            if ('type' in row && row.type === 'tags' && Array.isArray(val)) {
+              return (
+                <td>
+                  {val.map((item: string) => (
+                    <span class={`tag ${item === 'single-tenant' || item === 'vpc' ? 'tag-accent' : ''}`}>
+                      {item}
+                    </span>
+                  ))}
+                </td>
+              );
+            }
+            if ('type' in row && row.type === 'list' && Array.isArray(val)) {
+              return (
+                <td style="font-family: var(--font-body); font-size: 0.875rem;">
+                  {val.join(', ')}
+                </td>
+              );
+            }
+            return (
+              <td style="font-family: var(--font-body); font-size: 0.875rem; line-height: 1.5;">
+                {val}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

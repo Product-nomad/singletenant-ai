@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VendorCard from '../components/VendorCard.astro';
+import ConsultingCTA from '../components/ConsultingCTA.astro';
+
+const vendors = await getCollection('vendors');
+const featured = vendors.filter((v) => v.data.featured)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const recentArticles = articles
+  .sort((a, b) => b.data.pub_date.valueOf() - a.data.pub_date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="singletenant.ai"
+  description="The independent buyer's resource for single-tenant LLM hosting. Vendor comparisons, compliance maps, and analysis for regulated industries deploying AI."
+>
+  <!-- Hero — editorial leader -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-8">
+        <p class="eyebrow mb-4">Issue 01 · The Buyer's Brief</p>
+        <h2 class="m-0 mb-6"
+            style="font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;">
+          Single-tenant AI, evaluated honestly.
+        </h2>
+        <p class="text-xl leading-relaxed mb-8 max-w-2xl"
+           style="color: var(--color-ink-soft); font-size: 1.25rem;">
+          Independent comparisons of single-tenant LLM hosting vendors —
+          for compliance officers, engineering leaders, and procurement teams
+          shipping AI inside boundaries that matter.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/vendors/" class="btn-primary">Browse vendors</a>
+          <a href="/blog/" class="btn-secondary">Read analysis</a>
+        </div>
+      </div>
+
+      <!-- Sidebar: at-a-glance metrics -->
+      <aside class="md:col-span-4 md:border-l md:border-[var(--color-rule)] md:pl-10">
+        <p class="eyebrow mb-4">By the numbers</p>
+        <dl class="space-y-5 m-0">
+          <div>
+            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
+              Vendors tracked
+            </dt>
+            <dd class="m-0 font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-ink);">
+              {vendors.length}
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
+              Compliance certs mapped
+            </dt>
+            <dd class="m-0 font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-ink);">
+              13
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
+              Last data review
+            </dt>
+            <dd class="m-0 font-mono" style="font-size: 1rem; color: var(--color-ink);">
+              29 Apr 2026
+            </dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Editorial intro -->
+  <section class="border-b border-[var(--color-rule)]"
+           style="background: var(--color-paper-deep);">
+    <div class="mx-auto max-w-3xl px-6 py-16">
+      <p class="eyebrow mb-3">Why this exists</p>
+      <p class="m-0 prose drop-cap" style="font-size: 1.25rem; line-height: 1.65;">
+        Single-tenant LLM hosting is a real product category, but the buyer
+        side of the market is poorly served. Vendor pages oversell. Analyst
+        reports lag the technology. Reddit threads are rumour. This site
+        exists to fill the gap — an independent, regularly-updated buyer's
+        resource for teams that need to deploy LLMs inside compliance,
+        sovereignty, or operational boundaries.
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured vendors -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <div class="flex items-end justify-between mb-8 pb-4 rule-thick">
+        <div>
+          <p class="eyebrow mb-2">Featured Vendors</p>
+          <h2 class="m-0">Single-tenant capable, this quarter</h2>
+        </div>
+        <a href="/vendors/" class="font-mono text-xs uppercase tracking-wider hidden sm:inline-block">
+          See all {vendors.length} →
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+        {featured.map((v) => <VendorCard vendor={v} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Consulting CTA -->
+  <section>
+    <div class="mx-auto max-w-4xl px-6">
+      <ConsultingCTA />
+    </div>
+  </section>
+
+  <!-- Latest articles -->
+  {recentArticles.length > 0 && (
+    <section class="border-t border-[var(--color-rule)]">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <div class="flex items-end justify-between mb-8 pb-4 rule-thick">
+          <div>
+            <p class="eyebrow mb-2">Latest Analysis</p>
+            <h2 class="m-0">Recent dispatches</h2>
+          </div>
+          <a href="/blog/" class="font-mono text-xs uppercase tracking-wider hidden sm:inline-block">
+            All articles →
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {recentArticles.map((article) => (
+            <article class="border-t-2 border-[var(--color-ink)] pt-4">
+              <p class="eyebrow mb-2">{article.data.category}</p>
+              <h3 class="mb-3" style="font-size: 1.4rem;">
+                <a href={`/blog/${article.id}/`} class="no-underline">
+                  {article.data.title}
+                </a>
+              </h3>
+              <p class="text-sm mb-3" style="color: var(--color-ink-soft); line-height: 1.55;">
+                {article.data.description}
+              </p>
+              <p class="text-xs font-mono m-0" style="color: var(--color-mute);">
+                {article.data.pub_date.toLocaleDateString('en-GB', {
+                  day: 'numeric', month: 'short', year: 'numeric'
+                })}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

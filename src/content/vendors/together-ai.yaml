@@ -1,0 +1,87 @@
+name: Together AI
+slug: together-ai
+url: https://www.together.ai
+tagline: Open-source model platform with dedicated endpoints for high-volume workloads
+
+founded: 2022
+headquartered: San Francisco, CA, USA
+funding_stage: Series B
+employees: 100-300
+
+deployment_options:
+  - shared-api
+  - dedicated-endpoint
+  - single-tenant
+  - vpc
+
+hardware:
+  - NVIDIA H100
+  - NVIDIA H200
+  - NVIDIA A100
+
+supported_models:
+  - Llama 3 family
+  - Mixtral
+  - DeepSeek
+  - Qwen
+  - Custom open-source models
+
+compliance:
+  - SOC 2 Type II
+  - HIPAA-eligible
+  - GDPR
+
+data_residency:
+  - US
+  - EU
+
+pricing_model: Per-token for shared API; per-GPU-hour for dedicated endpoints
+starts_from: Free tier available; pay-as-you-go from cents per million tokens
+minimum_commitment: None for shared; monthly minimum for dedicated
+
+sweet_spot: |
+  High-volume token consumption on open-source models where you need API
+  simplicity but predictable cost economics. Best fit for AI product startups
+  scaling past the hobby stage where Bedrock or OpenAI bills become uncomfortable.
+
+weakness: |
+  Less specialised tooling than Baseten for production observability. Single-tenant
+  available but not the same maturity for enterprise procurement workflows that
+  Baseten offers.
+
+description_short: |
+  Open-source LLM platform with shared API, dedicated endpoints, and single-tenant
+  options. Strong cost economics at scale.
+
+description_long: |
+  Together AI runs one of the most heavily used open-source model APIs on the
+  market. Founded in 2022, it has grown rapidly on the back of the open-source
+  model thesis: that companies will increasingly prefer open-weight models like
+  Llama and Mistral over closed ones from OpenAI or Anthropic, particularly at
+  scale.
+
+  The platform offers a tiered deployment model. The shared API is the entry
+  point — pay-per-token, OpenAI-compatible, no commitment. Dedicated endpoints
+  add reserved GPU capacity with predictable performance. Single-tenant and VPC
+  deployments are available for customers with compliance requirements or
+  workload isolation needs.
+
+  Together's strength is volume economics. For teams running 10M+ tokens per day,
+  the per-token costs on dedicated capacity often beat both shared-API providers
+  (OpenAI, Anthropic) and self-hosted alternatives once GPU and engineering costs
+  are factored in.
+
+notable_customers:
+  - Salesforce
+  - The Washington Post
+  - Zomato
+
+investors:
+  - Salesforce Ventures
+  - Coatue
+  - Kleiner Perkins
+  - NVIDIA
+
+partnership_status: none
+last_reviewed: "2026-04-29"
+featured: true

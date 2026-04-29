@@ -1,0 +1,51 @@
+---
+const today = new Date().toLocaleDateString('en-GB', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<header class="border-b border-[var(--color-rule)]">
+  <!-- Top strap with date and tagline (newspaper-style) -->
+  <div class="border-b border-[var(--color-rule)] bg-[var(--color-paper-deep)]">
+    <div class="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between text-xs">
+      <span class="font-mono uppercase tracking-widest text-[var(--color-mute)]">
+        Single-Tenant LLM Hosting · A Buyer's Brief
+      </span>
+      <time class="font-mono text-[var(--color-mute)] hidden sm:block">
+        {today}
+      </time>
+    </div>
+  </div>
+
+  <!-- Masthead -->
+  <div class="mx-auto max-w-6xl px-6 py-8 text-center">
+    <a href="/" class="inline-block no-underline">
+      <h1 class="font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl m-0"
+          style="font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em;">
+        singletenant<span style="color: var(--color-accent);">.ai</span>
+      </h1>
+    </a>
+    <p class="mt-3 mb-0 text-sm font-mono uppercase tracking-widest"
+       style="color: var(--color-mute);">
+      The buyer's resource for single-tenant AI infrastructure
+    </p>
+  </div>
+
+  <!-- Nav -->
+  <nav class="border-t border-[var(--color-ink)]"
+       style="border-top-width: 3px;">
+    <div class="mx-auto max-w-6xl px-6">
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 py-3 list-none m-0 p-0">
+        <li><a href="/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Home</a></li>
+        <li><a href="/vendors/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Vendors</a></li>
+        <li><a href="/compare/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Compare</a></li>
+        <li><a href="/blog/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Analysis</a></li>
+        <li><a href="/about/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">About</a></li>
+        <li><a href="/contact/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]" style="color: var(--color-accent);">Consult</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

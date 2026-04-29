@@ -1,0 +1,229 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConsultingCTA from '../../components/ConsultingCTA.astro';
+
+export const getStaticPaths = (async () => {
+  const vendors = await getCollection('vendors');
+  return vendors.map((vendor) => ({
+    params: { slug: vendor.data.slug },
+    props: { vendor },
+  }));
+}) satisfies GetStaticPaths;
+
+const { vendor } = Astro.props;
+const { data } = vendor;
+
+// Schema.org SoftwareApplication
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: data.name,
+  url: data.url,
+  description: data.description_short,
+  applicationCategory: 'AI/ML Infrastructure',
+  operatingSystem: 'Cloud',
+  offers: data.starts_from ? {
+    '@type': 'Offer',
+    description: data.starts_from,
+  } : undefined,
+};
+
+// Find related vendors with overlapping deployment options for "compare" links
+const allVendors = await getCollection('vendors');
+const otherVendors = allVendors.filter((v) => v.data.slug !== data.slug);
+const compareCandidates = otherVendors
+  .filter((v) =>
+    v.data.deployment_options.some((opt) =>
+      data.deployment_options.includes(opt) &&
+      (opt === 'single-tenant' || opt === 'vpc' || opt === 'dedicated-endpoint')
+    )
+  )
+  .slice(0, 4);
+---
+
+<BaseLayout
+  title={`${data.name} — Single-Tenant LLM Hosting Profile`}
+  description={data.description_short}
+  schema={schema}
+>
+  <!-- Header -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">
+        <a href="/vendors/" style="color: var(--color-accent);">Vendors</a> · Profile
+      </p>
+      <h1 class="m-0 mb-3" style="font-size: clamp(2.5rem, 5vw, 4rem);">
+        {data.name}
+      </h1>
+      <p class="text-lg italic mb-6" style="color: var(--color-ink-soft);">
+        {data.tagline}
+      </p>
+      <div class="flex flex-wrap gap-3 items-center">
+        <a href={data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
+          Visit {data.name} ↗
+        </a>
+        {data.partnership_status === 'affiliate' && data.referral_url && (
+          <p class="m-0 text-xs font-mono" style="color: var(--color-mute);">
+            Partnership disclosure: we may earn referral commission.
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Two-column body -->
+  <section>
+    <div class="mx-auto max-w-5xl px-6 py-12 grid md:grid-cols-3 gap-12">
+
+      <!-- Main column -->
+      <article class="md:col-span-2">
+        <h2 class="mt-0 pt-0 border-none">Our take</h2>
+        <div class="prose">
+          {data.description_long.split('\n\n').map((para) => <p>{para}</p>)}
+        </div>
+
+        <div class="my-8 grid sm:grid-cols-2 gap-6">
+          <div class="p-5 border-l-4" style="border-color: var(--color-accent); background: var(--color-accent-soft);">
+            <p class="eyebrow mb-2">Sweet spot</p>
+            <p class="m-0 text-sm" style="line-height: 1.55;">
+              {data.sweet_spot}
+            </p>
+          </div>
+          <div class="p-5 border-l-4 border-[var(--color-mute)]" style="background: var(--color-paper-deep);">
+            <p class="eyebrow mb-2" style="color: var(--color-mute);">Where it falls short</p>
+            <p class="m-0 text-sm" style="line-height: 1.55;">
+              {data.weakness}
+            </p>
+          </div>
+        </div>
+
+        {compareCandidates.length > 0 && (
+          <>
+            <h2>Compare {data.name} vs…</h2>
+            <ul class="list-none p-0 grid sm:grid-cols-2 gap-3 m-0">
+              {compareCandidates.map((other) => (
+                <li class="m-0">
+                  <a href={`/compare/${data.slug}-vs-${other.data.slug}/`}
+                     class="block p-4 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">
+                    <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-mute);">
+                      Comparison
+                    </span>
+                    <span class="block mt-1 font-display font-semibold" style="font-size: 1rem;">
+                      {data.name} vs {other.data.name}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <ConsultingCTA />
+      </article>
+
+      <!-- Data sidebar -->
+      <aside class="md:col-span-1">
+        <div class="sticky top-6 space-y-8">
+          <div>
+            <p class="eyebrow mb-3">At a glance</p>
+            <dl class="space-y-3 m-0 text-sm font-mono">
+              {data.founded && (
+                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                  <dt style="color: var(--color-mute);">Founded</dt>
+                  <dd class="m-0">{data.founded}</dd>
+                </div>
+              )}
+              {data.headquartered && (
+                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                  <dt style="color: var(--color-mute);">HQ</dt>
+                  <dd class="m-0">{data.headquartered}</dd>
+                </div>
+              )}
+              {data.funding_stage && (
+                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                  <dt style="color: var(--color-mute);">Funding</dt>
+                  <dd class="m-0">{data.funding_stage}</dd>
+                </div>
+              )}
+              {data.employees && (
+                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                  <dt style="color: var(--color-mute);">Headcount</dt>
+                  <dd class="m-0">{data.employees}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+
+          <div>
+            <p class="eyebrow mb-3">Deployment</p>
+            <div>
+              {data.deployment_options.map((opt) => (
+                <span class={`tag ${opt === 'single-tenant' || opt === 'vpc' ? 'tag-accent' : ''}`}>
+                  {opt}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {data.compliance && data.compliance.length > 0 && (
+            <div>
+              <p class="eyebrow mb-3">Compliance</p>
+              <div>
+                {data.compliance.map((c) => (
+                  <span class="tag">{c}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {data.hardware && data.hardware.length > 0 && (
+            <div>
+              <p class="eyebrow mb-3">Hardware</p>
+              <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
+                {data.hardware.map((h) => <li>· {h}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {data.data_residency && data.data_residency.length > 0 && (
+            <div>
+              <p class="eyebrow mb-3">Data residency</p>
+              <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
+                {data.data_residency.map((r) => <li>· {r}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {data.pricing_model && (
+            <div>
+              <p class="eyebrow mb-3">Pricing</p>
+              <p class="m-0 text-sm" style="line-height: 1.5;">
+                {data.pricing_model}
+              </p>
+              {data.starts_from && (
+                <p class="mt-2 mb-0 text-sm font-mono" style="color: var(--color-accent);">
+                  From: {data.starts_from}
+                </p>
+              )}
+            </div>
+          )}
+
+          {data.notable_customers && data.notable_customers.length > 0 && (
+            <div>
+              <p class="eyebrow mb-3">Notable customers</p>
+              <ul class="list-none p-0 m-0 space-y-1 text-sm">
+                {data.notable_customers.map((c) => <li>{c}</li>)}
+              </ul>
+            </div>
+          )}
+
+          <p class="text-xs font-mono pt-4 border-t border-[var(--color-rule)]" style="color: var(--color-mute);">
+            Last reviewed: {data.last_reviewed}
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,163 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import ConsultingCTA from '../../components/ConsultingCTA.astro';
+
+export const getStaticPaths = (async () => {
+  const vendors = await getCollection('vendors');
+  const paths = [];
+
+  // Generate one page for every ordered pair (a vs b where a !== b)
+  // Could also dedupe to unordered pairs by sorting slugs alphabetically;
+  // we keep both directions for SEO (users search either order).
+  for (const a of vendors) {
+    for (const b of vendors) {
+      if (a.data.slug === b.data.slug) continue;
+      paths.push({
+        params: { slug: `${a.data.slug}-vs-${b.data.slug}` },
+        props: { a, b },
+      });
+    }
+  }
+
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { a, b } = Astro.props;
+
+const title = `${a.data.name} vs ${b.data.name}`;
+const description = `Side-by-side comparison of ${a.data.name} and ${b.data.name} for single-tenant LLM hosting. Deployment options, compliance, pricing, and operational fit compared.`;
+
+// Find shared and differentiated capabilities
+const sharedDeployment = a.data.deployment_options.filter((opt) =>
+  b.data.deployment_options.includes(opt)
+);
+const aOnly = a.data.deployment_options.filter((opt) =>
+  !b.data.deployment_options.includes(opt)
+);
+const bOnly = b.data.deployment_options.filter((opt) =>
+  !a.data.deployment_options.includes(opt)
+);
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Header -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">
+        <a href="/compare/" style="color: var(--color-accent);">Comparisons</a>
+      </p>
+      <h1 class="m-0 mb-3" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
+        {a.data.name} <span style="color: var(--color-mute); font-weight: 400;">vs</span> {b.data.name}
+      </h1>
+      <p class="text-lg max-w-3xl" style="color: var(--color-ink-soft);">
+        {description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Quick verdict -->
+  <section class="border-b border-[var(--color-rule)]"
+           style="background: var(--color-paper-deep);">
+    <div class="mx-auto max-w-5xl px-6 py-12 grid md:grid-cols-2 gap-8">
+      <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
+        <h3 class="mt-0 mb-2" style="font-size: 1.25rem;">
+          Pick {a.data.name} when…
+        </h3>
+        <p class="m-0 text-sm" style="line-height: 1.6;">{a.data.sweet_spot}</p>
+      </div>
+      <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
+        <h3 class="mt-0 mb-2" style="font-size: 1.25rem;">
+          Pick {b.data.name} when…
+        </h3>
+        <p class="m-0 text-sm" style="line-height: 1.6;">{b.data.sweet_spot}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The comparison table -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">Side by side</p>
+      <h2 class="mt-0 mb-8 pt-0 border-none">Capabilities compared</h2>
+      <ComparisonTable vendors={[a, b]} />
+    </div>
+  </section>
+
+  <!-- Differentiators -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">Where they diverge</p>
+      <h2 class="mt-0 mb-6 pt-0 border-none">
+        Deployment differentiation
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <p class="text-xs font-mono uppercase tracking-wider mb-3" style="color: var(--color-accent);">
+            Only {a.data.name}
+          </p>
+          {aOnly.length === 0
+            ? <p class="text-sm m-0" style="color: var(--color-mute);">
+                Nothing exclusive in this category.
+              </p>
+            : <div>{aOnly.map((opt) => <span class="tag tag-accent">{opt}</span>)}</div>
+          }
+        </div>
+        <div>
+          <p class="text-xs font-mono uppercase tracking-wider mb-3" style="color: var(--color-mute);">
+            Both
+          </p>
+          {sharedDeployment.length === 0
+            ? <p class="text-sm m-0" style="color: var(--color-mute);">
+                No overlap in deployment models.
+              </p>
+            : <div>{sharedDeployment.map((opt) => <span class="tag">{opt}</span>)}</div>
+          }
+        </div>
+        <div>
+          <p class="text-xs font-mono uppercase tracking-wider mb-3" style="color: var(--color-accent);">
+            Only {b.data.name}
+          </p>
+          {bOnly.length === 0
+            ? <p class="text-sm m-0" style="color: var(--color-mute);">
+                Nothing exclusive in this category.
+              </p>
+            : <div>{bOnly.map((opt) => <span class="tag tag-accent">{opt}</span>)}</div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + further reading -->
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12">
+      <ConsultingCTA />
+
+      <p class="eyebrow mt-12 mb-4">Read the full profiles</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <a href={`/vendors/${a.data.slug}/`}
+           class="block p-5 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">
+          <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-mute);">
+            Profile →
+          </span>
+          <span class="block mt-1 font-display font-semibold" style="font-size: 1.1rem;">
+            {a.data.name}
+          </span>
+        </a>
+        <a href={`/vendors/${b.data.slug}/`}
+           class="block p-5 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">
+          <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-mute);">
+            Profile →
+          </span>
+          <span class="block mt-1 font-display font-semibold" style="font-size: 1.1rem;">
+            {b.data.name}
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

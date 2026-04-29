@@ -1,0 +1,77 @@
+---
+import NewsletterSignup from './NewsletterSignup.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t-2 border-[var(--color-ink)]"
+        style="background: var(--color-paper-deep);">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+
+    <!-- Newsletter row -->
+    <div class="grid md:grid-cols-2 gap-12 mb-16 pb-16 border-b border-[var(--color-rule)]">
+      <div>
+        <p class="eyebrow">The Single-Tenant Brief</p>
+        <h2 class="mt-2 mb-3" style="font-size: 1.75rem;">
+          New analysis, every Tuesday.
+        </h2>
+        <p style="color: var(--color-ink-soft); max-width: 28rem;">
+          One email a week with vendor moves, comparison breakdowns, and
+          briefings on single-tenant deployment for regulated industries.
+          Read by engineering and procurement leaders. No tracking pixels,
+          no spam.
+        </p>
+      </div>
+      <div class="flex items-center">
+        <NewsletterSignup />
+      </div>
+    </div>
+
+    <!-- Link columns -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-12">
+      <div>
+        <p class="eyebrow mb-3">Directory</p>
+        <ul class="list-none p-0 m-0 space-y-2 text-sm">
+          <li><a href="/vendors/">All vendors</a></li>
+          <li><a href="/compare/">Comparisons</a></li>
+          <li><a href="/for/financial-services/">By industry</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Editorial</p>
+        <ul class="list-none p-0 m-0 space-y-2 text-sm">
+          <li><a href="/blog/">All articles</a></li>
+          <li><a href="/blog/category/guide/">Guides</a></li>
+          <li><a href="/rss.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">About</p>
+        <ul class="list-none p-0 m-0 space-y-2 text-sm">
+          <li><a href="/about/">Our take</a></li>
+          <li><a href="/contact/">Consulting</a></li>
+          <li><a href="/contact/">Partnerships</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Legal</p>
+        <ul class="list-none p-0 m-0 space-y-2 text-sm">
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/disclosure/">Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Colophon -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-[var(--color-rule)] text-sm">
+      <p class="m-0" style="color: var(--color-mute);">
+        © {year} singletenant.ai · Independent editorial. Some links may earn referral commission;
+        we mark these clearly.
+      </p>
+      <p class="font-mono text-xs m-0" style="color: var(--color-mute);">
+        Set in Fraunces &amp; Source Serif 4
+      </p>
+    </div>
+
+  </div>
+</footer>
