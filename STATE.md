@@ -1,8 +1,8 @@
 # singletenant.ai — STATE
 
 **Goal**: A monetised, editorially-credible directory site for single-tenant LLM hosting vendors. Buyer-side resource for B2B teams shopping for compliant inference infrastructure (legal, healthcare, regulated finance, public sector). Revenue from affiliate partnerships + newsletter sponsorships + consulting CTA conversions into Incubate Labs engagements.
-**Phase**: Frame → Build (scaffold built, governance gaps to close before launch).
-**Status**: private repo, single commit (initial scaffold). 4 vendor profiles, 1 article, theme set. No domain pointed yet, no governance docs, no monetisation infrastructure live.
+**Phase**: Frame → Build (scaffold built, site is already LIVE — governance gaps are active regulatory exposures, not pre-launch TODOs).
+**Status**: private repo. 4 vendor profiles, 1 article, theme set. **Domain IS live** (HTTP 200, Cloudflare CDN, probe confirmed 2026-05-20). No governance docs. Monetisation infrastructure non-functional: `/disclosure/` returns 404, `/privacy/` returns 404, `/terms/` returns 404; RunPod affiliate URL has no Partnerstack tracking code; newsletter form Buttondown account unverified.
 **Last touched**: 2026-04-29.
 
 ## What's done
