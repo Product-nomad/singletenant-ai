@@ -2,7 +2,7 @@
 
 The independent buyer's resource for single-tenant LLM hosting.
 
-Built with **Astro 5** + **Tailwind 4** + **MDX**, deployed on **Cloudflare Pages**.
+Built with **Astro 5** + **Tailwind 4** + **MDX**, deployed on **Cloudflare Workers** (Static Assets model — see `wrangler.jsonc`).
 
 ---
 
@@ -109,7 +109,7 @@ Articles appear automatically on the blog index and homepage (latest 3).
 
 ## Setup checklist before launching
 
-### 1. Cloudflare Pages
+### 1. Cloudflare Workers (Static Assets)
 
 ```bash
 # In your local repo:
@@ -121,14 +121,14 @@ git push -u origin main
 ```
 
 Then in the Cloudflare dashboard:
-1. Workers & Pages → Create → Pages → Connect to Git
+1. Workers & Pages → Create → **Workers** → Connect to Git (use Workers, not Pages — Pages is the legacy product; new sites use Workers Static Assets)
 2. Pick your repo, branch `main`
 3. Build command: `npm run build`
-4. Build output directory: `dist`
+4. Deploy command: `npx wrangler versions upload` (default — picks up `wrangler.jsonc` automatically)
 5. Environment variable: `NODE_VERSION` = `20` (or higher)
 6. Custom domain: add `singletenant.ai`
 
-Auto-deploy on every push to `main` from then on.
+`wrangler.jsonc` declares `name: singletenant-ai`, `assets.directory: ./dist`, and `assets.not_found_handling: 404-page`. Cloudflare's build pipeline calls `npm run build` → produces `./dist/` → `wrangler versions upload` ships those assets. Auto-deploy on every push to `main` from then on.
 
 ### 2. Buttondown newsletter
 
@@ -189,7 +189,7 @@ Sequence I'd suggest from here:
 
 1. **Run it locally**, click around, get a feel for the editorial tone
 2. **Add 6 more vendors** — Cerebrium, PremAI, Anyscale, Lambda Labs, Fireworks, AWS Bedrock — to push the comparison surface up to 56 pages
-3. **Push to GitHub + Cloudflare Pages**
+3. **Push to GitHub + Cloudflare Workers**
 4. **Wire up Buttondown** and the analytics token
 5. **Write 4 more cornerstone articles** (see the article briefs in your 30-day plan)
 6. **Send the first 5 partnership outreach emails**
