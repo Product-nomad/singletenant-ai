@@ -6,6 +6,13 @@ Built with **Astro 5** + **Tailwind 4** + **MDX**, deployed on **Cloudflare Page
 
 ---
 
+> **Phase: Frame → Build** — scaffold is live but Frame artefacts are incomplete.
+> Active run-blockers: `THREAT_MODEL.md`, `DECISIONS.md`, `CHANGELOG.md`, `CONTEXT.md`,
+> outcome metrics, and legal pages (`/privacy/`, `/terms/`, `/disclosure/`).
+> See `STATE.md` for full list. **Do not advance to Validate until Frame is closed.**
+
+---
+
 ## Quick start
 
 ```bash
@@ -84,6 +91,7 @@ Schema highlights:
 - `compliance` is also an enum — see `src/content.config.ts` for the full list. Add new ones there as needed.
 - `partnership_status` controls the "Partner" badge — set to `affiliate` only when you have an actual partnership in place
 - `last_reviewed` is mandatory — keeps you honest about data freshness
+- `description_long` is **plain text only** — the field is rendered via paragraph-split, not a Markdown renderer. Markdown syntax (`**bold**`, `[links]()`, bullet lists) will appear as raw characters on the published page. Use double newlines (`\n\n`) for paragraph breaks; no other formatting is supported.
 
 ## Adding a new article
 
@@ -162,11 +170,22 @@ Auto-deploy on every push to `main` from then on.
 - LinkedIn: company page
 - GitHub: organisation `singletenant-ai`
 
-### 7. Legal pages (still TODO)
+### 7. Legal pages — LIVE 404s (urgent, site is already deployed)
 
-The Header links to `/privacy/`, `/terms/`, and `/disclosure/`. Generate these
-with a service like Termly or write your own. Critical: the affiliate disclosure
-must be prominent and clear (UK ASA + US FTC).
+The footer links to `/privacy/`, `/terms/`, and `/disclosure/` on every page of
+the live site. All three currently return **HTTP 404**. These are active regulatory
+gaps, not pre-launch TODOs:
+
+- `/privacy/` — required by UK GDPR Article 13 before any newsletter email is
+  collected. Must name data controller, Buttondown as sub-processor, lawful basis.
+- `/disclosure/` — required by UK ASA CAP Code and US FTC before any affiliate link
+  is live. The RunPod vendor page currently shows an affiliate badge; `/disclosure/`
+  must exist to back it up (or the badge must be removed immediately).
+- `/terms/` — minimum-viable ToS for editorial site.
+
+Generate stubs with a service like Termly or write your own. **Do not collect
+newsletter emails or serve affiliate links until `/privacy/` and `/disclosure/` are
+live with correct content.**
 
 ## Design system
 
