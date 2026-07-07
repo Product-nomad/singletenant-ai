@@ -1,0 +1,45 @@
+slug: coreweave
+name: CoreWeave
+url: https://www.coreweave.com
+category: dedicated-gpu
+tagline: Bare-metal GPU cloud with single-tenant Kubernetes nodes, per-GPU-hour pricing
+
+deployment_models:
+  - bare-metal
+  - managed-kubernetes
+  - on-demand
+  - spot
+  - reserved-capacity
+
+regions:
+  - us
+  - europe
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://docs.coreweave.com/docs/policies/terms-of-service/data-processing-agreement
+    verified: "2026-07-07"
+
+pricing:
+  model: Per-GPU-hour on-demand and spot; reserved capacity at up to 60% discount
+  public: true
+  evidence_url: https://www.coreweave.com/pricing
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: US
+  evidence_url: https://docs.coreweave.com/docs/policies/terms-of-service/terms-of-use
+  verified: "2026-07-07"
+
+notes: >-
+  Security page states every CKS node is single-tenant; CKS runs Kubernetes
+  directly on bare-metal nodes without a hypervisor. SOC 2 Type II scope covers
+  Bare Metal and CKS. Trust centre shows ISO 27001/27017/27018 badges but uses
+  "aligned with" wording, so ISO 27001 is not listed. Terms name CoreWeave,
+  Inc. under New York law.
+
+featured: false
