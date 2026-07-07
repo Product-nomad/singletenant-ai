@@ -1,13 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import ConsultingCTA from '../components/ConsultingCTA.astro';
-import VendorCard from '../components/VendorCard.astro';
+import VendorMatrix from '../components/VendorMatrix.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const vendors = await getCollection('vendors');
-const featured = vendors
-  .filter((v) => v.data.featured)
-  .sort((a, b) => a.data.name.localeCompare(b.data.name));
 
 // Stats computed from the data, never hardcoded
 const certsMapped = new Set(
@@ -31,100 +28,43 @@ const recentArticles = articles
 
 <BaseLayout
   title="singletenant.ai"
-  description="The independent buyer's resource for single-tenant LLM hosting. Vendor comparisons, compliance maps, and analysis for regulated industries deploying AI."
+  description="Evidence-linked reference data on dedicated and single-tenant LLM hosting — deployment models, compliance certifications, pricing, and data residency for regulated industries."
 >
-  <!-- Hero — editorial leader -->
+  <!-- Hero — the matrix is the product -->
   <section class="border-b border-[var(--color-rule)]">
-    <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-8">
-        <p class="eyebrow mb-4">Evidence-linked vendor database</p>
-        <h2 class="m-0 mb-6"
-            style="font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;">
-          Single-tenant AI, evaluated honestly.
-        </h2>
-        <p class="text-xl leading-relaxed mb-8 max-w-2xl"
-           style="color: var(--color-ink-soft); font-size: 1.25rem;">
-          Independent comparisons of single-tenant LLM hosting vendors —
-          for compliance officers, engineering leaders, and procurement teams
-          shipping AI inside boundaries that matter.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="/vendors/" class="btn-primary">Browse vendors</a>
-          <a href="/blog/" class="btn-secondary">Read analysis</a>
-        </div>
-      </div>
-
-      <!-- Sidebar: at-a-glance metrics -->
-      <aside class="md:col-span-4 md:border-l md:border-[var(--color-rule)] md:pl-10">
-        <p class="eyebrow mb-4">By the numbers</p>
-        <dl class="space-y-5 m-0">
-          <div>
-            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
-              Vendors tracked
-            </dt>
-            <dd class="m-0 font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-ink);">
-              {vendors.length}
-            </dd>
-          </div>
-          <div>
-            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
-              Compliance certs mapped
-            </dt>
-            <dd class="m-0 font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-ink);">
-              {certsMapped}
-            </dd>
-          </div>
-          <div>
-            <dt class="text-xs font-mono uppercase tracking-wider" style="color: var(--color-mute);">
-              Last data review
-            </dt>
-            <dd class="m-0 font-mono" style="font-size: 1rem; color: var(--color-ink);">
-              {lastVerified
-                ? new Date(lastVerified).toLocaleDateString('en-GB', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                  })
-                : 'Not verified'}
-            </dd>
-          </div>
-        </dl>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Editorial intro -->
-  <section class="border-b border-[var(--color-rule)]"
-           style="background: var(--color-paper-deep);">
-    <div class="mx-auto max-w-3xl px-6 py-16">
-      <p class="eyebrow mb-3">Why this exists</p>
-      <p class="m-0 prose drop-cap" style="font-size: 1.25rem; line-height: 1.65;">
-        Single-tenant LLM hosting is a real product category, but the buyer
-        side of the market is poorly served. Vendor pages oversell. Analyst
-        reports lag the technology. Reddit threads are rumour. This site
-        exists to fill the gap — an independent, regularly-updated buyer's
-        resource for teams that need to deploy LLMs inside compliance,
-        sovereignty, or operational boundaries.
+    <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+      <h1 class="m-0 mb-3" style="font-size: clamp(1.6rem, 3.2vw, 2.4rem); letter-spacing: -0.02em;">
+        Dedicated &amp; single-tenant LLM hosting, evidence-linked.
+      </h1>
+      <p class="m-0 mb-8 max-w-3xl" style="color: var(--color-ink-soft);">
+        Every fact below links to a primary source with the date it was last
+        verified. Facts we could not verify are marked, not guessed.
       </p>
-    </div>
-  </section>
 
-  <!-- Featured vendors -->
-  <section class="border-b border-[var(--color-rule)]">
-    <div class="mx-auto max-w-6xl px-6 py-16">
-      <div class="flex items-end justify-between mb-8 pb-4 rule-thick">
+      <dl class="stat-strip">
         <div>
-          <p class="eyebrow mb-2">Featured Vendors</p>
-          <h2 class="m-0">Single-tenant capable, this quarter</h2>
+          <dt>Vendors tracked</dt>
+          <dd>{vendors.length}</dd>
         </div>
-        <a href="/vendors/" class="font-mono text-xs uppercase tracking-wider hidden sm:inline-block">
-          See all {vendors.length} →
-        </a>
-      </div>
+        <div>
+          <dt>Compliance certs mapped</dt>
+          <dd>{certsMapped}</dd>
+        </div>
+        <div>
+          <dt>Last data review</dt>
+          <dd>
+            {lastVerified
+              ? new Date(lastVerified).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })
+              : 'Not verified'}
+          </dd>
+        </div>
+      </dl>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {featured.map((v) => <VendorCard vendor={v} />)}
-      </div>
+      <VendorMatrix vendors={vendors} />
     </div>
   </section>
 
@@ -141,8 +81,8 @@ const recentArticles = articles
       <div class="mx-auto max-w-6xl px-6 py-16">
         <div class="flex items-end justify-between mb-8 pb-4 rule-thick">
           <div>
-            <p class="eyebrow mb-2">Latest Analysis</p>
-            <h2 class="m-0">Recent dispatches</h2>
+            <p class="eyebrow mb-2">Analysis</p>
+            <h2 class="m-0">Latest articles</h2>
           </div>
           <a href="/blog/" class="font-mono text-xs uppercase tracking-wider hidden sm:inline-block">
             All articles →
@@ -173,3 +113,31 @@ const recentArticles = articles
     </section>
   )}
 </BaseLayout>
+
+<style>
+  .stat-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+    margin: 0 0 2rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .stat-strip dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .stat-strip dd {
+    margin: 0.15rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+</style>

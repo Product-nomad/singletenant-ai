@@ -1,0 +1,32 @@
+---
+import { CATEGORY_LABELS } from '../lib/labels.mjs';
+
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+const label =
+  CATEGORY_LABELS[category as keyof typeof CATEGORY_LABELS] ?? category;
+---
+
+<span
+  class="category-tag"
+  style={`color: var(--color-cat-${category}); background: var(--color-cat-${category}-soft);`}
+>
+  {label}
+</span>
+
+<style>
+  /* Colour is never load-bearing — the text label carries the category */
+  .category-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+</style>

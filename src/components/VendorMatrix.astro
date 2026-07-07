@@ -1,0 +1,287 @@
+---
+// VendorMatrix — the site's hero component (spec §4): a dense, filterable
+// comparison table driven entirely by the vendor YAML collection.
+//
+// Progressive enhancement: the full table renders statically; the filter
+// bar ships `hidden` and is revealed by the enhancement script. With JS
+// disabled the reader gets the complete matrix, never a broken filter.
+import type { CollectionEntry } from 'astro:content';
+import { CATEGORY_LABELS, CERT_LABELS, NOT_VERIFIED } from '../lib/labels.mjs';
+import CategoryTag from './CategoryTag.astro';
+
+interface Props {
+  vendors: CollectionEntry<'vendors'>[];
+}
+
+const { vendors } = Astro.props;
+const sorted = [...vendors].sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
+
+// Only offer filters for values that exist in the data — no dead controls.
+const categoriesPresent = Object.keys(CATEGORY_LABELS).filter((c) =>
+  sorted.some((v) => v.data.category === c),
+);
+const certsPresent = Object.keys(CERT_LABELS).filter((cert) =>
+  sorted.some((v) => v.data.compliance.some((e) => e.cert === cert)),
+);
+
+const residencyLabel = (val: boolean | 'unknown') => {
+  if (val === 'unknown') return NOT_VERIFIED;
+  return val ? 'Guaranteed' : 'No guarantee';
+};
+const pricingLabel = (model: string) =>
+  model === 'unknown' ? NOT_VERIFIED : model;
+---
+
+<div data-vendor-matrix>
+  <form class="matrix-filters" data-matrix-filters hidden>
+    <fieldset class="filter-group">
+      <legend>Category</legend>
+      <div class="filter-options" role="group">
+        <button type="button" data-filter-cat="all" aria-pressed="true">All</button>
+        {categoriesPresent.map((c) => (
+          <button type="button" data-filter-cat={c} aria-pressed="false">
+            {CATEGORY_LABELS[c as keyof typeof CATEGORY_LABELS]}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+
+    {certsPresent.length > 0 && (
+      <fieldset class="filter-group">
+        <legend>Compliance</legend>
+        <div class="filter-options">
+          {certsPresent.map((cert) => (
+            <label class="cert-option">
+              <input type="checkbox" data-filter-cert={cert} />
+              {CERT_LABELS[cert as keyof typeof CERT_LABELS]}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    )}
+
+    <p class="matrix-count" data-matrix-count aria-live="polite"></p>
+  </form>
+
+  <div class="matrix-scroll">
+    <table class="data-table matrix-table">
+      <thead>
+        <tr>
+          <th scope="col">Vendor</th>
+          <th scope="col">Category</th>
+          <th scope="col">Deployment</th>
+          <th scope="col">Regions</th>
+          <th scope="col">Compliance</th>
+          <th scope="col">Pricing</th>
+          <th scope="col">Data residency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sorted.map(({ data }) => (
+          <tr
+            data-matrix-row
+            data-category={data.category}
+            data-certs={data.compliance.map((e) => e.cert).join(' ')}
+          >
+            <th scope="row">
+              <a href={`/vendors/${data.slug}/`}>{data.name}</a>
+            </th>
+            <td><CategoryTag category={data.category} /></td>
+            <td>
+              {data.deployment_models.length > 0
+                ? data.deployment_models.join(', ')
+                : NOT_VERIFIED}
+            </td>
+            <td>{data.regions.length > 0 ? data.regions.join(', ') : NOT_VERIFIED}</td>
+            <td>
+              {data.compliance.length > 0
+                ? data.compliance
+                    .map((e) => CERT_LABELS[e.cert as keyof typeof CERT_LABELS])
+                    .join(', ')
+                : NOT_VERIFIED}
+            </td>
+            <td>{pricingLabel(data.pricing.model)}</td>
+            <td>
+              {residencyLabel(data.sovereignty.data_residency_guarantee)}
+              {data.sovereignty.parent_jurisdiction !== 'unknown' && (
+                <span class="jurisdiction">({data.sovereignty.parent_jurisdiction} parent)</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  for (const matrix of document.querySelectorAll('[data-vendor-matrix]')) {
+    const filters = matrix.querySelector<HTMLElement>('[data-matrix-filters]');
+    const rows = matrix.querySelectorAll<HTMLElement>('[data-matrix-row]');
+    const count = matrix.querySelector<HTMLElement>('[data-matrix-count]');
+    if (!filters) continue;
+
+    const catButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-cat]');
+    const certBoxes = filters.querySelectorAll<HTMLInputElement>('[data-filter-cert]');
+    let activeCat = 'all';
+
+    const apply = () => {
+      const wantedCerts = [...certBoxes]
+        .filter((b) => b.checked)
+        .map((b) => b.dataset.filterCert ?? '');
+      let shown = 0;
+      for (const row of rows) {
+        const catOk = activeCat === 'all' || row.dataset.category === activeCat;
+        const rowCerts = (row.dataset.certs ?? '').split(' ');
+        const certsOk = wantedCerts.every((c) => rowCerts.includes(c));
+        const visible = catOk && certsOk;
+        row.hidden = !visible;
+        if (visible) shown++;
+      }
+      if (count) {
+        count.textContent =
+          shown === rows.length
+            ? `All ${rows.length} vendors shown`
+            : `${shown} of ${rows.length} vendors shown`;
+      }
+    };
+
+    for (const btn of catButtons) {
+      btn.addEventListener('click', () => {
+        activeCat = btn.dataset.filterCat ?? 'all';
+        for (const b of catButtons) {
+          b.setAttribute('aria-pressed', String(b === btn));
+        }
+        apply();
+      });
+    }
+    for (const box of certBoxes) {
+      box.addEventListener('change', apply);
+    }
+
+    filters.hidden = false;
+    apply();
+  }
+</script>
+
+<style>
+  .matrix-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1rem 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .filter-group {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .filter-group legend {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    align-items: center;
+  }
+
+  .filter-options button {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink-soft);
+    cursor: pointer;
+  }
+
+  .filter-options button:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .filter-options button[aria-pressed='true'] {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .filter-options button:focus-visible,
+  .cert-option input:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .cert-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+    cursor: pointer;
+  }
+
+  .cert-option input {
+    accent-color: var(--color-accent);
+    margin: 0;
+  }
+
+  .matrix-count {
+    flex-basis: 100%;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-mute);
+  }
+
+  .matrix-scroll {
+    overflow-x: auto;
+  }
+
+  .matrix-table {
+    min-width: 56rem;
+  }
+
+  .matrix-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--color-paper);
+    z-index: 1;
+  }
+
+  .matrix-table tbody th {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.85rem 1rem 0.85rem 0;
+    border-bottom: 1px solid var(--color-rule);
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .matrix-table td {
+    font-size: 0.8rem;
+  }
+
+  .jurisdiction {
+    display: block;
+    color: var(--color-mute);
+    font-size: 0.7rem;
+  }
+</style>
