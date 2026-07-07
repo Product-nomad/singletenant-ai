@@ -2,7 +2,7 @@
 
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
 **Phase**: **Build** — v2 reposition per `SPEC_singletenant_v2.md`, on branch `v2`. Validate begins at spec piece 12; merging `v2 → main` is the ship action and needs an explicit go from Simon.
-**Status**: private repo; live v1 still serving on `singletenant.ai` (Cloudflare Workers static assets) untouched until piece 12. Piece 0 (recon + governance + baseline) complete.
+**Status**: private repo; live v1 still serving on `singletenant.ai` (Cloudflare Workers static assets) untouched until piece 12. Pieces 0–1 complete (governance + tooling baseline; schema v2 + evidence-linked vendor data).
 **Last touched**: 2026-07-07.
 
 ## Vendor data (v1 baseline, enumerated at piece 0)
@@ -14,17 +14,17 @@
 - v1 (May 2026): Astro 5 + Tailwind 4 + MDX scaffold, 4 vendor profiles, 12 comparison pages, 1 article, editorial "Buyer's Brief" design. Live on Cloudflare.
 - Branches reconciled: `fix/cloudflare-deploy` and the 2026-05-20 audit merged to `main`; `v2` branched from `main` (4eca61c).
 - **Piece 0 (2026-07-07)**: governance scaffold closed — `THREAT_MODEL.md`, `CONTEXT.md` created; `DECISIONS.md` records the spec §2 locked-decision table; `CHANGELOG.md` started; README phase marker moved Frame → Build. Tooling wired: Biome (lint+format), lefthook pre-commit (typecheck + tests + lint), `node --test` (`npm test` green; lint, `astro check`, and build all clean). Baseline evidence in `docs/example_runs/v2-baseline/`: `wget` mirror of live v1 (`site/`) + full-page screenshots of home, vendors, vendor detail, compare index, compare pair, about (`screenshots/`).
+- **Piece 1 (2026-07-07)**: vendor schema v2 in `src/schemas/vendor.mjs` (shared by `content.config.ts` and the test suite) — evidence_url + verified date required per populated fact, `unknown` only without evidence, strict against v1 leftovers, `-vs-` slugs rejected. All 4 vendor YAMLs migrated with facts re-verified against primary sources fetched 2026-07-07; unsourced v1 editorial content dropped. Templates render v2 facts ("Not verified" for unknowns) pending the piece 4–5 rebuild; homepage stats computed from data. 14 tests green.
 
 ## What's next (spec pieces, in order)
 
-1. **Piece 1** — vendor schema v2 in `content.config.ts` (evidence_url + verified date per populated fact; `unknown` only without evidence), migrate the 4 v1 YAMLs, schema tests.
-2. **Piece 2** — design tokens: Inter + JetBrains Mono self-hosted, Fraunces/Source Serif removed.
-3. **Piece 3** — shell restyle; kill "Issue 01"/newsletter framing everywhere; newsletter route → `/changelog/`.
-4. **Pieces 4–5** — VendorMatrix (filterable, JS-optional) + evidence-linked vendor detail template.
-5. **Pieces 6a–6k** — research 11 new vendors from primary sources only (parallelisable, `npm run validate` as merge gate; piece 6a adds the validate script).
-6. **Pieces 7–11** — changelog system, legal pages (privacy/terms/disclosure — before any affiliate link renders), 105 compare pages + `-vs-` ADR, integrity copy audit (incl. "Simon Wilson" attribution check), SEO/meta/redirects.
-7. **Piece 12** — validate + ship: Lighthouse ≥ 90, security-review pass, **explicit go from Simon**, merge `v2 → main`.
-8. **Pieces 13–14** — skill capture + lessons; weekly report-only evidence drift watch (Telegram summary, token outside repo).
+1. **Piece 2** — design tokens: Inter + JetBrains Mono self-hosted, Fraunces/Source Serif removed.
+2. **Piece 3** — shell restyle; kill "Issue 01"/newsletter framing everywhere; newsletter route → `/changelog/`.
+3. **Pieces 4–5** — VendorMatrix (filterable, JS-optional) + evidence-linked vendor detail template.
+4. **Pieces 6a–6k** — research 11 new vendors from primary sources only (parallelisable, `npm run validate` as merge gate; piece 6a adds the validate script).
+5. **Pieces 7–11** — changelog system, legal pages (privacy/terms/disclosure — before any affiliate link renders), 105 compare pages + `-vs-` ADR, integrity copy audit (incl. "Simon Wilson" attribution check), SEO/meta/redirects.
+6. **Piece 12** — validate + ship: Lighthouse ≥ 90, security-review pass, **explicit go from Simon**, merge `v2 → main`.
+7. **Pieces 13–14** — skill capture + lessons; weekly report-only evidence drift watch (Telegram summary, token outside repo).
 
 ## Open items
 
