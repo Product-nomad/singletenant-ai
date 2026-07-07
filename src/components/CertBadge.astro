@@ -1,0 +1,38 @@
+---
+// CertBadge — a compliance certification with its evidence link and
+// verification date. A cert never renders without its source (spec §4).
+import { CERT_LABELS } from '../lib/labels.mjs';
+import EvidenceLink from './EvidenceLink.astro';
+import LastVerified from './LastVerified.astro';
+
+interface Props {
+  cert: string;
+  evidenceUrl: string;
+  verified: string;
+}
+
+const { cert, evidenceUrl, verified } = Astro.props;
+const label = CERT_LABELS[cert as keyof typeof CERT_LABELS] ?? cert;
+---
+
+<span class="cert-badge">
+  <span class="cert-name">{label}</span>
+  <EvidenceLink url={evidenceUrl} />
+  <LastVerified date={verified} />
+</span>
+
+<style>
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .cert-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+</style>

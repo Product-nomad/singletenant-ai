@@ -1,8 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import CategoryTag from '../../components/CategoryTag.astro';
+import CertBadge from '../../components/CertBadge.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
+import EvidenceLink from '../../components/EvidenceLink.astro';
+import LastVerified from '../../components/LastVerified.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NOT_VERIFIED } from '../../lib/labels.mjs';
 
 export const getStaticPaths = (async () => {
   const vendors = await getCollection('vendors');
@@ -31,21 +36,11 @@ const compareCandidates = allVendors
   .filter((v) => v.data.slug !== data.slug)
   .slice(0, 4);
 
-// Latest verified date across evidence-carrying blocks
-const verifiedDates = [
-  ...data.compliance.map((c) => c.verified),
-  data.pricing.verified,
-  data.sovereignty.verified,
-].filter((d): d is string => Boolean(d));
-const lastVerified =
-  verifiedDates.length > 0 ? verifiedDates.sort().at(-1) : undefined;
-
 const fmtUnknown = (val: string | boolean) => {
-  if (val === 'unknown') return 'Not verified';
+  if (val === 'unknown') return NOT_VERIFIED;
   if (typeof val === 'boolean') return val ? 'Yes' : 'No';
   return val;
 };
-const evidenceDomain = (url: string) => new URL(url).hostname;
 ---
 
 <BaseLayout
@@ -55,150 +50,183 @@ const evidenceDomain = (url: string) => new URL(url).hostname;
 >
   <!-- Header -->
   <section class="border-b border-[var(--color-rule)]">
-    <div class="mx-auto max-w-5xl px-6 py-12">
+    <div class="mx-auto max-w-5xl px-6 py-10">
       <p class="eyebrow mb-3">
         <a href="/vendors/" style="color: var(--color-accent);">Vendors</a> · Profile
       </p>
-      <h1 class="m-0 mb-3" style="font-size: clamp(2.5rem, 5vw, 4rem);">
-        {data.name}
-      </h1>
-      <p class="text-lg italic mb-6" style="color: var(--color-ink-soft);">
-        {data.tagline}
-      </p>
-      <div class="flex flex-wrap gap-3 items-center">
-        <a href={data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
-          Visit {data.name} ↗
-        </a>
-        <span class="tag">{data.category}</span>
+      <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-2">
+        <h1 class="m-0" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+          {data.name}
+        </h1>
+        <CategoryTag category={data.category} />
       </div>
+      <p class="m-0 mb-5" style="color: var(--color-ink-soft);">{data.tagline}</p>
+      <a href={data.url} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+        Visit {data.name} ↗
+      </a>
     </div>
   </section>
 
-  <!-- Two-column body -->
+  <!-- Facts — every populated claim carries evidence; gaps say "Not verified" -->
   <section>
-    <div class="mx-auto max-w-5xl px-6 py-12 grid md:grid-cols-3 gap-12">
+    <div class="mx-auto max-w-5xl px-6 py-10 space-y-10">
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Deployment</h2>
+        </div>
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="fact-label">Deployment models</td>
+              <td>
+                {data.deployment_models.length > 0
+                  ? data.deployment_models.join(', ')
+                  : NOT_VERIFIED}
+              </td>
+            </tr>
+            <tr>
+              <td class="fact-label">Regions</td>
+              <td>{data.regions.length > 0 ? data.regions.join(', ') : NOT_VERIFIED}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Main column -->
-      <article class="md:col-span-2">
-        {data.notes && (
-          <>
-            <h2 class="mt-0 pt-0 border-none">Analyst note</h2>
-            <p class="prose">{data.notes}</p>
-          </>
-        )}
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Compliance</h2>
+        </div>
+        {
+          data.compliance.length === 0 ? (
+            <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">
+              {NOT_VERIFIED}
+            </p>
+          ) : (
+            <table class="data-table">
+              <tbody>
+                {data.compliance.map((c) => (
+                  <tr>
+                    <td>
+                      <CertBadge cert={c.cert} evidenceUrl={c.evidence_url} verified={c.verified} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )
+        }
+      </div>
 
-        {compareCandidates.length > 0 && (
-          <>
-            <h2>Compare {data.name} vs…</h2>
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Pricing</h2>
+          {data.pricing.evidence_url && <EvidenceLink url={data.pricing.evidence_url} />}
+          <LastVerified date={data.pricing.verified} />
+        </div>
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="fact-label">Pricing model</td>
+              <td>{fmtUnknown(data.pricing.model)}</td>
+            </tr>
+            <tr>
+              <td class="fact-label">Public pricing</td>
+              <td>{fmtUnknown(data.pricing.public)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Sovereignty</h2>
+          {data.sovereignty.evidence_url && <EvidenceLink url={data.sovereignty.evidence_url} />}
+          <LastVerified date={data.sovereignty.verified} />
+        </div>
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="fact-label">Data residency guarantee</td>
+              <td>{fmtUnknown(data.sovereignty.data_residency_guarantee)}</td>
+            </tr>
+            <tr>
+              <td class="fact-label">Parent jurisdiction</td>
+              <td>{fmtUnknown(data.sovereignty.parent_jurisdiction)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {
+        data.notes && (
+          <div>
+            <div class="fact-section-head">
+              <h2 class="m-0">Analyst note</h2>
+            </div>
+            <p class="m-0 max-w-3xl" style="color: var(--color-ink-soft);">
+              {data.notes}
+            </p>
+          </div>
+        )
+      }
+
+      {
+        compareCandidates.length > 0 && (
+          <div>
+            <div class="fact-section-head">
+              <h2 class="m-0">Compare {data.name} vs…</h2>
+            </div>
             <ul class="list-none p-0 grid sm:grid-cols-2 gap-3 m-0">
               {compareCandidates.map((other) => (
                 <li class="m-0">
-                  <a href={`/compare/${data.slug}-vs-${other.data.slug}/`}
-                     class="block p-4 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">
-                    <span class="font-mono text-xs uppercase tracking-wider" style="color: var(--color-mute);">
+                  <a
+                    href={`/compare/${data.slug}-vs-${other.data.slug}/`}
+                    class="block p-4 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]"
+                  >
+                    <span
+                      class="font-mono text-xs uppercase tracking-wider"
+                      style="color: var(--color-mute);"
+                    >
                       Comparison
                     </span>
-                    <span class="block mt-1 font-display font-semibold" style="font-size: 1rem;">
+                    <span class="block mt-1 font-semibold" style="font-size: 1rem;">
                       {data.name} vs {other.data.name}
                     </span>
                   </a>
                 </li>
               ))}
             </ul>
-          </>
-        )}
+          </div>
+        )
+      }
 
+      <div class="max-w-3xl">
         <ConsultingCTA />
-      </article>
-
-      <!-- Facts sidebar — every claim evidence-linked or "Not verified" -->
-      <aside class="md:col-span-1">
-        <div class="sticky top-6 space-y-8">
-          <div>
-            <p class="eyebrow mb-3">Deployment models</p>
-            <div>
-              {data.deployment_models.length === 0
-                ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
-                : data.deployment_models.map((opt) => <span class="tag">{opt}</span>)}
-            </div>
-          </div>
-
-          <div>
-            <p class="eyebrow mb-3">Regions</p>
-            {data.regions.length === 0
-              ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
-              : <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
-                  {data.regions.map((r) => <li>· {r}</li>)}
-                </ul>}
-          </div>
-
-          <div>
-            <p class="eyebrow mb-3">Compliance</p>
-            {data.compliance.length === 0
-              ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
-              : <ul class="list-none p-0 m-0 space-y-2 text-sm font-mono">
-                  {data.compliance.map((c) => (
-                    <li>
-                      <span class="tag">{c.cert}</span>
-                      <a href={c.evidence_url} target="_blank" rel="noopener noreferrer"
-                         class="text-xs" style="color: var(--color-mute);">
-                        {evidenceDomain(c.evidence_url)} ↗
-                      </a>
-                      <span class="block text-xs" style="color: var(--color-mute);">
-                        verified {c.verified}
-                      </span>
-                    </li>
-                  ))}
-                </ul>}
-          </div>
-
-          <div>
-            <p class="eyebrow mb-3">Pricing</p>
-            <p class="m-0 text-sm" style="line-height: 1.5;">
-              {fmtUnknown(data.pricing.model)}
-            </p>
-            <p class="mt-1 mb-0 text-xs font-mono" style="color: var(--color-mute);">
-              Public pricing: {fmtUnknown(data.pricing.public)}
-            </p>
-            {data.pricing.evidence_url && (
-              <p class="mt-1 mb-0 text-xs font-mono" style="color: var(--color-mute);">
-                <a href={data.pricing.evidence_url} target="_blank" rel="noopener noreferrer">
-                  {evidenceDomain(data.pricing.evidence_url)} ↗
-                </a>
-                · verified {data.pricing.verified}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <p class="eyebrow mb-3">Sovereignty</p>
-            <dl class="space-y-3 m-0 text-sm font-mono">
-              <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                <dt style="color: var(--color-mute);">Residency guarantee</dt>
-                <dd class="m-0">{fmtUnknown(data.sovereignty.data_residency_guarantee)}</dd>
-              </div>
-              <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                <dt style="color: var(--color-mute);">Parent jurisdiction</dt>
-                <dd class="m-0">{fmtUnknown(data.sovereignty.parent_jurisdiction)}</dd>
-              </div>
-            </dl>
-            {data.sovereignty.evidence_url && (
-              <p class="mt-2 mb-0 text-xs font-mono" style="color: var(--color-mute);">
-                <a href={data.sovereignty.evidence_url} target="_blank" rel="noopener noreferrer">
-                  {evidenceDomain(data.sovereignty.evidence_url)} ↗
-                </a>
-                · verified {data.sovereignty.verified}
-              </p>
-            )}
-          </div>
-
-          {lastVerified && (
-            <p class="text-xs font-mono pt-4 border-t border-[var(--color-rule)]" style="color: var(--color-mute);">
-              Last verified: {lastVerified}
-            </p>
-          )}
-        </div>
-      </aside>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .fact-section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--color-ink);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .fact-section-head h2 {
+    font-size: 1.1rem;
+    border: none;
+    padding: 0;
+  }
+
+  .fact-label {
+    font-family: var(--font-sans);
+    color: var(--color-mute);
+    width: 14rem;
+  }
+</style>
