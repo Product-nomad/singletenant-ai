@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const vendors = (await getCollection('vendors'))
-  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+const vendors = (await getCollection('vendors')).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
 
 // Generate unique unordered pairs for the index (a-b is shown once, not twice)
-const pairs: Array<[typeof vendors[0], typeof vendors[0]]> = [];
+const pairs: Array<[(typeof vendors)[0], (typeof vendors)[0]]> = [];
 for (let i = 0; i < vendors.length; i++) {
   for (let j = i + 1; j < vendors.length; j++) {
     pairs.push([vendors[i], vendors[j]]);

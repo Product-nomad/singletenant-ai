@@ -51,24 +51,27 @@ const vendors = defineCollection({
     hardware: z.array(z.string()).optional(),
     supported_models: z.array(z.string()).optional(),
     compliance: z.array(complianceCert).optional(),
-    data_residency: z.array(z.string()).optional()
+    data_residency: z
+      .array(z.string())
+      .optional()
       .describe('Regions where data can be pinned'),
 
     // Commercial
     pricing_model: z.string().optional(),
-    starts_from: z.string().optional()
+    starts_from: z
+      .string()
+      .optional()
       .describe('Headline price for entry tier'),
     minimum_commitment: z.string().optional(),
 
     // Editorial fields — the human take
-    sweet_spot: z.string()
-      .describe('When this vendor is the right answer'),
-    weakness: z.string()
-      .describe('Where it falls short'),
-    description_short: z.string().max(280)
+    sweet_spot: z.string().describe('When this vendor is the right answer'),
+    weakness: z.string().describe('Where it falls short'),
+    description_short: z
+      .string()
+      .max(280)
       .describe('Card-level summary, ~50 words'),
-    description_long: z.string()
-      .describe('Vendor page intro, ~200-400 words'),
+    description_long: z.string().describe('Vendor page intro, ~200-400 words'),
 
     // Social proof
     notable_customers: z.array(z.string()).optional(),
@@ -77,10 +80,13 @@ const vendors = defineCollection({
     // Partnership
     referral_url: z.string().url().optional(),
     referral_terms: z.string().optional(),
-    partnership_status: z.enum(['none', 'affiliate', 'lead-gen', 'sponsor']).default('none'),
+    partnership_status: z
+      .enum(['none', 'affiliate', 'lead-gen', 'sponsor'])
+      .default('none'),
 
     // Meta
-    last_reviewed: z.string()
+    last_reviewed: z
+      .string()
       .describe('YYYY-MM-DD — when we last verified this data'),
     featured: z.boolean().default(false),
   }),
@@ -94,18 +100,14 @@ const articles = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
   schema: z.object({
     title: z.string(),
-    description: z.string().max(180)
+    description: z
+      .string()
+      .max(180)
       .describe('Meta description, used in search results and social cards'),
     pub_date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     author: z.string().default('Simon Wilson'),
-    category: z.enum([
-      'guide',
-      'comparison',
-      'analysis',
-      'vertical',
-      'news',
-    ]),
+    category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),

@@ -6,10 +6,11 @@ Built with **Astro 5** + **Tailwind 4** + **MDX**, deployed on **Cloudflare Work
 
 ---
 
-> **Phase: Frame → Build** — scaffold is live but Frame artefacts are incomplete.
-> Active run-blockers: `THREAT_MODEL.md`, `DECISIONS.md`, `CHANGELOG.md`, `CONTEXT.md`,
-> outcome metrics, and legal pages (`/privacy/`, `/terms/`, `/disclosure/`).
-> See `STATE.md` for full list. **Do not advance to Validate until Frame is closed.**
+> **Phase: Build** (v2 reposition, branch `v2` — see `SPEC_singletenant_v2.md`).
+> Frame governance gap closed 2026-07-07: `THREAT_MODEL.md`, `DECISIONS.md`,
+> `CHANGELOG.md`, `CONTEXT.md` all present. Remaining v1 exposure: legal pages
+> (`/privacy/`, `/terms/`, `/disclosure/`) 404 on live — closed by spec piece 8
+> before any affiliate link renders in v2. **Validate begins at spec piece 12.**
 
 ---
 

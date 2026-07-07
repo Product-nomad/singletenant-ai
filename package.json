@@ -8,7 +8,11 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "node --test",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
@@ -18,6 +22,11 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0"
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "^2.5.2",
+    "@types/node": "^22.0.0",
+    "lefthook": "^2.1.9",
+    "playwright": "^1.61.1",
+    "typescript": "^5.9.3"
   }
 }

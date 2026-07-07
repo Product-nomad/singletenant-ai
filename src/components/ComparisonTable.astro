@@ -9,21 +9,21 @@ const { vendors } = Astro.props;
 
 // Define rows in display order
 const rows = [
-  { label: 'Founded',              key: 'founded' },
-  { label: 'Headquartered',        key: 'headquartered' },
-  { label: 'Funding stage',        key: 'funding_stage' },
-  { label: 'Deployment options',   key: 'deployment_options', type: 'tags' },
-  { label: 'Hardware',             key: 'hardware', type: 'list' },
-  { label: 'Compliance',           key: 'compliance', type: 'tags' },
-  { label: 'Data residency',       key: 'data_residency', type: 'list' },
-  { label: 'Pricing model',        key: 'pricing_model' },
-  { label: 'Starts from',          key: 'starts_from' },
-  { label: 'Sweet spot',           key: 'sweet_spot' },
-  { label: 'Weakness',             key: 'weakness' },
+  { label: 'Founded', key: 'founded' },
+  { label: 'Headquartered', key: 'headquartered' },
+  { label: 'Funding stage', key: 'funding_stage' },
+  { label: 'Deployment options', key: 'deployment_options', type: 'tags' },
+  { label: 'Hardware', key: 'hardware', type: 'list' },
+  { label: 'Compliance', key: 'compliance', type: 'tags' },
+  { label: 'Data residency', key: 'data_residency', type: 'list' },
+  { label: 'Pricing model', key: 'pricing_model' },
+  { label: 'Starts from', key: 'starts_from' },
+  { label: 'Sweet spot', key: 'sweet_spot' },
+  { label: 'Weakness', key: 'weakness' },
 ] as const;
 
-function getVal(vendor: CollectionEntry<'vendors'>, key: string): any {
-  return (vendor.data as any)[key];
+function getVal(vendor: CollectionEntry<'vendors'>, key: string): unknown {
+  return (vendor.data as Record<string, unknown>)[key];
 }
 ---
 

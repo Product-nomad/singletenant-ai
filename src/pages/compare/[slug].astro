@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
   const vendors = await getCollection('vendors');
@@ -32,13 +32,13 @@ const description = `Side-by-side comparison of ${a.data.name} and ${b.data.name
 
 // Find shared and differentiated capabilities
 const sharedDeployment = a.data.deployment_options.filter((opt) =>
-  b.data.deployment_options.includes(opt)
+  b.data.deployment_options.includes(opt),
 );
-const aOnly = a.data.deployment_options.filter((opt) =>
-  !b.data.deployment_options.includes(opt)
+const aOnly = a.data.deployment_options.filter(
+  (opt) => !b.data.deployment_options.includes(opt),
 );
-const bOnly = b.data.deployment_options.filter((opt) =>
-  !a.data.deployment_options.includes(opt)
+const bOnly = b.data.deployment_options.filter(
+  (opt) => !a.data.deployment_options.includes(opt),
 );
 ---
 

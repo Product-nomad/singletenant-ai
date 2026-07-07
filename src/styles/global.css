@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
    Typography — editorial publication aesthetic
@@ -8,11 +8,11 @@
    ───────────────────────────────────────────────────────────── */
 
 @font-face {
-  font-family: 'Fraunces';
-  src: url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap');
+  font-family: "Fraunces";
+  src: url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap");
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Source+Serif+4:opsz,wght@8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Source+Serif+4:opsz,wght@8..60,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @theme {
   /* Colour palette — paper, ink, single accent */
@@ -77,25 +77,42 @@ html {
 
 body {
   margin: 0;
-  font-feature-settings: 'kern', 'liga', 'onum';
+  font-feature-settings: "kern", "liga", "onum";
   font-size: 1.0625rem;
   line-height: 1.65;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.018em;
   line-height: 1.15;
   color: var(--color-ink);
-  font-feature-settings: 'ss01', 'ss02', 'kern';
+  font-feature-settings: "ss01", "ss02", "kern";
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 700; }
-h2 { font-size: clamp(1.5rem, 2.8vw, 2.25rem); font-weight: 600; }
-h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 600; }
-h4 { font-size: 1.125rem; font-weight: 600; }
+h1 {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+}
+h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  font-weight: 600;
+}
+h3 {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+}
+h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
 
 a {
   color: var(--color-ink);
@@ -103,7 +120,9 @@ a {
   text-decoration-color: var(--color-rule);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
-  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+  transition:
+    text-decoration-color 0.15s ease,
+    color 0.15s ease;
 }
 
 a:hover {
@@ -120,7 +139,10 @@ strong {
   font-weight: 600;
 }
 
-code, pre, kbd, samp {
+code,
+pre,
+kbd,
+samp {
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
@@ -280,7 +302,8 @@ hr {
   margin-bottom: 0.75rem;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   padding-left: 1.5rem;
   margin: 1rem 0 1.5rem;
 }
@@ -303,7 +326,7 @@ hr {
 }
 
 .grain::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -342,7 +365,9 @@ hr {
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn-primary:hover {
@@ -365,7 +390,9 @@ hr {
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn-secondary:hover {

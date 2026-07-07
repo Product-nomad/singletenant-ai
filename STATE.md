@@ -1,47 +1,53 @@
 # singletenant.ai — STATE
 
-**Goal**: A monetised, editorially-credible directory site for single-tenant LLM hosting vendors. Buyer-side resource for B2B teams shopping for compliant inference infrastructure (legal, healthcare, regulated finance, public sector). Revenue from affiliate partnerships + newsletter sponsorships + consulting CTA conversions into Incubate Labs engagements.
-**Phase**: Frame → Build (scaffold built, site is already LIVE — governance gaps are active regulatory exposures, not pre-launch TODOs).
-**Status**: private repo. 4 vendor profiles, 1 article, theme set. **Domain IS live** (HTTP 200, Cloudflare CDN, probe confirmed 2026-05-20). No governance docs. Monetisation infrastructure non-functional: `/disclosure/` returns 404, `/privacy/` returns 404, `/terms/` returns 404; RunPod affiliate URL has no Partnerstack tracking code; newsletter form Buttondown account unverified.
-**Last touched**: 2026-04-29.
+**Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
+**Phase**: **Build** — v2 reposition per `SPEC_singletenant_v2.md`, on branch `v2`. Validate begins at spec piece 12; merging `v2 → main` is the ship action and needs an explicit go from Simon.
+**Status**: private repo; live v1 still serving on `singletenant.ai` (Cloudflare Workers static assets) untouched until piece 12. Piece 0 (recon + governance + baseline) complete.
+**Last touched**: 2026-07-07.
+
+## Vendor data (v1 baseline, enumerated at piece 0)
+
+`src/content/vendors/` holds exactly four YAMLs: `baseten.yaml`, `modal.yaml`, `runpod.yaml`, `together-ai.yaml`. These migrate to schema v2 in piece 1, then the bench extends to 15 vendors (~6/3/3/3 across dedicated-gpu / hyperscaler-dedicated / managed-selfhost / eu-sovereign) in pieces 6a–6k. RunPod is an existing affiliate — its affiliate link must not render in v2 before the piece 8 disclosure pages land.
 
 ## What's done
-- Astro 5 + Tailwind 4 + MDX scaffold pushed as `Product-nomad/singletenant-ai` (private).
-- Content collection schema (Zod-enforced) for vendors and articles in `src/content.config.ts`.
-- Four vendor YAMLs: Baseten, Together AI, RunPod, Modal.
-- One MDX article: *What is single-tenant LLM hosting?*
-- Programmatic page generation: 4 vendor pages + 12 comparison pages from data alone.
-- Editorial design system: Fraunces (display) + Source Serif 4 (body) + JetBrains Mono (data), warm-paper / deep-ink palette with heraldic-red accent.
-- README documents the scaffold, build/dev commands, vendor-add workflow, and a launch checklist.
 
-## What's next (run-blockers, in order)
-1. **Governance scaffold** to match the rest of the portfolio — `THREAT_MODEL.md`, `DECISIONS.md`, `CHANGELOG.md`, `CONTEXT.md`, plus phase declaration at top of `README.md`. ~1 hour.
-2. **Affiliate / privacy / disclosure pages.** UK ASA + US FTC + UK GDPR Article 13 obligations make these blocking before any affiliate link goes live. The Header currently links to `/privacy/`, `/terms/`, `/disclosure/` but the pages don't exist. ~2-3 hours to draft.
-3. **Outcome metrics.** What does "monetised" mean specifically — newsletter subscribers by month X, first affiliate conversion by month Y, partnership signed by month Z. Pin numbers per WoW §11 before advancing past Frame.
-4. **Vet "Edited by Simon Wilson" attribution in README.** If not the user's actual full name, fix before the repo goes public — likely a scaffold-side conflation with Simon Willison, the AI commentator.
-5. **Add 6 more vendors** to push the comparison surface from 16 → 56 pages: Cerebrium, PremAI, Anyscale, Lambda Labs, Fireworks, AWS Bedrock (per the README's own roadmap).
-6. **Set up Buttondown account** and update `BUTTONDOWN_USERNAME` in `NewsletterSignup.astro`. Without this the form 404s on submit.
-7. **Cloudflare Pages connection + custom domain** at `singletenant.ai`. DNS to Cloudflare nameservers, Pages target build command `npm run build`, output dir `dist`, framework preset Astro.
-8. **Cloudflare Email Routing** — set up `simon@singletenant.ai`, `partnerships@`, `editor@`, `hello@` aliases per the README's checklist.
-9. **Cloudflare Web Analytics token** — uncomment the script tag in `BaseLayout.astro` once the token is in hand.
-10. **Search Console + Bing Webmaster Tools** — verify domain, submit sitemap, schedule a re-check 7 days after first index.
+- v1 (May 2026): Astro 5 + Tailwind 4 + MDX scaffold, 4 vendor profiles, 12 comparison pages, 1 article, editorial "Buyer's Brief" design. Live on Cloudflare.
+- Branches reconciled: `fix/cloudflare-deploy` and the 2026-05-20 audit merged to `main`; `v2` branched from `main` (4eca61c).
+- **Piece 0 (2026-07-07)**: governance scaffold closed — `THREAT_MODEL.md`, `CONTEXT.md` created; `DECISIONS.md` records the spec §2 locked-decision table; `CHANGELOG.md` started; README phase marker moved Frame → Build. Tooling wired: Biome (lint+format), lefthook pre-commit (typecheck + tests + lint), `node --test` (`npm test` green; lint, `astro check`, and build all clean). Baseline evidence in `docs/example_runs/v2-baseline/`: `wget` mirror of live v1 (`site/`) + full-page screenshots of home, vendors, vendor detail, compare index, compare pair, about (`screenshots/`).
 
-## Open questions
-- **Editorial cadence and review process.** `last_reviewed` is mandatory in the schema (good), but who actually re-reviews the YAML, and how often? If the answer is "Simon, when he remembers," the data drifts and the directory loses credibility. Concrete proposal: monthly cadence, tracked in `CHANGELOG.md`.
-- **Correction process.** A vendor will at some point dispute a claim on their profile page. What's the documented turnaround? `disclosure` page should mention it, plus an `editor@singletenant.ai` channel.
-- **Affiliate disclosure placement.** UK ASA wants disclosure on every page where an affiliate link appears, not just buried in a footer. Per-vendor-page banner, or per-link inline marker, or both?
-- **Programmatic-SEO risk vs editorial depth.** Google manual-actions are real for thin programmatic pages. The 12-and-growing comparison pages need genuine editorial value (signed paragraphs, opinion, not just data tables side-by-side) or they're a downside risk to the brand.
-- **Relationship to `incubatelabs.ai`.** singletenant.ai's `ConsultingCTA` block is presumably pointing at Incubate Labs engagements. Need to wire that through and decide which engagement(s) the CTA pitches — probably the Local-LLM Pilot is the natural fit, but VPC / sovereignty advisory could also slot in.
-- **`compare/{a}-vs-{b}` URL pattern footgun.** README acknowledges that a vendor slug containing `-vs-` would break the comparison routing. Worth recording as an ADR with the chosen mitigation (rename slug, or change separator, or both).
+## What's next (spec pieces, in order)
+
+1. **Piece 1** — vendor schema v2 in `content.config.ts` (evidence_url + verified date per populated fact; `unknown` only without evidence), migrate the 4 v1 YAMLs, schema tests.
+2. **Piece 2** — design tokens: Inter + JetBrains Mono self-hosted, Fraunces/Source Serif removed.
+3. **Piece 3** — shell restyle; kill "Issue 01"/newsletter framing everywhere; newsletter route → `/changelog/`.
+4. **Pieces 4–5** — VendorMatrix (filterable, JS-optional) + evidence-linked vendor detail template.
+5. **Pieces 6a–6k** — research 11 new vendors from primary sources only (parallelisable, `npm run validate` as merge gate; piece 6a adds the validate script).
+6. **Pieces 7–11** — changelog system, legal pages (privacy/terms/disclosure — before any affiliate link renders), 105 compare pages + `-vs-` ADR, integrity copy audit (incl. "Simon Wilson" attribution check), SEO/meta/redirects.
+7. **Piece 12** — validate + ship: Lighthouse ≥ 90, security-review pass, **explicit go from Simon**, merge `v2 → main`.
+8. **Pieces 13–14** — skill capture + lessons; weekly report-only evidence drift watch (Telegram summary, token outside repo).
+
+## Open items
+
+- ~~Value checkpoints~~ — confirmed by Simon 2026-07-07 (DECISIONS.md decision 6): ≥10 referring domains; ≥15% returning-visitor share; ≥1 unsolicited consulting enquiry, at 90 days post-launch.
+- **Consulting CTA target**: which Incubate Labs engagement the CTA pitches (Local-LLM Pilot vs VPC/sovereignty advisory) — wire during shell restyle.
+- **Editorial cadence**: monthly manual review, tracked in the public `/changelog/` — formalise on `/methodology/` at piece 8.
+
+## v3 candidates (explicitly out of scope for v2 — decision 4, spec §9)
+
+- Automated data collectors (data-platform pattern). v2 freshness = manual review + visible changelog + report-only drift watch.
+- Dark mode.
+- Any API over the vendor data.
 
 ## Key files
-- `README.md` — comprehensive scaffold doc + launch checklist.
-- `src/content.config.ts` — Zod schemas for vendors and articles. Authoritative list of allowed `deployment_options` and `compliance` values.
-- `src/content/vendors/*.yaml` — the database. One file per vendor.
-- `src/pages/vendors/[slug].astro` — generates one vendor profile page per YAML.
-- `src/pages/compare/[slug].astro` — generates one comparison page per pair.
-- `src/components/ConsultingCTA.astro` — inline + block versions of the consulting pitch (target: Incubate Labs).
 
-## Phase against WAYS_OF_WORKING
+- `SPEC_singletenant_v2.md` — the v2 build spec; piece table is the plan of record.
+- `DECISIONS.md` / `CHANGELOG.md` / `THREAT_MODEL.md` / `CONTEXT.md` — governance set.
+- `src/content.config.ts` — Zod schemas; single source of truth for vendor data validation (schema v2 lands here in piece 1).
+- `src/content/vendors/*.yaml` — the database, one file per vendor.
+- `src/pages/vendors/[slug].astro`, `src/pages/compare/[slug].astro` — programmatic page generation.
+- `docs/example_runs/v2-baseline/` — frozen v1 evidence (mirror + screenshots).
+- `tests/wiring.test.mjs`, `biome.json`, `lefthook.yml` — quality gates run by lefthook pre-commit.
 
-Currently **Frame → Build**. Frame artefacts (threat model, outcome metrics, decision log) are incomplete; Build artefacts (scaffold, schema, content) are partially shipped. The right discipline is to **finish Frame before pushing further on Build** — without metrics, the project has no honest test for "is the monetisation working?"
+## Lessons
+
+- (accumulates during the v2 build; captured into the evidence-linked-directory skill at piece 13)

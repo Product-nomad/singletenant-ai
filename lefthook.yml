@@ -1,0 +1,10 @@
+# Pre-commit gate per WAYS_OF_WORKING §7: no broken code in history.
+pre-commit:
+  parallel: false
+  commands:
+    typecheck:
+      run: npm run typecheck
+    test:
+      run: npm test
+    lint:
+      run: npm run lint

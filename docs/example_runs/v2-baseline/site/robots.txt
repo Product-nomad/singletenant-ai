@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://singletenant.ai/sitemap-index.xml

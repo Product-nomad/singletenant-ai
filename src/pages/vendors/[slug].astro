@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
   const vendors = await getCollection('vendors');
@@ -24,10 +24,12 @@ const schema = {
   description: data.description_short,
   applicationCategory: 'AI/ML Infrastructure',
   operatingSystem: 'Cloud',
-  offers: data.starts_from ? {
-    '@type': 'Offer',
-    description: data.starts_from,
-  } : undefined,
+  offers: data.starts_from
+    ? {
+        '@type': 'Offer',
+        description: data.starts_from,
+      }
+    : undefined,
 };
 
 // Find related vendors with overlapping deployment options for "compare" links
@@ -35,10 +37,13 @@ const allVendors = await getCollection('vendors');
 const otherVendors = allVendors.filter((v) => v.data.slug !== data.slug);
 const compareCandidates = otherVendors
   .filter((v) =>
-    v.data.deployment_options.some((opt) =>
-      data.deployment_options.includes(opt) &&
-      (opt === 'single-tenant' || opt === 'vpc' || opt === 'dedicated-endpoint')
-    )
+    v.data.deployment_options.some(
+      (opt) =>
+        data.deployment_options.includes(opt) &&
+        (opt === 'single-tenant' ||
+          opt === 'vpc' ||
+          opt === 'dedicated-endpoint'),
+    ),
   )
   .slice(0, 4);
 ---

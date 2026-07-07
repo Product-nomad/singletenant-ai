@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Astro v5.18.1"><title>What is Single-Tenant LLM Hosting? — singletenant.ai</title><meta name="description" content="A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify."><link rel="canonical" href="https://singletenant.ai/blog/what-is-single-tenant-llm-hosting/"><!-- Open Graph --><meta property="og:title" content="What is Single-Tenant LLM Hosting? — singletenant.ai"><meta property="og:description" content="A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify."><meta property="og:type" content="website"><meta property="og:url" content="https://singletenant.ai/blog/what-is-single-tenant-llm-hosting/"><meta property="og:image" content="https://singletenant.ai/og-default.png"><meta property="og:site_name" content="singletenant.ai"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="What is Single-Tenant LLM Hosting? — singletenant.ai"><meta name="twitter:description" content="A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify."><meta name="twitter:image" content="https://singletenant.ai/og-default.png"><!-- Favicon --><link rel="icon" href="/favicon.svg" type="image/svg+xml"><!-- Schema.org --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What is Single-Tenant LLM Hosting?","description":"A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify.","datePublished":"2026-04-29T00:00:00.000Z","dateModified":"2026-04-29T00:00:00.000Z","author":{"@type":"Person","name":"Simon Wilson"},"publisher":{"@type":"Organization","name":"singletenant.ai"}}</script><!-- Cloudflare Web Analytics — paste your token after deployment --><!--
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+            data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
+    --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="singletenant.ai" href="/rss.xml"><link rel="stylesheet" href="/_astro/_slug_.Du4fw23Z.css"><script type="module" src="/_astro/page.BT_9kWGp.js"></script></head> <body class="grain"> <header class="border-b border-[var(--color-rule)]"> <!-- Top strap with date and tagline (newspaper-style) --> <div class="border-b border-[var(--color-rule)] bg-[var(--color-paper-deep)]"> <div class="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between text-xs"> <span class="font-mono uppercase tracking-widest text-[var(--color-mute)]">
+Single-Tenant LLM Hosting · A Buyer's Brief
+</span> <time class="font-mono text-[var(--color-mute)] hidden sm:block"> Monday, 6 July 2026 </time> </div> </div> <!-- Masthead --> <div class="mx-auto max-w-6xl px-6 py-8 text-center"> <a href="/" class="inline-block no-underline"> <h1 class="font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl m-0" style="font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em;">
+singletenant<span style="color: var(--color-accent);">.ai</span> </h1> </a> <p class="mt-3 mb-0 text-sm font-mono uppercase tracking-widest" style="color: var(--color-mute);">
+The buyer's resource for single-tenant AI infrastructure
+</p> </div> <!-- Nav --> <nav class="border-t border-[var(--color-ink)]" style="border-top-width: 3px;"> <div class="mx-auto max-w-6xl px-6"> <ul class="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 py-3 list-none m-0 p-0"> <li><a href="/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Home</a></li> <li><a href="/vendors/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Vendors</a></li> <li><a href="/compare/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Compare</a></li> <li><a href="/blog/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">Analysis</a></li> <li><a href="/about/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]">About</a></li> <li><a href="/contact/" class="font-mono text-sm uppercase tracking-wider no-underline hover:text-[var(--color-accent)]" style="color: var(--color-accent);">Consult</a></li> </ul> </div> </nav> </header> <main>  <article> <!-- Header --> <header class="border-b border-[var(--color-rule)]"> <div class="mx-auto max-w-3xl px-6 py-16"> <p class="eyebrow mb-4">guide</p> <h1 class="m-0 mb-6" style="font-size: clamp(2rem, 4.5vw, 3.5rem);"> What is Single-Tenant LLM Hosting? </h1> <p class="text-xl mb-6" style="color: var(--color-ink-soft); line-height: 1.5;"> A definitional guide to single-tenant LLM hosting — what it is, why it matters now, and which deployment models actually qualify. </p> <div class="text-sm font-mono pb-2" style="color: var(--color-mute);">
+By Simon Wilson ·
+<time datetime="2026-04-29T00:00:00.000Z"> 29 April 2026 </time>  </div> </div> </header> <!-- Body --> <div class="mx-auto max-w-3xl px-6 py-12"> <div class="prose">  <p>The default for most cloud AI is multi-tenant. Your prompts go through OpenAI’s
+or Anthropic’s shared infrastructure alongside everyone else’s traffic, and the
+provider’s job is to keep the workloads isolated logically while sharing the
+underlying hardware. It’s cheap, fast, and right for most use cases.</p>
+<p>Single-tenant hosting flips this. Your customer gets a dedicated, isolated
+deployment — their own model instance, their own GPUs, sometimes their own
+network boundary — so no other tenant’s traffic touches their environment.
+Same model weights, fundamentally different deployment architecture.</p>
+<h2 id="why-this-category-exists">Why this category exists</h2>
+<p>The wedge is compliance. Regulated industries — finance, healthcare, defence,
+legal, government — can’t legally or contractually run sensitive prompts
+through multi-tenant infrastructure regardless of what the provider’s terms
+say. GDPR data residency requirements, HIPAA Business Associate Agreements,
+FedRAMP authorisation, the FCA’s expectations on model risk management:
+all of these create a buyer who needs deployment isolation before they need
+model quality.</p>
+<p>The economics also flip at scale. Below roughly 2 million tokens per day,
+shared APIs win on cost. Above that — particularly with steady-state workloads
+running 24/7 — dedicated capacity becomes cheaper, often substantially.
+Compliance and cost converge as the case for going single-tenant.</p>
+<h2 id="what-actually-counts-as-single-tenant">What actually counts as single-tenant?</h2>
+<p>Vendors use the term loosely, so it’s worth being precise. Five deployment
+models make up the spectrum:</p>
+<p><strong>Shared API</strong> — pay-per-token on a multi-tenant endpoint. OpenAI, Anthropic,
+Google, and the standard tier of every open-model host. Lowest cost, lowest
+isolation. Not single-tenant.</p>
+<p><strong>Dedicated endpoint</strong> — reserved capacity on the vendor’s infrastructure with
+predictable performance, but the underlying physical hardware is still shared.
+Better isolation than shared, not full single-tenant.</p>
+<p><strong>Single-tenant</strong> — dedicated GPUs, dedicated network, dedicated container —
+but still inside the vendor’s data centre. Full workload isolation. This is
+what most vendors mean when they say “single-tenant”.</p>
+<p><strong>VPC deployment</strong> — the vendor’s software runs inside your own cloud VPC
+(typically AWS, Azure, or GCP). Your data never leaves your network boundary.
+Stricter than single-tenant from a network-security perspective.</p>
+<p><strong>Self-hosted / on-prem</strong> — you operate the infrastructure entirely. Maximum
+control and compliance, maximum operational burden.</p>
+<p>A vendor offering only shared API and dedicated endpoints is not a single-tenant
+provider, even if their marketing says otherwise. When you’re evaluating, ask
+to see the deployment architecture diagram and verify which network boundaries
+the data crosses.</p>
+<h2 id="who-actually-buys-this">Who actually buys this?</h2>
+<p>Three buyer profiles dominate the demand:</p>
+<p>The <strong>regulated enterprise</strong> — a bank, hospital system, insurer, or law firm
+that needs to deploy LLMs against sensitive data without it leaving their
+compliance perimeter. They typically want VPC or self-hosted deployments,
+and they’ll pay a substantial premium for it.</p>
+<p>The <strong>government or defence buyer</strong> — needs sovereign data residency, often
+demands air-gapped or on-prem deployment, and has procurement cycles measured
+in quarters rather than weeks. The “sovereign AI” trend is essentially this
+buyer profile scaled up to country level.</p>
+<p>The <strong>scale-stage AI product</strong> — has outgrown shared API economics. Their
+token bill is approaching seven figures annually and dedicated capacity is
+now cheaper than per-token pricing. Compliance often follows as a secondary
+driver once scale forces the deployment-architecture conversation.</p>
+<p>If you’re not in one of these three profiles, you probably don’t need
+single-tenant yet. The cost premium is real, and the operational complexity
+is non-trivial.</p>
+<h2 id="what-to-evaluate-when-shopping">What to evaluate when shopping</h2>
+<p>When comparing vendors offering single-tenant deployments, the dimensions
+that actually matter:</p>
+<ol>
+<li><strong>Network architecture</strong> — where exactly does your data go? Get a
+deployment diagram before you read pricing.</li>
+<li><strong>Compliance certifications</strong> — which ones are <em>current</em> and audited
+(not “in progress”), and which apply to your use case.</li>
+<li><strong>Data residency</strong> — can you pin compute and storage to specific regions?</li>
+<li><strong>Hardware availability</strong> — H100, H200, B200 — what can you actually
+reserve, in what regions, and with what lead time?</li>
+<li><strong>Operational tooling</strong> — observability, autoscaling, model rollback,
+request tracing. Production-grade or hobbyist?</li>
+<li><strong>Pricing predictability</strong> — flat dedicated rate vs token vs hybrid.
+What does month 12 look like?</li>
+<li><strong>Contractual flexibility</strong> — minimum commitment, cancellation, SLA terms.</li>
+</ol>
+<p>That’s the canonical buyer’s framework for this category. We’ll be unpacking
+each dimension in detail across the rest of the site, with specific vendor
+data plugged into the analysis.</p>  </div> <aside class="my-12 p-8 rule-double" style="background: var(--color-paper-deep);"><p class="eyebrow mb-2">Need a second opinion?</p><h3 class="mb-3" style="font-size: 1.5rem;">
+Choosing a single-tenant LLM stack for a regulated workload?
+</h3><p class="mb-5" style="color: var(--color-ink-soft); max-width: 38rem;">
+I run the editorial here — and I also consult on AI delivery for
+      compliance-heavy buyers (FCA-regulated finance, healthcare, defence,
+      public sector). If you're scoping a deployment, a 30-minute call
+      will save you weeks of vendor evaluation.
+</p><a href="/contact/" class="btn-primary">Book a 30-min call</a></aside> </div> </article>  </main> <footer class="mt-24 border-t-2 border-[var(--color-ink)]" style="background: var(--color-paper-deep);"> <div class="mx-auto max-w-6xl px-6 py-16"> <!-- Newsletter row --> <div class="grid md:grid-cols-2 gap-12 mb-16 pb-16 border-b border-[var(--color-rule)]"> <div> <p class="eyebrow">The Single-Tenant Brief</p> <h2 class="mt-2 mb-3" style="font-size: 1.75rem;">
+New analysis, every Tuesday.
+</h2> <p style="color: var(--color-ink-soft); max-width: 28rem;">
+One email a week with vendor moves, comparison breakdowns, and
+          briefings on single-tenant deployment for regulated industries.
+          Read by engineering and procurement leaders. No tracking pixels,
+          no spam.
+</p> </div> <div class="flex items-center"> <form action="https://buttondown.email/api/emails/embed-subscribe/singletenant" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/singletenant', 'popupwindow')" class="w-full max-w-md"> <label for="bd-email" class="block eyebrow mb-2">Subscribe</label> <div class="flex flex-col sm:flex-row gap-2"> <input type="email" name="email" id="bd-email" placeholder="you@company.com" required class="newsletter-input flex-1"> <button type="submit" class="btn-primary">
+Subscribe
+</button> </div> <p class="mt-3 text-xs" style="color: var(--color-mute);">
+Free. Weekly. Unsubscribe anytime. We never share your address.
+</p> </form> </div> </div> <!-- Link columns --> <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-12"> <div> <p class="eyebrow mb-3">Directory</p> <ul class="list-none p-0 m-0 space-y-2 text-sm"> <li><a href="/vendors/">All vendors</a></li> <li><a href="/compare/">Comparisons</a></li> <li><a href="/for/financial-services/">By industry</a></li> </ul> </div> <div> <p class="eyebrow mb-3">Editorial</p> <ul class="list-none p-0 m-0 space-y-2 text-sm"> <li><a href="/blog/">All articles</a></li> <li><a href="/blog/category/guide/">Guides</a></li> <li><a href="/rss.xml">RSS feed</a></li> </ul> </div> <div> <p class="eyebrow mb-3">About</p> <ul class="list-none p-0 m-0 space-y-2 text-sm"> <li><a href="/about/">Our take</a></li> <li><a href="/contact/">Consulting</a></li> <li><a href="/contact/">Partnerships</a></li> </ul> </div> <div> <p class="eyebrow mb-3">Legal</p> <ul class="list-none p-0 m-0 space-y-2 text-sm"> <li><a href="/privacy/">Privacy</a></li> <li><a href="/terms/">Terms</a></li> <li><a href="/disclosure/">Disclosure</a></li> </ul> </div> </div> <!-- Colophon --> <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-[var(--color-rule)] text-sm"> <p class="m-0" style="color: var(--color-mute);">
+© 2026 singletenant.ai · Independent editorial. Some links may earn referral commission;
+        we mark these clearly.
+</p> <p class="font-mono text-xs m-0" style="color: var(--color-mute);">
+Set in Fraunces &amp; Source Serif 4
+</p> </div> </div> </footer> </body></html>
