@@ -9,6 +9,20 @@ const featured = vendors
   .filter((v) => v.data.featured)
   .sort((a, b) => a.data.name.localeCompare(b.data.name));
 
+// Stats computed from the data, never hardcoded
+const certsMapped = new Set(
+  vendors.flatMap((v) => v.data.compliance.map((c) => c.cert)),
+).size;
+const lastVerified = vendors
+  .flatMap((v) => [
+    ...v.data.compliance.map((c) => c.verified),
+    v.data.pricing.verified,
+    v.data.sovereignty.verified,
+  ])
+  .filter((d): d is string => Boolean(d))
+  .sort()
+  .at(-1);
+
 const articles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = articles
   .sort((a, b) => b.data.pub_date.valueOf() - a.data.pub_date.valueOf())
@@ -57,7 +71,7 @@ const recentArticles = articles
               Compliance certs mapped
             </dt>
             <dd class="m-0 font-display font-bold" style="font-size: 2.5rem; line-height: 1; color: var(--color-ink);">
-              13
+              {certsMapped}
             </dd>
           </div>
           <div>
@@ -65,7 +79,13 @@ const recentArticles = articles
               Last data review
             </dt>
             <dd class="m-0 font-mono" style="font-size: 1rem; color: var(--color-ink);">
-              29 Apr 2026
+              {lastVerified
+                ? new Date(lastVerified).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  })
+                : 'Not verified'}
             </dd>
           </div>
         </dl>

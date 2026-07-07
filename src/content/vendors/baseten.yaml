@@ -1,86 +1,45 @@
-name: Baseten
 slug: baseten
+name: Baseten
 url: https://www.baseten.co
-tagline: Production-grade inference platform with first-class single-tenant deployments
+category: dedicated-gpu
+tagline: Inference platform with dedicated deployments, self-hosted and hybrid options
 
-founded: 2019
-headquartered: San Francisco, CA, USA
-funding_stage: Series C
-employees: 50-200
-
-deployment_options:
-  - dedicated-endpoint
-  - single-tenant
-  - vpc
+deployment_models:
+  - dedicated-deployment
   - self-hosted
+  - hybrid
 
-hardware:
-  - NVIDIA H100
-  - NVIDIA A100
-  - NVIDIA L40S
-  - NVIDIA A10G
-
-supported_models:
-  - Llama 3
-  - Mistral
-  - DeepSeek
-  - Qwen
-  - Custom models (any framework)
+regions: []
 
 compliance:
-  - SOC 2 Type II
-  - HIPAA-eligible
+  - cert: SOC2_TYPE2
+    evidence_url: https://trust.baseten.co
+    verified: "2026-07-07"
+  - cert: SOC3
+    evidence_url: https://trust.baseten.co
+    verified: "2026-07-07"
+  - cert: HIPAA_BAA
+    evidence_url: https://trust.baseten.co
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://trust.baseten.co
+    verified: "2026-07-07"
 
-data_residency:
-  - US
-  - EU
+pricing:
+  model: Per 1M tokens (Model APIs); per-minute GPU/CPU instances for dedicated deployments
+  public: true
+  evidence_url: https://www.baseten.co/pricing
+  verified: "2026-07-07"
 
-pricing_model: Per-token for shared endpoints; dedicated capacity by GPU-hour
-starts_from: Pay-as-you-go (token-based)
-minimum_commitment: None for shared; minimum monthly for dedicated
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: US
+  evidence_url: https://www.baseten.co/terms-and-conditions/
+  verified: "2026-07-07"
 
-sweet_spot: |
-  Production AI products at scale where latency, observability, and reliability
-  matter as much as model quality. Particularly strong for teams whose AI is
-  customer-facing and revenue-critical.
+notes: >-
+  Dedicated deployments and an enterprise self-hosted option position Baseten
+  for single-tenant use. No public data-residency guarantee found at review;
+  trust centre lists subprocessors across multiple clouds.
 
-weakness: |
-  Higher floor cost than commodity GPU clouds (RunPod, Modal) for hobby and
-  early-stage workloads. Less suitable when raw GPU time is what you need.
-
-description_short: |
-  Inference platform offering first-class single-tenant deployments,
-  observability, and compliance posture for production AI workloads.
-
-description_long: |
-  Baseten is an inference platform purpose-built for teams running customer-facing
-  AI products. Founded in 2019, it has emerged as one of the leading vendors for
-  production-grade LLM serving, with a particular emphasis on reliability,
-  performance, and operational maturity.
-
-  The platform's single-tenant deployment option is one of its key differentiators
-  in regulated industries — customers can run dedicated inference clusters with
-  full workload isolation, optionally inside their own VPC. This is paired with
-  observability tooling (request-level tracing, autoscaling metrics, cost
-  attribution) that production teams typically have to build themselves.
-
-  Baseten's customer base spans healthcare (PicnicHealth), enterprise SaaS (Writer,
-  Gamma), and AI-native applications. Its partnership with NVIDIA via the
-  Inception programme gives it early access to TensorRT-LLM and other
-  performance-critical infrastructure software.
-
-notable_customers:
-  - Writer
-  - Gamma
-  - PicnicHealth
-
-investors:
-  - IVP
-  - Spark Capital
-  - Greylock
-  - Conviction
-  - South Park Commons
-
-partnership_status: none
-last_reviewed: "2026-04-29"
 featured: true

@@ -21,36 +21,36 @@ const schema = {
   '@type': 'SoftwareApplication',
   name: data.name,
   url: data.url,
-  description: data.description_short,
+  description: data.tagline,
   applicationCategory: 'AI/ML Infrastructure',
   operatingSystem: 'Cloud',
-  offers: data.starts_from
-    ? {
-        '@type': 'Offer',
-        description: data.starts_from,
-      }
-    : undefined,
 };
 
-// Find related vendors with overlapping deployment options for "compare" links
 const allVendors = await getCollection('vendors');
-const otherVendors = allVendors.filter((v) => v.data.slug !== data.slug);
-const compareCandidates = otherVendors
-  .filter((v) =>
-    v.data.deployment_options.some(
-      (opt) =>
-        data.deployment_options.includes(opt) &&
-        (opt === 'single-tenant' ||
-          opt === 'vpc' ||
-          opt === 'dedicated-endpoint'),
-    ),
-  )
+const compareCandidates = allVendors
+  .filter((v) => v.data.slug !== data.slug)
   .slice(0, 4);
+
+// Latest verified date across evidence-carrying blocks
+const verifiedDates = [
+  ...data.compliance.map((c) => c.verified),
+  data.pricing.verified,
+  data.sovereignty.verified,
+].filter((d): d is string => Boolean(d));
+const lastVerified =
+  verifiedDates.length > 0 ? verifiedDates.sort().at(-1) : undefined;
+
+const fmtUnknown = (val: string | boolean) => {
+  if (val === 'unknown') return 'Not verified';
+  if (typeof val === 'boolean') return val ? 'Yes' : 'No';
+  return val;
+};
+const evidenceDomain = (url: string) => new URL(url).hostname;
 ---
 
 <BaseLayout
   title={`${data.name} — Single-Tenant LLM Hosting Profile`}
-  description={data.description_short}
+  description={data.tagline}
   schema={schema}
 >
   <!-- Header -->
@@ -69,11 +69,7 @@ const compareCandidates = otherVendors
         <a href={data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
           Visit {data.name} ↗
         </a>
-        {data.partnership_status === 'affiliate' && data.referral_url && (
-          <p class="m-0 text-xs font-mono" style="color: var(--color-mute);">
-            Partnership disclosure: we may earn referral commission.
-          </p>
-        )}
+        <span class="tag">{data.category}</span>
       </div>
     </div>
   </section>
@@ -84,25 +80,12 @@ const compareCandidates = otherVendors
 
       <!-- Main column -->
       <article class="md:col-span-2">
-        <h2 class="mt-0 pt-0 border-none">Our take</h2>
-        <div class="prose">
-          {data.description_long.split('\n\n').map((para) => <p>{para}</p>)}
-        </div>
-
-        <div class="my-8 grid sm:grid-cols-2 gap-6">
-          <div class="p-5 border-l-4" style="border-color: var(--color-accent); background: var(--color-accent-soft);">
-            <p class="eyebrow mb-2">Sweet spot</p>
-            <p class="m-0 text-sm" style="line-height: 1.55;">
-              {data.sweet_spot}
-            </p>
-          </div>
-          <div class="p-5 border-l-4 border-[var(--color-mute)]" style="background: var(--color-paper-deep);">
-            <p class="eyebrow mb-2" style="color: var(--color-mute);">Where it falls short</p>
-            <p class="m-0 text-sm" style="line-height: 1.55;">
-              {data.weakness}
-            </p>
-          </div>
-        </div>
+        {data.notes && (
+          <>
+            <h2 class="mt-0 pt-0 border-none">Analyst note</h2>
+            <p class="prose">{data.notes}</p>
+          </>
+        )}
 
         {compareCandidates.length > 0 && (
           <>
@@ -128,105 +111,92 @@ const compareCandidates = otherVendors
         <ConsultingCTA />
       </article>
 
-      <!-- Data sidebar -->
+      <!-- Facts sidebar — every claim evidence-linked or "Not verified" -->
       <aside class="md:col-span-1">
         <div class="sticky top-6 space-y-8">
           <div>
-            <p class="eyebrow mb-3">At a glance</p>
-            <dl class="space-y-3 m-0 text-sm font-mono">
-              {data.founded && (
-                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                  <dt style="color: var(--color-mute);">Founded</dt>
-                  <dd class="m-0">{data.founded}</dd>
-                </div>
-              )}
-              {data.headquartered && (
-                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                  <dt style="color: var(--color-mute);">HQ</dt>
-                  <dd class="m-0">{data.headquartered}</dd>
-                </div>
-              )}
-              {data.funding_stage && (
-                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                  <dt style="color: var(--color-mute);">Funding</dt>
-                  <dd class="m-0">{data.funding_stage}</dd>
-                </div>
-              )}
-              {data.employees && (
-                <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
-                  <dt style="color: var(--color-mute);">Headcount</dt>
-                  <dd class="m-0">{data.employees}</dd>
-                </div>
-              )}
-            </dl>
+            <p class="eyebrow mb-3">Deployment models</p>
+            <div>
+              {data.deployment_models.length === 0
+                ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
+                : data.deployment_models.map((opt) => <span class="tag">{opt}</span>)}
+            </div>
           </div>
 
           <div>
-            <p class="eyebrow mb-3">Deployment</p>
-            <div>
-              {data.deployment_options.map((opt) => (
-                <span class={`tag ${opt === 'single-tenant' || opt === 'vpc' ? 'tag-accent' : ''}`}>
-                  {opt}
-                </span>
-              ))}
-            </div>
+            <p class="eyebrow mb-3">Regions</p>
+            {data.regions.length === 0
+              ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
+              : <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
+                  {data.regions.map((r) => <li>· {r}</li>)}
+                </ul>}
           </div>
 
-          {data.compliance && data.compliance.length > 0 && (
-            <div>
-              <p class="eyebrow mb-3">Compliance</p>
-              <div>
-                {data.compliance.map((c) => (
-                  <span class="tag">{c}</span>
-                ))}
-              </div>
-            </div>
-          )}
+          <div>
+            <p class="eyebrow mb-3">Compliance</p>
+            {data.compliance.length === 0
+              ? <p class="m-0 text-sm font-mono" style="color: var(--color-mute);">Not verified</p>
+              : <ul class="list-none p-0 m-0 space-y-2 text-sm font-mono">
+                  {data.compliance.map((c) => (
+                    <li>
+                      <span class="tag">{c.cert}</span>
+                      <a href={c.evidence_url} target="_blank" rel="noopener noreferrer"
+                         class="text-xs" style="color: var(--color-mute);">
+                        {evidenceDomain(c.evidence_url)} ↗
+                      </a>
+                      <span class="block text-xs" style="color: var(--color-mute);">
+                        verified {c.verified}
+                      </span>
+                    </li>
+                  ))}
+                </ul>}
+          </div>
 
-          {data.hardware && data.hardware.length > 0 && (
-            <div>
-              <p class="eyebrow mb-3">Hardware</p>
-              <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
-                {data.hardware.map((h) => <li>· {h}</li>)}
-              </ul>
-            </div>
-          )}
-
-          {data.data_residency && data.data_residency.length > 0 && (
-            <div>
-              <p class="eyebrow mb-3">Data residency</p>
-              <ul class="list-none p-0 m-0 space-y-1 text-sm font-mono">
-                {data.data_residency.map((r) => <li>· {r}</li>)}
-              </ul>
-            </div>
-          )}
-
-          {data.pricing_model && (
-            <div>
-              <p class="eyebrow mb-3">Pricing</p>
-              <p class="m-0 text-sm" style="line-height: 1.5;">
-                {data.pricing_model}
+          <div>
+            <p class="eyebrow mb-3">Pricing</p>
+            <p class="m-0 text-sm" style="line-height: 1.5;">
+              {fmtUnknown(data.pricing.model)}
+            </p>
+            <p class="mt-1 mb-0 text-xs font-mono" style="color: var(--color-mute);">
+              Public pricing: {fmtUnknown(data.pricing.public)}
+            </p>
+            {data.pricing.evidence_url && (
+              <p class="mt-1 mb-0 text-xs font-mono" style="color: var(--color-mute);">
+                <a href={data.pricing.evidence_url} target="_blank" rel="noopener noreferrer">
+                  {evidenceDomain(data.pricing.evidence_url)} ↗
+                </a>
+                · verified {data.pricing.verified}
               </p>
-              {data.starts_from && (
-                <p class="mt-2 mb-0 text-sm font-mono" style="color: var(--color-accent);">
-                  From: {data.starts_from}
-                </p>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
-          {data.notable_customers && data.notable_customers.length > 0 && (
-            <div>
-              <p class="eyebrow mb-3">Notable customers</p>
-              <ul class="list-none p-0 m-0 space-y-1 text-sm">
-                {data.notable_customers.map((c) => <li>{c}</li>)}
-              </ul>
-            </div>
-          )}
+          <div>
+            <p class="eyebrow mb-3">Sovereignty</p>
+            <dl class="space-y-3 m-0 text-sm font-mono">
+              <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                <dt style="color: var(--color-mute);">Residency guarantee</dt>
+                <dd class="m-0">{fmtUnknown(data.sovereignty.data_residency_guarantee)}</dd>
+              </div>
+              <div class="flex justify-between border-b border-[var(--color-rule)] pb-2">
+                <dt style="color: var(--color-mute);">Parent jurisdiction</dt>
+                <dd class="m-0">{fmtUnknown(data.sovereignty.parent_jurisdiction)}</dd>
+              </div>
+            </dl>
+            {data.sovereignty.evidence_url && (
+              <p class="mt-2 mb-0 text-xs font-mono" style="color: var(--color-mute);">
+                <a href={data.sovereignty.evidence_url} target="_blank" rel="noopener noreferrer">
+                  {evidenceDomain(data.sovereignty.evidence_url)} ↗
+                </a>
+                · verified {data.sovereignty.verified}
+              </p>
+            )}
+          </div>
 
-          <p class="text-xs font-mono pt-4 border-t border-[var(--color-rule)]" style="color: var(--color-mute);">
-            Last reviewed: {data.last_reviewed}
-          </p>
+          {lastVerified && (
+            <p class="text-xs font-mono pt-4 border-t border-[var(--color-rule)]" style="color: var(--color-mute);">
+              Last verified: {lastVerified}
+            </p>
+          )}
         </div>
       </aside>
     </div>

@@ -30,15 +30,15 @@ const { a, b } = Astro.props;
 const title = `${a.data.name} vs ${b.data.name}`;
 const description = `Side-by-side comparison of ${a.data.name} and ${b.data.name} for single-tenant LLM hosting. Deployment options, compliance, pricing, and operational fit compared.`;
 
-// Find shared and differentiated capabilities
-const sharedDeployment = a.data.deployment_options.filter((opt) =>
-  b.data.deployment_options.includes(opt),
+// Find shared and differentiated deployment models
+const sharedDeployment = a.data.deployment_models.filter((opt) =>
+  b.data.deployment_models.includes(opt),
 );
-const aOnly = a.data.deployment_options.filter(
-  (opt) => !b.data.deployment_options.includes(opt),
+const aOnly = a.data.deployment_models.filter(
+  (opt) => !b.data.deployment_models.includes(opt),
 );
-const bOnly = b.data.deployment_options.filter(
-  (opt) => !a.data.deployment_options.includes(opt),
+const bOnly = b.data.deployment_models.filter(
+  (opt) => !a.data.deployment_models.includes(opt),
 );
 ---
 
@@ -64,15 +64,19 @@ const bOnly = b.data.deployment_options.filter(
     <div class="mx-auto max-w-5xl px-6 py-12 grid md:grid-cols-2 gap-8">
       <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
         <h3 class="mt-0 mb-2" style="font-size: 1.25rem;">
-          Pick {a.data.name} when…
+          {a.data.name}
         </h3>
-        <p class="m-0 text-sm" style="line-height: 1.6;">{a.data.sweet_spot}</p>
+        <p class="m-0 text-sm" style="line-height: 1.6;">
+          {a.data.notes ?? a.data.tagline}
+        </p>
       </div>
       <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
         <h3 class="mt-0 mb-2" style="font-size: 1.25rem;">
-          Pick {b.data.name} when…
+          {b.data.name}
         </h3>
-        <p class="m-0 text-sm" style="line-height: 1.6;">{b.data.sweet_spot}</p>
+        <p class="m-0 text-sm" style="line-height: 1.6;">
+          {b.data.notes ?? b.data.tagline}
+        </p>
       </div>
     </div>
   </section>

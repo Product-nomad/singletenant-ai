@@ -27,6 +27,7 @@
     "@types/node": "^22.0.0",
     "lefthook": "^2.1.9",
     "playwright": "^1.61.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.0"
   }
 }

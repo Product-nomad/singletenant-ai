@@ -1,81 +1,37 @@
-name: Modal
 slug: modal
+name: Modal
 url: https://modal.com
-tagline: Serverless Python with first-class GPU support
+category: dedicated-gpu
+tagline: Serverless GPU compute billed per second, with region pinning
 
-founded: 2021
-headquartered: New York, NY, USA
-funding_stage: Series A
-employees: 50-100
+deployment_models:
+  - serverless
 
-deployment_options:
-  - dedicated-endpoint
-  - single-tenant
-  - vpc
-
-hardware:
-  - NVIDIA H100
-  - NVIDIA A100
-  - NVIDIA L40S
-  - NVIDIA T4
-
-supported_models:
-  - Any (Python-native, bring your own)
-  - Hugging Face integration
-  - vLLM, SGLang, TensorRT-LLM
+regions: []
 
 compliance:
-  - SOC 2 Type II
-  - HIPAA-eligible
+  - cert: SOC2_TYPE2
+    evidence_url: https://modal.com/docs/guide/security
+    verified: "2026-07-07"
+  - cert: HIPAA_BAA
+    evidence_url: https://modal.com/docs/guide/security
+    verified: "2026-07-07"
 
-data_residency:
-  - US
-  - EU
+pricing:
+  model: Per-second GPU, CPU core, and memory billing
+  public: true
+  evidence_url: https://modal.com/pricing
+  verified: "2026-07-07"
 
-pricing_model: Per-second on GPU-hour basis with separate CPU/memory billing
-starts_from: $30/month free tier credit; pay-as-you-go after
-minimum_commitment: None
+sovereignty:
+  data_residency_guarantee: true
+  parent_jurisdiction: US
+  evidence_url: https://modal.com/legal/terms
+  verified: "2026-07-07"
 
-sweet_spot: |
-  Python-native teams who want infrastructure-as-code without YAML or Docker.
-  Excellent for ML engineers building custom pipelines, fine-tuning workflows,
-  or hybrid CPU/GPU jobs.
+notes: >-
+  Terms commit to processing customer data only in customer-specified regions.
+  HIPAA BAA is Enterprise-plan only, and scoped (Volumes v2 in, some features
+  out). No dedicated/single-tenant tier on the public pricing page at review.
 
-weakness: |
-  Less suited to teams that don't write Python. Dedicated/single-tenant
-  options exist but the platform is most polished for the serverless flow.
-
-description_short: |
-  Serverless GPU compute with a Python-first developer experience. Strong
-  for ML engineering teams who want infrastructure-as-code.
-
-description_long: |
-  Modal takes a distinctive approach to GPU infrastructure: rather than
-  exposing servers, containers, or YAML configs, it lets you decorate Python
-  functions with @modal.function and runs them on cloud GPUs. The result is
-  developer experience that feels closer to writing a script than configuring
-  infrastructure.
-
-  Founded in 2021, Modal has built a strong reputation among ML engineers who
-  resent the operational overhead of traditional cloud. Its serverless model
-  is the headline product, but the platform also supports dedicated and
-  single-tenant deployment for teams with steady workloads or compliance needs.
-
-  Cost-wise, Modal's serverless premium can make it expensive at high
-  utilisation — once a GPU runs more than a few minutes per hour, dedicated
-  alternatives become cheaper. But for bursty, irregular, or experimentation-
-  heavy workloads, the developer-time savings often justify the cost.
-
-notable_customers:
-  - Suno
-  - Ramp
-  - Substack
-
-investors:
-  - Redpoint
-  - Definition Capital
-  - Lux Capital
-
-partnership_status: none
-last_reviewed: "2026-04-29"
 featured: true

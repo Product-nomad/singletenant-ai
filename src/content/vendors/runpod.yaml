@@ -1,88 +1,45 @@
-name: RunPod
 slug: runpod
+name: RunPod
 url: https://www.runpod.io
-tagline: Pay-per-second GPU cloud with serverless and persistent options
+category: dedicated-gpu
+tagline: GPU cloud with community and secure tiers, priced per hour
 
-founded: 2021
-headquartered: Moorestown, NJ, USA
-funding_stage: Series A
-employees: 50-100
+deployment_models:
+  - secure-cloud
+  - community-cloud
+  - reserved-clusters
 
-deployment_options:
-  - shared-api
-  - dedicated-endpoint
-  - single-tenant
-
-hardware:
-  - NVIDIA H100
-  - NVIDIA H200
-  - NVIDIA A100
-  - NVIDIA RTX 4090
-  - NVIDIA RTX A6000
-
-supported_models:
-  - Any (bring your own Docker image)
-  - vLLM templates pre-built
-  - SGLang templates
+regions: []
 
 compliance:
-  - SOC 2 Type II
+  - cert: SOC2_TYPE2
+    evidence_url: https://trust.runpod.io
+    verified: "2026-07-07"
+  - cert: SOC3
+    evidence_url: https://trust.runpod.io
+    verified: "2026-07-07"
+  - cert: HIPAA_BAA
+    evidence_url: https://trust.runpod.io
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://trust.runpod.io
+    verified: "2026-07-07"
 
-data_residency:
-  - US
-  - EU
-  - Global (Community Cloud)
+pricing:
+  model: Per GPU-hour (per-second display available); reserved clusters via sales
+  public: true
+  evidence_url: https://www.runpod.io/pricing
+  verified: "2026-07-07"
 
-pricing_model: Per-second billing on GPU-hour basis. Community Cloud (cheaper,
-  individual providers globally) and Secure Cloud (enterprise-grade data centres)
-starts_from: ~$0.34/hr (RTX 4090, Community Cloud); ~$0.89/hr (A100, Community)
-minimum_commitment: None — strict pay-per-second
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: US
+  evidence_url: https://www.runpod.io/legal/terms-of-service
+  verified: "2026-07-07"
 
-sweet_spot: |
-  Cost-sensitive teams running batch inference, model fine-tuning, or
-  experimentation. Particularly strong for prototyping and bursty workloads
-  where commodity GPU access matters more than enterprise tooling.
+notes: >-
+  Secure Cloud tier targets isolation needs; terms establish a shared
+  responsibility model with no explicit residency guarantee. Existing
+  affiliate relationship — link withheld until the disclosure page ships.
 
-weakness: |
-  Less suitable for production customer-facing inference where strict SLAs
-  and observability are required. Cold starts on serverless can be 15-30s.
-  Community Cloud has variable reliability.
-
-description_short: |
-  Commodity GPU cloud with per-second pricing, popular for cost-conscious AI/ML
-  teams who don't need full managed inference tooling.
-
-description_long: |
-  RunPod has become a default choice for AI developers and small teams who need
-  affordable GPU compute without the markup of AWS/GCP/Azure. Its model is
-  straightforward: aggregate GPU capacity globally, expose it via a simple API
-  and web UI, and bill by the second.
-
-  The platform offers two tiers. Community Cloud sources GPUs from individual
-  providers worldwide at prices typically 60-80% below the hyperscalers. Secure
-  Cloud runs on RunPod's own data-centre infrastructure with enterprise-grade
-  reliability and compliance. The serverless option layers autoscaling and
-  scale-to-zero on top, with the trade-off of cold starts.
-
-  RunPod is one of the few vendors in this space with a transparent, public
-  affiliate programme: 3-5% commission on referral spend for the first six
-  months, scaling to 10% via Partnerstack after 25 referrals. This makes it
-  an attractive baseline affiliate for content publishers in the niche.
-
-notable_customers:
-  - Replit
-  - Civitai
-  - Runway
-
-investors:
-  - Intel Capital
-  - Dell Technologies Capital
-
-referral_url: https://www.runpod.io/console/signup
-referral_terms: |
-  3% on Pod spend / 5% on Serverless spend, first 6 months.
-  Upgrade to 10% via Partnerstack after 25 paying referrals.
-
-partnership_status: affiliate
-last_reviewed: "2026-04-29"
 featured: true

@@ -7,23 +7,41 @@ interface Props {
 
 const { vendors } = Astro.props;
 
-// Define rows in display order
-const rows = [
-  { label: 'Founded', key: 'founded' },
-  { label: 'Headquartered', key: 'headquartered' },
-  { label: 'Funding stage', key: 'funding_stage' },
-  { label: 'Deployment options', key: 'deployment_options', type: 'tags' },
-  { label: 'Hardware', key: 'hardware', type: 'list' },
-  { label: 'Compliance', key: 'compliance', type: 'tags' },
-  { label: 'Data residency', key: 'data_residency', type: 'list' },
-  { label: 'Pricing model', key: 'pricing_model' },
-  { label: 'Starts from', key: 'starts_from' },
-  { label: 'Sweet spot', key: 'sweet_spot' },
-  { label: 'Weakness', key: 'weakness' },
-] as const;
+type VendorData = CollectionEntry<'vendors'>['data'];
+type CellValue = string | boolean | string[] | undefined;
 
-function getVal(vendor: CollectionEntry<'vendors'>, key: string): unknown {
-  return (vendor.data as Record<string, unknown>)[key];
+// Schema v2 facts in display order. 'unknown' renders as "Not verified" —
+// never as a blank that could read as "none".
+const rows: Array<{
+  label: string;
+  get: (d: VendorData) => CellValue;
+  type?: 'tags' | 'list';
+}> = [
+  { label: 'Category', get: (d) => d.category },
+  { label: 'Deployment models', get: (d) => d.deployment_models, type: 'tags' },
+  { label: 'Regions', get: (d) => d.regions, type: 'list' },
+  {
+    label: 'Compliance',
+    get: (d) => d.compliance.map((c) => c.cert),
+    type: 'tags',
+  },
+  { label: 'Pricing model', get: (d) => d.pricing.model },
+  { label: 'Public pricing', get: (d) => d.pricing.public },
+  {
+    label: 'Residency guarantee',
+    get: (d) => d.sovereignty.data_residency_guarantee,
+  },
+  {
+    label: 'Parent jurisdiction',
+    get: (d) => d.sovereignty.parent_jurisdiction,
+  },
+  { label: 'Analyst note', get: (d) => d.notes },
+];
+
+function fmt(val: CellValue): string {
+  if (val === 'unknown' || val === undefined) return 'Not verified';
+  if (typeof val === 'boolean') return val ? 'Yes' : 'No';
+  return String(val);
 }
 ---
 
@@ -50,29 +68,26 @@ function getVal(vendor: CollectionEntry<'vendors'>, key: string): unknown {
             {row.label}
           </td>
           {vendors.map((v) => {
-            const val = getVal(v, row.key);
-            if (val === undefined || val === null) return <td>—</td>;
-            if ('type' in row && row.type === 'tags' && Array.isArray(val)) {
+            const val = row.get(v.data);
+            if (row.type === 'tags' && Array.isArray(val)) {
               return (
                 <td>
-                  {val.map((item: string) => (
-                    <span class={`tag ${item === 'single-tenant' || item === 'vpc' ? 'tag-accent' : ''}`}>
-                      {item}
-                    </span>
-                  ))}
+                  {val.length === 0
+                    ? '—'
+                    : val.map((item) => <span class="tag">{item}</span>)}
                 </td>
               );
             }
-            if ('type' in row && row.type === 'list' && Array.isArray(val)) {
+            if (row.type === 'list' && Array.isArray(val)) {
               return (
                 <td style="font-family: var(--font-body); font-size: 0.875rem;">
-                  {val.join(', ')}
+                  {val.length === 0 ? 'Not verified' : val.join(', ')}
                 </td>
               );
             }
             return (
               <td style="font-family: var(--font-body); font-size: 0.875rem; line-height: 1.5;">
-                {val}
+                {fmt(val as string | boolean | undefined)}
               </td>
             );
           })}
