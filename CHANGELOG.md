@@ -4,6 +4,8 @@ User-visible and governance changes, newest first. Site data changes (vendor fac
 
 ## Unreleased (v2 build, branch `v2`)
 
+- 2026-07-07 — Vendor bench extension started (pieces 6a–6k): `npm run validate` added (schema check over every vendor YAML without a full build — the merge gate for vendor research). Fireworks AI added as the first new vendor, all facts from primary sources fetched 2026-07-07 (docs security page, pricing page, privacy policy); data-residency guarantee recorded `unknown` — none found at review.
+
 - 2026-07-07 — Vendor detail template (piece 5): profile pages rebuilt as evidence-linked facts tables — Deployment, Compliance, Pricing, Sovereignty sections, each with an `EvidenceLink` (primary-source link showing its domain) and a `LastVerified` per-section date chip; `CertBadge` renders each certification with its source and verification date; unverified fields render "Not verified". Editorial sidebar layout replaced by full-width tables.
 
 - 2026-07-07 — VendorMatrix (piece 4): filterable vendor comparison matrix is now the homepage hero and the `/vendors/` directory (same component). Dense table, sticky header, mono values; category buttons + compliance-cert checkboxes filter rows, keyboard-operable, with an aria-live result count. Progressive enhancement: the filter bar ships `hidden` and is revealed by script — with JS disabled the full table renders. `CategoryTag` (text label + muted hue, colour never load-bearing) and `src/lib/labels.mjs` (shared enum display labels) added. VendorCard grids replaced on home + directory; homepage editorial intro removed.

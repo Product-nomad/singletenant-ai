@@ -1,0 +1,47 @@
+slug: fireworks-ai
+name: Fireworks AI
+url: https://fireworks.ai
+category: dedicated-gpu
+tagline: Serverless and dedicated GPU inference billed per token or GPU-second
+
+deployment_models:
+  - serverless
+  - on-demand-dedicated
+  - reserved-capacity
+
+regions:
+  - global
+  - us
+  - europe
+  - apac
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-07-07"
+  - cert: ISO27001
+    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-07-07"
+  - cert: HIPAA_BAA
+    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-07-07"
+
+pricing:
+  model: Per 1M tokens (serverless); per-GPU-second on-demand deployments; reserved capacity
+  public: true
+  evidence_url: https://fireworks.ai/pricing
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: US
+  evidence_url: https://fireworks.ai/privacy-policy
+  verified: "2026-07-07"
+
+notes: >-
+  On-demand deployments run on dedicated GPUs with region selection (US,
+  Europe, APAC). No public data-residency guarantee found at review; the
+  privacy policy states servers are in the US with SCCs for cross-border
+  transfers. ISO 27701/42001 also claimed in vendor docs.
+
+featured: false

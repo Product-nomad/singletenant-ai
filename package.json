@@ -12,7 +12,8 @@
     "test": "node --test",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "validate": "node scripts/validate.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
