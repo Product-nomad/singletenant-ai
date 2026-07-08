@@ -1,0 +1,57 @@
+slug: azure-openai-ptu
+name: Azure OpenAI Provisioned Throughput (PTU)
+url: https://azure.microsoft.com
+category: hyperscaler-dedicated
+tagline: Dedicated PTU capacity for Foundry Models with hourly or reserved billing
+
+deployment_models:
+  - global-provisioned
+  - data-zone-provisioned
+  - regional-provisioned
+
+regions:
+  - global
+  - us
+  - europe
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
+    verified: "2026-07-08"
+  - cert: ISO27001
+    evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
+    verified: "2026-07-08"
+  - cert: C5
+    evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
+    verified: "2026-07-08"
+  - cert: FEDRAMP
+    evidence_url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
+    verified: "2026-07-08"
+  - cert: HIPAA_BAA
+    evidence_url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
+    verified: "2026-07-08"
+  - cert: GDPR_DPA
+    evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    verified: "2026-07-08"
+
+pricing:
+  model: Per PTU per hour; Azure Reservations discount with 1-month or 1-year terms
+  public: true
+  evidence_url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+  verified: "2026-07-08"
+
+sovereignty:
+  data_residency_guarantee: true
+  parent_jurisdiction: US
+  evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+  verified: "2026-07-08"
+
+notes: >-
+  Provisioned throughput is now a Microsoft Foundry (formerly Azure AI
+  Foundry) deployment type billed hourly per PTU, with 1-month or 1-year
+  Azure Reservations. Global, Data Zone (US/EU), and Regional options set
+  where prompts are processed; stored data stays in the customer-designated
+  geography. FedRAMP scope names Azure OpenAI; SOC 2, ISO 27001, and C5
+  attest the Azure platform.
+
+featured: false
