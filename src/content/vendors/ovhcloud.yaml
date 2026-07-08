@@ -1,0 +1,47 @@
+slug: ovhcloud
+name: OVHcloud
+url: https://www.ovhcloud.com
+category: eu-sovereign
+tagline: French cloud with per-token AI Endpoints and managed model deployment
+
+deployment_models:
+  - serverless-api
+  - managed-model-deployment
+
+regions:
+  - europe
+
+compliance:
+  - cert: ISO27001
+    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
+    verified: "2026-07-07"
+  - cert: C5
+    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
+    verified: "2026-07-07"
+  - cert: SecNumCloud
+    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
+    verified: "2026-07-07"
+
+pricing:
+  model: Per 1M tokens (AI Endpoints, input/output priced separately)
+  public: true
+  evidence_url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: FR
+  evidence_url: https://www.ovhcloud.com/en/terms-and-conditions/
+  verified: "2026-07-07"
+
+notes: >-
+  AI Endpoints is a serverless per-token API (40+ models) with zero data
+  retention beyond billing data; AI Deploy runs customer containers and
+  models. Certifications page lists SecNumCloud (ANSSI), BSI C5, ISO 27001
+  and GDPR compliance. Parent OVH Groupe SA is registered in Lille, France.
+  No explicit AI-product data-residency guarantee found at review.
+
+featured: false
