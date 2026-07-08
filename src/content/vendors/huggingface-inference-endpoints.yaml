@@ -1,0 +1,42 @@
+slug: huggingface-inference-endpoints
+name: Hugging Face Inference Endpoints
+url: https://huggingface.co
+category: managed-selfhost
+tagline: Managed dedicated endpoints for deploying Hub models per instance-hour
+
+deployment_models:
+  - dedicated-endpoints
+  - public-endpoint
+  - protected-endpoint
+  - private-endpoint-privatelink
+
+regions: []
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-07-07"
+
+pricing:
+  model: Per instance-hour (CPU, GPU, and accelerator instances); dedicated inference from $0.033/hour
+  public: true
+  evidence_url: https://huggingface.co/pricing
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: US
+  evidence_url: https://huggingface.co/privacy
+  verified: "2026-07-07"
+
+notes: >-
+  Deploys Hub models on managed instances across AWS, Azure, and GCP with
+  public, protected, or private (intra-region AWS/Azure PrivateLink) access.
+  Vendor docs state SOC 2 Type 2 certification and a GDPR DPA via Enterprise
+  Hub subscription, and that payloads are not stored (logs kept 30 days).
+  Privacy policy: data may be stored in the US.
+
+featured: false
