@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import ConsultingCTA from '../components/ConsultingCTA.astro';
 import VendorMatrix from '../components/VendorMatrix.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadChangelog } from '../lib/changelog.mjs';
 
 const vendors = await getCollection('vendors');
 
@@ -10,15 +11,7 @@ const vendors = await getCollection('vendors');
 const certsMapped = new Set(
   vendors.flatMap((v) => v.data.compliance.map((c) => c.cert)),
 ).size;
-const lastVerified = vendors
-  .flatMap((v) => [
-    ...v.data.compliance.map((c) => c.verified),
-    v.data.pricing.verified,
-    v.data.sovereignty.verified,
-  ])
-  .filter((d): d is string => Boolean(d))
-  .sort()
-  .at(-1);
+const [latestChange] = loadChangelog();
 
 const articles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = articles
@@ -51,15 +44,15 @@ const recentArticles = articles
           <dd>{certsMapped}</dd>
         </div>
         <div>
-          <dt>Last data review</dt>
+          <dt>Last data change</dt>
           <dd>
-            {lastVerified
-              ? new Date(lastVerified).toLocaleDateString('en-GB', {
-                  day: 'numeric',
-                  month: 'short',
-                  year: 'numeric',
-                })
-              : 'Not verified'}
+            <a href="/changelog/" class="no-underline">
+              {new Date(latestChange.date).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+              })}
+            </a>
           </dd>
         </div>
       </dl>

@@ -1,0 +1,62 @@
+# Public data changelog — one entry per data change, newest first.
+# Drives /changelog/ and the homepage "Last data change" stat.
+# Validated by npm run validate against src/schemas/changelog.mjs.
+
+- date: "2026-07-08"
+  type: added
+  vendors:
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
+    - vertex-ai-provisioned
+  summary: >-
+    Hyperscaler dedicated tier added: Amazon Bedrock Provisioned Throughput,
+    Azure OpenAI provisioned (PTU), and Vertex AI Provisioned Throughput.
+    Compliance certifications checked per service against each provider's
+    published services-in-scope pages; facts that could not be verified
+    per-service are recorded as not verified rather than assumed.
+
+- date: "2026-07-08"
+  type: added
+  vendors:
+    - nvidia-nim
+    - databricks-model-serving
+  summary: >-
+    Managed self-host tier completed: NVIDIA NIM and Databricks Model
+    Serving. All facts from vendor documentation, trust pages, published
+    agreements, and pricing pages fetched at review.
+
+- date: "2026-07-08"
+  type: added
+  vendors:
+    - huggingface-inference-endpoints
+    - nebius
+    - ovhcloud
+    - scaleway
+  summary: >-
+    EU sovereign tier added (OVHcloud, Scaleway, Nebius) along with Hugging
+    Face Inference Endpoints. Facts verified against primary sources on
+    2026-07-07; data-residency guarantees recorded as not verified where no
+    explicit product-level commitment was found.
+
+- date: "2026-07-07"
+  type: added
+  vendors:
+    - fireworks-ai
+    - coreweave
+  summary: >-
+    Fireworks AI and CoreWeave added to the dedicated GPU tier, researched
+    from vendor docs, trust centres, and pricing pages.
+
+- date: "2026-07-07"
+  type: updated
+  vendors:
+    - baseten
+    - modal
+    - runpod
+    - together-ai
+  summary: >-
+    All four launch vendors migrated to schema v2: every populated fact now
+    carries a primary-source link and the date it was last verified. Facts
+    re-checked against vendor trust centres, pricing pages, and terms;
+    claims that could not be re-verified were removed or marked not
+    verified.

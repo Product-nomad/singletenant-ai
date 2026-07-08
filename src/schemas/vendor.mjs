@@ -25,14 +25,14 @@ export const CERTS = [
   'FEDRAMP',
 ];
 
-const isoDate = z
+export const isoDate = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, 'verified must be YYYY-MM-DD')
   .refine((s) => !Number.isNaN(Date.parse(s)), 'verified must be a real date');
 
 const evidenceUrl = z.string().url();
 
-const maxWords = (limit, label) =>
+export const maxWords = (limit, label) =>
   z
     .string()
     .min(1)

@@ -20,3 +20,10 @@ export const CERT_LABELS = {
 };
 
 export const NOT_VERIFIED = 'Not verified';
+
+export const CHANGE_TYPE_LABELS = {
+  added: 'Added',
+  updated: 'Updated',
+  removed: 'Removed',
+  corrected: 'Corrected',
+};

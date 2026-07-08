@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadChangelog } from '../lib/changelog.mjs';
+import { CHANGE_TYPE_LABELS } from '../lib/labels.mjs';
+
+const entries = loadChangelog();
+const vendors = await getCollection('vendors');
+const vendorNames = new Map(vendors.map((v) => [v.data.slug, v.data.name]));
+
+const typeLabel = (t: string) =>
+  CHANGE_TYPE_LABELS[t as keyof typeof CHANGE_TYPE_LABELS];
+
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+---
+
+<BaseLayout
+  title="Data Changelog"
+  description="Every change to the singletenant.ai vendor database: additions, updates, and corrections, newest first, with the vendors each change touched."
+>
+  <section>
+    <div class="mx-auto max-w-4xl px-6 py-12 md:py-16">
+      <h1 class="m-0 mb-3" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Changelog
+      </h1>
+      <p class="m-0 mb-10 max-w-3xl" style="color: var(--color-ink-soft);">
+        Every change to the vendor database, newest first. Data is reviewed
+        manually; there is no automated collection. Corrections:
+        <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>.
+      </p>
+
+      <ol class="list-none m-0 p-0">
+        {entries.map((entry) => (
+          <li class="entry">
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+              <time datetime={entry.date} class="font-mono text-sm" style="color: var(--color-ink);">
+                {formatDate(entry.date)}
+              </time>
+              <span class="type-tag">{typeLabel(entry.type)}</span>
+            </div>
+            <p class="m-0 mb-2 text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
+              {entry.summary}
+            </p>
+            {entry.vendors.length > 0 && (
+              <p class="m-0 text-xs font-mono">
+                {entry.vendors.map((slug, i) => (
+                  <>
+                    {i > 0 && <span style="color: var(--color-mute);">{' · '}</span>}
+                    <a href={`/vendors/${slug}/`}>{vendorNames.get(slug) ?? slug}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .entry {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .entry:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .type-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+</style>
