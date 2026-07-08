@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
 import CategoryTag from '../../components/CategoryTag.astro';
 import CertBadge from '../../components/CertBadge.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
@@ -61,9 +62,7 @@ const fmtUnknown = (val: string | boolean) => {
         <CategoryTag category={data.category} />
       </div>
       <p class="m-0 mb-5" style="color: var(--color-ink-soft);">{data.tagline}</p>
-      <a href={data.url} target="_blank" rel="noopener noreferrer" class="btn-secondary">
-        Visit {data.name} ↗
-      </a>
+      <AffiliateLink vendor={data} />
     </div>
   </section>
 

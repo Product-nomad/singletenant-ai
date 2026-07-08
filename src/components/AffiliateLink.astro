@@ -1,0 +1,35 @@
+---
+// Outbound vendor link. When the vendor has an affiliate_url and /disclosure/
+// exists in this build, renders the referral link with rel="sponsored" and a
+// visible notice beside it — the disclosure lives on every page an affiliate
+// link renders, not footer-only. Otherwise renders the plain vendor URL.
+import { DISCLOSURE_PATH, resolveVendorLink } from '../lib/affiliate.mjs';
+
+interface Props {
+  vendor: {
+    name: string;
+    url: string;
+    affiliate_url?: string;
+  };
+}
+
+const { vendor } = Astro.props;
+const link = resolveVendorLink(vendor);
+const rel = link.isAffiliate
+  ? 'sponsored noopener noreferrer'
+  : 'noopener noreferrer';
+---
+
+<span class="inline-flex flex-col gap-2">
+  <a href={link.href} target="_blank" rel={rel} class="btn-secondary">
+    Visit {vendor.name} ↗
+  </a>
+  {
+    link.isAffiliate && (
+      <span class="font-mono text-xs" style="color: var(--color-mute);">
+        Referral link — this site may earn commission.{' '}
+        <a href={DISCLOSURE_PATH}>Disclosure</a>
+      </span>
+    )
+  }
+</span>

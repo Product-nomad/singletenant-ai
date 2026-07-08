@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const LAST_UPDATED = '2026-07-08';
+---
+
+<BaseLayout
+  title="Terms of Use"
+  description="Terms of use for singletenant.ai: what the data is, what it is not, and the limits of our liability."
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Legal</p>
+      <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Terms of use
+      </h1>
+      <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
+        Last updated {LAST_UPDATED}
+      </p>
+
+      <div class="prose">
+        <h2>What this site is</h2>
+        <p>
+          singletenant.ai publishes reference data about dedicated and
+          single-tenant LLM hosting vendors. The data is provided for
+          general information. It is not legal, procurement, security, or
+          compliance advice, and it is not a recommendation to buy from any
+          vendor.
+        </p>
+
+        <h2>Accuracy and verification</h2>
+        <p>
+          Every populated fact links to the primary source it was checked
+          against and shows the date of that check. Vendor pricing,
+          certifications, and terms change; a fact is accurate as of its
+          verified date, not necessarily today. Facts we could not verify
+          are shown as "Not verified". Verify any fact with the vendor
+          before relying on it in a procurement or compliance decision. The
+          <a href="/methodology/">methodology page</a> explains how data is
+          gathered and how to submit a correction.
+        </p>
+
+        <h2>Third-party sites</h2>
+        <p>
+          Outbound links lead to sites we do not control and are not
+          responsible for. Some are referral links, marked where they
+          appear and explained on the
+          <a href="/disclosure/">disclosure page</a>.
+        </p>
+
+        <h2>Use of the content</h2>
+        <p>
+          Site content is © singletenant.ai. You may quote the data with
+          attribution and a link to the page it came from. Bulk
+          reproduction of the database requires permission:
+          <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>.
+        </p>
+
+        <h2>Liability</h2>
+        <p>
+          To the extent permitted by law, we accept no liability for loss
+          arising from reliance on the information on this site. Nothing in
+          these terms excludes liability that cannot be excluded under the
+          law of England and Wales, which governs these terms.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const LAST_UPDATED = '2026-07-08';
+---
+
+<BaseLayout
+  title="Methodology"
+  description="How singletenant.ai gathers vendor data, what 'verified' means, the inclusion criteria, and how to submit a correction."
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Methodology</p>
+      <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        How this data is made
+      </h1>
+      <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
+        Last updated {LAST_UPDATED}
+      </p>
+
+      <div class="prose">
+        <h2>Primary sources only</h2>
+        <p>
+          Every fact in the vendor database is taken from a primary source:
+          the vendor's own documentation, trust centre, legal terms, or
+          pricing pages, read at the time of the check. Third-party
+          writeups, forum threads, and press coverage are not sources.
+          Nothing is filled in from general knowledge or assumption.
+        </p>
+
+        <h2>What "verified" means</h2>
+        <p>
+          A populated fact always carries two things: the URL of the
+          primary source it was checked against, and the date of that
+          check. "Verified" means the linked page supported the claim on
+          that date — not that the claim is true forever. Dates are shown
+          per section so staleness is visible rather than hidden.
+        </p>
+        <p>
+          Where a fact could not be confirmed from a primary source, the
+          profile shows <strong>"Not verified"</strong>. An honest gap is
+          more useful to a procurement decision than a guess.
+        </p>
+
+        <h2>Inclusion criteria</h2>
+        <p>
+          The database covers vendors offering single-tenant LLM hosting —
+          inference infrastructure where the customer's workload runs on
+          capacity not shared with other customers — in four categories:
+          dedicated GPU/inference clouds, hyperscaler dedicated capacity,
+          managed self-host platforms, and EU sovereign clouds. A vendor
+          qualifies if it publicly documents a dedicated or single-tenant
+          deployment option. Commercial relationships play no part in
+          inclusion; see the <a href="/disclosure/">disclosure page</a>.
+        </p>
+
+        <h2>Update cadence</h2>
+        <p>
+          The database is reviewed manually — there is no automated
+          collection. Every addition, update, and correction is a dated
+          entry in the public <a href="/changelog/">changelog</a>, so you
+          can see exactly what changed and when.
+        </p>
+
+        <h2>Corrections</h2>
+        <p>
+          If a fact on this site is wrong or has gone stale, email
+          <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>
+          with the page, the claim, and — if you have it — a link to the
+          primary source that contradicts it. We re-check the claim against
+          the vendor's published material; if it fails, the data is
+          corrected, the verified date is updated, and the correction is
+          recorded in the <a href="/changelog/">changelog</a>. Vendors are
+          welcome to submit corrections about their own profiles on the
+          same terms: a correction needs a primary source, whoever sends
+          it.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -3,6 +3,17 @@
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
 - date: "2026-07-08"
+  type: updated
+  vendors:
+    - runpod
+  summary: >-
+    RunPod analyst note updated: the affiliate relationship is now
+    documented on the site's disclosure page, published today alongside
+    the privacy policy, terms of use, and methodology pages. No referral
+    link is live yet; when one goes live it will be marked on the page
+    it appears.
+
+- date: "2026-07-08"
   type: added
   vendors:
     - aws-bedrock-provisioned
