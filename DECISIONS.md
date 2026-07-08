@@ -22,3 +22,7 @@ Vendor schema v2 is enforced by the existing Zod content-collection schema plus 
 
 ## 2026-07-06 — Branch/deploy model for v2
 All v2 work on the `v2` branch; Cloudflare preview deployments are the review surface. Merging `v2 → main` is the production ship action and requires an explicit go from Simon (WoW §5, §8).
+
+## 2026-07-08 — ADR: compare-page slugs, `-vs-` separator, canonical pair ordering
+**Context.** `/compare/[a]-vs-[b]/` embeds two vendor slugs in one route param, separated by `-vs-`. Two footguns: (1) a vendor slug that itself contains `-vs-` would make the route ambiguous; (2) generating both orderings of every pair doubles the page count (210 for 15 vendors) and creates duplicate content.
+**Decision.** The `-vs-` separator stays (it is the search phrase buyers use). Mitigations: the vendor schema rejects any slug containing `-vs-` (tested, so the ambiguity cannot enter the data); each unordered pair gets exactly one page, canonically ordered **alphabetically by slug** — 15 vendors → 105 pages; `src/lib/compare.mjs#comparePath` is the single place canonical URLs are built, used by every internal link; the reverse ordering 301s to the canonical URL via `_redirects` (piece 11). The `/compare/` hub index is removed — the spec IA (§3) never included it, vendor profiles link all 14 of their comparisons (each compare page is reachable from both its profiles), and the sitemap carries the rest of discovery.

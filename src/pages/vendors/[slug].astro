@@ -8,6 +8,7 @@ import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import EvidenceLink from '../../components/EvidenceLink.astro';
 import LastVerified from '../../components/LastVerified.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { comparePath } from '../../lib/compare.mjs';
 import { NOT_VERIFIED } from '../../lib/labels.mjs';
 
 export const getStaticPaths = (async () => {
@@ -32,10 +33,12 @@ const schema = {
   operatingSystem: 'Cloud',
 };
 
+// Every comparison involving this vendor — each of the 105 canonical compare
+// pages is linked from both of its vendors' profiles.
 const allVendors = await getCollection('vendors');
 const compareCandidates = allVendors
   .filter((v) => v.data.slug !== data.slug)
-  .slice(0, 4);
+  .sort((x, y) => x.data.name.localeCompare(y.data.name));
 
 const fmtUnknown = (val: string | boolean) => {
   if (val === 'unknown') return NOT_VERIFIED;
@@ -179,7 +182,7 @@ const fmtUnknown = (val: string | boolean) => {
               {compareCandidates.map((other) => (
                 <li class="m-0">
                   <a
-                    href={`/compare/${data.slug}-vs-${other.data.slug}/`}
+                    href={comparePath(data.slug, other.data.slug)}
                     class="block p-4 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]"
                   >
                     <span

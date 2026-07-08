@@ -4,17 +4,22 @@ import type { GetStaticPaths } from 'astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { differencesSummary } from '../../lib/compare.mjs';
 
 export const getStaticPaths = (async () => {
-  const vendors = await getCollection('vendors');
+  // One page per unordered pair, canonically ordered alphabetically by slug
+  // (15 vendors → 105 pages). The reverse ordering 301s to the canonical URL
+  // via _redirects; both directions as separate pages would be duplicate
+  // content. See DECISIONS.md ADR on the '-vs-' separator.
+  const vendors = (await getCollection('vendors')).sort((x, y) =>
+    x.data.slug.localeCompare(y.data.slug),
+  );
   const paths = [];
 
-  // Generate one page for every ordered pair (a vs b where a !== b)
-  // Could also dedupe to unordered pairs by sorting slugs alphabetically;
-  // we keep both directions for SEO (users search either order).
-  for (const a of vendors) {
-    for (const b of vendors) {
-      if (a.data.slug === b.data.slug) continue;
+  for (let i = 0; i < vendors.length; i++) {
+    for (let j = i + 1; j < vendors.length; j++) {
+      const a = vendors[i];
+      const b = vendors[j];
       paths.push({
         params: { slug: `${a.data.slug}-vs-${b.data.slug}` },
         props: { a, b },
@@ -40,6 +45,10 @@ const aOnly = a.data.deployment_models.filter(
 const bOnly = b.data.deployment_models.filter(
   (opt) => !a.data.deployment_models.includes(opt),
 );
+
+// Data-derived key differences (thin-page mitigation) — every line computed
+// from the two YAML records; unknowns say "not verified".
+const differences = differencesSummary(a.data, b.data);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -47,7 +56,7 @@ const bOnly = b.data.deployment_models.filter(
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">
       <p class="eyebrow mb-3">
-        <a href="/compare/" style="color: var(--color-accent);">Comparisons</a>
+        <a href="/vendors/" style="color: var(--color-accent);">Vendors</a> · Comparison
       </p>
       <h1 class="m-0 mb-3" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
         {a.data.name} <span style="color: var(--color-mute); font-weight: 400;">vs</span> {b.data.name}
@@ -78,6 +87,28 @@ const bOnly = b.data.deployment_models.filter(
           {b.data.notes ?? b.data.tagline}
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- Key differences — generated from the vendor data, not written prose -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">From the data</p>
+      <h2 class="mt-0 mb-6 pt-0 border-none">Key differences</h2>
+      <ul class="list-none p-0 m-0 max-w-3xl">
+        {differences.map((line) => (
+          <li class="diff-line">
+            <span class="diff-topic">{line.topic}</span>
+            <span class="text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
+              {line.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="m-0 mt-4 text-xs font-mono" style="color: var(--color-mute);">
+        Generated from the verified vendor data below; sources and dates on each
+        vendor profile.
+      </p>
     </div>
   </section>
 
@@ -165,3 +196,27 @@ const bOnly = b.data.deployment_models.filter(
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .diff-line {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.6rem 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 0;
+  }
+
+  .diff-line:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .diff-topic {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    flex: 0 0 8rem;
+  }
+</style>
