@@ -1,0 +1,41 @@
+slug: scaleway
+name: Scaleway
+url: https://www.scaleway.com
+category: eu-sovereign
+tagline: French cloud offering serverless and dedicated-GPU managed LLM inference
+
+deployment_models:
+  - serverless-api
+  - dedicated-gpu-inference
+
+regions:
+  - europe
+
+compliance:
+  - cert: ISO27001
+    evidence_url: https://www.scaleway.com/en/security-and-resilience/
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://www.scaleway.com/en/contracts/
+    verified: "2026-07-07"
+
+pricing:
+  model: Per-hour dedicated GPU (Managed Inference); per token (Generative APIs)
+  public: true
+  evidence_url: https://www.scaleway.com/en/inference/
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: true
+  parent_jurisdiction: FR
+  evidence_url: https://www.scaleway.com/en/inference/
+  verified: "2026-07-07"
+
+notes: >-
+  Managed Inference runs models on dedicated GPUs at fixed hourly rates
+  (e.g. Llama 3.1-8b at 0.93 EUR/hour) inside a VPC; prompts and responses
+  are stated as stored only in Europe. Scaleway SAS is registered in Paris,
+  France (legal notice). Security page says the SecNumCloud qualification
+  process was entered in January 2025; not yet listed as qualified.
+
+featured: false
