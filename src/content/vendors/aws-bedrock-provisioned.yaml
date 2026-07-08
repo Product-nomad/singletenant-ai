@@ -1,0 +1,58 @@
+slug: aws-bedrock-provisioned
+name: Amazon Bedrock Provisioned Throughput
+url: https://aws.amazon.com/bedrock/
+category: hyperscaler-dedicated
+tagline: Dedicated model capacity on Amazon Bedrock billed per Model Unit hourly
+
+deployment_models:
+  - provisioned-throughput
+  - custom-model-provisioned
+
+regions:
+  - us
+  - europe
+  - apac
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
+    verified: "2026-07-08"
+  - cert: SOC3
+    evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
+    verified: "2026-07-08"
+  - cert: ISO27001
+    evidence_url: https://aws.amazon.com/compliance/iso-certified/
+    verified: "2026-07-08"
+  - cert: HIPAA_BAA
+    evidence_url: https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
+    verified: "2026-07-08"
+  - cert: C5
+    evidence_url: https://aws.amazon.com/compliance/services-in-scope/C5/
+    verified: "2026-07-08"
+  - cert: FEDRAMP
+    evidence_url: https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
+    verified: "2026-07-08"
+  - cert: GDPR_DPA
+    evidence_url: https://aws.amazon.com/compliance/gdpr-center/
+    verified: "2026-07-08"
+
+pricing:
+  model: Per Model Unit (MU) per hour; no-commitment, 1-month, or 6-month terms
+  public: false
+  evidence_url: https://aws.amazon.com/bedrock/pricing/
+  verified: "2026-07-08"
+
+sovereignty:
+  data_residency_guarantee: true
+  parent_jurisdiction: US
+  evidence_url: https://aws.amazon.com/bedrock/faqs/
+  verified: "2026-07-08"
+
+notes: >-
+  Provisioned Throughput reserves per-model capacity in Model Units (MUs),
+  billed hourly with no-commitment, 1-month, or 6-month terms; required for
+  serving customised models. AWS states Bedrock content is stored at rest in
+  the Region of use and not shared with model providers. Example per-MU rates
+  are published for some models; most quotes require an AWS account team.
+
+featured: false
