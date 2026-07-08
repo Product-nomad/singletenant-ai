@@ -1,0 +1,48 @@
+slug: nebius
+name: Nebius
+url: https://nebius.com
+category: eu-sovereign
+tagline: Netherlands-based AI cloud with shared and dedicated per-token inference endpoints
+
+deployment_models:
+  - serverless-api
+  - dedicated-endpoints
+
+regions:
+  - europe
+  - us
+
+compliance:
+  - cert: SOC2_TYPE2
+    evidence_url: https://nebius.com/trust-center
+    verified: "2026-07-07"
+  - cert: SOC3
+    evidence_url: https://nebius.com/trust-center
+    verified: "2026-07-07"
+  - cert: ISO27001
+    evidence_url: https://nebius.com/trust-center
+    verified: "2026-07-07"
+  - cert: GDPR_DPA
+    evidence_url: https://nebius.com/services/token-factory/enterprise-grade-inference
+    verified: "2026-07-07"
+
+pricing:
+  model: Per 1M input/output tokens; shared and dedicated endpoint tiers
+  public: unknown
+  evidence_url: https://nebius.com/services/token-factory/inference-service
+  verified: "2026-07-07"
+
+sovereignty:
+  data_residency_guarantee: unknown
+  parent_jurisdiction: NL
+  evidence_url: https://docs.tokenfactory.nebius.com/legal/terms-of-service
+  verified: "2026-07-07"
+
+notes: >-
+  Token Factory offers shared or single-tenant endpoints with optional
+  regional deployment in EU or US data centers (Finland, France, US).
+  Contracting entity Nebius B.V. is a Dutch company governed by Netherlands
+  law. Trust center lists HIPAA alongside SOC 2 Type II; no explicit BAA
+  statement found at review. Per-token price list requires account sign-in.
+
+featured: false
