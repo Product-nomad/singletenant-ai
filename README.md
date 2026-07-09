@@ -103,7 +103,7 @@ Create `src/content/articles/your-slug.mdx` with frontmatter:
 title: "Your title"
 description: "180-char meta description"
 pub_date: 2026-04-29
-author: "Simon Wilson"
+author: "Simon Newton"
 category: "guide"  # one of: guide, comparison, analysis, vertical, news
 target_keyword: "the keyword you're chasing"
 tags: ["compliance", "uk"]
@@ -224,5 +224,5 @@ Sequence I'd suggest from here:
 
 ---
 
-Edited by Simon Wilson.
+Edited by Simon Newton.
 Last scaffolded: 29 April 2026.
