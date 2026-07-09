@@ -1,8 +1,8 @@
 # singletenant.ai — STATE
 
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
-**Phase**: **Build → Validate** — v2 reposition per `SPEC_singletenant_v2.md`, on branch `v2`. Build pieces complete; the remaining work is piece 12 (validate + ship), which is gated: merging `v2 → main` and deploying is the ship action and needs an explicit go from Simon.
-**Status**: private repo; live v1 still serving on `singletenant.ai` (Cloudflare Workers static assets) untouched until piece 12. Pieces 0–11 complete (governance + tooling; schema v2; design tokens; shell restyle; VendorMatrix; detail template; 15-vendor bench; changelog system; legal pages; 105 compare pages; integrity copy audit; SEO/meta) plus piece 13 (skill + lessons). **Next: piece 12** — Lighthouse ≥ 90 + screenshots + live spot-check, which need a browser environment (not available in the build sandbox), then explicit go from Simon to merge/deploy. Piece 14 (drift watch) still open.
+**Phase**: **Shipped** — v2 reposition per `SPEC_singletenant_v2.md` is live on production (`main`). Piece 12 shipped 2026-07-09 on Simon's "ship now, verify live" go.
+**Status**: private repo; **v2 is live on `singletenant.ai`** (Cloudflare Workers static assets, auto-deploy from `main`). NB: a prior session had already fast-forwarded `main` to `76be7df` (v2 through piece 11), so v2 had in fact been serving in production before this session — the earlier "v1 still serving / main untouched" note was stale. On 2026-07-09 `main` was fast-forwarded to `1cd24c3` (adds piece 11 SEO/meta, piece 13 docs, the Simon Newton copy fix, and this STATE log). Pieces 0–13 complete. **Piece 12 ship gates**: lint/tests(28)/typecheck green; focused security-review clean; live HTTP spot-check verified post-deploy (byline = "Simon Newton", zero "Simon Wilson" remnants, contact LinkedIn link live, reverse-compare + `/compare/` 301s resolve). Still **not run** (need a real browser, unavailable in sandbox): Lighthouse ≥ 90 perf/SEO/a11y and screenshots — recommend Simon run these against live. Piece 14 (drift watch) still open.
 **Last touched**: 2026-07-09.
 
 ## Vendor data (15/15, pieces 6a–6k complete)
@@ -26,7 +26,7 @@
 
 ## What's next (spec pieces, in order)
 
-1. **Piece 12** — validate + ship (**gated**): Lighthouse ≥ 90 perf/SEO/a11y, validator output, `docs/example_runs/v2-launch/` snapshot, security-review skill pass logged (WoW §11), **explicit go from Simon**, then merge `v2 → main` + deploy, and spot-check live 301s + matrix render. Lighthouse/screenshots/live spot-check need a real browser environment; the deploy + merge need Simon's go — neither is doable from the build sandbox, so this piece is held here.
+1. ~~**Piece 12** — validate + ship~~ **SHIPPED 2026-07-09** (`main` @ `1cd24c3`): security-review clean, lint/tests/typecheck green, live HTTP spot-check passed (301s + copy verified). **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y, screenshots, and a `docs/example_runs/v2-launch/` snapshot — run against the live site and log when done.
 2. **Piece 14** — weekly report-only evidence drift watch (`~/bin/singletenant-review.sh` + user timer; HTTP-checks every `evidence_url`; Telegram summary, token from `~/.hermes/.env`; never edits data — decision 4).
 
 ## Open items
