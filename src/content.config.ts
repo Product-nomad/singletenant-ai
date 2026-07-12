@@ -28,7 +28,7 @@ const articles = defineCollection({
       .describe('Meta description, used in search results and social cards'),
     pub_date: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    author: z.string().default('Simon Wilson'),
+    author: z.string().default('Simon Newton'),
     category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),
     tags: z.array(z.string()).default([]),
