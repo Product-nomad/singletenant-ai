@@ -1,9 +1,9 @@
 # singletenant.ai — STATE
 
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
-**Phase**: **Build** — v2 reposition per `SPEC_singletenant_v2.md`, on branch `v2`. Validate begins at spec piece 12; merging `v2 → main` is the ship action and needs an explicit go from Simon.
-**Status**: private repo; live v1 still serving on `singletenant.ai` (Cloudflare Workers static assets) untouched until piece 12. Pieces 0–7 complete (governance + tooling; schema v2; design tokens; shell restyle; VendorMatrix; detail template; 15-vendor bench; changelog system). Next: piece 8 (legal pages).
-**Last touched**: 2026-07-08.
+**Phase**: **Shipped, iterating**. v2 is live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap). Current work is the v2.1 audit-fix and analysis-layer sprint on branch `feat/v2.1-analysis`, pending review before merge to `main`.
+**Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1. Pieces A1 to G of v2.1 are complete on `feat/v2.1-analysis`.
+**Last touched**: 2026-07-12.
 
 ## Vendor data (15/15, pieces 6a–6k complete)
 
@@ -18,6 +18,23 @@
 - **Pieces 2–5 (2026-07-07)**: design tokens (Inter + JetBrains Mono self-hosted, serif fonts removed); shell restyle (Issue/newsletter framing killed — no `/newsletter/` route ever existed, so nothing to redirect); VendorMatrix (filterable, JS-optional, homepage hero + `/vendors/`); evidence-linked vendor detail template (EvidenceLink + LastVerified per section, "Not verified" for unknowns). See CHANGELOG.md for detail.
 - **Pieces 6a–6k (2026-07-07/08)**: bench extended 4 → 15 via parallel research agents, one commit per vendor, `npm run validate` as merge gate; all facts primary-sourced; spot-checked evidence URLs (HTTP 200 + claim-on-page) before each commit batch. Databricks Model Serving qualified as the third managed-selfhost candidate (published BAA at databricks.com/legal/baa; ISO 27001 incl. AWS single-tenant; FedRAMP), so the 6/3/2/4 rebalance fallback wasn't needed. Notable per-vendor caveats (unknowns and scope limits) recorded in each YAML's notes.
 - **Piece 7 (2026-07-08)**: changelog system — `data/changelog.yaml` (Zod schema `src/schemas/changelog.mjs`: typed entries, ISO dates, newest-first enforced, vendor slugs cross-checked) drives `/changelog/` and the homepage "Last data change" stat; static review stamp removed; validate + tests cover it; CHANGELOG.md cross-references the site changelog.
+
+## v2.1 sprint (2026-07-12, branch `feat/v2.1-analysis`)
+
+Post-ship audit fixes plus an analysis layer. One commit per piece, gates green before each (lint, `node --test`, `astro check`, `npm run validate`), pushed per piece.
+
+- **Post-ship audit**: read-only integrity audit of the launched v2, report at `docs/example_runs/v2-launch/audit-report.md`. All 62 evidence URLs returned 200. Two medium findings fixed (A1, A2); low findings deferred to v3.
+- **A1, Databricks SOC 2 evidence**: the `SOC2_TYPE2` evidence_url pointed at the HIPAA page. Repointed to `https://www.databricks.com/trust/compliance/soc`, which names the SOC 2 Type II report (verified 2026-07-12). Public changelog entry added.
+- **A2, `_redirects`**: `compare/[slug].astro` promised reverse-pair 301s via `_redirects` but none existed. Added `scripts/gen-redirects.mjs`, wired into `npm run build`, emitting `public/_redirects` with 105 reverse-to-canonical rules (gitignored as generated). Cloudflare Workers static assets honour `_redirects` up to 2,000 rules.
+- **B, region verification**: the 8 empty-region vendors researched from primary sources. Populated: modal, runpod, databricks-model-serving (US, Europe, Asia-Pacific) and huggingface-inference-endpoints (US, Europe). Recorded not verified with provenance comments: baseten, together-ai, nvidia-nim, vertex-ai-provisioned. One commit per vendor, changelog entry per populated vendor. Regions still carry no schema evidence field (v3 candidate).
+- **C, editor identity**: `/about/` gains a "Who runs this" section naming Simon Newton (military intelligence, delivery at Ocado Technology, independent applied AI builder, LinkedIn). The prior "Simon Wilson" attribution is replaced site-wide (about, privacy operator, article author default and existing byline, README).
+- **D, article**: "The jurisdiction problem: why an EU region is not EU sovereign" (`/blog/jurisdiction-eu-region-not-sovereign/`). Residency versus sovereignty, CLOUD Act (18 U.S.C. 2713) cited, all 15 vendors walked and linked to their profiles.
+- **E, article**: "Why this site says Not verified so often" (`/blog/why-not-verified/`). The methodology as a piece, using the A1 bug as the worked example.
+- **RSS**: dependency-free `/rss.xml` endpoint (`src/pages/rss.xml.ts`). BaseLayout linked it but no feed existed. All three articles appear.
+- **F, monthly dispatch template**: `src/content/templates/monthly-dispatch.md`, excluded from the build (not a configured collection; verified absent from `dist/`).
+- **G, close-out**: this STATE update and the CHANGELOG entry; deferred audit items logged to v3.
+
+Article writing rules held throughout: analyst tone, UK English, no em dashes, every vendor claim linked to its profile or a primary source.
 
 ## What's next (spec pieces, in order)
 
@@ -39,6 +56,10 @@
 - Automated data collectors (data-platform pattern). v2 freshness = manual review + visible changelog + report-only drift watch.
 - Dark mode.
 - Any API over the vendor data.
+- **Region evidence**: give `regions` the same value plus evidence_url plus verified structure as compliance, pricing and sovereignty (surfaced in v2.1 piece B; regions currently carry no in-product evidence, only a YAML provenance comment).
+- **OVHcloud certifications URL** is a 2-hop redirect to `/en/compliance/`; point the four OVHcloud cert evidence_urls at the final URL (audit section 2, low).
+- **Shared trust-centre evidence**: baseten, runpod, nebius, fireworks-ai and ovhcloud cite one landing URL for several certs rather than per-cert pages; deep-link where the trust centre allows (audit section 2, low).
+- **Compare-table empty-array parity**: empty tag fields render `-` in the compare table while other unknowns render "Not verified"; make them consistent (audit section 3, low; not triggered by current data).
 
 ## Key files
 
@@ -56,3 +77,4 @@
 - Never pipe gate commands (`npm run validate`, `git commit`) through `tail`/`head` — the pipe masks the exit code and caused two silent commit failures on 2026-07-07. Run the command bare, check `$?` directly, and verify commits landed via `git log`.
 - Research agents can leave valid uncommitted work when a session dies — check `git status` for orphaned YAMLs before relaunching agents, and validate + commit them first (recovered 4 vendors that way on 2026-07-08).
 - Spot-check that each evidence_url actually contains the claim, not just that it returns 200 — the Databricks HIPAA_BAA cert initially cited a page saying only "HIPAA compliance options"; the fix was pointing at the published BAA (`databricks.com/legal/baa`).
+- A live evidence link can still be the wrong source. The Databricks SOC 2 evidence_url returned HTTP 200 but pointed at the HIPAA page, not a SOC 2 page, so a link-health check passed while the citation was wrong. Only reading the page for the specific claim catches it. Caught by the v2.1 post-ship audit, fixed in piece A1.
