@@ -3,6 +3,15 @@
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
 - date: "2026-07-12"
+  type: updated
+  vendors:
+    - databricks-model-serving
+  summary: >-
+    Databricks Model Serving regions populated (US, Europe, Asia-Pacific)
+    from the Model Serving limits documentation, which lists supported
+    regions per cloud. Verified 2026-07-12.
+
+- date: "2026-07-12"
   type: corrected
   vendors:
     - databricks-model-serving
