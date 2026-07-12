@@ -12,6 +12,15 @@
     regions per cloud. Verified 2026-07-12.
 
 - date: "2026-07-12"
+  type: updated
+  vendors:
+    - huggingface-inference-endpoints
+  summary: >-
+    Hugging Face Inference Endpoints regions populated (US, Europe) from the
+    FAQ, which names AWS us-east-1 and eu-west-1, Azure eastus and GCP
+    us-east4. No Asia-Pacific region documented. Verified 2026-07-12.
+
+- date: "2026-07-12"
   type: corrected
   vendors:
     - databricks-model-serving
