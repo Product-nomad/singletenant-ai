@@ -30,6 +30,15 @@
     these continents. Verified 2026-07-12.
 
 - date: "2026-07-12"
+  type: updated
+  vendors:
+    - runpod
+  summary: >-
+    RunPod regions populated (US, Europe, Asia-Pacific) from the Global
+    Networking data-centre list. Verified 2026-07-12. Coarse continent
+    buckets; RunPod runs further data centres beyond that set.
+
+- date: "2026-07-12"
   type: corrected
   vendors:
     - databricks-model-serving

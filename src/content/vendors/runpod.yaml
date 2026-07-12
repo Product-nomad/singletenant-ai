@@ -9,7 +9,13 @@ deployment_models:
   - community-cloud
   - reserved-clusters
 
-regions: []
+# Regions verified 2026-07-12 against https://docs.runpod.io/pods/networking,
+# the Global Networking data-centre list: US and Canada, Europe (CZ, FR, NL,
+# RO, SE, IS) and Australia. Coarse buckets; more data centres exist elsewhere.
+regions:
+  - us
+  - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2
