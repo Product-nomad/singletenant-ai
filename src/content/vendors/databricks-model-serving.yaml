@@ -13,8 +13,8 @@ regions: []
 
 compliance:
   - cert: SOC2_TYPE2
-    evidence_url: https://www.databricks.com/trust/compliance/hipaa
-    verified: "2026-07-08"
+    evidence_url: https://www.databricks.com/trust/compliance/soc
+    verified: "2026-07-12"
   - cert: ISO27001
     evidence_url: https://www.databricks.com/trust/compliance/iso-27001
     verified: "2026-07-08"

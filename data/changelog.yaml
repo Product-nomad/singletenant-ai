@@ -2,6 +2,16 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-07-12"
+  type: corrected
+  vendors:
+    - databricks-model-serving
+  summary: >-
+    Databricks SOC 2 Type II evidence link corrected. It previously pointed
+    to the HIPAA compliance page; it now points to the Databricks SOC
+    compliance page, which names the SOC 2 Type II report. Found during the
+    post-launch integrity audit.
+
 - date: "2026-07-08"
   type: updated
   vendors:
