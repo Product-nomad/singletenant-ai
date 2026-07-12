@@ -21,6 +21,15 @@
     us-east4. No Asia-Pacific region documented. Verified 2026-07-12.
 
 - date: "2026-07-12"
+  type: updated
+  vendors:
+    - modal
+  summary: >-
+    Modal regions populated (US, Europe, Asia-Pacific) from the
+    region-selection documentation, which supports region pinning across
+    these continents. Verified 2026-07-12.
+
+- date: "2026-07-12"
   type: corrected
   vendors:
     - databricks-model-serving
