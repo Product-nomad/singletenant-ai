@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "gen:redirects": "node scripts/gen-redirects.mjs",
+    "build": "node scripts/gen-redirects.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test",
