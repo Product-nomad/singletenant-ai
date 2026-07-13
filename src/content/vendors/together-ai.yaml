@@ -9,9 +9,14 @@ deployment_models:
   - dedicated-endpoint
   - gpu-clusters
 
-# Regions checked 2026-07-12 against
-# https://docs.together.ai/docs/dedicated-endpoints: the dedicated-endpoint
-# docs name no deployment regions, so residency geography stays not verified.
+# Regions not verified. The dedicated-endpoint inference docs
+# (https://docs.together.ai/docs/dedicated-endpoints) name no deployment
+# regions, and the terms make no residency guarantee. The data-center-locations
+# page names US and Europe capacity (Asia by arrangement), but that is the
+# bare-metal GPU-clusters product, not a pinnable region for the serverless or
+# dedicated-endpoint inference this row is judged on, so residency geography
+# stays not verified. Source:
+# https://www.together.ai/data-center-locations checked 2026-07-13.
 regions: []
 
 compliance:
