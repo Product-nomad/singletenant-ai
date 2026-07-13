@@ -5,6 +5,16 @@
 - date: "2026-07-13"
   type: updated
   vendors:
+    - baseten
+  summary: >-
+    Baseten regions populated (US, Europe, Asia-Pacific) from the
+    regional-environments docs, which name US, EU, UK and Australia as
+    configurable in-region routing targets for data residency. Verified
+    2026-07-13.
+
+- date: "2026-07-13"
+  type: updated
+  vendors:
     - vertex-ai-provisioned
   summary: >-
     Vertex AI Provisioned Throughput regions populated (US, Europe,

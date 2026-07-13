@@ -9,11 +9,16 @@ deployment_models:
   - self-hosted
   - hybrid
 
-# Regions checked 2026-07-12 against
-# https://www.baseten.co/products/dedicated-deployments/: deployments can be
-# region-locked but no specific regions are named, so residency stays not
-# verified. Regions carry no evidence field in schema v2.
-regions: []
+# Regions populated (us/europe/apac) from the regional-environments docs, which
+# name US, EU, UK and Australia as configurable regions for routing inference
+# in-region to meet data residency (EU+UK -> europe, Australia -> apac). List is
+# described as non-exhaustive. Source:
+# https://docs.baseten.co/deployment/regional-environments checked 2026-07-13.
+# Regions carry no evidence field in schema v2.
+regions:
+  - us
+  - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2
