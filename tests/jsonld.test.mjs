@@ -127,6 +127,7 @@ test('vendorDirectorySchema enumerates every vendor in an ItemList', () => {
   const dataset = g['@graph'].find((n) => n['@type'] === 'Dataset');
   const list = g['@graph'].find((n) => n['@type'] === 'ItemList');
   assert.equal(dataset.dateModified, '2026-07-13');
+  assert.equal(dataset.license, 'https://creativecommons.org/licenses/by/4.0/');
   assert.ok(Array.isArray(dataset.variableMeasured));
   assert.equal(list.numberOfItems, 2);
   assert.equal(list.itemListElement.length, 2);
@@ -150,6 +151,7 @@ test('vendorComparisonSchema is a Dataset about both vendors, canonically ordere
   const dataset = g['@graph'].find((n) => n['@type'] === 'Dataset');
   // URL is canonical (alphabetical by slug) regardless of argument order.
   assert.equal(dataset.url, 'https://singletenant.ai/compare/acme-vs-zebra/');
+  assert.equal(dataset.license, 'https://creativecommons.org/licenses/by/4.0/');
   assert.equal(dataset.about.length, 2);
   assert.deepEqual(
     dataset.about.map((x) => x['@type']),

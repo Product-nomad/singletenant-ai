@@ -30,6 +30,12 @@ export const MEASURED_VARIABLES = [
   'Parent jurisdiction',
 ];
 
+// Licence for the vendor dataset. Business decision (2026-07-13): the data may
+// be reused with attribution, so the directory and comparison Datasets declare
+// CC BY 4.0. Helps Dataset Search; only a fact because reuse-with-attribution
+// was actually agreed.
+export const DATA_LICENSE = 'https://creativecommons.org/licenses/by/4.0/';
+
 // Latest verified date across a vendor's evidence-bearing fact blocks
 // (compliance entries, pricing, sovereignty). ISO YYYY-MM-DD sorts lexically,
 // so the string max is the newest. Returns undefined when nothing is verified,
@@ -108,6 +114,7 @@ export const vendorDirectorySchema = ({
     description,
     url: abs('/vendors/'),
     isAccessibleForFree: true,
+    license: DATA_LICENSE,
     creator: organization(),
     publisher: organization(),
     keywords: [
@@ -157,6 +164,7 @@ export const vendorComparisonSchema = ({ a, b, description }) => {
     description,
     url: abs(path),
     isAccessibleForFree: true,
+    license: DATA_LICENSE,
     creator: organization(),
     publisher: organization(),
     variableMeasured: MEASURED_VARIABLES,
