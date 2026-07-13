@@ -8,9 +8,14 @@ deployment_models:
   - provisioned-throughput
   - single-zone-provisioned-throughput
 
-# Regions not verified. Provisioned Throughput is ordered per project, region
-# and model on Google Cloud, but no single explicit PT region list was
-# confirmed from a primary source at review; recorded as not verified.
+# Regions not verified. Google's Provisioned Throughput docs publish no
+# PT-specific region list: the PT overview defers region availability to each
+# model's supported locations ("Deployments and endpoints") and PT is ordered
+# per model and location (global endpoint included), so availability is
+# per-model rather than a stable PT region set. Not inferred from general
+# Gemini model availability. Source:
+# https://cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput
+# (overview -> "Deployments and endpoints"), checked 2026-07-13.
 regions: []
 
 compliance:
