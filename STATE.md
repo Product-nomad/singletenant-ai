@@ -1,8 +1,8 @@
 # singletenant.ai — STATE
 
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
-**Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
-**Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live. Piece 14 (drift watch) still open.
+**Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer and a 2026-07-13 polish pass are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
+**Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete; a 2026-07-13 polish pass (P1–P6) followed. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live — the two Lighthouse findings that were code-fixable (a11y heading order, perf font CLS + render-blocking) were addressed in the polish pass and now need a live re-measure to confirm the scores. Piece 14 (drift watch) still open.
 **Last touched**: 2026-07-13.
 
 ## Vendor data (15/15, pieces 6a–6k complete)
@@ -41,6 +41,17 @@ Post-ship audit fixes plus an analysis layer. One commit per piece, gates green 
 
 Article writing rules held throughout: analyst tone, UK English, no em dashes, every vendor claim linked to its profile or a primary source.
 
+## Polish pass (2026-07-13, on `main`)
+
+Six small pieces, one commit each, gates checked directly (exit codes) before every commit.
+
+- **P1 — em dashes + gate** (`b8e219d`): rewrote every em dash (U+2014) under `src/` (reader copy, page titles, the `X | singletenant.ai` title separator, and code/CSS comments) as commas/colons/full stops. `npm run validate` now walks `src/` and fails with file:line on any U+2014, so the no-em-dash house rule (already an article-writing rule) can't regress. Also switched the compare-table empty-tags cell from a bare dash to "Not verified" (see resolved v3 item below).
+- **P2 — CoreWeave ISO 27001 note** (`0e9e784`): the note already explained the ISO 27001 exclusion but cited nothing; attached the primary source (CoreWeave's security page uses "aligns … to industry-standard SOC2 and ISO 27001 frameworks", verified live 2026-07-13 at `https://www.coreweave.com/security`). Changelog entry added. The task premise ("profile doesn't explain it") was outdated — the fix was the missing citation, not a new sentence.
+- **P3 — homepage og:title** (`600813e`): added an optional `ogTitle` prop to BaseLayout (og:title/twitter:title fall back to the branded `<title>` but can be overridden); homepage social title is now "singletenant.ai | evidence-linked single-tenant LLM hosting data" while `<title>` stays the bare brand. Subpages already had descriptive og:titles and were left alone.
+- **P4 — category vs residency** (`e48684f`): one-sentence footnote under the matrix table (in VendorMatrix, so it appears on both the homepage and `/vendors/`) explaining that category reflects parent jurisdiction while a residency guarantee is a separate per-vendor verified fact, so an EU-sovereign vendor (e.g. Nebius) can still read "Not verified". Links to the jurisdiction article.
+- **P5 — heading hierarchy** (`34e8aaa`): fixed two h1→h3 skips Lighthouse flagged — ConsultingCTA's h3 (rendered directly under the hero h1 on the homepage) and the compare page's "quick verdict" vendor-card h3s, all promoted to h2. Semantics only; every promoted heading already carried an inline `font-size`, so rendering is unchanged. A script over all 133 built pages confirms zero heading-level skips.
+- **P6 — font CLS/preload** (`b82c5a9`): preload the two latin woff2 the site paints with (Inter body, JetBrains Mono) in BaseLayout, hrefs imported via `?url` so they match the `@fontsource` `@font-face` src (no double-download). `font-display: swap` was already set by `@fontsource` (verified in built CSS). Browser Lighthouse/screenshots remain gated out of this sandbox — Simon to confirm CLS < 0.1 live.
+
 ## What's next (spec pieces, in order)
 
 1. ~~**Piece 12** — validate + ship~~ **SHIPPED 2026-07-09** (`main` @ `1cd24c3`): security-review clean, lint/tests/typecheck green, live HTTP spot-check passed (301s + copy verified). **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y, screenshots, and a `docs/example_runs/v2-launch/` snapshot — run against the live site and log when done.
@@ -60,7 +71,7 @@ Article writing rules held throughout: analyst tone, UK English, no em dashes, e
 - **Region evidence**: give `regions` the same value plus evidence_url plus verified structure as compliance, pricing and sovereignty (surfaced in v2.1 piece B; regions currently carry no in-product evidence, only a YAML provenance comment).
 - **OVHcloud certifications URL** is a 2-hop redirect to `/en/compliance/`; point the four OVHcloud cert evidence_urls at the final URL (audit section 2, low).
 - **Shared trust-centre evidence**: baseten, runpod, nebius, fireworks-ai and ovhcloud cite one landing URL for several certs rather than per-cert pages; deep-link where the trust centre allows (audit section 2, low).
-- **Compare-table empty-array parity**: empty tag fields render `-` in the compare table while other unknowns render "Not verified"; make them consistent (audit section 3, low; not triggered by current data).
+- ~~**Compare-table empty-array parity**: empty tag fields render `-` in the compare table while other unknowns render "Not verified"; make them consistent (audit section 3, low; not triggered by current data).~~ **Resolved 2026-07-13 (P1, `b8e219d`)**: empty tags now render "Not verified" to match the sibling branch.
 
 ## Key files
 
@@ -76,6 +87,7 @@ Article writing rules held throughout: analyst tone, UK English, no em dashes, e
 
 - Captured into `.claude/skills/evidence-linked-directory/SKILL.md` (piece 13). The three gotchas below are the skill's Gotchas section.
 - Never pipe gate commands (`npm run validate`, `git commit`) through `tail`/`head` — the pipe masks the exit code and caused two silent commit failures on 2026-07-07. Run the command bare, check `$?` directly, and verify commits landed via `git log`.
+- Pass multi-line commit messages via `git commit -F <file>`, not a here-doc. Running git as `vpc` from a root shell means the here-doc is nested inside `sudo -u vpc bash -c '…'`; the delimiter got mangled on 2026-07-13 and a commit body truncated to one word. Write the message to a temp file in the repo, `chown vpc`, `commit -F`, then remove it — and read the committed body back with `git log -1 --format=%B` to confirm.
 - Research agents can leave valid uncommitted work when a session dies — check `git status` for orphaned YAMLs before relaunching agents, and validate + commit them first (recovered 4 vendors that way on 2026-07-08).
 - Spot-check that each evidence_url actually contains the claim, not just that it returns 200 — the Databricks HIPAA_BAA cert initially cited a page saying only "HIPAA compliance options"; the fix was pointing at the published BAA (`databricks.com/legal/baa`).
 - Record `unknown` when the primary source doesn't clearly support the claim; don't infer from a launch blog or a rebrand. Vertex AI Provisioned Throughput's public GSU price list and regional availability weren't verifiable, so `pricing.public` and `data_residency_guarantee` stayed `unknown` and `regions` empty rather than being back-filled from marketing copy (2026-07-08).
