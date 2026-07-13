@@ -8,6 +8,7 @@ import Header from '../components/Header.astro';
 interface Props {
   title: string;
   description: string;
+  ogTitle?: string;
   ogImage?: string;
   noIndex?: boolean;
   schema?: Record<string, unknown>;
@@ -16,6 +17,7 @@ interface Props {
 const {
   title,
   description,
+  ogTitle,
   ogImage = '/og-default.png',
   noIndex = false,
   schema,
@@ -25,6 +27,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImage = new URL(ogImage, Astro.site).toString();
 const titleWithBrand =
   title === 'singletenant.ai' ? title : `${title} | singletenant.ai`;
+// Social title falls back to the branded <title>; the homepage overrides it
+// with a descriptive value so its card is not just the bare brand name.
+const socialTitle = ogTitle ?? titleWithBrand;
 ---
 
 <!doctype html>
@@ -40,7 +45,7 @@ const titleWithBrand =
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
-    <meta property="og:title" content={titleWithBrand} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
@@ -49,7 +54,7 @@ const titleWithBrand =
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={titleWithBrand} />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullOgImage} />
 
