@@ -17,12 +17,28 @@ const articles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = articles
   .sort((a, b) => b.data.pub_date.valueOf() - a.data.pub_date.valueOf())
   .slice(0, 3);
+
+const description =
+  'Evidence-linked reference data on dedicated and single-tenant LLM hosting — deployment models, compliance certifications, pricing, and data residency for regulated industries.';
+
+// WebSite + publisher Organization JSON-LD for the homepage. Only facts the
+// site actually stands behind: name, URL, description, publisher.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'singletenant.ai',
+  url: 'https://singletenant.ai/',
+  description,
+  publisher: {
+    '@type': 'Organization',
+    name: 'singletenant.ai',
+    url: 'https://singletenant.ai/',
+    logo: 'https://singletenant.ai/favicon.svg',
+  },
+};
 ---
 
-<BaseLayout
-  title="singletenant.ai"
-  description="Evidence-linked reference data on dedicated and single-tenant LLM hosting — deployment models, compliance certifications, pricing, and data residency for regulated industries."
->
+<BaseLayout title="singletenant.ai" description={description} schema={schema}>
   <!-- Hero — the matrix is the product -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">

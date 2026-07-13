@@ -1,9 +1,9 @@
 # singletenant.ai — STATE
 
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
-**Phase**: **Shipped, iterating**. v2 is live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap). Current work is the v2.1 audit-fix and analysis-layer sprint on branch `feat/v2.1-analysis`, pending review before merge to `main`.
-**Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1. Pieces A1 to G of v2.1 are complete on `feat/v2.1-analysis`.
-**Last touched**: 2026-07-12.
+**Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
+**Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live. Piece 14 (drift watch) still open.
+**Last touched**: 2026-07-13.
 
 ## Vendor data (15/15, pieces 6a–6k complete)
 
@@ -18,6 +18,11 @@
 - **Pieces 2–5 (2026-07-07)**: design tokens (Inter + JetBrains Mono self-hosted, serif fonts removed); shell restyle (Issue/newsletter framing killed — no `/newsletter/` route ever existed, so nothing to redirect); VendorMatrix (filterable, JS-optional, homepage hero + `/vendors/`); evidence-linked vendor detail template (EvidenceLink + LastVerified per section, "Not verified" for unknowns). See CHANGELOG.md for detail.
 - **Pieces 6a–6k (2026-07-07/08)**: bench extended 4 → 15 via parallel research agents, one commit per vendor, `npm run validate` as merge gate; all facts primary-sourced; spot-checked evidence URLs (HTTP 200 + claim-on-page) before each commit batch. Databricks Model Serving qualified as the third managed-selfhost candidate (published BAA at databricks.com/legal/baa; ISO 27001 incl. AWS single-tenant; FedRAMP), so the 6/3/2/4 rebalance fallback wasn't needed. Notable per-vendor caveats (unknowns and scope limits) recorded in each YAML's notes.
 - **Piece 7 (2026-07-08)**: changelog system — `data/changelog.yaml` (Zod schema `src/schemas/changelog.mjs`: typed entries, ISO dates, newest-first enforced, vendor slugs cross-checked) drives `/changelog/` and the homepage "Last data change" stat; static review stamp removed; validate + tests cover it; CHANGELOG.md cross-references the site changelog.
+- **Piece 8 (2026-07-08)**: legal/compliance pages — `/privacy/`, `/terms/`, `/disclosure/` and the `/methodology/` correction process; affiliate disclosure gating wired so a `affiliate_url` only renders once `/disclosure/` exists (tested).
+- **Piece 9 (2026-07-08)**: all 105 compare pages regenerated for the 15-vendor set; `-vs-` slug ADR (`DECISIONS.md`); per-page data-derived differences summary (`src/lib/compare.mjs`, `differencesSummary`) as the thin-page SEO mitigation — every line computed from the two YAML records, `unknown` → "not verified".
+- **Piece 10 (2026-07-09)**: integrity copy audit — overclaim greps (`comprehensive|all major|read by`, plus a broader marketing-phrase sweep) returned no substantive hits; the strongest data-backed claim (methodology's "a populated fact always carries a URL and a date") is enforced by the schema and 28 passing tests. The one open sub-item — the "Edited by Simon Wilson" editorial attribution, an unverified placeholder — was **resolved 2026-07-09 (`0b3f524`)**: Simon confirmed his name is **Simon Newton** (LinkedIn vanity slug is the reversed `/in/newton-simon/`, chosen because `simon-newton` was taken). `fix(copy)` corrected all six instances across about/privacy/contact/article/config/README and wired the contact-page LinkedIn placeholder to the live profile.
+- **Piece 11 (2026-07-09, `bb12dcc`)**: SEO/meta — generated `public/_redirects` (`/compare/` index → `/vendors/`; every reverse-ordered compare pair → its canonical alphabetical page; 6 reverse URLs were live in v1); hand-rolled `/rss.xml` endpoint and a real 1200×630 `og-default.png` (sharp) to fix BaseLayout references that pointed at nonexistent targets; homepage WebSite/Organization JSON-LD; sitemap regenerated (105 canonical compares only, no reverse/index leakage). `gen:redirects` + `gen:og` npm scripts. `feat(seo): v2 meta, sitemap, redirects`.
+- **Piece 13 (2026-07-09)**: `.claude/skills/evidence-linked-directory/SKILL.md` captures the method (evidence invariant, unknown-not-guess, canonical routing, thin-page mitigation) and the three gotchas below; lessons appended here.
 
 ## v2.1 sprint (2026-07-12, branch `feat/v2.1-analysis`)
 
@@ -38,12 +43,8 @@ Article writing rules held throughout: analyst tone, UK English, no em dashes, e
 
 ## What's next (spec pieces, in order)
 
-1. **Piece 8** — legal pages: `/privacy/` (UK GDPR Art 13 / ICO), `/terms/`, `/disclosure/` (ASA CAP + FTC, visible on every page an affiliate link renders); correction process on `/methodology/`; must land **before** any affiliate link renders (RunPod).
-2. **Piece 9** — 105 compare pages + `-vs-` slug ADR + data-derived differences summary per page (thin-page SEO mitigation).
-3. **Piece 10** — integrity copy audit (claims match data; "Simon Wilson" attribution check).
-4. **Piece 11** — SEO/meta, sitemap, `_redirects`.
-5. **Piece 12** — validate + ship: Lighthouse ≥ 90, security-review pass, **explicit go from Simon**, merge `v2 → main`.
-6. **Pieces 13–14** — skill capture + lessons; weekly report-only evidence drift watch (Telegram summary, token outside repo).
+1. ~~**Piece 12** — validate + ship~~ **SHIPPED 2026-07-09** (`main` @ `1cd24c3`): security-review clean, lint/tests/typecheck green, live HTTP spot-check passed (301s + copy verified). **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y, screenshots, and a `docs/example_runs/v2-launch/` snapshot — run against the live site and log when done.
+2. **Piece 14** — weekly report-only evidence drift watch (`~/bin/singletenant-review.sh` + user timer; HTTP-checks every `evidence_url`; Telegram summary, token from `~/.hermes/.env`; never edits data — decision 4).
 
 ## Open items
 
@@ -73,8 +74,11 @@ Article writing rules held throughout: analyst tone, UK English, no em dashes, e
 
 ## Lessons
 
-- (accumulates during the v2 build; captured into the evidence-linked-directory skill at piece 13)
+- Captured into `.claude/skills/evidence-linked-directory/SKILL.md` (piece 13). The three gotchas below are the skill's Gotchas section.
 - Never pipe gate commands (`npm run validate`, `git commit`) through `tail`/`head` — the pipe masks the exit code and caused two silent commit failures on 2026-07-07. Run the command bare, check `$?` directly, and verify commits landed via `git log`.
 - Research agents can leave valid uncommitted work when a session dies — check `git status` for orphaned YAMLs before relaunching agents, and validate + commit them first (recovered 4 vendors that way on 2026-07-08).
 - Spot-check that each evidence_url actually contains the claim, not just that it returns 200 — the Databricks HIPAA_BAA cert initially cited a page saying only "HIPAA compliance options"; the fix was pointing at the published BAA (`databricks.com/legal/baa`).
+- Record `unknown` when the primary source doesn't clearly support the claim; don't infer from a launch blog or a rebrand. Vertex AI Provisioned Throughput's public GSU price list and regional availability weren't verifiable, so `pricing.public` and `data_residency_guarantee` stayed `unknown` and `regions` empty rather than being back-filled from marketing copy (2026-07-08).
+- A schema-enforced evidence invariant pays off downstream: the piece 10 integrity copy audit found nothing to fix because unsourced claims were already impossible to commit. Enforce integrity in code, not in a late review pass.
+- Meta references must resolve — the v2 BaseLayout shipped a `rel=alternate` to `/rss.xml` and an `og:image` at `/og-default.png`, neither of which ever existed (both inherited unnoticed from v1). Every `<link>`/`og:*`/feed reference needs a real target: build it or drop the tag (piece 11).
 - A live evidence link can still be the wrong source. The Databricks SOC 2 evidence_url returned HTTP 200 but pointed at the HIPAA page, not a SOC 2 page, so a link-health check passed while the citation was wrong. Only reading the page for the specific claim catches it. Caught by the v2.1 post-ship audit, fixed in piece A1.
