@@ -3,6 +3,19 @@
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
 - date: "2026-07-13"
+  type: corrected
+  vendors:
+    - baseten
+    - vertex-ai-provisioned
+    - nvidia-nim
+    - together-ai
+  summary: >-
+    Jurisdiction analysis article updated to match verified region data:
+    Baseten and Vertex AI move into the US-parented-with-EU-region walk now
+    that their regions are verified; NVIDIA NIM and Together AI remain not
+    verified. Corrected 2026-07-13.
+
+- date: "2026-07-13"
   type: updated
   vendors:
     - baseten

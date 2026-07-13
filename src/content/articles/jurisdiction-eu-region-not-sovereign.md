@@ -74,12 +74,14 @@ The larger group is US-parented vendors that can place data in a European
 region. On our current data that is
 [AWS Bedrock Provisioned Throughput](/vendors/aws-bedrock-provisioned/),
 [Azure OpenAI Provisioned Throughput](/vendors/azure-openai-ptu/),
+[Baseten](/vendors/baseten/),
 [CoreWeave](/vendors/coreweave/),
 [Databricks Model Serving](/vendors/databricks-model-serving/),
 [Fireworks AI](/vendors/fireworks-ai/),
 [Hugging Face Inference Endpoints](/vendors/huggingface-inference-endpoints/),
-[Modal](/vendors/modal/) and [RunPod](/vendors/runpod/). Every one has a US
-parent jurisdiction. Some go further and record a verified residency
+[Modal](/vendors/modal/), [RunPod](/vendors/runpod/) and
+[Vertex AI Provisioned Throughput](/vendors/vertex-ai-provisioned/). Every one
+has a US parent jurisdiction. Some go further and record a verified residency
 guarantee: AWS, Azure and Modal each commit to keeping data in a
 customer-chosen region. That is a real and useful commitment, but it is a
 residency commitment. It constrains where the data sits. It does not change the
@@ -89,13 +91,15 @@ That distinction is the whole point. A US-parented vendor with an EU region and
 a residency guarantee has answered the residency question well and the
 sovereignty question not at all.
 
-A final group is US-parented with regions we could not verify from a primary
-source: [Baseten](/vendors/baseten/), [NVIDIA NIM](/vendors/nvidia-nim/),
-[Together AI](/vendors/together-ai/) and
-[Vertex AI Provisioned Throughput](/vendors/vertex-ai-provisioned/). For these,
-the database records regions as not verified rather than guessing, so a buyer
-cannot even lean on an EU-region claim. Together AI states in its terms that it
-makes no residency guarantee, which our data records as such.
+A final pair is US-parented and offers no region a buyer can pin from a primary
+source, for different reasons. [NVIDIA NIM](/vendors/nvidia-nim/) is
+run-anywhere software: you deploy the containers on infrastructure you choose,
+so there is no vendor-published region at all, and residency is whatever your
+own hosting is. [Together AI](/vendors/together-ai/) documents no deployment
+region for its serverless or dedicated-endpoint inference, and its terms make no
+residency guarantee, which our data records as such. For both, the database
+records regions as not verified rather than guessing, so a buyer cannot lean on
+an EU-region claim.
 
 ## What a regulated buyer should ask
 
