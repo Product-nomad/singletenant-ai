@@ -1,11 +1,12 @@
-// JSON-LD builders for the vendor and compare templates (src/lib/schema.mjs).
-// These guard the integrity rule in code: the structured data must assert only
-// facts the pages render, never a rating, review, or price the site does not
-// stand behind.
+// JSON-LD builders for the vendor, compare, and article templates
+// (src/lib/schema.mjs). These guard the integrity rule in code: the structured
+// data must assert only facts the pages render, never a rating, review, or
+// price the site does not stand behind.
 
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
+  articleSchema,
   latestVerified,
   softwareApplication,
   vendorComparisonSchema,
@@ -155,4 +156,53 @@ test('vendorComparisonSchema is a Dataset about both vendors, canonically ordere
     ['SoftwareApplication', 'SoftwareApplication'],
   );
   assertNoForbiddenKeys(g);
+});
+
+const article = (over = {}) => ({
+  title: 'Why an EU region is not EU sovereign',
+  description: 'The jurisdiction problem, worked through.',
+  author: 'Simon Newton',
+  slug: 'jurisdiction-eu-region-not-sovereign',
+  pubDate: new Date('2026-07-12T00:00:00Z'),
+  ...over,
+});
+
+test('articleSchema carries headline, author, and ISO dates, no price', () => {
+  const g = articleSchema(article());
+  assert.equal(g['@context'], 'https://schema.org');
+  const node = g['@graph'].find((n) => n['@type'] === 'Article');
+  assert.equal(node.headline, 'Why an EU region is not EU sovereign');
+  assert.equal(node.author['@type'], 'Person');
+  assert.equal(node.author.name, 'Simon Newton');
+  assert.equal(node.datePublished, '2026-07-12T00:00:00.000Z');
+  assert.match(node['@id'], /\/blog\/[a-z-]+\/#article$/);
+  assert.equal(node.publisher.name, 'singletenant.ai');
+  assert.equal(node.publisher.url, 'https://singletenant.ai/');
+  assertNoForbiddenKeys(g);
+});
+
+test('articleSchema dateModified falls back to publish date, or uses updated', () => {
+  const unmodified = articleSchema(article());
+  const a = unmodified['@graph'].find((n) => n['@type'] === 'Article');
+  assert.equal(a.dateModified, a.datePublished);
+
+  const modified = articleSchema(
+    article({ updated: new Date('2026-07-13T00:00:00Z') }),
+  );
+  const m = modified['@graph'].find((n) => n['@type'] === 'Article');
+  assert.equal(m.dateModified, '2026-07-13T00:00:00.000Z');
+  assert.notEqual(m.dateModified, m.datePublished);
+});
+
+test('articleSchema breadcrumb is Home > Blog > title with absolute URLs', () => {
+  const g = articleSchema(article());
+  const crumb = g['@graph'].find((n) => n['@type'] === 'BreadcrumbList');
+  assert.deepEqual(
+    crumb.itemListElement.map((e) => e.name),
+    ['Home', 'Blog', 'Why an EU region is not EU sovereign'],
+  );
+  crumb.itemListElement.forEach((el, i) => {
+    assert.equal(el.position, i + 1);
+    assert.match(el.item, /^https:\/\/singletenant\.ai\//);
+  });
 });

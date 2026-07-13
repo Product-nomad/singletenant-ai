@@ -1,5 +1,6 @@
 ---
 import ConsultingCTA from '../components/ConsultingCTA.astro';
+import { articleSchema } from '../lib/schema.mjs';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -9,27 +10,23 @@ interface Props {
   updated?: Date;
   author: string;
   category: string;
+  slug: string;
   target_keyword?: string;
 }
 
-const { title, description, pub_date, updated, author, category } = Astro.props;
+const { title, description, pub_date, updated, author, category, slug } =
+  Astro.props;
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: title,
-  description: description,
-  datePublished: pub_date.toISOString(),
-  dateModified: (updated ?? pub_date).toISOString(),
-  author: {
-    '@type': 'Person',
-    name: author,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'singletenant.ai',
-  },
-};
+// Schema.org: the Article (headline, author, publish/modified dates) plus a
+// BreadcrumbList, emitted as one @graph. See src/lib/schema.mjs.
+const schema = articleSchema({
+  title,
+  description,
+  author,
+  pubDate: pub_date,
+  updated,
+  slug,
+});
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>

@@ -180,3 +180,39 @@ export const vendorComparisonSchema = ({ a, b, description }) => {
     ],
   };
 };
+
+// Article page: the post as an Article (headline, author, publish/modified
+// dates) plus a Home > Blog > {title} trail. Dates are ISO 8601; dateModified
+// falls back to the publish date when the post has not been updated. publisher
+// reuses the shared Organization, so articles carry the same url + logo the
+// rest of the site emits.
+export const articleSchema = ({
+  title,
+  description,
+  author,
+  pubDate,
+  updated,
+  slug,
+}) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${abs(`/blog/${slug}/`)}#article`,
+      headline: title,
+      description,
+      datePublished: pubDate.toISOString(),
+      dateModified: (updated ?? pubDate).toISOString(),
+      author: {
+        '@type': 'Person',
+        name: author,
+      },
+      publisher: organization(),
+    },
+    breadcrumbList([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blog/' },
+      { name: title, path: `/blog/${slug}/` },
+    ]),
+  ],
+});
