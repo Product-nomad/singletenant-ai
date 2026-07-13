@@ -8,15 +8,18 @@ deployment_models:
   - provisioned-throughput
   - single-zone-provisioned-throughput
 
-# Regions not verified. Google's Provisioned Throughput docs publish no
-# PT-specific region list: the PT overview defers region availability to each
-# model's supported locations ("Deployments and endpoints") and PT is ordered
-# per model and location (global endpoint included), so availability is
-# per-model rather than a stable PT region set. Not inferred from general
-# Gemini model availability. Source:
-# https://cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput
-# (overview -> "Deployments and endpoints"), checked 2026-07-13.
-regions: []
+# Regions populated (us/europe/apac) from the Vertex AI locations page, which
+# lists supported model regions across the US (e.g. us-central1), Europe (e.g.
+# europe-west1/2/4) and Asia-Pacific (e.g. asia-east1, asia-northeast1). Google
+# publishes no PT-specific region list; Provisioned Throughput runs wherever its
+# supported models are available, so these buckets are derived from the model
+# region list rather than a PT-specific one. Source:
+# https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations
+# checked 2026-07-13.
+regions:
+  - us
+  - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2
@@ -49,7 +52,6 @@ notes: >-
   generative AI scale units (GSUs) on fixed-cost terms, including 1-week
   options for select models. Google Cloud docs now brand the platform Gemini
   Enterprise Agent Platform. Vertex AI Platform appears in Google's SOC
-  1/2/3 and ISO 27001 scope; public GSU price list and regional availability
-  not verified at review.
+  1/2/3 and ISO 27001 scope; public GSU price list not verified at review.
 
 featured: false

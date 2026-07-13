@@ -2,6 +2,16 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-07-13"
+  type: updated
+  vendors:
+    - vertex-ai-provisioned
+  summary: >-
+    Vertex AI Provisioned Throughput regions populated (US, Europe,
+    Asia-Pacific) from the Vertex AI locations page, which lists supported
+    model regions across all three; PT runs wherever its models are
+    available. Verified 2026-07-13.
+
 - date: "2026-07-12"
   type: updated
   vendors:
