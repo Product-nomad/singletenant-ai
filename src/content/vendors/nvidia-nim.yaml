@@ -10,6 +10,9 @@ deployment_models:
   - nvidia-hosted-api
   - dgx-cloud
 
+# Regions not verified. NIM is self-hosted (customer-run containers) or reached
+# via partners and the NVIDIA-hosted API; NVIDIA publishes no product region
+# list, so deployment geography depends on the customer's own infrastructure.
 regions: []
 
 compliance:

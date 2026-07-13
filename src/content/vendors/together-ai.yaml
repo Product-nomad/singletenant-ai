@@ -9,6 +9,9 @@ deployment_models:
   - dedicated-endpoint
   - gpu-clusters
 
+# Regions checked 2026-07-12 against
+# https://docs.together.ai/docs/dedicated-endpoints: the dedicated-endpoint
+# docs name no deployment regions, so residency geography stays not verified.
 regions: []
 
 compliance:

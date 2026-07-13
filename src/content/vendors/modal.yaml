@@ -7,7 +7,13 @@ tagline: Serverless GPU compute billed per second, with region pinning
 deployment_models:
   - serverless
 
-regions: []
+# Regions verified 2026-07-12 against
+# https://modal.com/docs/guide/region-selection which documents region pinning
+# across US (us), Europe (eu) and Asia-Pacific (ap) plus narrower zones.
+regions:
+  - us
+  - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2

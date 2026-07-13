@@ -8,6 +8,9 @@ deployment_models:
   - provisioned-throughput
   - single-zone-provisioned-throughput
 
+# Regions not verified. Provisioned Throughput is ordered per project, region
+# and model on Google Cloud, but no single explicit PT region list was
+# confirmed from a primary source at review; recorded as not verified.
 regions: []
 
 compliance:

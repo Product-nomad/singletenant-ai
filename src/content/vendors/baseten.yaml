@@ -9,6 +9,10 @@ deployment_models:
   - self-hosted
   - hybrid
 
+# Regions checked 2026-07-12 against
+# https://www.baseten.co/products/dedicated-deployments/: deployments can be
+# region-locked but no specific regions are named, so residency stays not
+# verified. Regions carry no evidence field in schema v2.
 regions: []
 
 compliance:

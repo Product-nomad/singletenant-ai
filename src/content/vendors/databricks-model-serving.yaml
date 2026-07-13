@@ -9,12 +9,18 @@ deployment_models:
   - provisioned-throughput
   - pay-per-token-endpoints
 
-regions: []
+# Regions verified 2026-07-12 against
+# https://docs.databricks.com/aws/en/machine-learning/model-serving/model-serving-limits
+# which lists supported Model Serving regions per cloud (US, EU, Asia-Pacific).
+regions:
+  - us
+  - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2
-    evidence_url: https://www.databricks.com/trust/compliance/hipaa
-    verified: "2026-07-08"
+    evidence_url: https://www.databricks.com/trust/compliance/soc
+    verified: "2026-07-12"
   - cert: ISO27001
     evidence_url: https://www.databricks.com/trust/compliance/iso-27001
     verified: "2026-07-08"

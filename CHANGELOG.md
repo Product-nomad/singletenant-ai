@@ -2,6 +2,15 @@
 
 User-visible and governance changes, newest first. Site data changes (vendor facts, verification dates) live in the public `/changelog/` page from v2; this file tracks the project itself.
 
+## v2.1 (2026-07-12, branch `feat/v2.1-analysis`)
+
+Post-ship audit fixes and an analysis layer. Full detail in STATE.md; per-vendor data changes are in the public `/changelog/`.
+
+- 2026-07-12: Post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) and fixes. The Databricks SOC 2 evidence link was corrected (it had pointed at the HIPAA page), and `_redirects` was shipped for the 105 reverse compare pairs via `scripts/gen-redirects.mjs` (Workers static assets honour it, 2,000-rule limit). Low findings (OVHcloud 2-hop redirect, shared trust-centre URLs) deferred to v3.
+- 2026-07-12: Region verification (piece B). Regions populated from primary sources for Modal, RunPod, Databricks Model Serving and Hugging Face Inference Endpoints; Baseten, Together AI, NVIDIA NIM and Vertex AI recorded not verified with provenance comments.
+- 2026-07-12: Editor identity (piece C). The `/about/` "Who runs this" section names Simon Newton; the prior "Simon Wilson" attribution is replaced site-wide (about, privacy operator, article author default and existing byline, README).
+- 2026-07-12: Analysis articles and feed. "The jurisdiction problem: why an EU region is not EU sovereign" and "Why this site says Not verified so often" published; a dependency-free `/rss.xml` feed added (BaseLayout linked it but no endpoint existed); a monthly dispatch template added under `src/content/templates/` (not published).
+
 ## Unreleased (v2 build, branch `v2`)
 
 - 2026-07-08 — Changelog system (piece 7): `data/changelog.yaml` (Zod-validated, newest-first, vendor slugs cross-checked against the vendor files) now drives the public `/changelog/` page and the homepage "Last data change" stat; the stat computed from verification dates is removed. `npm run validate` covers the changelog alongside the vendor YAMLs. Data changes are recorded there from now on — this file keeps tracking the project itself.

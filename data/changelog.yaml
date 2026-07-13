@@ -2,6 +2,52 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-07-12"
+  type: updated
+  vendors:
+    - databricks-model-serving
+  summary: >-
+    Databricks Model Serving regions populated (US, Europe, Asia-Pacific)
+    from the Model Serving limits documentation, which lists supported
+    regions per cloud. Verified 2026-07-12.
+
+- date: "2026-07-12"
+  type: updated
+  vendors:
+    - huggingface-inference-endpoints
+  summary: >-
+    Hugging Face Inference Endpoints regions populated (US, Europe) from the
+    FAQ, which names AWS us-east-1 and eu-west-1, Azure eastus and GCP
+    us-east4. No Asia-Pacific region documented. Verified 2026-07-12.
+
+- date: "2026-07-12"
+  type: updated
+  vendors:
+    - modal
+  summary: >-
+    Modal regions populated (US, Europe, Asia-Pacific) from the
+    region-selection documentation, which supports region pinning across
+    these continents. Verified 2026-07-12.
+
+- date: "2026-07-12"
+  type: updated
+  vendors:
+    - runpod
+  summary: >-
+    RunPod regions populated (US, Europe, Asia-Pacific) from the Global
+    Networking data-centre list. Verified 2026-07-12. Coarse continent
+    buckets; RunPod runs further data centres beyond that set.
+
+- date: "2026-07-12"
+  type: corrected
+  vendors:
+    - databricks-model-serving
+  summary: >-
+    Databricks SOC 2 Type II evidence link corrected. It previously pointed
+    to the HIPAA compliance page; it now points to the Databricks SOC
+    compliance page, which names the SOC 2 Type II report. Found during the
+    post-launch integrity audit.
+
 - date: "2026-07-08"
   type: updated
   vendors:
