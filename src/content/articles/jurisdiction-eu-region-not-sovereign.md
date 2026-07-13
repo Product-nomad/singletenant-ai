@@ -28,10 +28,11 @@ the second.
 The clearest example is United States law. The CLOUD Act, the Clarifying
 Lawful Overseas Use of Data Act of 2018, added
 [18 U.S.C. &sect; 2713](https://www.law.cornell.edu/uscode/text/18/2713). It
-requires a US provider to preserve and disclose data "within such provider's
-possession, custody, or control, regardless of whether such communication,
-record, or other information is located within or outside of the United
-States." In plain terms, US legal process can reach a US-controlled company's
+requires a provider subject to US jurisdiction to preserve and disclose data
+"within such provider's possession, custody, or control, regardless of whether
+such communication, record, or other information is located within or outside
+of the United States." In plain terms, US legal process can reach a
+US-controlled company's
 data even when that data lives in a Frankfurt or Paris data centre. Choosing an
 EU region does not move the company out of reach. It only moves the bytes.
 
