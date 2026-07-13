@@ -10,6 +10,7 @@ import LastVerified from '../../components/LastVerified.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { comparePath } from '../../lib/compare.mjs';
 import { NOT_VERIFIED } from '../../lib/labels.mjs';
+import { vendorProfileSchema } from '../../lib/schema.mjs';
 
 export const getStaticPaths = (async () => {
   const vendors = await getCollection('vendors');
@@ -22,16 +23,9 @@ export const getStaticPaths = (async () => {
 const { vendor } = Astro.props;
 const { data } = vendor;
 
-// Schema.org SoftwareApplication
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: data.name,
-  url: data.url,
-  description: data.tagline,
-  applicationCategory: 'AI/ML Infrastructure',
-  operatingSystem: 'Cloud',
-};
+// Schema.org: the SoftwareApplication (now with provider + last-verified date)
+// plus a BreadcrumbList, emitted as one @graph. See src/lib/schema.mjs.
+const schema = vendorProfileSchema(data);
 
 // Every comparison involving this vendor, each of the 105 canonical compare
 // pages is linked from both of its vendors' profiles.

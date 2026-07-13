@@ -2,6 +2,10 @@
 
 User-visible and governance changes, newest first. Site data changes (vendor facts, verification dates) live in the public `/changelog/` page from v2; this file tracks the project itself.
 
+## v2.2 (2026-07-13, branch `main`)
+
+- 2026-07-13: Structured data (JSON-LD) audited and extended across the vendor and compare page templates. Shared builders now live in `src/lib/schema.mjs` and emit, per page: the `/vendors/` directory as a `Dataset` plus an `ItemList` enumerating all 15 vendors; each vendor profile as an enriched `SoftwareApplication` (now carrying a `provider` Organization and a `dateModified` from its latest verified fact) plus a `BreadcrumbList`; and each of the 105 comparison pages as a `Dataset` whose `about` is the two vendors' `SoftwareApplication`s, plus a `BreadcrumbList`. The comparison pages previously carried no structured data at all. Only facts the pages already render are emitted, no ratings, reviews, or prices; `tests/jsonld.test.mjs` enforces that integrity rule in code. This earns Google Dataset Search and rich-result eligibility and gives AI engines a clean, citable data graph. Rich Results Test validation against the live URLs is browser-gated and deferred to Simon, alongside the outstanding Lighthouse checks.
+
 ## v2.1 (2026-07-12, branch `feat/v2.1-analysis`)
 
 Post-ship audit fixes and an analysis layer. Full detail in STATE.md; per-vendor data changes are in the public `/changelog/`.

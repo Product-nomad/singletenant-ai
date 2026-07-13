@@ -5,6 +5,7 @@ import ComparisonTable from '../../components/ComparisonTable.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary } from '../../lib/compare.mjs';
+import { vendorComparisonSchema } from '../../lib/schema.mjs';
 
 export const getStaticPaths = (async () => {
   // One page per unordered pair, canonically ordered alphabetically by slug
@@ -49,9 +50,13 @@ const bOnly = b.data.deployment_models.filter(
 // Data-derived key differences (thin-page mitigation), every line computed
 // from the two YAML records; unknowns say "not verified".
 const differences = differencesSummary(a.data, b.data);
+
+// Schema.org: the pairwise comparison as a Dataset (about the two vendor
+// SoftwareApplications) plus a BreadcrumbList. See src/lib/schema.mjs.
+const schema = vendorComparisonSchema({ a, b, description });
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <!-- Header -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">

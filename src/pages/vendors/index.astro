@@ -2,13 +2,29 @@
 import { getCollection } from 'astro:content';
 import VendorMatrix from '../../components/VendorMatrix.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadChangelog } from '../../lib/changelog.mjs';
+import { vendorDirectorySchema } from '../../lib/schema.mjs';
 
 const vendors = await getCollection('vendors');
+
+const description =
+  'Directory of dedicated and single-tenant LLM hosting providers: deployment models, compliance certifications, pricing model, and data residency, each fact linked to a primary source.';
+
+// Schema.org: the directory as a Dataset (variables it verifies + last data
+// change) plus an ItemList of every vendor, plus breadcrumbs. dateModified is
+// sourced from the changelog, not invented. See src/lib/schema.mjs.
+const [latestChange] = loadChangelog();
+const schema = vendorDirectorySchema({
+  vendors,
+  description,
+  dateModified: latestChange?.date,
+});
 ---
 
 <BaseLayout
   title="LLM Hosting Vendors Directory"
-  description="Directory of dedicated and single-tenant LLM hosting providers: deployment models, compliance certifications, pricing model, and data residency, each fact linked to a primary source."
+  description={description}
+  schema={schema}
 >
   <section>
     <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
