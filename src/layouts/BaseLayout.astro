@@ -1,6 +1,14 @@
 ---
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
+// Preload the two latin woff2 the whole site actually paints with (body Inter
+// and mono JetBrains). Importing the same source files that the @fontsource
+// CSS references gives the identical hashed asset URL, so the preload matches
+// the @font-face src instead of triggering a second download. @font-face
+// carries font-display: swap from @fontsource, so text paints immediately in
+// the fallback and the preloaded webfont swaps in with minimal shift (CLS).
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import jetbrainsMonoLatin from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -38,6 +46,17 @@ const socialTitle = ogTitle ?? titleWithBrand;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Preload critical fonts: fetched at document start, in parallel with the
+         stylesheet, to cut font-driven layout shift and render-blocking. -->
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href={jetbrainsMonoLatin}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <title>{titleWithBrand}</title>
     <meta name="description" content={description} />
