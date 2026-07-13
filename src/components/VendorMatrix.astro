@@ -114,6 +114,14 @@ const pricingLabel = (model: string) =>
       </tbody>
     </table>
   </div>
+
+  <p class="matrix-note">
+    Category reflects a vendor's parent jurisdiction; a data-residency guarantee
+    is a separate, per-vendor fact verified on its own evidence, so an EU
+    sovereign vendor can still read "Not verified" for residency (see
+    <a href="/blog/jurisdiction-eu-region-not-sovereign/">why an EU region is not
+    EU sovereign</a>).
+  </p>
 </div>
 
 <script>
@@ -283,5 +291,12 @@ const pricingLabel = (model: string) =>
     display: block;
     color: var(--color-mute);
     font-size: 0.7rem;
+  }
+
+  .matrix-note {
+    margin: 1rem 0 0;
+    max-width: 48rem;
+    font-size: 0.8rem;
+    color: var(--color-mute);
   }
 </style>
