@@ -46,7 +46,7 @@ const bOnly = b.data.deployment_models.filter(
   (opt) => !a.data.deployment_models.includes(opt),
 );
 
-// Data-derived key differences (thin-page mitigation) — every line computed
+// Data-derived key differences (thin-page mitigation), every line computed
 // from the two YAML records; unknowns say "not verified".
 const differences = differencesSummary(a.data, b.data);
 ---
@@ -90,7 +90,7 @@ const differences = differencesSummary(a.data, b.data);
     </div>
   </section>
 
-  <!-- Key differences — generated from the vendor data, not written prose -->
+  <!-- Key differences: generated from the vendor data, not written prose -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">
       <p class="eyebrow mb-3">From the data</p>

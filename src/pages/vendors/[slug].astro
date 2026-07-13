@@ -33,7 +33,7 @@ const schema = {
   operatingSystem: 'Cloud',
 };
 
-// Every comparison involving this vendor — each of the 105 canonical compare
+// Every comparison involving this vendor, each of the 105 canonical compare
 // pages is linked from both of its vendors' profiles.
 const allVendors = await getCollection('vendors');
 const compareCandidates = allVendors
@@ -48,7 +48,7 @@ const fmtUnknown = (val: string | boolean) => {
 ---
 
 <BaseLayout
-  title={`${data.name} — Single-Tenant LLM Hosting Profile`}
+  title={`${data.name}: Single-Tenant LLM Hosting Profile`}
   description={data.tagline}
   schema={schema}
 >
@@ -69,7 +69,7 @@ const fmtUnknown = (val: string | boolean) => {
     </div>
   </section>
 
-  <!-- Facts — every populated claim carries evidence; gaps say "Not verified" -->
+  <!-- Facts: every populated claim carries evidence; gaps say "Not verified" -->
   <section>
     <div class="mx-auto max-w-5xl px-6 py-10 space-y-10">
       <div>

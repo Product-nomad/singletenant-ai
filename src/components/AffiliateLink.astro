@@ -1,7 +1,7 @@
 ---
 // Outbound vendor link. When the vendor has an affiliate_url and /disclosure/
 // exists in this build, renders the referral link with rel="sponsored" and a
-// visible notice beside it — the disclosure lives on every page an affiliate
+// visible notice beside it. The disclosure lives on every page an affiliate
 // link renders, not footer-only. Otherwise renders the plain vendor URL.
 import { DISCLOSURE_PATH, resolveVendorLink } from '../lib/affiliate.mjs';
 
@@ -27,7 +27,7 @@ const rel = link.isAffiliate
   {
     link.isAffiliate && (
       <span class="font-mono text-xs" style="color: var(--color-mute);">
-        Referral link — this site may earn commission.{' '}
+        Referral link. This site may earn commission.{' '}
         <a href={DISCLOSURE_PATH}>Disclosure</a>
       </span>
     )

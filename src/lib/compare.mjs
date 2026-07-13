@@ -1,4 +1,4 @@
-// Compare-page helpers — canonical pair routing and the data-derived
+// Compare-page helpers: canonical pair routing and the data-derived
 // differences summary (thin-page mitigation, SPEC §9): every sentence is
 // computed from the two vendor YAML records. No invented prose.
 import { CATEGORY_LABELS, CERT_LABELS, NOT_VERIFIED } from './labels.mjs';

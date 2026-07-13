@@ -1,10 +1,11 @@
-// npm run validate — schema check for every vendor YAML plus the public
+// npm run validate: schema check for every vendor YAML plus the public
 // changelog, without a full Astro build (SPEC §5, piece 6a; changelog at
 // piece 7). The Zod schemas in src/schemas/ are the single source of truth;
-// this script only loads and applies them.
+// this script only loads and applies them. Also enforces the house style
+// rule that copy we own carries no em dashes (U+2014) anywhere under src/.
 // Used as the merge gate for vendor research (pieces 6a–6k).
 import { readdirSync, readFileSync } from 'node:fs';
-import { basename, join } from 'node:path';
+import { basename, join, relative } from 'node:path';
 import { parse } from 'yaml';
 import { changelogSchema } from '../src/schemas/changelog.mjs';
 import { vendorSchema } from '../src/schemas/vendor.mjs';
@@ -62,6 +63,44 @@ if (changelogResult.success) {
   for (const issue of changelogResult.error.issues) {
     console.error(`    ${issue.path.join('.')}: ${issue.message}`);
   }
+}
+
+// House style: no em dashes (U+2014) anywhere in src/. Applies to rendered
+// copy and to comments alike, so the rule stays simple and can't regress.
+const EM_DASH = '—';
+const srcDir = new URL('../src/', import.meta.url).pathname;
+
+function walk(dir) {
+  const out = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...walk(full));
+    } else if (entry.isFile()) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+const emDashHits = [];
+for (const file of walk(srcDir)) {
+  const lines = readFileSync(file, 'utf8').split('\n');
+  lines.forEach((line, i) => {
+    if (line.includes(EM_DASH)) {
+      emDashHits.push(`${relative(srcDir, file)}:${i + 1}`);
+    }
+  });
+}
+
+if (emDashHits.length > 0) {
+  failed++;
+  console.error(
+    '✗ em dash (U+2014) found in src/; rewrite with a comma, colon, or full stop:',
+  );
+  for (const hit of emDashHits) console.error(`    src/${hit}`);
+} else {
+  console.log('✓ no em dashes in src/');
 }
 
 if (failed > 0) process.exit(1);

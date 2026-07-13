@@ -10,7 +10,7 @@ const { vendors } = Astro.props;
 type VendorData = CollectionEntry<'vendors'>['data'];
 type CellValue = string | boolean | string[] | undefined;
 
-// Schema v2 facts in display order. 'unknown' renders as "Not verified" —
+// Schema v2 facts in display order. 'unknown' renders as "Not verified",
 // never as a blank that could read as "none".
 const rows: Array<{
   label: string;
@@ -73,7 +73,7 @@ function fmt(val: CellValue): string {
               return (
                 <td>
                   {val.length === 0
-                    ? '—'
+                    ? 'Not verified'
                     : val.map((item) => <span class="tag">{item}</span>)}
                 </td>
               );

@@ -24,7 +24,7 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImage = new URL(ogImage, Astro.site).toString();
 const titleWithBrand =
-  title === 'singletenant.ai' ? title : `${title} — singletenant.ai`;
+  title === 'singletenant.ai' ? title : `${title} | singletenant.ai`;
 ---
 
 <!doctype html>
@@ -61,7 +61,7 @@ const titleWithBrand =
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
-    <!-- Cloudflare Web Analytics — paste your token after deployment -->
+    <!-- Cloudflare Web Analytics: paste your token after deployment -->
     <!--
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
             data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>

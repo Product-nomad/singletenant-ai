@@ -1,4 +1,4 @@
-// Affiliate link guard — SPEC §5: a vendor's affiliate_url renders only if
+// Affiliate link guard. SPEC §5: a vendor's affiliate_url renders only if
 // the /disclosure/ page exists in this build, and every render carries a
 // visible disclosure notice on the same page (UK ASA CAP Code 2.4;
 // US FTC 16 CFR Part 255). Plain ESM so the node --test suite exercises the
@@ -18,7 +18,7 @@ export const disclosurePageExists = () => existsSync(disclosurePage);
 
 // The single decision point for vendor outbound links. The affiliate URL is
 // used only when the disclosure page is present, so deleting /disclosure/
-// can never leave an unmarked affiliate link in the built output — the link
+// can never leave an unmarked affiliate link in the built output, the link
 // silently falls back to the plain vendor URL.
 /**
  * @param {{ url: string, affiliate_url?: string }} vendor

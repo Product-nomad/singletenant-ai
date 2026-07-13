@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   Typography — data-product utilitarian
+   Typography: data-product utilitarian
    Sans: Inter (UI, prose, headings)
    Mono: JetBrains Mono (data values, certs, prices, dates)
    Both self-hosted via @fontsource-variable, imported in
@@ -9,7 +9,7 @@
    ───────────────────────────────────────────────────────────── */
 
 @theme {
-  /* Colour palette — near-black ink on off-white, single blue accent */
+  /* Colour palette: near-black ink on off-white, single blue accent */
   --color-paper:        #fafaf8;   /* off-white page ground */
   --color-paper-deep:   #f1f1ee;   /* section background */
   --color-ink:          #111111;   /* near-black */
@@ -20,7 +20,7 @@
   --color-accent-deep:  #1a3fa0;
   --color-accent-soft:  #e8edfb;
 
-  /* Category tags — 4 muted hues; never load-bearing, tags always
+  /* Category tags: 4 muted hues; never load-bearing, tags always
      carry a text label (spec §4 accessibility) */
   --color-cat-dedicated-gpu:             #0f766e;
   --color-cat-dedicated-gpu-soft:        #e4f1ef;
@@ -31,14 +31,14 @@
   --color-cat-eu-sovereign:              #166534;
   --color-cat-eu-sovereign-soft:         #e5f0e8;
 
-  /* Typography — display/body kept as aliases until the piece 3–5
+  /* Typography: display/body kept as aliases until the piece 3–5
      template rebuild removes their last usages */
   --font-sans:    'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: var(--font-sans);
   --font-body:    var(--font-sans);
   --font-mono:    'JetBrains Mono Variable', 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
 
-  /* Spacing — generous editorial */
+  /* Spacing: generous editorial */
   --spacing-0:    0;
   --spacing-px:   1px;
   --spacing-1:    0.25rem;
@@ -188,7 +188,7 @@ hr {
   color: var(--color-paper);
 }
 
-/* Section dividers — editorial flourish */
+/* Section dividers: editorial flourish */
 .rule {
   border-top: 1px solid var(--color-rule);
 }
@@ -203,7 +203,7 @@ hr {
   border-top: 3px solid var(--color-ink);
 }
 
-/* Eyebrow — the small caps label above headlines */
+/* Eyebrow: the small caps label above headlines */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -213,7 +213,7 @@ hr {
   color: var(--color-accent);
 }
 
-/* Drop cap — first paragraph of articles */
+/* Drop cap: first paragraph of articles */
 .drop-cap::first-letter {
   font-family: var(--font-display);
   font-weight: 700;
@@ -237,7 +237,7 @@ hr {
   color: var(--color-ink-soft);
 }
 
-/* Data table — for vendor pages and comparisons */
+/* Data table: for vendor pages and comparisons */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -267,7 +267,7 @@ hr {
   border-bottom: none;
 }
 
-/* Tag / pill — for compliance, deployment options, etc. */
+/* Tag / pill: for compliance, deployment options, etc. */
 .tag {
   display: inline-block;
   font-family: var(--font-mono);
@@ -326,7 +326,7 @@ hr {
   color: var(--color-ink-soft);
 }
 
-/* Subtle background grain — adds tactile paper feel */
+/* Subtle background grain: adds tactile paper feel */
 .grain {
   position: relative;
 }

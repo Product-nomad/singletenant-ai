@@ -1,5 +1,5 @@
 ---
-// VendorMatrix — the site's hero component (spec §4): a dense, filterable
+// VendorMatrix: the site's hero component (spec §4): a dense, filterable
 // comparison table driven entirely by the vendor YAML collection.
 //
 // Progressive enhancement: the full table renders statically; the filter
@@ -18,7 +18,7 @@ const sorted = [...vendors].sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
 
-// Only offer filters for values that exist in the data — no dead controls.
+// Only offer filters for values that exist in the data, no dead controls.
 const categoriesPresent = Object.keys(CATEGORY_LABELS).filter((c) =>
   sorted.some((v) => v.data.category === c),
 );

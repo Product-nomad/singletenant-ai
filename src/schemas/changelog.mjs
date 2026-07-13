@@ -1,4 +1,4 @@
-// Changelog schema — validates data/changelog.yaml (SPEC piece 7).
+// Changelog schema: validates data/changelog.yaml (SPEC piece 7).
 // The public /changelog/ page and the homepage stat strip both render from
 // that file; this schema is shared by the page loader, npm run validate,
 // and the node --test suite, same pattern as vendor.mjs.

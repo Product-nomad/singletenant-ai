@@ -1,4 +1,4 @@
-// Display labels for schema v2 enums — shared by matrix, detail, and
+// Display labels for schema v2 enums, shared by matrix, detail, and
 // compare templates so vendor-facing wording is defined once.
 
 export const CATEGORY_LABELS = {

@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
-   Vendor collection — the core directory database.
+   Vendor collection: the core directory database.
    Each vendor is one YAML file in src/content/vendors/.
    Schema v2 lives in src/schemas/vendor.mjs so the node --test
    suite validates against the exact same object (SPEC §5).
@@ -15,7 +15,7 @@ const vendors = defineCollection({
 });
 
 /* ─────────────────────────────────────────────────────────────
-   Articles collection — long-form content (MDX with body).
+   Articles collection: long-form content (MDX with body).
    ───────────────────────────────────────────────────────────── */
 
 const articles = defineCollection({

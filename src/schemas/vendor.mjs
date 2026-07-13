@@ -1,10 +1,10 @@
-// Vendor schema v2 — the single source of truth for vendor data validation
+// Vendor schema v2: the single source of truth for vendor data validation
 // (SPEC_singletenant_v2.md §5). Lives in plain ESM so both Astro's content
 // config and the node --test suite import the same object.
 //
 // Integrity gate: every populated fact carries an evidence_url and a verified
 // date; 'unknown' is the only value allowed without evidence. The UI renders
-// 'unknown' as "Not verified" — never as an unsourced claim.
+// 'unknown' as "Not verified", never as an unsourced claim.
 import { z } from 'astro/zod';
 
 export const CATEGORIES = [
@@ -117,7 +117,7 @@ export const vendorSchema = z
       .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug must be kebab-case')
       .refine(
         (s) => !s.includes('-vs-'),
-        "slug must not contain '-vs-' — it breaks /compare/[a]-vs-[b] routing",
+        "slug must not contain '-vs-', it breaks /compare/[a]-vs-[b] routing",
       ),
     name: z.string().min(1),
     url: evidenceUrl.describe('Vendor homepage'),
