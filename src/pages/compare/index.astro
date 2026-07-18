@@ -1,0 +1,148 @@
+---
+// Compare entry point: a two-vendor picker, not a link hub. The v1/v2 compare
+// index was removed as thin content (DECISIONS.md, "Compare hub removed");
+// this replaces it with a different job: send a reader who wants to compare
+// two named vendors straight to the canonical pair page, without listing all
+// 105 pairs. Progressive enhancement: the picker ships hidden and JS reveals
+// it; with JS off the reader gets a one-line pointer to the directory, never a
+// wall of links.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const vendors = (await getCollection('vendors')).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
+const options = vendors.map((v) => ({ slug: v.data.slug, name: v.data.name }));
+---
+
+<BaseLayout
+  title="Compare Two Vendors"
+  description="Pick two single-tenant LLM hosting vendors to compare side by side on deployment, compliance, pricing, and data residency."
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Compare</p>
+      <h1 class="m-0 mb-3" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Compare two vendors
+      </h1>
+      <p class="m-0 mb-8 max-w-2xl" style="color: var(--color-ink-soft);">
+        Choose two vendors to see them side by side on deployment models,
+        compliance, pricing, and data residency.
+      </p>
+
+      <!-- No-JS fallback: the whole picker needs JS to route to a pair page, so
+           without it we point at the directory rather than 105 raw links. -->
+      <p class="compare-fallback" data-compare-fallback>
+        Pick a vendor in the <a href="/vendors/">directory</a>; every profile
+        links its comparisons with the other {vendors.length - 1} vendors.
+      </p>
+
+      <form class="compare-picker" data-compare-picker hidden>
+        <div class="compare-fields">
+          <label class="compare-field">
+            <span>First vendor</span>
+            <select data-compare-a>
+              {options.map((o, i) => (
+                <option value={o.slug} selected={i === 0}>{o.name}</option>
+              ))}
+            </select>
+          </label>
+          <label class="compare-field">
+            <span>Second vendor</span>
+            <select data-compare-b>
+              {options.map((o, i) => (
+                <option value={o.slug} selected={i === 1}>{o.name}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <button type="submit" class="btn-primary">Compare</button>
+        <p class="compare-error" data-compare-error role="alert" hidden>
+          Choose two different vendors.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-compare-picker]')) {
+    const a = form.querySelector<HTMLSelectElement>('[data-compare-a]');
+    const b = form.querySelector<HTMLSelectElement>('[data-compare-b]');
+    const error = form.querySelector<HTMLElement>('[data-compare-error]');
+    const fallback = document.querySelector<HTMLElement>('[data-compare-fallback]');
+    if (!a || !b) continue;
+
+    // JS is present: swap the directory pointer for the live picker.
+    if (fallback) fallback.hidden = true;
+    form.hidden = false;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const first = a.value;
+      const second = b.value;
+      if (first === second) {
+        if (error) error.hidden = false;
+        return;
+      }
+      if (error) error.hidden = true;
+      // Canonical pair URL: slugs sorted, matching lib/compare.mjs#comparePath
+      // and the alphabetical getStaticPaths ordering, so we never land on a
+      // reverse-ordered URL that only exists as a 301.
+      const [x, y] = [first, second].sort();
+      window.location.href = `/compare/${x}-vs-${y}/`;
+    });
+  }
+</script>
+
+<style>
+  .compare-fallback {
+    margin: 0 0 2rem;
+    font-size: 0.9rem;
+    color: var(--color-mute);
+  }
+
+  .compare-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .compare-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 15rem;
+  }
+
+  .compare-field span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .compare-field select {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+    min-height: 44px;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .compare-field select:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .compare-error {
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-accent);
+  }
+</style>
