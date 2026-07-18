@@ -12,6 +12,7 @@ export const CATEGORIES = [
   'hyperscaler-dedicated',
   'managed-selfhost',
   'eu-sovereign',
+  'uk-sovereign',
 ];
 
 export const CERTS = [

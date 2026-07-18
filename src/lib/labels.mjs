@@ -6,6 +6,7 @@ export const CATEGORY_LABELS = {
   'hyperscaler-dedicated': 'Hyperscaler dedicated',
   'managed-selfhost': 'Managed self-host',
   'eu-sovereign': 'EU sovereign',
+  'uk-sovereign': 'UK sovereign',
 };
 
 export const CERT_LABELS = {
