@@ -1,0 +1,47 @@
+slug: civo
+name: Civo
+url: https://www.civo.com
+category: uk-sovereign
+tagline: UK cloud offering single-tenant dedicated NVIDIA GPU compute and inference
+
+deployment_models:
+  - bare-metal
+  - managed-kubernetes
+  - dedicated-gpu-inference
+
+# Regions checked 2026-07-18 against
+# https://www.civo.com/uk-sovereign-cloud and https://www.civo.com/ai/cloud-gpu:
+# the UK Sovereign Cloud keeps data "securely within UK borders". Civo also
+# markets an India sovereign region, but only via testimonial on the GPU pages
+# checked, so it is not recorded here. Regions carry no evidence field in schema
+# v2.
+regions:
+  - uk
+
+compliance:
+  - cert: ISO27001
+    evidence_url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-07-18"
+  - cert: SOC2_TYPE2
+    evidence_url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-07-18"
+
+pricing:
+  model: Per-GPU-hour on demand, lower rates on 6-36 month commitments
+  public: true
+  evidence_url: https://www.civo.com/pricing
+  verified: "2026-07-18"
+
+sovereignty:
+  data_residency_guarantee: true
+  parent_jurisdiction: UK
+  evidence_url: https://www.civo.com/uk-sovereign-cloud
+  verified: "2026-07-18"
+
+notes: >-
+  Civo Limited is UK-registered (Companies House 09568551); its sole person
+  with significant control is a UK-resident individual, with no foreign parent.
+  Dedicated single-tenant GPU uses VFIO passthrough. The UK Sovereign Cloud page
+  states data stays in the UK under UK law only, contrasting the US CLOUD Act.
+
+featured: false
