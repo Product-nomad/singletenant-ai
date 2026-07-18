@@ -13,10 +13,13 @@ deployment_models:
 # name US, EU, UK and Australia as configurable regions for routing inference
 # in-region to meet data residency (EU+UK -> europe, Australia -> apac). List is
 # described as non-exhaustive. Source:
-# https://docs.baseten.co/deployment/regional-environments checked 2026-07-13.
-# Regions carry no evidence field in schema v2.
+# https://docs.baseten.co/deployment/regional-environments re-checked 2026-07-18:
+# the doc names "US, EU, UK, and Australia" as available regions. UK is now
+# recorded as its own bucket; it was previously omitted, with no uk bucket to
+# hold it. Regions carry no evidence field in schema v2.
 regions:
   - us
+  - uk
   - europe
   - apac
 

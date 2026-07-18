@@ -4,6 +4,15 @@
 
 - date: "2026-07-18"
   type: updated
+  vendors:
+    - baseten
+  summary: >-
+    UK added to Baseten's regions. Its regional-environments documentation names
+    "US, EU, UK, and Australia" as available regions; with the new UK bucket, UK
+    is recorded separately rather than omitted. Source re-checked 2026-07-18.
+
+- date: "2026-07-18"
+  type: updated
   vendors: []
   summary: >-
     Regions now use five defined buckets (US, UK, Europe, Asia-Pacific, Global),
