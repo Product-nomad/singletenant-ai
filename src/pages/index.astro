@@ -82,6 +82,18 @@ const schema = {
         </div>
       </dl>
 
+      <nav class="intent-chips" aria-label="Where to start">
+        <a class="intent-chip" href="/vendors/?category=eu-sovereign">
+          EU sovereignty options
+        </a>
+        <a class="intent-chip" href="/compare/">
+          Compare two vendors
+        </a>
+        <a class="intent-chip" href="/blog/what-is-single-tenant-llm-hosting/">
+          New to single-tenant hosting?
+        </a>
+      </nav>
+
       <VendorMatrix vendors={vendors} />
     </div>
   </section>
@@ -133,6 +145,37 @@ const schema = {
 </BaseLayout>
 
 <style>
+  .intent-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.75rem;
+    margin: 0 0 2rem;
+  }
+
+  .intent-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+
+  .intent-chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .intent-chip:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
   .stat-strip {
     display: flex;
     flex-wrap: wrap;

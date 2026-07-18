@@ -169,6 +169,23 @@ const pricingLabel = (model: string) =>
       box.addEventListener('change', apply);
     }
 
+    // Progressive enhancement for the homepage intent chips: a ?category=<slug>
+    // deep link pre-activates that category filter. Without JS the link simply
+    // lands on the full, unfiltered table (this block never runs), so the chip
+    // still works, it just does not narrow the view.
+    const wantedCat = new URLSearchParams(window.location.search).get('category');
+    if (wantedCat) {
+      const target = [...catButtons].find(
+        (b) => b.dataset.filterCat === wantedCat,
+      );
+      if (target) {
+        activeCat = wantedCat;
+        for (const b of catButtons) {
+          b.setAttribute('aria-pressed', String(b === target));
+        }
+      }
+    }
+
     filters.hidden = false;
     apply();
   }
