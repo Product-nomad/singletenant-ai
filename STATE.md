@@ -3,7 +3,9 @@
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
 **Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer and a 2026-07-13 polish pass are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
 **Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete; a 2026-07-13 polish pass (P1–P6) followed. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live — the two Lighthouse findings that were code-fixable (a11y heading order, perf font CLS + render-blocking) were addressed in the polish pass and now need a live re-measure to confirm the scores. Piece 14 (drift watch) still open.
-**Last touched**: 2026-07-13.
+**Last touched**: 2026-07-18.
+
+**In flight**: the v2.2 human-orientation layer (SPEC v2.2 O1–O5) is on branch `feat/v2.2-orientation`, PR open against `main`, pending Simon's review and merge. It is a site/UX change, not a data change (CHANGELOG.md only, nothing in the public `/changelog/`). All gates green on the branch.
 
 ## Vendor data (15/15, pieces 6a–6k complete)
 
@@ -61,6 +63,17 @@ JSON-LD audit + extension across the programmatic templates, two commits, gates 
 - **Gates each commit**: `npm test` 40/40, `lint` clean, `typecheck` 0/0, `validate` clean, `build` 133 pages; emitted `ld+json` extracted and JSON-parsed from a built page of each type.
 - **Live verification (post-push)**: deploy went live ~30s after push. Spot-checked all four page types on production — every block is well-formed JSON, URLs absolute, dates from real data, ItemList lists 15 vendors, compare `Dataset.about` carries both apps, and a live forbidden-keys scan found none.
 - **Google validation — CONFIRMED 2026-07-13**: Rich Results Test run against a live article, `/vendors/`, and a profile (`/vendors/modal/`). All three parse; the `SoftwareApplication` reports "1 valid item, eligible for rich results". Every flag returned is a non-critical *optional* field: Article missing `image`, Dataset missing `license`, SoftwareApplication missing `offers` + `aggregateRating`. The last two are deliberate — they are exactly the fabrication-risk fields the integrity rule refused to invent, so they stay permanently absent. The two fillable gaps (`image`, `license`) are logged as v3 candidates below. The piece-12 Lighthouse ≥ 90 + screenshots remain separately owed.
+
+## Orientation layer (2026-07-18, branch `feat/v2.2-orientation`, PR open)
+
+Human-orientation pass (SPEC v2.2 O1–O5): make a first-time visitor able to answer "what is this and is it for me?" in five seconds. One commit per piece, gates checked directly and via the lefthook pre-commit; browser-driven verification of every interactive change. PR open against `main`, pending Simon's review + merge (auto-deploy fires on merge, not before). Site/UX change, so CHANGELOG.md only, nothing in the public `/changelog/`.
+
+- **O1 — problem-first hero** (`5054753`): `<h1>` leads with the reader's problem and the offer (comparison of the 15 vendors on compliance, data residency, jurisdiction; count build-time-derived); methodology promise demoted to the subline. `og:title`/meta description unchanged, still consistent.
+- **O2 — intent entry chips** (`751d9c1`, picker `ef3a001`): three no-JS, 44px chips under the hero for the EU-sovereignty, compare, and newcomer intents. EU chip deep-links `/vendors/?category=eu-sovereign`; `VendorMatrix` honours the param as progressive enhancement (full table without JS). `/compare/` returns as a **two-vendor picker** (not the removed 105-pair hub) — new DECISIONS.md ADR supersedes the 2026-07-08 removal, and `gen-redirects.mjs` drops the `/compare/ → /vendors/` 301 that would shadow it.
+- **O3 — human labels for every rendered enum** (`f7850dd`): deployment/region/category/cert tokens routed through `src/lib/labels.mjs` in matrix, profile, compare, and `ComparisonTable`; new `DEPLOYMENT_LABELS`/`REGION_LABELS` + helpers. Raw hyphenated schema tokens no longer reach any cell; tokens unchanged in YAML/JSON-LD/URLs. `tests/labels.test.mjs` fails the build on any unmapped value (44/44 tests).
+- **O4 — first-visit column set** (`303d22f`): homepage matrix defaults to 5 columns (Vendor, Category, Regions, Compliance, Data residency) with a "Show all columns" toggle for Deployment + Pricing (new `collapsible` prop); `/vendors/` unchanged; no-JS shows the full table. Toggle stayed cheap, no VendorMatrix restructuring, so the O4 stop-and-report hatch was not triggered.
+- **O5 — 5-second pass + close-out**: above-the-fold read confirms offer-before-methodology, no raw token visible, chips land correctly; docs updated; PR opened with before/after homepage screenshots.
+- **Gates**: `npm test` 44/44, `lint` clean, `typecheck` 0 errors, `validate` clean (no em dashes), `build` green. Interactive behaviour (picker routing, EU deep-link filter, column toggle) verified in headless Chromium against `astro preview`.
 
 ## What's next (spec pieces, in order)
 
