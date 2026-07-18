@@ -11,8 +11,14 @@ deployment_models:
   - spot
   - reserved-capacity
 
+# Regions checked 2026-07-18. CoreWeave runs US and mainland-EU capacity and has
+# two UK data centres (Crawley and London Docklands) operational since 2024,
+# hosting its NVIDIA GPU platform. Source:
+# https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
+# Regions carry no evidence field in schema v2.
 regions:
   - us
+  - uk
   - europe
 
 compliance:
