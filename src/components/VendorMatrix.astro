@@ -17,9 +17,14 @@ import CategoryTag from './CategoryTag.astro';
 
 interface Props {
   vendors: CollectionEntry<'vendors'>[];
+  // Homepage passes this to default to the first-visit scan set (5 columns)
+  // with a "Show all columns" toggle. The full directory omits it and shows
+  // every column. Progressive enhancement: with JS off, the full table renders
+  // either way (the collapse is applied by the enhancement script).
+  collapsible?: boolean;
 }
 
-const { vendors } = Astro.props;
+const { vendors, collapsible = false } = Astro.props;
 const sorted = [...vendors].sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
@@ -40,7 +45,7 @@ const pricingLabel = (model: string) =>
   model === 'unknown' ? NOT_VERIFIED : model;
 ---
 
-<div data-vendor-matrix>
+<div data-vendor-matrix data-collapsible={collapsible ? '' : undefined}>
   <form class="matrix-filters" data-matrix-filters hidden>
     <fieldset class="filter-group">
       <legend>Category</legend>
@@ -71,16 +76,22 @@ const pricingLabel = (model: string) =>
     <p class="matrix-count" data-matrix-count aria-live="polite"></p>
   </form>
 
+  {collapsible && (
+    <button type="button" class="cols-toggle" data-cols-toggle aria-pressed="false" hidden>
+      Show all columns
+    </button>
+  )}
+
   <div class="matrix-scroll">
     <table class="data-table matrix-table">
       <thead>
         <tr>
           <th scope="col">Vendor</th>
           <th scope="col">Category</th>
-          <th scope="col">Deployment</th>
+          <th scope="col" class="matrix-col-extra">Deployment</th>
           <th scope="col">Regions</th>
           <th scope="col">Compliance</th>
-          <th scope="col">Pricing</th>
+          <th scope="col" class="matrix-col-extra">Pricing</th>
           <th scope="col">Data residency</th>
         </tr>
       </thead>
@@ -95,7 +106,7 @@ const pricingLabel = (model: string) =>
               <a href={`/vendors/${data.slug}/`}>{data.name}</a>
             </th>
             <td><CategoryTag category={data.category} /></td>
-            <td>
+            <td class="matrix-col-extra">
               {data.deployment_models.length > 0
                 ? data.deployment_models.map(deploymentLabel).join(', ')
                 : NOT_VERIFIED}
@@ -108,7 +119,7 @@ const pricingLabel = (model: string) =>
                     .join(', ')
                 : NOT_VERIFIED}
             </td>
-            <td>{pricingLabel(data.pricing.model)}</td>
+            <td class="matrix-col-extra">{pricingLabel(data.pricing.model)}</td>
             <td>
               {residencyLabel(data.sovereignty.data_residency_guarantee)}
               {data.sovereignty.parent_jurisdiction !== 'unknown' && (
@@ -190,6 +201,23 @@ const pricingLabel = (model: string) =>
           b.setAttribute('aria-pressed', String(b === target));
         }
       }
+    }
+
+    // First-visit column set (homepage only): collapse to the 5-column scan set
+    // and offer a toggle that reveals Deployment + Pricing. Progressive
+    // enhancement: the static table ships with every column, and this runs only
+    // when JS is present, so no-JS readers always get the full table.
+    const colsToggle = matrix.querySelector<HTMLButtonElement>('[data-cols-toggle]');
+    if (matrix.hasAttribute('data-collapsible') && colsToggle) {
+      matrix.classList.add('cols-collapsed');
+      colsToggle.hidden = false;
+      colsToggle.addEventListener('click', () => {
+        const collapsed = matrix.classList.toggle('cols-collapsed');
+        colsToggle.setAttribute('aria-pressed', String(!collapsed));
+        colsToggle.textContent = collapsed
+          ? 'Show all columns'
+          : 'Show fewer columns';
+      });
     }
 
     filters.hidden = false;
@@ -314,6 +342,35 @@ const pricingLabel = (model: string) =>
     display: block;
     color: var(--color-mute);
     font-size: 0.7rem;
+  }
+
+  .cols-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink-soft);
+    cursor: pointer;
+  }
+
+  .cols-toggle:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .cols-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* First-visit scan set: hide Deployment + Pricing until the toggle expands.
+     Applied only when the enhancement script adds .cols-collapsed, so the
+     static (no-JS) table keeps every column. */
+  .cols-collapsed .matrix-col-extra {
+    display: none;
   }
 
   .matrix-note {
