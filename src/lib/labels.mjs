@@ -67,6 +67,7 @@ export const REGION_LABELS = {
   apac: 'Asia-Pacific',
   europe: 'Europe',
   global: 'Global',
+  uk: 'UK',
   us: 'US',
 };
 

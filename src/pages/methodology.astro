@@ -54,6 +54,44 @@ const LAST_UPDATED = '2026-07-08';
           inclusion; see the <a href="/disclosure/">disclosure page</a>.
         </p>
 
+        <h2>Region buckets</h2>
+        <p>
+          The <strong>Regions</strong> column records coarse geographies where a
+          vendor documents capacity, not every named data-centre location. A
+          bucket is added only where the vendor's own material names that
+          geography; where a source does not distinguish a geography, it is not
+          inferred. The buckets are:
+        </p>
+        <ul>
+          <li><strong>US</strong>: the United States.</li>
+          <li>
+            <strong>UK</strong>: the United Kingdom, tracked separately from the
+            EU/EEA. After Brexit the UK is a distinct jurisdiction for data
+            purposes, so a vendor that names a UK location is recorded as
+            <code>uk</code>, not folded into Europe.
+          </li>
+          <li>
+            <strong>Europe</strong>: the EU/EEA, <strong>excluding the UK</strong>.
+            A vendor serving both is recorded as both <code>europe</code> and
+            <code>uk</code>. This bucket narrowed when UK was split out; a vendor
+            still showing only Europe has no UK location named in its sources.
+          </li>
+          <li><strong>Asia-Pacific</strong>: the APAC region.</li>
+          <li>
+            <strong>Global</strong>: the vendor documents worldwide or
+            multi-region availability without a per-region breakdown at review.
+          </li>
+        </ul>
+        <p>
+          Regions describe where compute can run. Whether a vendor contractually
+          guarantees data stays in a chosen region is a separate, per-vendor
+          verified fact in the Data residency column, and jurisdiction (the law
+          a provider answers to) is separate again. See the
+          <a href="/blog/jurisdiction-eu-region-not-sovereign/">jurisdiction
+          analysis</a> for why an EU or UK region does not settle the
+          jurisdiction question.
+        </p>
+
         <h2>Update cadence</h2>
         <p>
           The database is reviewed manually. There is no automated

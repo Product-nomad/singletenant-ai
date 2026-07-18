@@ -2,6 +2,16 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-07-18"
+  type: updated
+  vendors: []
+  summary: >-
+    Regions now use five defined buckets (US, UK, Europe, Asia-Pacific, Global),
+    documented on the methodology page. The Europe bucket was narrowed to the
+    EU/EEA excluding the UK; UK placement is tracked separately as its own
+    bucket and is being added per vendor where a primary source names a UK
+    location. See methodology for the definitions.
+
 - date: "2026-07-13"
   type: updated
   vendors:

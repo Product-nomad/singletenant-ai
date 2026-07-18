@@ -15,7 +15,7 @@ const valid = {
   category: 'dedicated-gpu',
   tagline: 'Dedicated GPU inference for example workloads',
   deployment_models: ['dedicated-endpoint'],
-  regions: ['US'],
+  regions: ['us'],
   compliance: [
     {
       cert: 'SOC2_TYPE2',
@@ -42,6 +42,17 @@ const withPatch = (patch) => ({ ...structuredClone(valid), ...patch });
 
 test('a fully-evidenced vendor validates', () => {
   assert.ok(vendorSchema.safeParse(valid).success);
+});
+
+test('uk is an accepted region bucket', () => {
+  assert.ok(vendorSchema.safeParse(withPatch({ regions: ['uk'] })).success);
+});
+
+test('a region outside the bucket enum is rejected', () => {
+  assert.equal(
+    vendorSchema.safeParse(withPatch({ regions: ['emea'] })).success,
+    false,
+  );
 });
 
 test('populated pricing without evidence_url is rejected', () => {
