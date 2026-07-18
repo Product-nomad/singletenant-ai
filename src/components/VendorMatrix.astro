@@ -6,7 +6,13 @@
 // bar ships `hidden` and is revealed by the enhancement script. With JS
 // disabled the reader gets the complete matrix, never a broken filter.
 import type { CollectionEntry } from 'astro:content';
-import { CATEGORY_LABELS, CERT_LABELS, NOT_VERIFIED } from '../lib/labels.mjs';
+import {
+  CATEGORY_LABELS,
+  CERT_LABELS,
+  deploymentLabel,
+  NOT_VERIFIED,
+  regionLabel,
+} from '../lib/labels.mjs';
 import CategoryTag from './CategoryTag.astro';
 
 interface Props {
@@ -91,10 +97,10 @@ const pricingLabel = (model: string) =>
             <td><CategoryTag category={data.category} /></td>
             <td>
               {data.deployment_models.length > 0
-                ? data.deployment_models.join(', ')
+                ? data.deployment_models.map(deploymentLabel).join(', ')
                 : NOT_VERIFIED}
             </td>
-            <td>{data.regions.length > 0 ? data.regions.join(', ') : NOT_VERIFIED}</td>
+            <td>{data.regions.length > 0 ? data.regions.map(regionLabel).join(', ') : NOT_VERIFIED}</td>
             <td>
               {data.compliance.length > 0
                 ? data.compliance

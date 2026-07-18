@@ -5,6 +5,7 @@ import ComparisonTable from '../../components/ComparisonTable.astro';
 import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary } from '../../lib/compare.mjs';
+import { deploymentLabel } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
 
 export const getStaticPaths = (async () => {
@@ -143,7 +144,7 @@ const schema = vendorComparisonSchema({ a, b, description });
             ? <p class="text-sm m-0" style="color: var(--color-mute);">
                 Nothing exclusive in this category.
               </p>
-            : <div>{aOnly.map((opt) => <span class="tag tag-accent">{opt}</span>)}</div>
+            : <div>{aOnly.map((opt) => <span class="tag tag-accent">{deploymentLabel(opt)}</span>)}</div>
           }
         </div>
         <div>
@@ -154,7 +155,7 @@ const schema = vendorComparisonSchema({ a, b, description });
             ? <p class="text-sm m-0" style="color: var(--color-mute);">
                 No overlap in deployment models.
               </p>
-            : <div>{sharedDeployment.map((opt) => <span class="tag">{opt}</span>)}</div>
+            : <div>{sharedDeployment.map((opt) => <span class="tag">{deploymentLabel(opt)}</span>)}</div>
           }
         </div>
         <div>
@@ -165,7 +166,7 @@ const schema = vendorComparisonSchema({ a, b, description });
             ? <p class="text-sm m-0" style="color: var(--color-mute);">
                 Nothing exclusive in this category.
               </p>
-            : <div>{bOnly.map((opt) => <span class="tag tag-accent">{opt}</span>)}</div>
+            : <div>{bOnly.map((opt) => <span class="tag tag-accent">{deploymentLabel(opt)}</span>)}</div>
           }
         </div>
       </div>

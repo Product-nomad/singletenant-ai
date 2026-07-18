@@ -9,7 +9,11 @@ import EvidenceLink from '../../components/EvidenceLink.astro';
 import LastVerified from '../../components/LastVerified.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { comparePath } from '../../lib/compare.mjs';
-import { NOT_VERIFIED } from '../../lib/labels.mjs';
+import {
+  deploymentLabel,
+  NOT_VERIFIED,
+  regionLabel,
+} from '../../lib/labels.mjs';
 import { vendorProfileSchema } from '../../lib/schema.mjs';
 
 export const getStaticPaths = (async () => {
@@ -76,13 +80,13 @@ const fmtUnknown = (val: string | boolean) => {
               <td class="fact-label">Deployment models</td>
               <td>
                 {data.deployment_models.length > 0
-                  ? data.deployment_models.join(', ')
+                  ? data.deployment_models.map(deploymentLabel).join(', ')
                   : NOT_VERIFIED}
               </td>
             </tr>
             <tr>
               <td class="fact-label">Regions</td>
-              <td>{data.regions.length > 0 ? data.regions.join(', ') : NOT_VERIFIED}</td>
+              <td>{data.regions.length > 0 ? data.regions.map(regionLabel).join(', ') : NOT_VERIFIED}</td>
             </tr>
           </tbody>
         </table>

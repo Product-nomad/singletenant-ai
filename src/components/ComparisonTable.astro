@@ -1,5 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import {
+  CATEGORY_LABELS,
+  CERT_LABELS,
+  deploymentLabel,
+  regionLabel,
+} from '../lib/labels.mjs';
 
 interface Props {
   vendors: CollectionEntry<'vendors'>[];
@@ -17,12 +23,23 @@ const rows: Array<{
   get: (d: VendorData) => CellValue;
   type?: 'tags' | 'list';
 }> = [
-  { label: 'Category', get: (d) => d.category },
-  { label: 'Deployment models', get: (d) => d.deployment_models, type: 'tags' },
-  { label: 'Regions', get: (d) => d.regions, type: 'list' },
+  {
+    label: 'Category',
+    get: (d) =>
+      CATEGORY_LABELS[d.category as keyof typeof CATEGORY_LABELS] ?? d.category,
+  },
+  {
+    label: 'Deployment models',
+    get: (d) => d.deployment_models.map(deploymentLabel),
+    type: 'tags',
+  },
+  { label: 'Regions', get: (d) => d.regions.map(regionLabel), type: 'list' },
   {
     label: 'Compliance',
-    get: (d) => d.compliance.map((c) => c.cert),
+    get: (d) =>
+      d.compliance.map(
+        (c) => CERT_LABELS[c.cert as keyof typeof CERT_LABELS] ?? c.cert,
+      ),
     type: 'tags',
   },
   { label: 'Pricing model', get: (d) => d.pricing.model },
