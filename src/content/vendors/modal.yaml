@@ -7,11 +7,14 @@ tagline: Serverless GPU compute billed per second, with region pinning
 deployment_models:
   - serverless
 
-# Regions verified 2026-07-12 against
+# Regions re-checked 2026-07-18 against
 # https://modal.com/docs/guide/region-selection which documents region pinning
-# across US (us), Europe (eu) and Asia-Pacific (ap) plus narrower zones.
+# across US (us), the EEA (eu -> europe), the UK (uk) and Asia-Pacific (ap) plus
+# narrower zones. Modal lists uk as a broad region distinct from eu; it was
+# omitted before the uk bucket existed.
 regions:
   - us
+  - uk
   - europe
   - apac
 

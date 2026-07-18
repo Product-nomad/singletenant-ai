@@ -5,6 +5,15 @@
 - date: "2026-07-18"
   type: updated
   vendors:
+    - modal
+  summary: >-
+    UK added to Modal's regions. Modal's region-selection doc lists "uk" (United
+    Kingdom) as a broad region distinct from "eu" (EEA); it was omitted before
+    the UK bucket existed. Checked 2026-07-18.
+
+- date: "2026-07-18"
+  type: updated
+  vendors:
     - coreweave
   summary: >-
     UK added to CoreWeave's regions. CoreWeave's newsroom confirms two UK data
