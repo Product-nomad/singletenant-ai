@@ -151,7 +151,7 @@ const pricingLabel = (model: string) =>
 
     const catButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-cat]');
     const certBoxes = filters.querySelectorAll<HTMLInputElement>('[data-filter-cert]');
-    let activeCat = 'all';
+    let activeCat: string | string[] = 'all';
 
     const apply = () => {
       const wantedCerts = [...certBoxes]
@@ -159,7 +159,10 @@ const pricingLabel = (model: string) =>
         .map((b) => b.dataset.filterCert ?? '');
       let shown = 0;
       for (const row of rows) {
-        const catOk = activeCat === 'all' || row.dataset.category === activeCat;
+        const rowCat = row.dataset.category ?? '';
+        const catOk =
+          activeCat === 'all' ||
+          (Array.isArray(activeCat) ? activeCat.includes(rowCat) : rowCat === activeCat);
         const rowCerts = (row.dataset.certs ?? '').split(' ');
         const certsOk = wantedCerts.every((c) => rowCerts.includes(c));
         const visible = catOk && certsOk;
@@ -188,18 +191,29 @@ const pricingLabel = (model: string) =>
     }
 
     // Progressive enhancement for the homepage intent chips: a ?category=<slug>
-    // deep link pre-activates that category filter. Without JS the link simply
-    // lands on the full, unfiltered table (this block never runs), so the chip
-    // still works, it just does not narrow the view.
-    const wantedCat = new URLSearchParams(window.location.search).get('category');
-    if (wantedCat) {
-      const target = [...catButtons].find(
-        (b) => b.dataset.filterCat === wantedCat,
-      );
-      if (target) {
-        activeCat = wantedCat;
+    // deep link pre-activates that category filter. A comma-separated value
+    // (?category=eu-sovereign,uk-sovereign, the UK & EU sovereignty chip) filters
+    // to that set of categories, with no single button pressed. Without JS the
+    // link simply lands on the full, unfiltered table (this block never runs), so
+    // the chip still works, it just does not narrow the view.
+    const wantedCatParam = new URLSearchParams(window.location.search).get('category');
+    if (wantedCatParam) {
+      const wanted = wantedCatParam
+        .split(',')
+        .map((s) => s.trim())
+        .filter((w) => [...catButtons].some((b) => b.dataset.filterCat === w));
+      if (wanted.length === 1) {
+        const target = [...catButtons].find((b) => b.dataset.filterCat === wanted[0]);
+        if (target) {
+          activeCat = wanted[0];
+          for (const b of catButtons) {
+            b.setAttribute('aria-pressed', String(b === target));
+          }
+        }
+      } else if (wanted.length > 1) {
+        activeCat = wanted;
         for (const b of catButtons) {
-          b.setAttribute('aria-pressed', String(b === target));
+          b.setAttribute('aria-pressed', 'false');
         }
       }
     }

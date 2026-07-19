@@ -15,7 +15,9 @@ draft: false
 
 "Data residency" and "data sovereignty" get used as if they mean the same
 thing. They do not, and the gap between them is where a lot of regulated AI
-procurement goes wrong.
+procurement goes wrong. A companion guide defines
+[residency, sovereignty and operational sovereignty](/blog/residency-vs-sovereignty/)
+term by term; this piece takes the first two and walks the database through them.
 
 Residency is a question about place: where does the data physically sit and
 get processed. Sovereignty is a question about power: whose law governs the
@@ -79,7 +81,9 @@ keeping data in the UK under UK law, and there is no foreign parent to pull it
 into another jurisdiction. For a UK buyer that is a genuinely different position
 from an EU-parented vendor, which is still foreign jurisdiction to a UK firm,
 and different again from a US-parented vendor offering a UK region, where the
-region is UK but the controlling law is not.
+region is UK but the controlling law is not. The
+[UK buyer's position](/blog/uk-buyer-position/) works through what that means
+under the renewed EU-UK adequacy decision and the FCA's outsourcing rules.
 
 The larger group is US-parented vendors that can place data in a European or UK
 region. On our current data that is

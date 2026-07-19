@@ -121,7 +121,10 @@ products. It is the same distinction the EU framework draws with SOV-2:
 residency answers where the bytes sit, jurisdiction answers whose court can
 compel them. The
 [jurisdiction analysis](/blog/jurisdiction-eu-region-not-sovereign/) works
-through why an EU region does not settle the second question.
+through why an EU region does not settle the second question, and a companion
+guide defines
+[residency, sovereignty and operational sovereignty](/blog/residency-vs-sovereignty/)
+term by term.
 
 Read against the framework, a hyperscaler sovereign cloud is best understood as
 a set of controls that improve some objectives, not as a claim to the top of the
