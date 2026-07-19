@@ -31,6 +31,10 @@ const articles = defineCollection({
     author: z.string().default('Simon Newton'),
     category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),
+    keywords: z
+      .array(z.string())
+      .default([])
+      .describe('Target query cluster this piece is written for'),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),

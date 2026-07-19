@@ -12,6 +12,7 @@ export const CATEGORIES = [
   'hyperscaler-dedicated',
   'managed-selfhost',
   'eu-sovereign',
+  'uk-sovereign',
 ];
 
 export const CERTS = [
@@ -24,6 +25,13 @@ export const CERTS = [
   'SecNumCloud',
   'FEDRAMP',
 ];
+
+// Region buckets: a small closed vocabulary of coarse geographies. 'europe'
+// means the EU/EEA excluding the UK; 'uk' is tracked separately because a UK
+// placement is a distinct jurisdiction question post-adequacy (see
+// /methodology/ for the bucket definitions). Every value here must also have a
+// display label in src/lib/labels.mjs (enforced by tests/labels.test.mjs).
+export const REGIONS = ['us', 'uk', 'europe', 'apac', 'global'];
 
 export const isoDate = z
   .string()
@@ -125,9 +133,9 @@ export const vendorSchema = z
     tagline: maxWords(12, 'tagline').describe('Factual, no hype'),
     deployment_models: z.array(z.string().min(1)).default([]),
     regions: z
-      .array(z.string().min(1))
+      .array(z.enum(REGIONS))
       .default([])
-      .describe('ISO region strings; note EU-only flags'),
+      .describe('Coarse region buckets; europe excludes the UK, which is uk'),
     compliance: z.array(complianceEntrySchema).default([]),
     pricing: pricingSchema,
     sovereignty: sovereigntySchema,

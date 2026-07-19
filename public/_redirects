@@ -4,6 +4,7 @@
 # Reverse-ordered compare pairs -> canonical (alphabetical-by-slug) page.
 /compare/azure-openai-ptu-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-azure-openai-ptu/  301
 /compare/baseten-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-baseten/  301
+/compare/civo-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-civo/  301
 /compare/coreweave-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-coreweave/  301
 /compare/databricks-model-serving-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-databricks-model-serving/  301
 /compare/fireworks-ai-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-fireworks-ai/  301
@@ -17,6 +18,7 @@
 /compare/together-ai-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-together-ai/  301
 /compare/vertex-ai-provisioned-vs-aws-bedrock-provisioned/  /compare/aws-bedrock-provisioned-vs-vertex-ai-provisioned/  301
 /compare/baseten-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-baseten/  301
+/compare/civo-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-civo/  301
 /compare/coreweave-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-coreweave/  301
 /compare/databricks-model-serving-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-databricks-model-serving/  301
 /compare/fireworks-ai-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-fireworks-ai/  301
@@ -29,6 +31,7 @@
 /compare/scaleway-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-scaleway/  301
 /compare/together-ai-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-together-ai/  301
 /compare/vertex-ai-provisioned-vs-azure-openai-ptu/  /compare/azure-openai-ptu-vs-vertex-ai-provisioned/  301
+/compare/civo-vs-baseten/  /compare/baseten-vs-civo/  301
 /compare/coreweave-vs-baseten/  /compare/baseten-vs-coreweave/  301
 /compare/databricks-model-serving-vs-baseten/  /compare/baseten-vs-databricks-model-serving/  301
 /compare/fireworks-ai-vs-baseten/  /compare/baseten-vs-fireworks-ai/  301
@@ -41,6 +44,18 @@
 /compare/scaleway-vs-baseten/  /compare/baseten-vs-scaleway/  301
 /compare/together-ai-vs-baseten/  /compare/baseten-vs-together-ai/  301
 /compare/vertex-ai-provisioned-vs-baseten/  /compare/baseten-vs-vertex-ai-provisioned/  301
+/compare/coreweave-vs-civo/  /compare/civo-vs-coreweave/  301
+/compare/databricks-model-serving-vs-civo/  /compare/civo-vs-databricks-model-serving/  301
+/compare/fireworks-ai-vs-civo/  /compare/civo-vs-fireworks-ai/  301
+/compare/huggingface-inference-endpoints-vs-civo/  /compare/civo-vs-huggingface-inference-endpoints/  301
+/compare/modal-vs-civo/  /compare/civo-vs-modal/  301
+/compare/nebius-vs-civo/  /compare/civo-vs-nebius/  301
+/compare/nvidia-nim-vs-civo/  /compare/civo-vs-nvidia-nim/  301
+/compare/ovhcloud-vs-civo/  /compare/civo-vs-ovhcloud/  301
+/compare/runpod-vs-civo/  /compare/civo-vs-runpod/  301
+/compare/scaleway-vs-civo/  /compare/civo-vs-scaleway/  301
+/compare/together-ai-vs-civo/  /compare/civo-vs-together-ai/  301
+/compare/vertex-ai-provisioned-vs-civo/  /compare/civo-vs-vertex-ai-provisioned/  301
 /compare/databricks-model-serving-vs-coreweave/  /compare/coreweave-vs-databricks-model-serving/  301
 /compare/fireworks-ai-vs-coreweave/  /compare/coreweave-vs-fireworks-ai/  301
 /compare/huggingface-inference-endpoints-vs-coreweave/  /compare/coreweave-vs-huggingface-inference-endpoints/  301

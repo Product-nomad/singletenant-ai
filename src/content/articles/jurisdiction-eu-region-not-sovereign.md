@@ -15,7 +15,9 @@ draft: false
 
 "Data residency" and "data sovereignty" get used as if they mean the same
 thing. They do not, and the gap between them is where a lot of regulated AI
-procurement goes wrong.
+procurement goes wrong. A companion guide defines
+[residency, sovereignty and operational sovereignty](/blog/residency-vs-sovereignty/)
+term by term; this piece takes the first two and walks the database through them.
 
 Residency is a question about place: where does the data physically sit and
 get processed. Sovereignty is a question about power: whose law governs the
@@ -59,9 +61,9 @@ jurisdiction. The matrix on the vendors page prints the parent country next to
 the data residency column for exactly this reason, so a US parent with an EU
 region reads as what it is.
 
-## Walking the fifteen
+## Walking the sixteen
 
-Three vendors in the database are European-parented, and they make up the EU
+Three vendors in the database are EU-parented, and they make up the EU
 sovereign category. [Nebius](/vendors/nebius/) contracts through a Dutch entity
 (parent jurisdiction NL). [OVHcloud](/vendors/ovhcloud/) is French.
 [Scaleway](/vendors/scaleway/) is also French, and is the only one of the three
@@ -70,7 +72,20 @@ Jurisdiction and residency stay separate even here: two of the three record
 their residency guarantee as not verified. EU parentage is a necessary
 condition for EU sovereignty, not a sufficient one.
 
-The larger group is US-parented vendors that can place data in a European
+One vendor stands apart from all of these. [Civo](/vendors/civo/) is
+UK-parented: on the Companies House register its sole person with significant
+control is a UK-resident individual, with no foreign parent. That places it in
+its own category, UK sovereign, and makes it the only vendor here whose parent
+jurisdiction and residency guarantee point at the same place. Civo commits to
+keeping data in the UK under UK law, and there is no foreign parent to pull it
+into another jurisdiction. For a UK buyer that is a genuinely different position
+from an EU-parented vendor, which is still foreign jurisdiction to a UK firm,
+and different again from a US-parented vendor offering a UK region, where the
+region is UK but the controlling law is not. The
+[UK buyer's position](/blog/uk-buyer-position/) works through what that means
+under the renewed EU-UK adequacy decision and the FCA's outsourcing rules.
+
+The larger group is US-parented vendors that can place data in a European or UK
 region. On our current data that is
 [AWS Bedrock Provisioned Throughput](/vendors/aws-bedrock-provisioned/),
 [Azure OpenAI Provisioned Throughput](/vendors/azure-openai-ptu/),
@@ -125,7 +140,8 @@ None of these is answered by a region selector.
 
 You can see the shape of this across the market on the
 [vendor matrix](/vendors/): set the Category filter to EU sovereign for the
-three European-parented options, and read the parent jurisdiction shown against
-each vendor's residency column for everyone else. Residency and sovereignty are
+three EU-parented options or UK sovereign for the UK-parented one, and read the
+parent jurisdiction shown against each vendor's residency column for everyone
+else. Residency and sovereignty are
 different columns because they are different questions. Treating an EU region as
 EU sovereignty is the most common way to get this wrong.

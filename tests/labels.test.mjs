@@ -14,6 +14,7 @@ import {
   DEPLOYMENT_LABELS,
   REGION_LABELS,
 } from '../src/lib/labels.mjs';
+import { CATEGORIES, CERTS, REGIONS } from '../src/schemas/vendor.mjs';
 
 const vendorsDir = 'src/content/vendors';
 const vendors = readdirSync(vendorsDir)
@@ -55,3 +56,22 @@ assertMapped('region', REGION_LABELS, (d) => d.regions ?? []);
 assertMapped('compliance cert', CERT_LABELS, (d) =>
   (d.compliance ?? []).map((c) => c.cert),
 );
+
+// Enum-to-label sync: every value in a closed schema enum must have a display
+// label, even if no vendor currently uses it. This catches a new bucket added
+// to the schema (e.g. the uk region) without a matching label, independently
+// of whether the data exercises it yet.
+const assertEnumLabelled = (label, values, labels) => {
+  test(`every ${label} enum value has a label mapping`, () => {
+    const missing = values.filter((v) => !Object.hasOwn(labels, v));
+    assert.deepEqual(
+      missing,
+      [],
+      `unlabelled ${label}(s): ${missing.join(', ')}`,
+    );
+  });
+};
+
+assertEnumLabelled('region', REGIONS, REGION_LABELS);
+assertEnumLabelled('category', CATEGORIES, CATEGORY_LABELS);
+assertEnumLabelled('compliance cert', CERTS, CERT_LABELS);
