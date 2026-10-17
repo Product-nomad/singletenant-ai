@@ -4,6 +4,12 @@ url: https://www.civo.com
 category: uk-sovereign
 tagline: UK cloud offering single-tenant dedicated NVIDIA GPU compute and inference
 
+last_verified: "2026-07-18"
+sources:
+  - https://www.civo.com/uk-sovereign-cloud
+  - https://www.civo.com/pricing
+  - https://www.civo.com/ai/cloud-gpu
+
 deployment_models:
   - bare-metal
   - managed-kubernetes

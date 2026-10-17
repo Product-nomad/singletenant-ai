@@ -4,6 +4,14 @@ url: https://www.coreweave.com
 category: dedicated-gpu
 tagline: Bare-metal GPU cloud with single-tenant Kubernetes nodes, per-GPU-hour pricing
 
+last_verified: "2026-07-07"
+sources:
+  - https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
+  - https://docs.coreweave.com/docs/policies/terms-of-service/data-processing-agreement
+  - https://www.coreweave.com/pricing
+  - https://docs.coreweave.com/docs/policies/terms-of-service/terms-of-use
+  - https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
+
 deployment_models:
   - bare-metal
   - managed-kubernetes

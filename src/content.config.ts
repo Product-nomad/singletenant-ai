@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { vendorSchema } from './schemas/vendor.mjs';
+import { isoDate, vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
    Vendor collection: the core directory database.
@@ -28,6 +28,11 @@ const articles = defineCollection({
       .describe('Meta description, used in search results and social cards'),
     pub_date: z.coerce.date(),
     updated: z.coerce.date().optional(),
+    last_verified: isoDate
+      .optional()
+      .describe(
+        'Date every factual claim was last checked against its source; renders "Last verified"',
+      ),
     author: z.string().default('Simon Newton'),
     category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),

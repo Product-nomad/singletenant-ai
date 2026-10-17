@@ -6,6 +6,7 @@ import CategoryTag from '../../components/CategoryTag.astro';
 import CertBadge from '../../components/CertBadge.astro';
 import EvidenceLink from '../../components/EvidenceLink.astro';
 import LastVerified from '../../components/LastVerified.astro';
+import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { comparePath } from '../../lib/compare.mjs';
 import {
@@ -61,7 +62,10 @@ const fmtUnknown = (val: string | boolean) => {
         </h1>
         <CategoryTag category={data.category} />
       </div>
-      <p class="m-0 mb-5" style="color: var(--color-ink-soft);">{data.tagline}</p>
+      <p class="m-0 mb-3" style="color: var(--color-ink-soft);">{data.tagline}</p>
+      <div class="mb-5">
+        <VerifiedLine date={data.last_verified} />
+      </div>
       <AffiliateLink vendor={data} />
     </div>
   </section>
@@ -169,6 +173,19 @@ const fmtUnknown = (val: string | boolean) => {
         )
       }
 
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Sources</h2>
+        </div>
+        <ul class="sources-list">
+          {data.sources.map((url) => (
+            <li>
+              <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {
         compareCandidates.length > 0 && (
           <div>
@@ -217,6 +234,16 @@ const fmtUnknown = (val: string | boolean) => {
     font-size: 1.1rem;
     border: none;
     padding: 0;
+  }
+
+  .sources-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
   }
 
   .fact-label {

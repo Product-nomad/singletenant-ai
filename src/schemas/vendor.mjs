@@ -118,6 +118,14 @@ export const sovereigntySchema = z
     ),
   );
 
+// Every fact block that carries its own evidence, flattened. Used by the
+// profile-level invariants below and by callers that need per-fact dates.
+export const factBlocks = (data) => [
+  ...(data.compliance ?? []),
+  data.pricing ?? {},
+  data.sovereignty ?? {},
+];
+
 export const vendorSchema = z
   .object({
     slug: z
@@ -131,6 +139,13 @@ export const vendorSchema = z
     url: evidenceUrl.describe('Vendor homepage'),
     category: z.enum(CATEGORIES),
     tagline: maxWords(12, 'tagline').describe('Factual, no hype'),
+    last_verified: isoDate.describe(
+      'Oldest verified date across the profile; never later than any fact',
+    ),
+    sources: z
+      .array(evidenceUrl)
+      .min(1)
+      .describe('Every primary source the profile relies on'),
     deployment_models: z.array(z.string().min(1)).default([]),
     regions: z
       .array(z.enum(REGIONS))
@@ -147,4 +162,33 @@ export const vendorSchema = z
       .describe('Renders only once /disclosure/ exists'),
     featured: z.boolean().default(false),
   })
-  .strict();
+  .strict()
+  .superRefine((val, ctx) => {
+    // Profile-level verification. last_verified is the headline "Last
+    // verified" date on vendor and compare pages, so it must not claim the
+    // profile is fresher than its stalest fact: re-verify every fact, then
+    // move last_verified forward.
+    for (const fact of factBlocks(val)) {
+      if (fact.verified && fact.verified < val.last_verified) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['last_verified'],
+          message: `last_verified ${val.last_verified} is later than a fact verified ${fact.verified}`,
+        });
+      }
+      if (fact.evidence_url && !val.sources.includes(fact.evidence_url)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['sources'],
+          message: `sources is missing evidence_url ${fact.evidence_url}`,
+        });
+      }
+    }
+    if (new Set(val.sources).size !== val.sources.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['sources'],
+        message: 'sources must not repeat a URL',
+      });
+    }
+  });

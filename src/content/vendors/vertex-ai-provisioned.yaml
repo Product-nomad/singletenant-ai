@@ -4,6 +4,14 @@ url: https://cloud.google.com/vertex-ai
 category: hyperscaler-dedicated
 tagline: Reserved Vertex AI model throughput purchased in generative AI scale units
 
+last_verified: "2026-07-08"
+sources:
+  - https://cloud.google.com/security/compliance/services-in-scope
+  - https://cloud.google.com/terms/data-processing-addendum
+  - https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
+  - https://policies.google.com/terms
+  - https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations
+
 deployment_models:
   - provisioned-throughput
   - single-zone-provisioned-throughput

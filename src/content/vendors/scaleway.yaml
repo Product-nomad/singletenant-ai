@@ -4,6 +4,12 @@ url: https://www.scaleway.com
 category: eu-sovereign
 tagline: French cloud offering serverless and dedicated-GPU managed LLM inference
 
+last_verified: "2026-07-07"
+sources:
+  - https://www.scaleway.com/en/security-and-resilience/
+  - https://www.scaleway.com/en/contracts/
+  - https://www.scaleway.com/en/inference/
+
 deployment_models:
   - serverless-api
   - dedicated-gpu-inference

@@ -4,6 +4,13 @@ url: https://www.baseten.co
 category: dedicated-gpu
 tagline: Inference platform with dedicated deployments, self-hosted and hybrid options
 
+last_verified: "2026-07-07"
+sources:
+  - https://trust.baseten.co
+  - https://www.baseten.co/pricing
+  - https://www.baseten.co/terms-and-conditions/
+  - https://docs.baseten.co/deployment/regional-environments
+
 deployment_models:
   - dedicated-deployment
   - self-hosted

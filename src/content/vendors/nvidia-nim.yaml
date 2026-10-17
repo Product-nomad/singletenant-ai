@@ -4,6 +4,14 @@ url: https://www.nvidia.com
 category: managed-selfhost
 tagline: Self-hosted NIM inference microservices licensed per GPU via NVIDIA AI Enterprise
 
+last_verified: "2026-07-08"
+sources:
+  - https://www.nvidia.com/en-us/ai-trust-center/security-compliance/
+  - https://www.nvidia.com/en-us/agreements/data-processing-addendum/nvidia-cloud-services-data-processing-addendum/
+  - https://docs.nvidia.com/ai-enterprise/planning-resource/licensing-guide/latest/pricing.html
+  - https://www.nvidia.com/en-us/about-nvidia/privacy-policy/
+  - https://docs.api.nvidia.com/nim/docs/run-anywhere
+
 deployment_models:
   - self-hosted-containers
   - dedicated-endpoints

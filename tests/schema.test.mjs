@@ -14,6 +14,12 @@ const valid = {
   url: 'https://example.com',
   category: 'dedicated-gpu',
   tagline: 'Dedicated GPU inference for example workloads',
+  last_verified: '2026-07-07',
+  sources: [
+    'https://trust.example.com',
+    'https://example.com/pricing',
+    'https://example.com/terms',
+  ],
   deployment_models: ['dedicated-endpoint'],
   regions: ['us'],
   compliance: [
@@ -173,4 +179,32 @@ test('every vendor YAML in the repo validates against schema v2', () => {
       `${file}: ${res.success ? '' : JSON.stringify(res.error.issues, null, 2)}`,
     );
   }
+});
+
+test('last_verified may not be later than any fact', () => {
+  const res = vendorSchema.safeParse(
+    withPatch({ last_verified: '2026-07-08' }),
+  );
+  assert.equal(res.success, false);
+  assert.ok(res.error.issues.some((i) => i.path[0] === 'last_verified'));
+});
+
+test('every evidence_url must be listed in sources', () => {
+  const res = vendorSchema.safeParse(
+    withPatch({ sources: ['https://example.com/terms'] }),
+  );
+  assert.equal(res.success, false);
+  assert.ok(res.error.issues.some((i) => i.path[0] === 'sources'));
+});
+
+test('sources must be non-empty and unique', () => {
+  assert.equal(
+    vendorSchema.safeParse(withPatch({ sources: [] })).success,
+    false,
+  );
+  const dup = [...valid.sources, 'https://example.com/terms'];
+  assert.equal(
+    vendorSchema.safeParse(withPatch({ sources: dup })).success,
+    false,
+  );
 });

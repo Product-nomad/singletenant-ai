@@ -4,6 +4,13 @@ url: https://www.runpod.io
 category: dedicated-gpu
 tagline: GPU cloud with community and secure tiers, priced per hour
 
+last_verified: "2026-07-07"
+sources:
+  - https://trust.runpod.io
+  - https://www.runpod.io/pricing
+  - https://www.runpod.io/legal/terms-of-service
+  - https://docs.runpod.io/pods/networking
+
 deployment_models:
   - secure-cloud
   - community-cloud

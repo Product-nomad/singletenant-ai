@@ -4,6 +4,17 @@ url: https://www.databricks.com
 category: managed-selfhost
 tagline: Serverless serving of custom and foundation models with provisioned throughput
 
+last_verified: "2026-07-08"
+sources:
+  - https://www.databricks.com/trust/compliance/soc
+  - https://www.databricks.com/trust/compliance/iso-27001
+  - https://www.databricks.com/legal/baa
+  - https://www.databricks.com/trust/compliance/fedramp
+  - https://www.databricks.com/legal/dpa
+  - https://www.databricks.com/product/pricing/model-serving
+  - https://www.databricks.com/legal/privacynotice
+  - https://docs.databricks.com/aws/en/machine-learning/model-serving/model-serving-limits
+
 deployment_models:
   - custom-model-serving
   - provisioned-throughput

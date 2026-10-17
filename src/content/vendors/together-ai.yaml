@@ -4,6 +4,14 @@ url: https://www.together.ai
 category: dedicated-gpu
 tagline: Serverless tokens plus single-tenant dedicated endpoints and GPU clusters
 
+last_verified: "2026-07-07"
+sources:
+  - https://www.together.ai/blog/soc-2-compliance
+  - https://www.together.ai/pricing
+  - https://www.together.ai/terms-of-service
+  - https://docs.together.ai/docs/dedicated-endpoints
+  - https://www.together.ai/data-center-locations
+
 deployment_models:
   - serverless
   - dedicated-endpoint

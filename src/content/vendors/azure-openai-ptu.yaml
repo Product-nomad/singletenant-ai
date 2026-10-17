@@ -4,6 +4,16 @@ url: https://azure.microsoft.com
 category: hyperscaler-dedicated
 tagline: Dedicated PTU capacity for Foundry Models with hourly or reserved billing
 
+last_verified: "2026-07-08"
+sources:
+  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
+  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
+  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
+  - https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
+  - https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
+  - https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+  - https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+
 deployment_models:
   - global-provisioned
   - data-zone-provisioned

@@ -4,6 +4,12 @@ url: https://www.ovhcloud.com
 category: eu-sovereign
 tagline: French cloud with per-token AI Endpoints and managed model deployment
 
+last_verified: "2026-07-07"
+sources:
+  - https://www.ovhcloud.com/en/enterprise/certification-conformity/
+  - https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+  - https://www.ovhcloud.com/en/terms-and-conditions/
+
 deployment_models:
   - serverless-api
   - managed-model-deployment

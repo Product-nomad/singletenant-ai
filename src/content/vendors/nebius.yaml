@@ -4,6 +4,13 @@ url: https://nebius.com
 category: eu-sovereign
 tagline: Netherlands-based AI cloud with shared and dedicated per-token inference endpoints
 
+last_verified: "2026-07-07"
+sources:
+  - https://nebius.com/trust-center
+  - https://nebius.com/services/token-factory/enterprise-grade-inference
+  - https://nebius.com/services/token-factory/inference-service
+  - https://docs.tokenfactory.nebius.com/legal/terms-of-service
+
 deployment_models:
   - serverless-api
   - dedicated-endpoints

@@ -4,6 +4,13 @@ url: https://modal.com
 category: dedicated-gpu
 tagline: Serverless GPU compute billed per second, with region pinning
 
+last_verified: "2026-07-07"
+sources:
+  - https://modal.com/docs/guide/security
+  - https://modal.com/pricing
+  - https://modal.com/legal/terms
+  - https://modal.com/docs/guide/region-selection
+
 deployment_models:
   - serverless
 

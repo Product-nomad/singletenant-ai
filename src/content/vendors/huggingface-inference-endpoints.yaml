@@ -4,6 +4,13 @@ url: https://huggingface.co
 category: managed-selfhost
 tagline: Managed dedicated endpoints for deploying Hub models per instance-hour
 
+last_verified: "2026-07-07"
+sources:
+  - https://huggingface.co/docs/inference-endpoints/security
+  - https://huggingface.co/pricing
+  - https://huggingface.co/privacy
+  - https://huggingface.co/docs/inference-endpoints/en/faq
+
 deployment_models:
   - dedicated-endpoints
   - public-endpoint

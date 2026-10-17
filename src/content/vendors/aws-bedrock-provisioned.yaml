@@ -4,6 +4,17 @@ url: https://aws.amazon.com/bedrock/
 category: hyperscaler-dedicated
 tagline: Dedicated model capacity on Amazon Bedrock billed per Model Unit hourly
 
+last_verified: "2026-07-08"
+sources:
+  - https://aws.amazon.com/compliance/services-in-scope/SOC/
+  - https://aws.amazon.com/compliance/iso-certified/
+  - https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
+  - https://aws.amazon.com/compliance/services-in-scope/C5/
+  - https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
+  - https://aws.amazon.com/compliance/gdpr-center/
+  - https://aws.amazon.com/bedrock/pricing/
+  - https://aws.amazon.com/bedrock/faqs/
+
 deployment_models:
   - provisioned-throughput
   - custom-model-provisioned

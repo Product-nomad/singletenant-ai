@@ -38,7 +38,8 @@ Single source of truth for the site's vocabulary. Site copy, vendor YAML, spec w
 | **Verified** | The fact was checked against a primary source (vendor docs, trust centre, pricing page) on the stated date, and the evidence URL is on the page. |
 | **Not verified** | Rendered wherever a field is `unknown`. Honest absence — never papered over, never guessed from model memory. |
 | **Evidence URL** | The primary-source link every populated fact carries. No evidence URL → the field may only be `unknown`. |
-| **Last verified** | The per-section date chip on vendor profiles. Drives the freshness claim; goes stale honestly rather than silently. |
+| **Last verified** | The per-section date chip on vendor profiles, and the headline "Last verified DD Mon YYYY" stamp on vendor, compare and guide pages. A profile's `last_verified` is the *oldest* check behind any of its facts (schema-enforced), so the headline never overstates freshness; compare pages show the older of the two vendors. Goes stale honestly rather than silently. |
+| **Sources** | A profile's `sources[]`: every primary source it relies on, rendered as a list on the profile. Must include every fact's evidence URL (schema-enforced). |
 | **Primary source** | The vendor's own published material, fetched at build/research time. Third-party writeups and model memory are not primary sources. |
 
 ## Voice & tone
