@@ -77,9 +77,11 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: stated
     evidence_url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement
     verified: "2026-10-17"
 

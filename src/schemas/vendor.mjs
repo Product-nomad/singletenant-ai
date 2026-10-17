@@ -33,6 +33,16 @@ export const CERTS = [
 // display label in src/lib/labels.mjs (enforced by tests/labels.test.mjs).
 export const REGIONS = ['us', 'uk', 'europe', 'apac', 'global'];
 
+// Evidence levels, one rule for every certification and residency fact
+// (documented on /methodology/#evidence-levels):
+//   contractual  in the vendor's DPA, terms or service agreement, or a
+//                certification traceable to a certificate, audit report or
+//                certifying body
+//   stated       the vendor's own product, docs or trust pages; not binding
+// Anything weaker ("aligns with", "designed to") or not found is 'unknown'
+// (rendered "Not verified"): a cert is then omitted, residency is 'unknown'.
+export const EVIDENCE_LEVELS = ['contractual', 'stated'];
+
 export const isoDate = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, 'verified must be YYYY-MM-DD')
@@ -52,6 +62,7 @@ export const maxWords = (limit, label) =>
 export const complianceEntrySchema = z
   .object({
     cert: z.enum(CERTS),
+    level: z.enum(EVIDENCE_LEVELS),
     evidence_url: evidenceUrl,
     verified: isoDate,
   })
@@ -99,8 +110,9 @@ export const pricingSchema = z
 export const sovereigntySchema = z
   .object({
     data_residency_guarantee: z
-      .union([z.boolean(), z.literal('unknown')])
-      .default('unknown'),
+      .enum([...EVIDENCE_LEVELS, 'unknown'])
+      .default('unknown')
+      .describe('Evidence level for keeping data in a customer-chosen region'),
     parent_jurisdiction: z
       .string()
       .min(1)
@@ -139,6 +151,7 @@ export const SOURCE_FIELDS = [
   'regions',
   'pricing',
   'notes',
+  'renamed',
   'sovereignty.data_residency_guarantee',
   'sovereignty.parent_jurisdiction',
   ...CERTS.map((c) => `compliance.${c}`),
@@ -159,13 +172,15 @@ export const claimedFields = (data) => {
   if (data.deployment_models?.length) fields.push('deployment_models');
   if (data.regions?.length) fields.push('regions');
   if (data.notes) fields.push('notes');
+  if (data.renamed) fields.push('renamed');
   for (const c of data.compliance ?? []) fields.push(`compliance.${c.cert}`);
   const pricing = data.pricing ?? {};
   if (pricing.model !== 'unknown' || pricing.public !== 'unknown') {
     fields.push('pricing');
   }
+  const sovereignty = data.sovereignty ?? {};
   for (const key of ['data_residency_guarantee', 'parent_jurisdiction']) {
-    if ((data.sovereignty ?? {})[key] !== 'unknown') {
+    if (sovereignty[key] !== 'unknown') {
       fields.push(`sovereignty.${key}`);
     }
   }
@@ -192,6 +207,11 @@ export const vendorSchema = z
         "slug must not contain '-vs-', it breaks /compare/[a]-vs-[b] routing",
       ),
     name: z.string().min(1),
+    renamed: z
+      .object({ from: z.string().min(1), to: z.string().min(1) })
+      .strict()
+      .optional()
+      .describe('Product renamed by the vendor; displayed "from (now to)"'),
     url: evidenceUrl.describe('Vendor homepage'),
     category: z.enum(CATEGORIES),
     tagline: maxWords(12, 'tagline').describe('Factual, no hype'),

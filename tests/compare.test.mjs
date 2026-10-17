@@ -89,7 +89,7 @@ test('pairDistinctiveness rewards verified differences only', () => {
     {
       ...vendor({
         sovereignty: {
-          data_residency_guarantee: true,
+          data_residency_guarantee: 'contractual',
           parent_jurisdiction: 'US',
         },
         pricing: { model: 'x', public: false },
@@ -103,7 +103,7 @@ test('pairDistinctiveness rewards verified differences only', () => {
         category: 'uk-sovereign',
         compliance: [{ cert: 'ISO27001' }],
         sovereignty: {
-          data_residency_guarantee: false,
+          data_residency_guarantee: 'stated',
           parent_jurisdiction: 'UK',
         },
       }),

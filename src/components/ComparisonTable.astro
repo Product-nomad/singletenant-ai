@@ -4,6 +4,8 @@ import {
   CATEGORY_LABELS,
   CERT_LABELS,
   deploymentLabel,
+  displayName,
+  evidenceLevelLabel,
   regionLabel,
 } from '../lib/labels.mjs';
 
@@ -38,15 +40,16 @@ const rows: Array<{
     label: 'Compliance',
     get: (d) =>
       d.compliance.map(
-        (c) => CERT_LABELS[c.cert as keyof typeof CERT_LABELS] ?? c.cert,
+        (c) =>
+          `${CERT_LABELS[c.cert as keyof typeof CERT_LABELS] ?? c.cert}${c.level === 'stated' ? ' (stated)' : ''}`,
       ),
     type: 'tags',
   },
   { label: 'Pricing model', get: (d) => d.pricing.model },
   { label: 'Public pricing', get: (d) => d.pricing.public },
   {
-    label: 'Residency guarantee',
-    get: (d) => d.sovereignty.data_residency_guarantee,
+    label: 'Data residency evidence',
+    get: (d) => evidenceLevelLabel(d.sovereignty.data_residency_guarantee),
   },
   {
     label: 'Parent jurisdiction',
@@ -71,7 +74,7 @@ function fmt(val: CellValue): string {
           <th class="text-left">
             <a href={`/vendors/${v.data.slug}/`} class="no-underline">
               <span class="font-display font-semibold text-base normal-case tracking-normal" style="color: var(--color-ink);">
-                {v.data.name}
+                {displayName(v.data)}
               </span>
             </a>
           </th>

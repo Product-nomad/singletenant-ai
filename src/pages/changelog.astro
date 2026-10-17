@@ -51,6 +51,18 @@ const formatDate = (iso: string) =>
             <p class="m-0 mb-2 text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
               {entry.summary}
             </p>
+            {entry.sources.length > 0 && (
+              <ul class="entry-sources">
+                {entry.sources.map((url) => (
+                  <li>
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                      {new URL(url).hostname.replace(/^www\./, '')}
+                      {new URL(url).pathname.length > 1 ? new URL(url).pathname : ''}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
             {entry.vendors.length > 0 && (
               <p class="m-0 text-xs font-mono">
                 {entry.vendors.map((slug, i) => (
@@ -71,6 +83,16 @@ const formatDate = (iso: string) =>
 </BaseLayout>
 
 <style>
+  .entry-sources {
+    list-style: none;
+    margin: 0 0 0.5rem;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+
   .entry {
     padding: 1.25rem 0;
     border-top: 1px solid var(--color-rule);

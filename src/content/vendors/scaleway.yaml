@@ -1,5 +1,8 @@
 slug: scaleway
 name: Scaleway
+renamed:
+  from: Scaleway Managed Inference
+  to: Generative APIs Dedicated Deployment
 url: https://www.scaleway.com
 category: eu-sovereign
 tagline: French cloud offering serverless and dedicated-GPU managed LLM inference
@@ -18,6 +21,9 @@ sources:
   - field: tagline
     url: https://www.scaleway.com/en/generative-apis/
     verified: "2026-10-17"
+  - field: renamed
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
   - field: deployment_models
     url: https://www.scaleway.com/en/generative-apis/
     verified: "2026-10-17"
@@ -31,7 +37,7 @@ sources:
     url: https://www.scaleway.com/en/generative-apis/
     verified: "2026-10-17"
   - field: compliance.ISO27001
-    url: https://www.scaleway.com/en/security-and-compliance/
+    url: https://security.scaleway.com/
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
     url: https://www.scaleway.com/en/contracts/
@@ -41,6 +47,9 @@ sources:
     verified: "2026-10-17"
   - field: pricing
     url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www-uploads.scaleway.com/DPA_2024_ENG_b0abb5cc26.pdf
     verified: "2026-10-17"
   - field: sovereignty.data_residency_guarantee
     url: https://www.scaleway.com/en/inference/
@@ -67,9 +76,11 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.scaleway.com/en/security-and-compliance/
+    level: contractual
+    evidence_url: https://security.scaleway.com/
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://www.scaleway.com/en/contracts/
     verified: "2026-10-17"
 
@@ -80,9 +91,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: true
+  data_residency_guarantee: contractual
   parent_jurisdiction: FR
-  evidence_url: https://www.scaleway.com/en/inference/
+  evidence_url: https://www-uploads.scaleway.com/DPA_2024_ENG_b0abb5cc26.pdf
   verified: "2026-10-17"
 
 notes: >-

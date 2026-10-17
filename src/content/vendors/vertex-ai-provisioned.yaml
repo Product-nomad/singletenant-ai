@@ -1,5 +1,8 @@
 slug: vertex-ai-provisioned
 name: Vertex AI Provisioned Throughput
+renamed:
+  from: Vertex AI Provisioned Throughput
+  to: Gemini Enterprise Agent Platform Provisioned Throughput
 url: https://cloud.google.com/vertex-ai
 category: hyperscaler-dedicated
 tagline: Reserved Vertex AI model throughput purchased in generative AI scale units
@@ -17,6 +20,12 @@ sources:
     verified: "2026-10-17"
   - field: tagline
     url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
+    verified: "2026-10-17"
+  - field: renamed
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: renamed
+    url: https://cloud.google.com/security/compliance/services-in-scope
     verified: "2026-10-17"
   - field: deployment_models
     url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
@@ -42,6 +51,12 @@ sources:
   - field: pricing
     url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
     verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://cloud.google.com/terms/service-terms
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://cloud.google.com/terms/data-residency
+    verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://policies.google.com/terms
     verified: "2026-10-17"
@@ -53,6 +68,9 @@ sources:
     verified: "2026-10-17"
   - field: notes
     url: https://cloud.google.com/security/compliance/services-in-scope
+    verified: "2026-10-17"
+  - field: notes
+    url: https://cloud.google.com/terms/service-terms
     verified: "2026-10-17"
 
 deployment_models:
@@ -75,15 +93,19 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
     verified: "2026-10-17"
   - cert: SOC3
+    level: contractual
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
     verified: "2026-10-17"
   - cert: ISO27001
+    level: contractual
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://cloud.google.com/terms/data-processing-addendum
     verified: "2026-10-17"
 
@@ -94,17 +116,17 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: contractual
   parent_jurisdiction: US
-  evidence_url: https://policies.google.com/terms
+  evidence_url: https://cloud.google.com/terms/service-terms
   verified: "2026-10-17"
 
 notes: >-
   Provisioned Throughput reserves Gemini and partner-model capacity in
   generative AI scale units (GSUs) on fixed-cost terms, including 1-week
-  options for select models. Google Cloud docs now brand the platform Gemini
-  Enterprise Agent Platform. Google's SOC 1/2/3 and ISO 27001 scope lists
-  Generative AI on Gemini Enterprise Agent Platform; public GSU price list
-  not verified.
+  options for select models. Google now brands the platform Gemini Enterprise
+  Agent Platform. Its Service Specific Terms commit to storing data and
+  running ML processing in a customer-chosen multi-region. Public GSU price
+  list not verified.
 
 featured: false
