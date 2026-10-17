@@ -74,7 +74,7 @@ Free text is excluded. Pricing-model wording and deployment-model tokens always 
 
 **Threshold: 40** (at least 2.4 of the 6 dimensions). Pairs below it render `noindex, follow` and are left out of the sitemap. They stay reachable from both vendor profiles (each profile links all 15 of its comparisons) and from the `/compare/` picker, and the `follow` directive keeps link equity flowing. The constant is `INDEX_MIN_SCORE` in `src/lib/compare.mjs`. Per-pair overrides go in `INDEX_OVERRIDES` in the same file (empty today).
 
-Distribution after the 2026-10-17 re-verification (section 3.1): 0 to 9: 1 pair; 10 to 19: 14; 20 to 29: 18; 30 to 39: 20; 40 to 49: 17; 50 to 59: 20; 60 to 69: 25; 70 to 79: 4; 80 or more: 1. Result: **67 indexed, 53 noindex**. Before re-verification it was 69 and 51; the two pairs that moved are listed in 3.1.
+Distribution after the field-level verification (sections 3.1 and 3.2): 0 to 9: 1 pair; 10 to 19: 13; 20 to 29: 19; 30 to 39: 20; 40 to 49: 19; 50 to 59: 18; 60 to 69: 25; 70 to 79: 4; 80 or more: 1. Result: **67 indexed, 53 noindex**. Before any re-verification it was 69 and 51; the pairs that moved are listed in 3.1 and 3.2.
 
 ### 2.2 What the score rewards
 
@@ -86,11 +86,11 @@ The score measures how distinctive a page's content is, not how much search dema
 
 | Pair | Score |
 |---|---:|
-| AWS Bedrock Provisioned vs Azure OpenAI PTU | 27 |
-| Azure OpenAI PTU vs Vertex AI Provisioned | 26 |
-| AWS Bedrock Provisioned vs Vertex AI Provisioned | 15 |
+| AWS Bedrock Provisioned vs Azure OpenAI PTU | 26 |
+| Azure OpenAI PTU vs Vertex AI Provisioned | 22 |
+| AWS Bedrock Provisioned vs Vertex AI Provisioned | 20 |
 | OVHcloud vs Scaleway | 17 |
-| Nebius vs OVHcloud | 36 |
+| Nebius vs OVHcloud | 37 |
 | Modal vs RunPod | 23 |
 
 **Recommendation**: do not index these as they stand. They are exactly the thin pages Google discounts. Either add a short written editorial section to each (the hyperscaler trio first) and then list them in `INDEX_OVERRIDES.index`, or leave them noindexed. A search-volume pull (DataForSEO, about $0.10 for all 120 pairs) would rank the candidates if you want evidence before writing.
@@ -99,29 +99,28 @@ The score measures how distinctive a page's content is, not how much search dema
 
 | Score | Pair | Cat | Jur | Res | Certs | Regions | Pricing |
 |---:|---|---:|---:|---:|---:|---:|---:|
-| 80 | [Amazon Bedrock Provisioned Throughput vs OVHcloud](/compare/aws-bedrock-provisioned-vs-ovhcloud/) | 1 | 1 | 0.50 | 0.63 | 0.67 | 1 |
-| 79 | [Amazon Bedrock Provisioned Throughput vs Civo](/compare/aws-bedrock-provisioned-vs-civo/) | 1 | 1 | 0 | 0.71 | 1 | 1 |
-| 73 | [Amazon Bedrock Provisioned Throughput vs Scaleway](/compare/aws-bedrock-provisioned-vs-scaleway/) | 1 | 1 | 0 | 0.71 | 0.67 | 1 |
+| 81 | [Amazon Bedrock Provisioned Throughput vs OVHcloud](/compare/aws-bedrock-provisioned-vs-ovhcloud/) | 1 | 1 | 0.50 | 0.63 | 0.75 | 1 |
+| 74 | [Amazon Bedrock Provisioned Throughput vs Civo](/compare/aws-bedrock-provisioned-vs-civo/) | 1 | 1 | 0 | 0.71 | 0.75 | 1 |
+| 74 | [Amazon Bedrock Provisioned Throughput vs Scaleway](/compare/aws-bedrock-provisioned-vs-scaleway/) | 1 | 1 | 0 | 0.71 | 0.75 | 1 |
 | 72 | [Civo vs OVHcloud](/compare/civo-vs-ovhcloud/) | 1 | 1 | 0.50 | 0.80 | 1 | 0 |
 | 71 | [Modal vs OVHcloud](/compare/modal-vs-ovhcloud/) | 1 | 1 | 0.50 | 1 | 0.75 | 0 |
 | 69 | [Civo vs Hugging Face Inference Endpoints](/compare/civo-vs-huggingface-inference-endpoints/) | 1 | 1 | 0.50 | 0.67 | 1 | 0 |
 | 68 | [Baseten vs Civo](/compare/baseten-vs-civo/) | 1 | 1 | 0.50 | 0.60 | 1 | 0 |
+| 68 | [Civo vs Nebius](/compare/civo-vs-nebius/) | 1 | 1 | 0.50 | 0.60 | 1 | 0 |
 | 68 | [Civo vs RunPod](/compare/civo-vs-runpod/) | 1 | 1 | 0.50 | 0.60 | 1 | 0 |
-| 67 | [Civo vs Nebius](/compare/civo-vs-nebius/) | 1 | 1 | 0.50 | 0.50 | 1 | 0 |
 | 67 | [Civo vs Vertex AI Provisioned Throughput](/compare/civo-vs-vertex-ai-provisioned/) | 1 | 1 | 0.50 | 0.50 | 1 | 0 |
 | 67 | [Fireworks AI vs Scaleway](/compare/fireworks-ai-vs-scaleway/) | 1 | 1 | 0.50 | 0.75 | 0.75 | 0 |
 | 67 | [Scaleway vs Together AI](/compare/scaleway-vs-together-ai/) | 1 | 1 | 1 | 1 | 0 | 0 |
+| 64 | [Azure OpenAI Provisioned Throughput (PTU) vs OVHcloud](/compare/azure-openai-ptu-vs-ovhcloud/) | 1 | 1 | 0.50 | 0.57 | 0.75 | 0 |
 | 64 | [Civo vs CoreWeave](/compare/civo-vs-coreweave/) | 1 | 1 | 0.50 | 0.67 | 0.67 | 0 |
 | 64 | [Civo vs Databricks Model Serving](/compare/civo-vs-databricks-model-serving/) | 1 | 1 | 0.50 | 0.60 | 0.75 | 0 |
 | 64 | [Civo vs Fireworks AI](/compare/civo-vs-fireworks-ai/) | 1 | 1 | 0.50 | 0.33 | 1 | 0 |
 | 64 | [CoreWeave vs Scaleway](/compare/coreweave-vs-scaleway/) | 1 | 1 | 0.50 | 0.67 | 0.67 | 0 |
 | 64 | [Databricks Model Serving vs Scaleway](/compare/databricks-model-serving-vs-scaleway/) | 1 | 1 | 0.50 | 0.60 | 0.75 | 0 |
-| 63 | [Modal vs Nebius](/compare/modal-vs-nebius/) | 1 | 1 | 0.50 | 0.80 | 0.50 | 0 |
 | 63 | [Modal vs Scaleway](/compare/modal-vs-scaleway/) | 1 | 1 | 0 | 1 | 0.75 | 0 |
 | 63 | [RunPod vs Scaleway](/compare/runpod-vs-scaleway/) | 1 | 1 | 0.50 | 0.60 | 0.67 | 0 |
-| 62 | [Amazon Bedrock Provisioned Throughput vs CoreWeave](/compare/aws-bedrock-provisioned-vs-coreweave/) | 1 | 0 | 0.50 | 0.71 | 0.50 | 1 |
+| 62 | [Amazon Bedrock Provisioned Throughput vs Hugging Face Inference Endpoints](/compare/aws-bedrock-provisioned-vs-huggingface-inference-endpoints/) | 1 | 0 | 0.50 | 0.71 | 0.50 | 1 |
 | 62 | [Amazon Bedrock Provisioned Throughput vs Together AI](/compare/aws-bedrock-provisioned-vs-together-ai/) | 1 | 0 | 1 | 0.71 | 0 | 1 |
-| 62 | [Azure OpenAI Provisioned Throughput (PTU) vs OVHcloud](/compare/azure-openai-ptu-vs-ovhcloud/) | 1 | 1 | 0.50 | 0.57 | 0.67 | 0 |
 | 61 | [Azure OpenAI Provisioned Throughput (PTU) vs Civo](/compare/azure-openai-ptu-vs-civo/) | 1 | 1 | 0 | 0.67 | 1 | 0 |
 | 61 | [Civo vs Scaleway](/compare/civo-vs-scaleway/) | 1 | 1 | 0 | 0.67 | 1 | 0 |
 | 61 | [Civo vs Together AI](/compare/civo-vs-together-ai/) | 1 | 1 | 1 | 0.67 | 0 | 0 |
@@ -129,61 +128,62 @@ The score measures how distinctive a page's content is, not how much search dema
 | 61 | [Scaleway vs Vertex AI Provisioned Throughput](/compare/scaleway-vs-vertex-ai-provisioned/) | 1 | 1 | 0.50 | 0.50 | 0.67 | 0 |
 | 60 | [Baseten vs Scaleway](/compare/baseten-vs-scaleway/) | 1 | 1 | 0.50 | 0.60 | 0.50 | 0 |
 | 60 | [Fireworks AI vs OVHcloud](/compare/fireworks-ai-vs-ovhcloud/) | 1 | 1 | 0 | 0.83 | 0.75 | 0 |
-| 59 | [Amazon Bedrock Provisioned Throughput vs Hugging Face Inference Endpoints](/compare/aws-bedrock-provisioned-vs-huggingface-inference-endpoints/) | 1 | 0 | 0.50 | 0.71 | 0.33 | 1 |
+| 60 | [Modal vs Nebius](/compare/modal-vs-nebius/) | 1 | 1 | 0.50 | 0.60 | 0.50 | 0 |
+| 58 | [Amazon Bedrock Provisioned Throughput vs CoreWeave](/compare/aws-bedrock-provisioned-vs-coreweave/) | 1 | 0 | 0.50 | 0.71 | 0.25 | 1 |
+| 58 | [Amazon Bedrock Provisioned Throughput vs Fireworks AI](/compare/aws-bedrock-provisioned-vs-fireworks-ai/) | 1 | 0 | 0.50 | 0.57 | 0.40 | 1 |
 | 58 | [CoreWeave vs OVHcloud](/compare/coreweave-vs-ovhcloud/) | 1 | 1 | 0 | 0.80 | 0.67 | 0 |
 | 58 | [Databricks Model Serving vs OVHcloud](/compare/databricks-model-serving-vs-ovhcloud/) | 1 | 1 | 0 | 0.71 | 0.75 | 0 |
 | 58 | [OVHcloud vs Together AI](/compare/ovhcloud-vs-together-ai/) | 1 | 1 | 0.50 | 1 | 0 | 0 |
-| 57 | [Azure OpenAI Provisioned Throughput (PTU) vs Nebius](/compare/azure-openai-ptu-vs-nebius/) | 1 | 1 | 0.50 | 0.57 | 0.33 | 0 |
+| 57 | [Azure OpenAI Provisioned Throughput (PTU) vs Nebius](/compare/azure-openai-ptu-vs-nebius/) | 1 | 1 | 0.50 | 0.43 | 0.50 | 0 |
+| 57 | [Azure OpenAI Provisioned Throughput (PTU) vs Scaleway](/compare/azure-openai-ptu-vs-scaleway/) | 1 | 1 | 0 | 0.67 | 0.75 | 0 |
 | 57 | [Civo vs Modal](/compare/civo-vs-modal/) | 1 | 1 | 0 | 0.67 | 0.75 | 0 |
-| 56 | [Azure OpenAI Provisioned Throughput (PTU) vs Scaleway](/compare/azure-openai-ptu-vs-scaleway/) | 1 | 1 | 0 | 0.67 | 0.67 | 0 |
 | 56 | [OVHcloud vs RunPod](/compare/ovhcloud-vs-runpod/) | 1 | 1 | 0 | 0.71 | 0.67 | 0 |
 | 56 | [OVHcloud vs Vertex AI Provisioned Throughput](/compare/ovhcloud-vs-vertex-ai-provisioned/) | 1 | 1 | 0 | 0.67 | 0.67 | 0 |
-| 55 | [Amazon Bedrock Provisioned Throughput vs Fireworks AI](/compare/aws-bedrock-provisioned-vs-fireworks-ai/) | 1 | 0 | 0.50 | 0.57 | 0.25 | 1 |
+| 55 | [Amazon Bedrock Provisioned Throughput vs Baseten](/compare/aws-bedrock-provisioned-vs-baseten/) | 1 | 0 | 0.50 | 0.29 | 0.50 | 1 |
+| 55 | [Amazon Bedrock Provisioned Throughput vs Nebius](/compare/aws-bedrock-provisioned-vs-nebius/) | 1 | 1 | 0.50 | 0.29 | 0.50 | 0 |
 | 55 | [Hugging Face Inference Endpoints vs OVHcloud](/compare/huggingface-inference-endpoints-vs-ovhcloud/) | 1 | 1 | 0 | 0.80 | 0.50 | 0 |
-| 55 | [Nebius vs Together AI](/compare/nebius-vs-together-ai/) | 1 | 1 | 0.50 | 0.80 | 0 | 0 |
-| 54 | [Amazon Bedrock Provisioned Throughput vs Nebius](/compare/aws-bedrock-provisioned-vs-nebius/) | 1 | 1 | 0.50 | 0.43 | 0.33 | 0 |
 | 54 | [Amazon Bedrock Provisioned Throughput vs NVIDIA NIM](/compare/aws-bedrock-provisioned-vs-nvidia-nim/) | 1 | 0 | 0.50 | 0.71 | 0 | 1 |
 | 54 | [Baseten vs OVHcloud](/compare/baseten-vs-ovhcloud/) | 1 | 1 | 0 | 0.71 | 0.50 | 0 |
 | 53 | [Civo vs NVIDIA NIM](/compare/civo-vs-nvidia-nim/) | 1 | 1 | 0.50 | 0.67 | 0 | 0 |
-| 52 | [Amazon Bedrock Provisioned Throughput vs Baseten](/compare/aws-bedrock-provisioned-vs-baseten/) | 1 | 0 | 0.50 | 0.29 | 0.33 | 1 |
-| 52 | [Fireworks AI vs Nebius](/compare/fireworks-ai-vs-nebius/) | 1 | 1 | 0 | 0.60 | 0.50 | 0 |
-| 51 | [Amazon Bedrock Provisioned Throughput vs Databricks Model Serving](/compare/aws-bedrock-provisioned-vs-databricks-model-serving/) | 1 | 0 | 0.50 | 0.29 | 0.25 | 1 |
-| 50 | [Databricks Model Serving vs Nebius](/compare/databricks-model-serving-vs-nebius/) | 1 | 1 | 0 | 0.50 | 0.50 | 0 |
-| 49 | [Amazon Bedrock Provisioned Throughput vs Modal](/compare/aws-bedrock-provisioned-vs-modal/) | 1 | 0 | 0 | 0.71 | 0.25 | 1 |
-| 47 | [CoreWeave vs Nebius](/compare/coreweave-vs-nebius/) | 1 | 1 | 0 | 0.50 | 0.33 | 0 |
-| 46 | [Amazon Bedrock Provisioned Throughput vs RunPod](/compare/aws-bedrock-provisioned-vs-runpod/) | 1 | 0 | 0.50 | 0.29 | 0 | 1 |
-| 44 | [Azure OpenAI Provisioned Throughput (PTU) vs CoreWeave](/compare/azure-openai-ptu-vs-coreweave/) | 1 | 0 | 0.50 | 0.67 | 0.50 | 0 |
+| 52 | [Nebius vs Together AI](/compare/nebius-vs-together-ai/) | 1 | 1 | 0.50 | 0.60 | 0 | 0 |
+| 51 | [Amazon Bedrock Provisioned Throughput vs RunPod](/compare/aws-bedrock-provisioned-vs-runpod/) | 1 | 0 | 0.50 | 0.29 | 0.25 | 1 |
+| 49 | [CoreWeave vs Nebius](/compare/coreweave-vs-nebius/) | 1 | 1 | 0 | 0.60 | 0.33 | 0 |
+| 48 | [Fireworks AI vs Nebius](/compare/fireworks-ai-vs-nebius/) | 1 | 1 | 0 | 0.40 | 0.50 | 0 |
+| 47 | [Databricks Model Serving vs Nebius](/compare/databricks-model-serving-vs-nebius/) | 1 | 1 | 0 | 0.33 | 0.50 | 0 |
+| 46 | [Amazon Bedrock Provisioned Throughput vs Databricks Model Serving](/compare/aws-bedrock-provisioned-vs-databricks-model-serving/) | 1 | 0 | 0.50 | 0.29 | 0 | 1 |
+| 46 | [Azure OpenAI Provisioned Throughput (PTU) vs CoreWeave](/compare/azure-openai-ptu-vs-coreweave/) | 1 | 0 | 0.50 | 0.67 | 0.60 | 0 |
+| 45 | [Amazon Bedrock Provisioned Throughput vs Modal](/compare/aws-bedrock-provisioned-vs-modal/) | 1 | 0 | 0 | 0.71 | 0 | 1 |
+| 44 | [Azure OpenAI Provisioned Throughput (PTU) vs Hugging Face Inference Endpoints](/compare/azure-openai-ptu-vs-huggingface-inference-endpoints/) | 1 | 0 | 0.50 | 0.67 | 0.50 | 0 |
 | 44 | [Azure OpenAI Provisioned Throughput (PTU) vs Together AI](/compare/azure-openai-ptu-vs-together-ai/) | 1 | 0 | 1 | 0.67 | 0 | 0 |
 | 44 | [Hugging Face Inference Endpoints vs Modal](/compare/huggingface-inference-endpoints-vs-modal/) | 1 | 0 | 0.50 | 0.67 | 0.50 | 0 |
+| 43 | [Hugging Face Inference Endpoints vs Nebius](/compare/huggingface-inference-endpoints-vs-nebius/) | 1 | 1 | 0 | 0.60 | 0 | 0 |
 | 43 | [Modal vs Vertex AI Provisioned Throughput](/compare/modal-vs-vertex-ai-provisioned/) | 1 | 0 | 0.50 | 0.80 | 0.25 | 0 |
-| 42 | [Azure OpenAI Provisioned Throughput (PTU) vs Hugging Face Inference Endpoints](/compare/azure-openai-ptu-vs-huggingface-inference-endpoints/) | 1 | 0 | 0.50 | 0.67 | 0.33 | 0 |
-| 42 | [Hugging Face Inference Endpoints vs Nebius](/compare/huggingface-inference-endpoints-vs-nebius/) | 1 | 1 | 0 | 0.50 | 0 | 0 |
+| 43 | [Nebius vs NVIDIA NIM](/compare/nebius-vs-nvidia-nim/) | 1 | 1 | 0 | 0.60 | 0 | 0 |
+| 43 | [Nebius vs Scaleway](/compare/nebius-vs-scaleway/) | 0 | 1 | 0.50 | 0.60 | 0.50 | 0 |
 | 42 | [Modal vs NVIDIA NIM](/compare/modal-vs-nvidia-nim/) | 1 | 0 | 0.50 | 1 | 0 | 0 |
-| 42 | [Nebius vs NVIDIA NIM](/compare/nebius-vs-nvidia-nim/) | 1 | 1 | 0 | 0.50 | 0 | 0 |
-| 42 | [Nebius vs RunPod](/compare/nebius-vs-runpod/) | 1 | 1 | 0 | 0.20 | 0.33 | 0 |
-| 42 | [Nebius vs Scaleway](/compare/nebius-vs-scaleway/) | 0 | 1 | 0.50 | 0.50 | 0.50 | 0 |
+| 42 | [Nebius vs Vertex AI Provisioned Throughput](/compare/nebius-vs-vertex-ai-provisioned/) | 1 | 1 | 0 | 0.20 | 0.33 | 0 |
 | 42 | [NVIDIA NIM vs OVHcloud](/compare/nvidia-nim-vs-ovhcloud/) | 1 | 1 | 0 | 0.50 | 0 | 0 |
 | 42 | [NVIDIA NIM vs Scaleway](/compare/nvidia-nim-vs-scaleway/) | 1 | 1 | 0.50 | 0 | 0 | 0 |
 | 42 | [NVIDIA NIM vs Together AI](/compare/nvidia-nim-vs-together-ai/) | 1 | 0 | 0.50 | 1 | 0 | 0 |
-| 40 | [Azure OpenAI Provisioned Throughput (PTU) vs RunPod](/compare/azure-openai-ptu-vs-runpod/) | 1 | 0 | 0.50 | 0.43 | 0.50 | 0 |
+| 40 | [Azure OpenAI Provisioned Throughput (PTU) vs Baseten](/compare/azure-openai-ptu-vs-baseten/) | 1 | 0 | 0.50 | 0.43 | 0.50 | 0 |
 
 ### 2.5 noindex,follow (53 pairs, score < 40)
 
 | Score | Pair | Cat | Jur | Res | Certs | Regions | Pricing |
 |---:|---|---:|---:|---:|---:|---:|---:|
-| 39 | [Nebius vs Vertex AI Provisioned Throughput](/compare/nebius-vs-vertex-ai-provisioned/) | 1 | 1 | 0 | 0 | 0.33 | 0 |
-| 38 | [Azure OpenAI Provisioned Throughput (PTU) vs Baseten](/compare/azure-openai-ptu-vs-baseten/) | 1 | 0 | 0.50 | 0.43 | 0.33 | 0 |
-| 38 | [Azure OpenAI Provisioned Throughput (PTU) vs Databricks Model Serving](/compare/azure-openai-ptu-vs-databricks-model-serving/) | 1 | 0 | 0.50 | 0.17 | 0.60 | 0 |
-| 38 | [Azure OpenAI Provisioned Throughput (PTU) vs Fireworks AI](/compare/azure-openai-ptu-vs-fireworks-ai/) | 1 | 0 | 0.50 | 0.50 | 0.25 | 0 |
-| 38 | [Azure OpenAI Provisioned Throughput (PTU) vs Modal](/compare/azure-openai-ptu-vs-modal/) | 1 | 0 | 0 | 0.67 | 0.60 | 0 |
+| 39 | [Nebius vs RunPod](/compare/nebius-vs-runpod/) | 1 | 1 | 0 | 0 | 0.33 | 0 |
 | 38 | [Fireworks AI vs Hugging Face Inference Endpoints](/compare/fireworks-ai-vs-huggingface-inference-endpoints/) | 1 | 0 | 0 | 0.75 | 0.50 | 0 |
 | 38 | [Together AI vs Vertex AI Provisioned Throughput](/compare/together-ai-vs-vertex-ai-provisioned/) | 1 | 0 | 0.50 | 0.80 | 0 | 0 |
-| 37 | [Baseten vs Nebius](/compare/baseten-vs-nebius/) | 1 | 1 | 0 | 0.20 | 0 | 0 |
+| 37 | [Nebius vs OVHcloud](/compare/nebius-vs-ovhcloud/) | 0 | 1 | 0 | 0.71 | 0.50 | 0 |
 | 36 | [Azure OpenAI Provisioned Throughput (PTU) vs NVIDIA NIM](/compare/azure-openai-ptu-vs-nvidia-nim/) | 1 | 0 | 0.50 | 0.67 | 0 | 0 |
+| 36 | [Azure OpenAI Provisioned Throughput (PTU) vs RunPod](/compare/azure-openai-ptu-vs-runpod/) | 1 | 0 | 0.50 | 0.43 | 0.25 | 0 |
 | 36 | [Hugging Face Inference Endpoints vs Together AI](/compare/huggingface-inference-endpoints-vs-together-ai/) | 1 | 0 | 0.50 | 0.67 | 0 | 0 |
-| 36 | [Nebius vs OVHcloud](/compare/nebius-vs-ovhcloud/) | 0 | 1 | 0 | 0.67 | 0.50 | 0 |
 | 35 | [Databricks Model Serving vs Modal](/compare/databricks-model-serving-vs-modal/) | 1 | 0 | 0.50 | 0.60 | 0 | 0 |
 | 35 | [Databricks Model Serving vs Together AI](/compare/databricks-model-serving-vs-together-ai/) | 1 | 0 | 0.50 | 0.60 | 0 | 0 |
+| 34 | [Azure OpenAI Provisioned Throughput (PTU) vs Databricks Model Serving](/compare/azure-openai-ptu-vs-databricks-model-serving/) | 1 | 0 | 0.50 | 0.17 | 0.40 | 0 |
+| 34 | [Azure OpenAI Provisioned Throughput (PTU) vs Modal](/compare/azure-openai-ptu-vs-modal/) | 1 | 0 | 0 | 0.67 | 0.40 | 0 |
+| 33 | [Azure OpenAI Provisioned Throughput (PTU) vs Fireworks AI](/compare/azure-openai-ptu-vs-fireworks-ai/) | 1 | 0 | 0.50 | 0.50 | 0 | 0 |
+| 33 | [Baseten vs Nebius](/compare/baseten-vs-nebius/) | 1 | 1 | 0 | 0 | 0 | 0 |
 | 33 | [CoreWeave vs Vertex AI Provisioned Throughput](/compare/coreweave-vs-vertex-ai-provisioned/) | 1 | 0 | 0 | 0.50 | 0.50 | 0 |
 | 32 | [Hugging Face Inference Endpoints vs RunPod](/compare/huggingface-inference-endpoints-vs-runpod/) | 1 | 0 | 0 | 0.60 | 0.33 | 0 |
 | 31 | [Baseten vs Databricks Model Serving](/compare/baseten-vs-databricks-model-serving/) | 1 | 0 | 0 | 0.33 | 0.50 | 0 |
@@ -194,20 +194,21 @@ The score measures how distinctive a page's content is, not how much search dema
 | 29 | [Databricks Model Serving vs Vertex AI Provisioned Throughput](/compare/databricks-model-serving-vs-vertex-ai-provisioned/) | 1 | 0 | 0 | 0.50 | 0.25 | 0 |
 | 29 | [Fireworks AI vs NVIDIA NIM](/compare/fireworks-ai-vs-nvidia-nim/) | 1 | 0 | 0 | 0.75 | 0 | 0 |
 | 28 | [CoreWeave vs NVIDIA NIM](/compare/coreweave-vs-nvidia-nim/) | 1 | 0 | 0 | 0.67 | 0 | 0 |
-| 27 | [Amazon Bedrock Provisioned Throughput vs Azure OpenAI Provisioned Throughput (PTU)](/compare/aws-bedrock-provisioned-vs-azure-openai-ptu/) | 0 | 0 | 0 | 0.14 | 0.50 | 1 |
 | 27 | [Baseten vs Hugging Face Inference Endpoints](/compare/baseten-vs-huggingface-inference-endpoints/) | 1 | 0 | 0 | 0.60 | 0 | 0 |
 | 27 | [Baseten vs Modal](/compare/baseten-vs-modal/) | 0 | 0 | 0.50 | 0.60 | 0.50 | 0 |
 | 27 | [Baseten vs NVIDIA NIM](/compare/baseten-vs-nvidia-nim/) | 1 | 0 | 0 | 0.60 | 0 | 0 |
 | 27 | [NVIDIA NIM vs RunPod](/compare/nvidia-nim-vs-runpod/) | 1 | 0 | 0 | 0.60 | 0 | 0 |
-| 26 | [Azure OpenAI Provisioned Throughput (PTU) vs Vertex AI Provisioned Throughput](/compare/azure-openai-ptu-vs-vertex-ai-provisioned/) | 0 | 0 | 0.50 | 0.57 | 0.50 | 0 |
+| 26 | [Amazon Bedrock Provisioned Throughput vs Azure OpenAI Provisioned Throughput (PTU)](/compare/aws-bedrock-provisioned-vs-azure-openai-ptu/) | 0 | 0 | 0 | 0.14 | 0.40 | 1 |
 | 26 | [Baseten vs Vertex AI Provisioned Throughput](/compare/baseten-vs-vertex-ai-provisioned/) | 1 | 0 | 0 | 0.20 | 0.33 | 0 |
 | 26 | [Databricks Model Serving vs RunPod](/compare/databricks-model-serving-vs-runpod/) | 1 | 0 | 0 | 0.33 | 0.25 | 0 |
 | 25 | [NVIDIA NIM vs Vertex AI Provisioned Throughput](/compare/nvidia-nim-vs-vertex-ai-provisioned/) | 1 | 0 | 0 | 0.50 | 0 | 0 |
 | 24 | [CoreWeave vs Modal](/compare/coreweave-vs-modal/) | 0 | 0 | 0.50 | 0.67 | 0.25 | 0 |
 | 23 | [CoreWeave vs Fireworks AI](/compare/coreweave-vs-fireworks-ai/) | 0 | 0 | 0 | 0.75 | 0.60 | 0 |
 | 23 | [Modal vs RunPod](/compare/modal-vs-runpod/) | 0 | 0 | 0.50 | 0.60 | 0.25 | 0 |
+| 22 | [Azure OpenAI Provisioned Throughput (PTU) vs Vertex AI Provisioned Throughput](/compare/azure-openai-ptu-vs-vertex-ai-provisioned/) | 0 | 0 | 0.50 | 0.57 | 0.25 | 0 |
 | 22 | [CoreWeave vs Hugging Face Inference Endpoints](/compare/coreweave-vs-huggingface-inference-endpoints/) | 1 | 0 | 0 | 0 | 0.33 | 0 |
 | 21 | [Fireworks AI vs Modal](/compare/fireworks-ai-vs-modal/) | 0 | 0 | 0.50 | 0.33 | 0.40 | 0 |
+| 20 | [Amazon Bedrock Provisioned Throughput vs Vertex AI Provisioned Throughput](/compare/aws-bedrock-provisioned-vs-vertex-ai-provisioned/) | 0 | 0 | 0.50 | 0.43 | 0.25 | 0 |
 | 20 | [RunPod vs Vertex AI Provisioned Throughput](/compare/runpod-vs-vertex-ai-provisioned/) | 1 | 0 | 0 | 0.20 | 0 | 0 |
 | 19 | [CoreWeave vs Together AI](/compare/coreweave-vs-together-ai/) | 0 | 0 | 0.50 | 0.67 | 0 | 0 |
 | 18 | [Baseten vs Together AI](/compare/baseten-vs-together-ai/) | 0 | 0 | 0.50 | 0.60 | 0 | 0 |
@@ -217,7 +218,6 @@ The score measures how distinctive a page's content is, not how much search dema
 | 17 | [Modal vs Together AI](/compare/modal-vs-together-ai/) | 0 | 0 | 1 | 0 | 0 | 0 |
 | 17 | [OVHcloud vs Scaleway](/compare/ovhcloud-vs-scaleway/) | 0 | 0 | 0.50 | 0.50 | 0 | 0 |
 | 16 | [Baseten vs CoreWeave](/compare/baseten-vs-coreweave/) | 0 | 0 | 0 | 0.60 | 0.33 | 0 |
-| 15 | [Amazon Bedrock Provisioned Throughput vs Vertex AI Provisioned Throughput](/compare/aws-bedrock-provisioned-vs-vertex-ai-provisioned/) | 0 | 0 | 0.50 | 0.43 | 0 | 0 |
 | 15 | [Baseten vs Fireworks AI](/compare/baseten-vs-fireworks-ai/) | 0 | 0 | 0 | 0.40 | 0.50 | 0 |
 | 14 | [Fireworks AI vs Together AI](/compare/fireworks-ai-vs-together-ai/) | 0 | 0 | 0.50 | 0.33 | 0 | 0 |
 | 11 | [Fireworks AI vs RunPod](/compare/fireworks-ai-vs-runpod/) | 0 | 0 | 0 | 0.40 | 0.25 | 0 |
@@ -254,7 +254,7 @@ Audit date 2026-10-17, so the 60-day staleness cutoff is **2026-08-18**.
 
 **Fields that carry no source URL in the schema** (the evidence invariant does not cover them):
 
-- `regions` (all 16 vendors): provenance exists only as YAML comments with a URL. It is not rendered and not validated. This was already a v3 candidate.
+- `regions` (all 16 vendors): provenance exists only as YAML comments with a URL. It is not rendered and not validated. This was already a v3 candidate. **Resolved in 3.2**: `sources[]` now records a source and date per field, regions included.
 - `deployment_models` (all 16): no provenance field or comment.
 - `tagline`, `notes`, `category`: editorial fields. `notes` often restates sourced facts but cites nothing inline.
 
@@ -295,6 +295,48 @@ Audit date 2026-10-17, so the 60-day staleness cutoff is **2026-08-18**.
 
 **Decision**: whether a documented, enforced product control should count as a residency guarantee. That would be a methodology change, so it was not made here.
 
+
+### 3.2 Field-level verification, 2026-10-17 (second pass)
+
+The first pass (3.1) checked the 87 evidence-bearing facts, then moved every profile's headline date. That overstated freshness: `deployment_models` had never been checked, regions for AWS, Azure, OVHcloud and Scaleway had no recorded source, and for several vendors the parent jurisdiction had not been confirmed from the page cited for residency. This pass checked **every field** (category, summary, deployment models, regions, each cert, pricing, residency, parent jurisdiction, analyst note, homepage URL) against the vendor's own docs, pricing, trust or legal pages. For Civo's ownership it used the Companies House register.
+
+**Schema change.** Each `sources[]` entry is now `{field, url, verified}`. The schema enforces four rules:
+
+- Every claimed field has at least one source.
+- No source names a field the record does not claim.
+- Every fact's evidence link is one of its own field's sources, with the same date.
+- `last_verified` equals the oldest source date.
+
+A field that could not be confirmed would keep its old entry and date, and so hold the profile's headline date back. In this pass every field was confirmed, so every entry is dated 2026-10-17. The vendor page renders the sources per field, each with its date.
+
+**New changes to values**
+
+| Vendor | Change | Source |
+|---|---|---|
+| aws-bedrock-provisioned | Regions gain `uk`. The PT model table lists `eu-west-2`, and AWS's regions page names it "Europe (London)", United Kingdom | Bedrock PT supported-regions doc; AWS regions page |
+| azure-openai-ptu | Regions gain `apac`. Data Zone types now process within the "US, EU, or Asia Pacific (APAC)" zone, and Data Zone Provisioned exists | Foundry deployment-types doc |
+| modal | Deployment models gain `dedicated-endpoints`. Dedicated Endpoints run models "on isolated, autoscaling containers" at standard compute rates | modal.com/docs/guide/dedicated-endpoints |
+| nebius | **HIPAA BAA added**: PHI use "is subject to a signed Business Associate Agreement". The old note said no BAA was found | docs.nebius.com/legal/hipaa |
+| nebius | Pricing corrected. The dedicated-endpoint billing policy makes an endpoint billable "when at least one replica is running", but the enterprise page still cites "$/token pricing". The pricing text now records both, and the summary drops "per-token" for dedicated endpoints | Token Factory billing policy; enterprise-grade inference page |
+| fireworks-ai | The sovereignty evidence moves to the terms (Fireworks.ai, Inc., Delaware law). The privacy policy did not name the parent | fireworks.ai/terms-of-service |
+
+**Notes corrected**: NVIDIA (Hugging Face now offers *serverless* NIM endpoints; dedicated routes are CSP model gardens, NVIDIA Brev and NVCF), OVHcloud ("more than 20" models, not 40+; hosted in the EU), RunPod (Secure Cloud defined as T3/T4 data centres), Databricks ("Mosaic AI" dropped from the product name), Azure (Data Zone US, EU or APAC), Modal (Dedicated Endpoints), Nebius (BAA).
+
+**Unverified**: one claim could not be confirmed on any NVIDIA page: "DGX Cloud pricing is via private marketplace offers". The private offer on the AI Enterprise pricing page is a subscription quote, not DGX Cloud. The claim was removed from the note rather than left under a fresh date. No structured field remains unverified.
+
+**Offering changes flagged (dedicated or single-tenant products, against the July record).** The baseline is this repo's July YAML. The Wayback Machine is unreachable from the build host, so only prices the YAML recorded can be compared.
+
+- **Renamed**: Scaleway "Managed Inference" is now "Generative APIs Dedicated Deployment", partially (the same page still says "Managed Inference" lower down). Vertex AI: the product URL now redirects to "Gemini Enterprise Agent Platform", and Google's scope list renames the service; Provisioned Throughput itself is unchanged. Databricks: "Mosaic AI Model Serving" is now "Model Serving". Baseten's dedicated deployments are also marketed as "Dedicated Inference".
+- **Repriced or new pricing unit**: Together AI now also sells dedicated capacity in throughput units (PTUs), alongside per-GPU-hour. Nebius's own pages conflict: the dedicated-endpoint billing policy makes an endpoint billable while a replica runs, but the product page cites $/token. The July record said per token. Every recorded price is unchanged: Scaleway EUR 0.93/hour, Hugging Face from $0.033/hour, Databricks A10G 20 DBU/hour, NVIDIA $4,500/GPU/year and $1/GPU/hour, CoreWeave up to 60% committed discount, Civo 6 to 36 month terms, AWS no-commitment/1-month/6-month MU terms, Azure 1-month and 1-year reservations.
+- **Withdrawn or narrowed**: Baseten's UK and Australia regions (3.1). NVIDIA's Hugging Face route is now serverless, not dedicated. Fireworks deprecated `inference_geo` in favour of account-level data residency.
+- **New**: Modal Dedicated Endpoints, Nebius BAA, and Fireworks' Enterprise US-only residency control.
+
+**Consistency issues found, values unchanged, for decision**:
+
+- Scaleway's residency is `true` on the strength of a product-page statement ("stored only in Europe"). OVHcloud ("hosted and run in the European Union") and others with similar wording stay `unknown`, and the methodology asks for a contractual guarantee.
+- CoreWeave's trust centre shows an ISO 27001 badge but its security page says it "aligns" with ISO 27001, so it stays excluded. Baseten and RunPod were added because their trust centres state certification outright ("holds", or a certificate).
+
+**Effect on compare pairs**: four pairs swap and the total stays 67. Azure OpenAI PTU vs Baseten (38 to 40) and Nebius vs Vertex AI (39 to 42) are now indexed. Azure OpenAI PTU vs RunPod (40 to 36) and Nebius vs RunPod (42 to 39) are now noindex.
 
 ## 4. Structured data
 
