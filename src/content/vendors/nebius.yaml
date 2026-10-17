@@ -4,12 +4,12 @@ url: https://nebius.com
 category: eu-sovereign
 tagline: Netherlands-based AI cloud with shared and dedicated per-token inference endpoints
 
-last_verified: "2026-07-07"
+last_verified: "2026-10-17"
 sources:
   - https://nebius.com/trust-center
   - https://nebius.com/services/token-factory/enterprise-grade-inference
   - https://nebius.com/services/token-factory/inference-service
-  - https://docs.tokenfactory.nebius.com/legal/terms-of-service
+  - https://docs.nebius.com/legal/agreement
 
 deployment_models:
   - serverless-api
@@ -22,34 +22,35 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://nebius.com/trust-center
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: SOC3
     evidence_url: https://nebius.com/trust-center
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://nebius.com/trust-center
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://nebius.com/services/token-factory/enterprise-grade-inference
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M input/output tokens; shared and dedicated endpoint tiers
   public: unknown
   evidence_url: https://nebius.com/services/token-factory/inference-service
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: NL
-  evidence_url: https://docs.tokenfactory.nebius.com/legal/terms-of-service
-  verified: "2026-07-07"
+  evidence_url: https://docs.nebius.com/legal/agreement
+  verified: "2026-10-17"
 
 notes: >-
   Token Factory offers shared or single-tenant endpoints with optional
   regional deployment in EU or US data centers (Finland, France, US).
-  Contracting entity Nebius B.V. is a Dutch company governed by Netherlands
-  law. Trust center lists HIPAA alongside SOC 2 Type II; no explicit BAA
-  statement found at review. Per-token price list requires account sign-in.
+  Non-US customers contract with Nebius B.V. under Dutch law; US Token
+  Factory customers registering from 15 Sep 2026 contract with Nebius Inc.
+  Trust center lists HIPAA alongside SOC 2 Type II; no explicit BAA found.
+  Per-token prices require sign-in.
 
 featured: false

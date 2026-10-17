@@ -4,7 +4,7 @@ url: https://modal.com
 category: dedicated-gpu
 tagline: Serverless GPU compute billed per second, with region pinning
 
-last_verified: "2026-07-07"
+last_verified: "2026-10-17"
 sources:
   - https://modal.com/docs/guide/security
   - https://modal.com/pricing
@@ -14,7 +14,7 @@ sources:
 deployment_models:
   - serverless
 
-# Regions re-checked 2026-07-18 against
+# Regions re-checked 2026-07-18 and 2026-10-17 against
 # https://modal.com/docs/guide/region-selection which documents region pinning
 # across US (us), the EEA (eu -> europe), the UK (uk) and Asia-Pacific (ap) plus
 # narrower zones. Modal lists uk as a broad region distinct from eu; it was
@@ -28,22 +28,22 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://modal.com/docs/guide/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://modal.com/docs/guide/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per-second GPU, CPU core, and memory billing
   public: true
   evidence_url: https://modal.com/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: US
   evidence_url: https://modal.com/legal/terms
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Terms commit to processing customer data only in customer-specified regions.

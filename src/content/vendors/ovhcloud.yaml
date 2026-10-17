@@ -4,9 +4,9 @@ url: https://www.ovhcloud.com
 category: eu-sovereign
 tagline: French cloud with per-token AI Endpoints and managed model deployment
 
-last_verified: "2026-07-07"
+last_verified: "2026-10-17"
 sources:
-  - https://www.ovhcloud.com/en/enterprise/certification-conformity/
+  - https://www.ovhcloud.com/en/compliance/
   - https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
   - https://www.ovhcloud.com/en/terms-and-conditions/
 
@@ -19,29 +19,29 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: C5
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: SecNumCloud
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M tokens (AI Endpoints, input/output priced separately)
   public: true
   evidence_url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: FR
   evidence_url: https://www.ovhcloud.com/en/terms-and-conditions/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   AI Endpoints is a serverless per-token API (40+ models) with zero data

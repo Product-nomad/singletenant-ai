@@ -4,13 +4,13 @@ url: https://cloud.google.com/vertex-ai
 category: hyperscaler-dedicated
 tagline: Reserved Vertex AI model throughput purchased in generative AI scale units
 
-last_verified: "2026-07-08"
+last_verified: "2026-10-17"
 sources:
   - https://cloud.google.com/security/compliance/services-in-scope
   - https://cloud.google.com/terms/data-processing-addendum
   - https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
   - https://policies.google.com/terms
-  - https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations
+  - https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations
 
 deployment_models:
   - provisioned-throughput
@@ -22,8 +22,9 @@ deployment_models:
 # publishes no PT-specific region list; Provisioned Throughput runs wherever its
 # supported models are available, so these buckets are derived from the model
 # region list rather than a PT-specific one. Source:
-# https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations
-# checked 2026-07-13.
+# https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations
+# checked 2026-07-13; re-checked 2026-10-17 after the page moved to the Gemini
+# Enterprise Agent Platform docs.
 regions:
   - us
   - europe
@@ -32,34 +33,35 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: SOC3
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://cloud.google.com/security/compliance/services-in-scope
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://cloud.google.com/terms/data-processing-addendum
-    verified: "2026-07-08"
+    verified: "2026-10-17"
 
 pricing:
   model: Per GSU (generative AI scale unit) fixed-cost term; 1-week terms for select models
   public: unknown
   evidence_url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://policies.google.com/terms
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 notes: >-
   Provisioned Throughput reserves Gemini and partner-model capacity in
   generative AI scale units (GSUs) on fixed-cost terms, including 1-week
   options for select models. Google Cloud docs now brand the platform Gemini
-  Enterprise Agent Platform. Vertex AI Platform appears in Google's SOC
-  1/2/3 and ISO 27001 scope; public GSU price list not verified at review.
+  Enterprise Agent Platform. Google's SOC 1/2/3 and ISO 27001 scope lists
+  Generative AI on Gemini Enterprise Agent Platform; public GSU price list
+  not verified.
 
 featured: false

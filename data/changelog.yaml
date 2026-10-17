@@ -2,6 +2,60 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
+    - baseten
+    - civo
+    - coreweave
+    - databricks-model-serving
+    - fireworks-ai
+    - huggingface-inference-endpoints
+    - modal
+    - nebius
+    - nvidia-nim
+    - ovhcloud
+    - runpod
+    - scaleway
+    - together-ai
+    - vertex-ai-provisioned
+  summary: >-
+    All 16 vendor profiles re-verified against primary sources. Each source was
+    re-read for the claim, not just checked for a response. Moved pages were
+    repointed for CoreWeave, OVHcloud, Scaleway, Civo, Nebius, Together AI and
+    Vertex AI. The facts that changed have their own entries. Verified
+    2026-10-17.
+
+- date: "2026-10-17"
+  type: added
+  vendors:
+    - baseten
+    - runpod
+  summary: >-
+    ISO 27001 added for Baseten and RunPod. Both trust centres now list
+    ISO/IEC 27001:2022, and Baseten publishes the certificate. Verified
+    2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - baseten
+  summary: >-
+    Baseten regions narrowed to US and Europe. Its regional-deployments doc now
+    lists only us and eu as selectable regions; the UK and Australia regions
+    its docs named in July are no longer listed. Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - databricks-model-serving
+  summary: >-
+    UK added to Databricks Model Serving regions. The Model Serving region
+    table lists EU (London) with GPU serving and provisioned throughput.
+    Verified 2026-10-17.
+
 - date: "2026-07-18"
   type: added
   vendors:

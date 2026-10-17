@@ -4,17 +4,23 @@ url: https://fireworks.ai
 category: dedicated-gpu
 tagline: Serverless and dedicated GPU inference billed per token or GPU-second
 
-last_verified: "2026-07-07"
+last_verified: "2026-10-17"
 sources:
   - https://docs.fireworks.ai/guides/security_compliance/data_security
   - https://fireworks.ai/pricing
   - https://fireworks.ai/privacy-policy
+  - https://docs.fireworks.ai/deployments/regions
+  - https://docs.fireworks.ai/accounts/data-residency
 
 deployment_models:
   - serverless
   - on-demand-dedicated
   - reserved-capacity
 
+# Regions checked 2026-10-17 against https://docs.fireworks.ai/deployments/regions,
+# which lists GLOBAL, US, CANADA, EUROPE and APAC multi-regions, with single
+# regions in the US, Europe (Frankfurt, Iceland) and APAC (Tokyo, Malaysia, New
+# South Wales). Regions carry no evidence field in schema v2.
 regions:
   - global
   - us
@@ -24,30 +30,31 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M tokens (serverless); per-GPU-second on-demand deployments; reserved capacity
   public: true
   evidence_url: https://fireworks.ai/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://fireworks.ai/privacy-policy
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   On-demand deployments run on dedicated GPUs with region selection (US,
-  Europe, APAC). No public data-residency guarantee found at review; the
-  privacy policy states servers are in the US with SCCs for cross-border
+  Europe, APAC). Enterprise accounts can enforce US-only inference
+  account-wide, a product setting rather than a contractual guarantee, with no
+  EU option listed. The privacy policy places servers in the US, with SCCs for
   transfers. ISO 27701/42001 also claimed in vendor docs.
 
 featured: false

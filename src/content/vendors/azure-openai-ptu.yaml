@@ -4,7 +4,7 @@ url: https://azure.microsoft.com
 category: hyperscaler-dedicated
 tagline: Dedicated PTU capacity for Foundry Models with hourly or reserved billing
 
-last_verified: "2026-07-08"
+last_verified: "2026-10-17"
 sources:
   - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
   - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
@@ -27,34 +27,34 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: C5
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: FEDRAMP
     evidence_url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
-    verified: "2026-07-08"
+    verified: "2026-10-17"
 
 pricing:
   model: Per PTU per hour; Azure Reservations discount with 1-month or 1-year terms
   public: true
   evidence_url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: US
   evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 notes: >-
   Provisioned throughput is now a Microsoft Foundry (formerly Azure AI

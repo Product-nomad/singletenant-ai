@@ -4,7 +4,7 @@ url: https://www.runpod.io
 category: dedicated-gpu
 tagline: GPU cloud with community and secure tiers, priced per hour
 
-last_verified: "2026-07-07"
+last_verified: "2026-10-17"
 sources:
   - https://trust.runpod.io
   - https://www.runpod.io/pricing
@@ -16,9 +16,10 @@ deployment_models:
   - community-cloud
   - reserved-clusters
 
-# Regions verified 2026-07-12 against https://docs.runpod.io/pods/networking,
-# the Global Networking data-centre list: US and Canada, Europe (CZ, FR, NL,
-# RO, SE, IS) and Australia. Coarse buckets; more data centres exist elsewhere.
+# Regions verified 2026-07-12 and re-checked 2026-10-17 against
+# https://docs.runpod.io/pods/networking, the Global Networking data-centre
+# list: US and Canada, Europe (CZ, FR, NL, RO, SE, IS) and Australia. Coarse
+# buckets; more data centres exist elsewhere.
 regions:
   - us
   - europe
@@ -27,28 +28,31 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://trust.runpod.io
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: SOC3
     evidence_url: https://trust.runpod.io
-    verified: "2026-07-07"
+    verified: "2026-10-17"
+  - cert: ISO27001
+    evidence_url: https://trust.runpod.io
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://trust.runpod.io
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://trust.runpod.io
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per GPU-hour (per-second display available); reserved clusters via sales
   public: true
   evidence_url: https://www.runpod.io/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://www.runpod.io/legal/terms-of-service
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Secure Cloud tier targets isolation needs; terms establish a shared
