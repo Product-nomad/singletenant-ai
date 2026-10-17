@@ -4,6 +4,60 @@ url: https://www.coreweave.com
 category: dedicated-gpu
 tagline: Bare-metal GPU cloud with single-tenant Kubernetes nodes, per-GPU-hour pricing
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://docs.coreweave.com/products/cks
+    verified: "2026-10-17"
+  - field: category
+    url: https://docs.coreweave.com/policies/terms-of-service/terms-of-use
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.coreweave.com/security
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.coreweave.com/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.coreweave.com/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.coreweave.com/products/cks
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.coreweave.com/ai-data-centers
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.coreweave.com/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://docs.coreweave.com/policies/terms-of-service/terms-of-use
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.coreweave.com/security
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.coreweave.com/products/cks
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
+    verified: "2026-10-17"
+  - field: notes
+    url: https://trust.coreweave.com/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.coreweave.com/policies/terms-of-service/terms-of-use
+    verified: "2026-10-17"
+
 deployment_models:
   - bare-metal
   - managed-kubernetes
@@ -11,7 +65,7 @@ deployment_models:
   - spot
   - reserved-capacity
 
-# Regions checked 2026-07-18. CoreWeave runs US and mainland-EU capacity and has
+# Regions checked 2026-07-18, re-checked 2026-10-17. CoreWeave runs US and mainland-EU capacity and has
 # two UK data centres (Crawley and London Docklands) operational since 2024,
 # hosting its NVIDIA GPU platform. Source:
 # https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
@@ -24,22 +78,22 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://docs.coreweave.com/docs/policies/terms-of-service/data-processing-agreement
-    verified: "2026-07-07"
+    evidence_url: https://docs.coreweave.com/policies/terms-of-service/data-processing-agreement
+    verified: "2026-10-17"
 
 pricing:
   model: Per-GPU-hour on-demand and spot; reserved capacity at up to 60% discount
   public: true
   evidence_url: https://www.coreweave.com/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
-  evidence_url: https://docs.coreweave.com/docs/policies/terms-of-service/terms-of-use
-  verified: "2026-07-07"
+  evidence_url: https://docs.coreweave.com/policies/terms-of-service/terms-of-use
+  verified: "2026-10-17"
 
 notes: >-
   Security page states every CKS node is single-tenant; CKS runs Kubernetes

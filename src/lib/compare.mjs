@@ -109,3 +109,95 @@ export const differencesSummary = (a, b) => {
 
   return lines;
 };
+
+// Indexability: how distinctive a compare page is. A pair page is only worth
+// a search-index slot if the two vendors differ on verified dimensions a
+// buyer cares about; same-category, same-jurisdiction pairs with mostly
+// unverified gaps render near-identical pages (thin/duplicate content). Free
+// text (pricing model wording, deployment-model tokens) is excluded: it always
+// differs between vendors, so it carries no signal. Each dimension scores 0-1;
+// the total is scaled to 0-100.
+//   category      1 if the categories differ
+//   jurisdiction  1 if both parents are known and differ
+//   residency     1 if both guarantees are known and differ; 0.5 if one is
+//                 verified and the other is not
+//   compliance    Jaccard distance of the two cert sets (0 if either is empty)
+//   regions       Jaccard distance of the region sets (0 if either is empty)
+//   pricing       1 if both public-pricing flags are known and differ
+export const PAIR_DIMENSIONS = [
+  'category',
+  'jurisdiction',
+  'residency',
+  'compliance',
+  'regions',
+  'pricing',
+];
+
+// Pairs scoring below this are rendered noindex,follow: still reachable from
+// both vendor profiles and the /compare/ picker, but kept out of the index.
+// Calibrated against the 16-vendor set in AUDIT.md (2026-10-17).
+export const INDEX_MIN_SCORE = 40;
+
+// Editorial overrides by canonical pair slug ('a-vs-b'), applied after the
+// score. Use `index` once a low-scoring pair has pair-specific written content
+// (AUDIT.md 2.3); `noindex` to drop a pair the score keeps.
+export const INDEX_OVERRIDES = { index: [], noindex: [] };
+
+const jaccardDistance = (x, y) => {
+  if (x.length === 0 || y.length === 0) return 0;
+  const sx = new Set(x);
+  const sy = new Set(y);
+  const union = new Set([...sx, ...sy]).size;
+  const shared = [...sx].filter((v) => sy.has(v)).length;
+  return 1 - shared / union;
+};
+
+const knownAndDiffer = (x, y) => x !== 'unknown' && y !== 'unknown' && x !== y;
+
+/**
+ * @param {any} a vendor data (schema v2)
+ * @param {any} b vendor data (schema v2)
+ * @returns {{ score: number, parts: Record<string, number> }}
+ */
+export const pairDistinctiveness = (a, b) => {
+  const resA = a.sovereignty.data_residency_guarantee;
+  const resB = b.sovereignty.data_residency_guarantee;
+  const parts = {
+    category: a.category === b.category ? 0 : 1,
+    jurisdiction: knownAndDiffer(
+      a.sovereignty.parent_jurisdiction,
+      b.sovereignty.parent_jurisdiction,
+    )
+      ? 1
+      : 0,
+    residency: knownAndDiffer(resA, resB)
+      ? 1
+      : (resA === 'unknown') !== (resB === 'unknown')
+        ? 0.5
+        : 0,
+    compliance: jaccardDistance(
+      a.compliance.map((c) => c.cert),
+      b.compliance.map((c) => c.cert),
+    ),
+    regions: jaccardDistance(a.regions, b.regions),
+    pricing: knownAndDiffer(a.pricing.public, b.pricing.public) ? 1 : 0,
+  };
+  const total = Object.values(parts).reduce((sum, v) => sum + v, 0);
+  return {
+    score: Math.round((total / PAIR_DIMENSIONS.length) * 100),
+    parts,
+  };
+};
+
+/**
+ * @param {any} a vendor data (schema v2)
+ * @param {any} b vendor data (schema v2)
+ * @param {{ index: string[], noindex: string[] }} [overrides]
+ * @returns {boolean}
+ */
+export const pairIsIndexable = (a, b, overrides = INDEX_OVERRIDES) => {
+  const key = comparePath(a.slug, b.slug).slice('/compare/'.length, -1);
+  if (overrides.index.includes(key)) return true;
+  if (overrides.noindex.includes(key)) return false;
+  return pairDistinctiveness(a, b).score >= INDEX_MIN_SCORE;
+};

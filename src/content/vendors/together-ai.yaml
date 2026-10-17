@@ -4,44 +4,85 @@ url: https://www.together.ai
 category: dedicated-gpu
 tagline: Serverless tokens plus single-tenant dedicated endpoints and GPU clusters
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.together.ai/docs/dedicated-endpoints/overview
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://www.together.ai/blog/soc-2-compliance
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://www.together.ai/blog/soc-2-compliance
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+
 deployment_models:
   - serverless
   - dedicated-endpoint
   - gpu-clusters
 
 # Regions not verified. The dedicated-endpoint inference docs
-# (https://docs.together.ai/docs/dedicated-endpoints) name no deployment
+# (https://docs.together.ai/docs/dedicated-endpoints/overview) name no deployment
 # regions, and the terms make no residency guarantee. The data-center-locations
-# page names US and Europe capacity (Asia by arrangement), but that is the
+# page (now the GPU clusters page) names US and Europe capacity (Asia by
+# arrangement), but that is the
 # bare-metal GPU-clusters product, not a pinnable region for the serverless or
 # dedicated-endpoint inference this row is judged on, so residency geography
 # stays not verified. Source:
-# https://www.together.ai/data-center-locations checked 2026-07-13.
+# https://www.together.ai/gpu-clusters checked 2026-07-13, re-checked 2026-10-17.
 regions: []
 
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://www.together.ai/blog/soc-2-compliance
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://www.together.ai/blog/soc-2-compliance
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M tokens serverless; per GPU-hour for dedicated endpoints and clusters
   public: true
   evidence_url: https://www.together.ai/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: false
   parent_jurisdiction: US
   evidence_url: https://www.together.ai/terms-of-service
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Dedicated endpoints are explicitly single-tenant GPU instances with public
   per-hour pricing. Terms of service make no geographic storage commitment,
-  so residency guarantee is recorded as none.
+  so residency guarantee is recorded as none. Reserved dedicated capacity is
+  also sold in throughput units (PTUs).
 
 featured: true

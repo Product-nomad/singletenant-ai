@@ -4,6 +4,60 @@ url: https://www.scaleway.com
 category: eu-sovereign
 tagline: French cloud offering serverless and dedicated-GPU managed LLM inference
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.scaleway.com/en/legal-notice/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://www.scaleway.com/en/security-and-compliance/
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://www.scaleway.com/en/contracts/
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.scaleway.com/en/legal-notice/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.scaleway.com/en/legal-notice/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.scaleway.com/en/security-and-compliance/
+    verified: "2026-10-17"
+
 deployment_models:
   - serverless-api
   - dedicated-gpu-inference
@@ -13,29 +67,30 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.scaleway.com/en/security-and-resilience/
-    verified: "2026-07-07"
+    evidence_url: https://www.scaleway.com/en/security-and-compliance/
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://www.scaleway.com/en/contracts/
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
-  model: Per-hour dedicated GPU (Managed Inference); per token (Generative APIs)
+  model: Per-hour dedicated GPU (Generative APIs Dedicated Deployment); per million tokens (Generative APIs serverless)
   public: true
   evidence_url: https://www.scaleway.com/en/inference/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: FR
   evidence_url: https://www.scaleway.com/en/inference/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
-  Managed Inference runs models on dedicated GPUs at fixed hourly rates
+  Generative APIs Dedicated Deployment (formerly Managed Inference) runs
+  models on dedicated GPUs at fixed hourly rates
   (e.g. Llama 3.1-8b at 0.93 EUR/hour) inside a VPC; prompts and responses
   are stated as stored only in Europe. Scaleway SAS is registered in Paris,
-  France (legal notice). Security page says the SecNumCloud qualification
-  process was entered in January 2025; not yet listed as qualified.
+  France (legal notice). Security page lists SecNumCloud as ongoing
+  ("currently undergoing qualification"); not yet qualified.
 
 featured: false

@@ -1,0 +1,99 @@
+---
+// Guides hub. Lists published buyer guides (the guides collection plus the
+// guide-category articles already under /blog/) and names the guides in
+// preparation without linking them, so stubs never become a reader's path.
+// The hub itself is noindex until it lists at least one published guide.
+import { getCollection } from 'astro:content';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = (await getCollection('guides')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const published = guides.filter((g) => g.data.status === 'published');
+const inPreparation = guides.filter((g) => g.data.status === 'stub');
+
+const guideArticles = (
+  await getCollection(
+    'articles',
+    ({ data }) => !data.draft && data.category === 'guide',
+  )
+).sort((a, b) => b.data.pub_date.valueOf() - a.data.pub_date.valueOf());
+
+const entries = [
+  ...published.map((g) => ({
+    href: `/guides/${g.id}/`,
+    title: g.data.title,
+    description: g.data.description,
+  })),
+  ...guideArticles.map((a) => ({
+    href: `/blog/${a.id}/`,
+    title: a.data.title,
+    description: a.data.description,
+  })),
+];
+---
+
+<BaseLayout
+  title="Buyer Guides"
+  description="Evergreen guides for buyers of single-tenant LLM hosting in regulated settings: public sector, financial services, health data, and cost."
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Guides', path: '/guides/' },
+  ]}
+  noIndex={entries.length === 0}
+>
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-4xl px-6 py-14">
+      <p class="eyebrow mb-3">Guides</p>
+      <h1 class="m-0 mb-4" style="font-size: clamp(2rem, 4.5vw, 3rem);">
+        Buyer guides
+      </h1>
+      <p class="text-lg m-0 max-w-3xl" style="color: var(--color-ink-soft);">
+        Evergreen guides for teams choosing where to run LLMs under regulatory
+        constraints. Each guide links back to the vendor data and cites primary
+        sources for every rule it describes.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-4xl px-6 py-12">
+      <ul class="list-none p-0 m-0">
+        {entries.map((e) => (
+          <li class="guide-entry">
+            <h2 class="m-0 mb-2" style="font-size: 1.3rem;">
+              <a href={e.href} class="no-underline">{e.title}</a>
+            </h2>
+            <p class="m-0 text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
+              {e.description}
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      {inPreparation.length > 0 && (
+        <div class="mt-12">
+          <p class="eyebrow mb-3">In preparation</p>
+          <ul class="m-0 pl-5 text-sm" style="color: var(--color-mute); line-height: 1.9;">
+            {inPreparation.map((g) => <li>{g.data.title}</li>)}
+          </ul>
+        </div>
+      )}
+
+      <NewsletterSignup source="guides" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .guide-entry {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 0;
+  }
+
+  .guide-entry:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+</style>

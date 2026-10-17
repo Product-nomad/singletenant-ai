@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const LAST_UPDATED = '2026-10-17';
+---
+
+<BaseLayout
+  title="Editorial Policy"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Editorial policy', path: '/editorial-policy/' },
+  ]}
+  description="How singletenant.ai sources and verifies vendor facts, how corrections are made, and how conflicts of interest are handled."
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Editorial</p>
+      <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Editorial policy
+      </h1>
+      <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
+        Last updated {LAST_UPDATED}
+      </p>
+
+      <div class="prose">
+        <p>
+          This policy covers everything published on singletenant.ai: the
+          vendor database, the comparisons generated from it, and the guides
+          and analysis. The <a href="/methodology/">methodology</a> page
+          describes how the database is built; this page sets out the rules
+          the editor holds it to.
+        </p>
+
+        <h2 id="sourcing">Sourcing</h2>
+        <p>
+          Vendor facts come from primary sources: the vendor's own
+          documentation, trust centre, legal terms, contracts published on its
+          site, and pricing pages. Regulatory and legal statements in guides
+          and analysis come from the regulator, the legislation, or the
+          official publication itself. Press coverage, analyst summaries,
+          forum threads, marketing listicles, and AI-generated summaries are
+          not sources, though they can prompt a check of the primary material.
+        </p>
+        <p>
+          Every vendor profile lists, field by field, the primary source each
+          field was checked against and the date of that check, and every
+          populated fact links to the specific page behind it.
+        </p>
+
+        <h2 id="verification">Verification</h2>
+        <p>
+          A fact is recorded as verified only when the linked primary source
+          states it on the date shown. If the source is ambiguous, only implies
+          the claim, or cannot be reached, the fact is recorded as "Not
+          verified". It is never inferred from a related claim, a launch blog,
+          or a rebrand.
+        </p>
+        <p>
+          Each vendor profile shows a "Last verified" date: the date of the
+          oldest check behind any field on the page, so the headline date never
+          overstates how fresh the profile is. Individual sections carry their
+          own dates. Comparison pages show the older of the two vendors' dates.
+        </p>
+
+        <h2 id="corrections">Corrections</h2>
+        <p>
+          Anyone can request a correction, vendors included, by emailing
+          <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>
+          with the page, the claim, and a link to the primary source that
+          contradicts it. The claim is re-checked against the vendor's
+          published material. If it fails, the data is corrected, its verified
+          date is updated, and the correction is logged as a dated entry in the
+          <a href="/changelog/">changelog</a>. Corrections are never made
+          silently, and a correction request is not accepted without a primary
+          source, whoever sends it.
+        </p>
+        <p>
+          Errors in guides and analysis are corrected in place, with the
+          article's updated date changed and, for any substantive error, a
+          note in the text saying what changed.
+        </p>
+
+        <h2 id="conflicts">Conflicts of interest</h2>
+        <p>
+          No vendor can pay for inclusion, placement, ordering, or the content
+          of its profile or comparisons. Commercial relationships (referral
+          links, advertising, and sponsorship) are kept separate from the data
+          and are listed on the <a href="/disclosure/">disclosure page</a>.
+          Paid placements are always labelled where they appear.
+        </p>
+        <p>
+          The editor does not sell consulting or other services through this
+          site. If the editor has a financial relationship with a vendor
+          covered here, it is listed on the disclosure page, and that vendor's
+          profile is not edited until the relationship is disclosed.
+        </p>
+        <p>
+          Vendors do not review or approve copy before publication. A vendor
+          may point out a factual error after publication, through the same
+          corrections process as any reader.
+        </p>
+
+        <h2 id="ai-use">How AI systems may use this site</h2>
+        <p>
+          The site's <a href="/robots.txt">robots.txt</a> carries a Content
+          Signal: <code>search=yes, ai-input=yes, ai-train=no</code>. Search
+          engines may index the site and show it in results. AI systems may
+          read pages to answer a question as it is asked, for example in an AI
+          search answer or a retrieval tool, ideally linking back to the
+          source page. We do not consent to the content being used to train or
+          fine-tune AI models. The signal states a preference; it is not a
+          technical block.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

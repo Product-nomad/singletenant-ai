@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AdSlot from '../../components/AdSlot.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
-import ConsultingCTA from '../../components/ConsultingCTA.astro';
+import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { differencesSummary } from '../../lib/compare.mjs';
+import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
+import { oldest } from '../../lib/dates.mjs';
 import { deploymentLabel } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
 
@@ -48,6 +50,10 @@ const bOnly = b.data.deployment_models.filter(
   (opt) => !a.data.deployment_models.includes(opt),
 );
 
+// Headline date: the older of the two profiles' last_verified, so the page
+// never looks fresher than its stalest side.
+const lastVerified = oldest([a.data.last_verified, b.data.last_verified]);
+
 // Data-derived key differences (thin-page mitigation), every line computed
 // from the two YAML records; unknowns say "not verified".
 const differences = differencesSummary(a.data, b.data);
@@ -55,9 +61,14 @@ const differences = differencesSummary(a.data, b.data);
 // Schema.org: the pairwise comparison as a Dataset (about the two vendor
 // SoftwareApplications) plus a BreadcrumbList. See src/lib/schema.mjs.
 const schema = vendorComparisonSchema({ a, b, description });
+
+// Low-distinctiveness pairs stay reachable (both profiles and the /compare/
+// picker link them) but are kept out of the index and the sitemap. Rule and
+// threshold: src/lib/compare.mjs, AUDIT.md section 2.
+const noIndex = !pairIsIndexable(a.data, b.data);
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema} noIndex={noIndex}>
   <!-- Header -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">
@@ -67,9 +78,10 @@ const schema = vendorComparisonSchema({ a, b, description });
       <h1 class="m-0 mb-3" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
         {a.data.name} <span style="color: var(--color-mute); font-weight: 400;">vs</span> {b.data.name}
       </h1>
-      <p class="text-lg max-w-3xl" style="color: var(--color-ink-soft);">
+      <p class="text-lg max-w-3xl mb-4" style="color: var(--color-ink-soft);">
         {description}
       </p>
+      <VerifiedLine date={lastVerified} note="(older of the two profiles)" />
     </div>
   </section>
 
@@ -173,12 +185,10 @@ const schema = vendorComparisonSchema({ a, b, description });
     </div>
   </section>
 
-  <!-- CTA + further reading -->
+  <!-- Further reading -->
   <section>
     <div class="mx-auto max-w-3xl px-6 py-12">
-      <ConsultingCTA />
-
-      <p class="eyebrow mt-12 mb-4">Read the full profiles</p>
+      <p class="eyebrow mb-4">Read the full profiles</p>
       <div class="grid sm:grid-cols-2 gap-4">
         <a href={`/vendors/${a.data.slug}/`}
            class="block p-5 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">
@@ -199,6 +209,7 @@ const schema = vendorComparisonSchema({ a, b, description });
           </span>
         </a>
       </div>
+      <AdSlot name="compare-end" />
     </div>
   </section>
 </BaseLayout>

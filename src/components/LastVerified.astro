@@ -1,6 +1,8 @@
 ---
 // LastVerified: per-section date chip (spec §4). No date = the section's
 // facts are unverified and say so; never render a bare claim.
+import { formatVerified } from '../lib/dates.mjs';
+
 interface Props {
   date?: string | undefined;
 }
@@ -10,7 +12,9 @@ const { date } = Astro.props;
 
 {
   date ? (
-    <span class="last-verified">verified {date}</span>
+    <span class="last-verified">
+      verified <time datetime={date}>{formatVerified(date)}</time>
+    </span>
   ) : (
     <span class="last-verified unverified">Not verified</span>
   )

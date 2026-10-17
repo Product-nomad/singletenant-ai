@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { vendorSchema } from './schemas/vendor.mjs';
+import { file, glob } from 'astro/loaders';
+import { glossaryTermSchema, guideSchema } from './schemas/guide.mjs';
+import { isoDate, vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
    Vendor collection: the core directory database.
@@ -28,6 +29,11 @@ const articles = defineCollection({
       .describe('Meta description, used in search results and social cards'),
     pub_date: z.coerce.date(),
     updated: z.coerce.date().optional(),
+    last_verified: isoDate
+      .optional()
+      .describe(
+        'Date every factual claim was last checked against its source; renders "Last verified"',
+      ),
     author: z.string().default('Simon Newton'),
     category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),
@@ -36,9 +42,32 @@ const articles = defineCollection({
       .default([])
       .describe('Target query cluster this piece is written for'),
     tags: z.array(z.string()).default([]),
+    sponsor: z
+      .string()
+      .optional()
+      .describe('Sponsor name; ArticleLayout then labels the piece Sponsored'),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });
 
-export const collections = { vendors, articles };
+/* ─────────────────────────────────────────────────────────────
+   Guides: evergreen buyer guides under /guides/. Stubs are outlines
+   awaiting the editor; see src/schemas/guide.mjs for the rules.
+   ───────────────────────────────────────────────────────────── */
+
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: guideSchema,
+});
+
+/* ─────────────────────────────────────────────────────────────
+   Glossary: one YAML list of terms, rendered on /glossary/.
+   ───────────────────────────────────────────────────────────── */
+
+const glossary = defineCollection({
+  loader: file('src/content/glossary.yaml'),
+  schema: glossaryTermSchema,
+});
+
+export const collections = { vendors, articles, guides, glossary };

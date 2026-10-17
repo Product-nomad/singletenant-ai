@@ -1,18 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AdSlot from '../../components/AdSlot.astro';
 import AffiliateLink from '../../components/AffiliateLink.astro';
 import CategoryTag from '../../components/CategoryTag.astro';
 import CertBadge from '../../components/CertBadge.astro';
-import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import EvidenceLink from '../../components/EvidenceLink.astro';
 import LastVerified from '../../components/LastVerified.astro';
+import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { comparePath } from '../../lib/compare.mjs';
 import {
   deploymentLabel,
   NOT_VERIFIED,
   regionLabel,
+  sourceFieldLabel,
 } from '../../lib/labels.mjs';
 import { vendorProfileSchema } from '../../lib/schema.mjs';
 
@@ -38,6 +40,16 @@ const compareCandidates = allVendors
   .filter((v) => v.data.slug !== data.slug)
   .sort((x, y) => x.data.name.localeCompare(y.data.name));
 
+// sources[] grouped by field, in the order the YAML lists them.
+const sourcesByField = [
+  ...data.sources
+    .reduce((groups, s) => {
+      groups.set(s.field, [...(groups.get(s.field) ?? []), s]);
+      return groups;
+    }, new Map<string, typeof data.sources>())
+    .entries(),
+];
+
 const fmtUnknown = (val: string | boolean) => {
   if (val === 'unknown') return NOT_VERIFIED;
   if (typeof val === 'boolean') return val ? 'Yes' : 'No';
@@ -62,7 +74,10 @@ const fmtUnknown = (val: string | boolean) => {
         </h1>
         <CategoryTag category={data.category} />
       </div>
-      <p class="m-0 mb-5" style="color: var(--color-ink-soft);">{data.tagline}</p>
+      <p class="m-0 mb-3" style="color: var(--color-ink-soft);">{data.tagline}</p>
+      <div class="mb-5">
+        <VerifiedLine date={data.last_verified} />
+      </div>
       <AffiliateLink vendor={data} />
     </div>
   </section>
@@ -170,6 +185,34 @@ const fmtUnknown = (val: string | boolean) => {
         )
       }
 
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Sources</h2>
+        </div>
+        <p class="m-0 mb-3 text-sm" style="color: var(--color-mute);">
+          Each field and the primary source checked for it.
+        </p>
+        <dl class="sources-list">
+          {sourcesByField.map(([field, entries]) => (
+            <div class="sources-row">
+              <dt>{sourceFieldLabel(field)}</dt>
+              <dd>
+                <ul>
+                  {entries.map((s) => (
+                    <li>
+                      <a href={s.url} target="_blank" rel="noopener noreferrer">
+                        {s.url}
+                      </a>{' '}
+                      <LastVerified date={s.verified} />
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
       {
         compareCandidates.length > 0 && (
           <div>
@@ -200,9 +243,7 @@ const fmtUnknown = (val: string | boolean) => {
         )
       }
 
-      <div class="max-w-3xl">
-        <ConsultingCTA />
-      </div>
+      <AdSlot name="vendor-end" />
     </div>
   </section>
 </BaseLayout>
@@ -222,6 +263,45 @@ const fmtUnknown = (val: string | boolean) => {
     font-size: 1.1rem;
     border: none;
     padding: 0;
+  }
+
+  .sources-list {
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1.9;
+  }
+
+  .sources-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 14rem) 1fr;
+    gap: 0 1rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .sources-row dt {
+    font-family: var(--font-sans);
+    color: var(--color-mute);
+  }
+
+  .sources-row dd {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .sources-row ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 40rem) {
+    .sources-row {
+      grid-template-columns: 1fr;
+    }
   }
 
   .fact-label {

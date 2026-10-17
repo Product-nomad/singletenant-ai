@@ -4,54 +4,104 @@ url: https://www.baseten.co
 category: dedicated-gpu
 tagline: Inference platform with dedicated deployments, self-hosted and hybrid options
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.baseten.co/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.baseten.co/deployment/regional-deployments
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.SOC3
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.baseten.co/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.baseten.co/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.baseten.co/deployment/regional-deployments
+    verified: "2026-10-17"
+
 deployment_models:
   - dedicated-deployment
   - self-hosted
   - hybrid
 
-# Regions populated (us/europe/apac) from the regional-environments docs, which
-# name US, EU, UK and Australia as configurable regions for routing inference
-# in-region to meet data residency (EU+UK -> europe, Australia -> apac). List is
-# described as non-exhaustive. Source:
-# https://docs.baseten.co/deployment/regional-environments re-checked 2026-07-18:
-# the doc names "US, EU, UK, and Australia" as available regions. UK is now
-# recorded as its own bucket; it was previously omitted, with no uk bucket to
-# hold it. Regions carry no evidence field in schema v2.
+# Regions re-checked 2026-10-17. The regional-deployments doc lists two
+# selectable regions, us (United States) and eu (European Union), and says to
+# contact support for any other. The UK and Australia regions the
+# regional-environments doc named on 2026-07-18 are no longer listed there, so
+# uk and apac were removed. Source:
+# https://docs.baseten.co/deployment/regional-deployments
+# Regions carry no evidence field in schema v2.
 regions:
   - us
-  - uk
   - europe
-  - apac
 
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://trust.baseten.co
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: SOC3
     evidence_url: https://trust.baseten.co
-    verified: "2026-07-07"
+    verified: "2026-10-17"
+  - cert: ISO27001
+    evidence_url: https://trust.baseten.co
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://trust.baseten.co
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://trust.baseten.co
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M tokens (Model APIs); per-minute GPU/CPU instances for dedicated deployments
   public: true
   evidence_url: https://www.baseten.co/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://www.baseten.co/terms-and-conditions/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Dedicated deployments and an enterprise self-hosted option position Baseten
-  for single-tenant use. No public data-residency guarantee found at review;
-  trust centre lists subprocessors across multiple clouds.
+  for single-tenant use. Trust centre lists ISO 27001:2022 alongside SOC 2
+  Type 2 and SOC 3. Regional deployments pin replicas to the US or EU, but no
+  contractual data-residency guarantee found at review; trust centre lists
+  subprocessors across multiple clouds.
 
 featured: true

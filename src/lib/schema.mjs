@@ -11,13 +11,40 @@ const SITE = 'https://singletenant.ai';
 // are fully qualified (required by Google's structured-data guidance).
 const abs = (path) => new URL(path, `${SITE}/`).toString();
 
-// Publisher identity, asserted once and reused as creator/publisher. Mirrors
-// the Organization already emitted on the homepage WebSite schema.
+// Publisher identity, asserted once and reused as creator/publisher. The
+// stable @id lets every page's nodes refer to the one entity that the
+// homepage and /about/ emit as a top-level node.
+export const ORGANIZATION_ID = `${SITE}/#organization`;
+
 export const organization = () => ({
   '@type': 'Organization',
+  '@id': ORGANIZATION_ID,
   name: 'singletenant.ai',
   url: `${SITE}/`,
   logo: `${SITE}/favicon.svg`,
+});
+
+// Breadcrumb-only graph for pages without a richer schema (policy pages,
+// hubs). `items` are { name, path } from Home down to the current page.
+export const breadcrumbSchema = (items) => ({
+  '@context': 'https://schema.org',
+  '@graph': [breadcrumbList(items)],
+});
+
+// Homepage: the WebSite plus the publisher Organization as top-level nodes.
+export const websiteSchema = ({ description }) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      name: 'singletenant.ai',
+      url: `${SITE}/`,
+      description,
+      publisher: { '@id': ORGANIZATION_ID },
+    },
+    organization(),
+  ],
 });
 
 // The facts the directory verifies for every vendor. Drives Dataset
@@ -190,7 +217,8 @@ export const vendorComparisonSchema = ({ a, b, description }) => {
 };
 
 // Article page: the post as an Article (headline, author, publish/modified
-// dates) plus a Home > Blog > {title} trail. Dates are ISO 8601; dateModified
+// dates) plus a Home > {section} > {title} trail; section defaults to the blog
+// and is /guides/ for buyer guides. Dates are ISO 8601; dateModified
 // falls back to the publish date when the post has not been updated. publisher
 // reuses the shared Organization, so articles carry the same url + logo the
 // rest of the site emits.
@@ -201,12 +229,13 @@ export const articleSchema = ({
   pubDate,
   updated,
   slug,
+  section = { name: 'Blog', path: '/blog/' },
 }) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'Article',
-      '@id': `${abs(`/blog/${slug}/`)}#article`,
+      '@id': `${abs(`${section.path}${slug}/`)}#article`,
       headline: title,
       description,
       datePublished: pubDate.toISOString(),
@@ -219,8 +248,8 @@ export const articleSchema = ({
     },
     breadcrumbList([
       { name: 'Home', path: '/' },
-      { name: 'Blog', path: '/blog/' },
-      { name: title, path: `/blog/${slug}/` },
+      section,
+      { name: title, path: `${section.path}${slug}/` },
     ]),
   ],
 });

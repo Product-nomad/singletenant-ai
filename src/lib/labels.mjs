@@ -79,6 +79,26 @@ export const regionLabel = (token) => REGION_LABELS[token] ?? token;
 
 export const NOT_VERIFIED = 'Not verified';
 
+// Display names for the per-field keys in a vendor's sources[] (see
+// SOURCE_FIELDS in src/schemas/vendor.mjs); compliance.<CERT> reuses the cert
+// label. Covered by tests/labels.test.mjs.
+export const SOURCE_FIELD_LABELS = {
+  category: 'Category',
+  tagline: 'Summary',
+  deployment_models: 'Deployment models',
+  regions: 'Regions',
+  pricing: 'Pricing',
+  notes: 'Analyst note',
+  'sovereignty.data_residency_guarantee': 'Data residency',
+  'sovereignty.parent_jurisdiction': 'Parent jurisdiction',
+};
+
+/** @param {string} field */
+export const sourceFieldLabel = (field) =>
+  field.startsWith('compliance.')
+    ? (CERT_LABELS[field.slice('compliance.'.length)] ?? field)
+    : (SOURCE_FIELD_LABELS[field] ?? field);
+
 export const CHANGE_TYPE_LABELS = {
   added: 'Added',
   updated: 'Updated',

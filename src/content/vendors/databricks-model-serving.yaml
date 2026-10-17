@@ -4,54 +4,121 @@ url: https://www.databricks.com
 category: managed-selfhost
 tagline: Serverless serving of custom and foundation models with provisioned throughput
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.databricks.com/legal/privacynotice
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.databricks.com/aws/en/resources/feature-region-support
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.databricks.com/aws/en/resources/feature-region-support
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://www.databricks.com/trust/compliance/soc
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://www.databricks.com/trust/compliance/iso-27001
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://www.databricks.com/legal/baa
+    verified: "2026-10-17"
+  - field: compliance.FEDRAMP
+    url: https://www.databricks.com/trust/compliance/fedramp
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://www.databricks.com/legal/dpa
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.databricks.com/product/pricing/model-serving
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.databricks.com/legal/privacynotice
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.databricks.com/trust/compliance/iso-27001
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.databricks.com/trust/compliance/soc
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.databricks.com/trust/compliance/fedramp
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.databricks.com/legal/baa
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.databricks.com/legal/dpa
+    verified: "2026-10-17"
+
 deployment_models:
   - custom-model-serving
   - provisioned-throughput
   - pay-per-token-endpoints
 
-# Regions verified 2026-07-12 against
-# https://docs.databricks.com/aws/en/machine-learning/model-serving/model-serving-limits
-# which lists supported Model Serving regions per cloud (US, EU, Asia-Pacific).
+# Regions re-checked 2026-10-17. The limits page now links out to the Model
+# serving features availability table at
+# https://docs.databricks.com/aws/en/resources/feature-region-support which, for
+# AWS, shows Custom Model Serving with GPU and provisioned throughput in US,
+# EU (Frankfurt, Ireland), EU (London) and Asia-Pacific regions. London names a
+# UK location, so uk is recorded alongside europe.
 regions:
   - us
+  - uk
   - europe
   - apac
 
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://www.databricks.com/trust/compliance/soc
-    verified: "2026-07-12"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://www.databricks.com/trust/compliance/iso-27001
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://www.databricks.com/legal/baa
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: FEDRAMP
     evidence_url: https://www.databricks.com/trust/compliance/fedramp
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://www.databricks.com/legal/dpa
-    verified: "2026-07-08"
+    verified: "2026-10-17"
 
 pricing:
   model: Per DBU per hour by GPU instance size (e.g. A10G 20 DBU/hour); per-token Foundation Model APIs
   public: true
   evidence_url: https://www.databricks.com/product/pricing/model-serving
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://www.databricks.com/legal/privacynotice
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 notes: >-
-  Mosaic AI Model Serving deploys custom MLflow models and fine-tuned
+  Model Serving deploys custom MLflow models and fine-tuned
   foundation models on Databricks-managed serverless compute; provisioned
   throughput allocates dedicated inference capacity. Trust pages list ISO
-  27001:2022 (including AWS single-tenant), SOC 2 Type II report on request,
-  HIPAA options, FedRAMP Moderate/High; a standard BAA is published. DPA with
-  SCCs published. Databricks, Inc. is headquartered in San Francisco.
+  27001:2022 (including AWS single-tenant), SOC 2 Type II, HIPAA options and
+  FedRAMP Class C and D (formerly Moderate and High). A standard BAA and a DPA
+  with SCCs are published.
 
 featured: false

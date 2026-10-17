@@ -1,0 +1,42 @@
+---
+// VerifiedLine: the headline "Last verified DD Mon YYYY" stamp on vendor,
+// compare and guide pages. The date is a profile's last_verified (the oldest
+// check behind any fact on the page), so it never overstates freshness; see
+// /editorial-policy/#verification. `note` adds a short qualifier, e.g. on
+// compare pages, which show the older of the two vendors' dates.
+import { formatVerified } from '../lib/dates.mjs';
+
+interface Props {
+  date: string;
+  note?: string;
+}
+
+const { date, note } = Astro.props;
+---
+
+<p class="verified-line">
+  Last verified <time datetime={date}>{formatVerified(date)}</time>
+  {note && <span class="verified-note">{note}</span>}
+  <a href="/editorial-policy/#verification">How we verify</a>
+</p>
+
+<style>
+  .verified-line {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-mute);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    align-items: baseline;
+  }
+
+  .verified-line time {
+    color: var(--color-ink);
+  }
+
+  .verified-note {
+    color: var(--color-mute);
+  }
+</style>

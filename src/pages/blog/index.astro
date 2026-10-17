@@ -9,6 +9,10 @@ const articles = (
 
 <BaseLayout
   title="Analysis"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+  ]}
   description="Long-form analysis on single-tenant LLM hosting, compliance, vendor strategy, and AI infrastructure for regulated industries."
 >
   <section class="border-b border-[var(--color-rule)]">

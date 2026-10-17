@@ -3,7 +3,13 @@
 
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { comparePath, differencesSummary } from '../src/lib/compare.mjs';
+import {
+  comparePath,
+  differencesSummary,
+  INDEX_MIN_SCORE,
+  pairDistinctiveness,
+  pairIsIndexable,
+} from '../src/lib/compare.mjs';
 
 test('comparePath is canonical regardless of argument order', () => {
   assert.equal(comparePath('runpod', 'baseten'), '/compare/baseten-vs-runpod/');
@@ -69,4 +75,68 @@ test('no summary line leaks empty or undefined text', () => {
     assert.ok(line.text.length > 0, `${line.topic} is empty`);
     assert.doesNotMatch(line.text, /undefined/);
   }
+});
+
+// Indexability scoring (reposition 2026-10, AUDIT.md section 2).
+test('pairDistinctiveness rewards verified differences only', () => {
+  const same = pairDistinctiveness(
+    { ...vendor(), slug: 'a', regions: ['us'] },
+    { ...vendor({ name: 'B' }), slug: 'b', regions: ['us'] },
+  );
+  assert.equal(same.score, 0);
+
+  const apart = pairDistinctiveness(
+    {
+      ...vendor({
+        sovereignty: {
+          data_residency_guarantee: true,
+          parent_jurisdiction: 'US',
+        },
+        pricing: { model: 'x', public: false },
+      }),
+      slug: 'a',
+      regions: ['us'],
+    },
+    {
+      ...vendor({
+        name: 'B',
+        category: 'uk-sovereign',
+        compliance: [{ cert: 'ISO27001' }],
+        sovereignty: {
+          data_residency_guarantee: false,
+          parent_jurisdiction: 'UK',
+        },
+      }),
+      slug: 'b',
+      regions: ['uk'],
+    },
+  );
+  assert.equal(apart.score, 100);
+});
+
+test('unknown jurisdiction never counts as a difference', () => {
+  const r = pairDistinctiveness(
+    { ...vendor(), slug: 'a', regions: [] },
+    {
+      ...vendor({
+        name: 'B',
+        sovereignty: {
+          data_residency_guarantee: 'unknown',
+          parent_jurisdiction: 'unknown',
+        },
+      }),
+      slug: 'b',
+      regions: [],
+    },
+  );
+  assert.equal(r.parts.jurisdiction, 0);
+  assert.equal(r.parts.regions, 0);
+});
+
+test('pairIsIndexable honours the threshold and overrides', () => {
+  const a = { ...vendor(), slug: 'a', regions: ['us'] };
+  const b = { ...vendor({ name: 'B' }), slug: 'b', regions: ['us'] };
+  assert.ok(INDEX_MIN_SCORE > 0);
+  assert.equal(pairIsIndexable(a, b, { index: [], noindex: [] }), false);
+  assert.equal(pairIsIndexable(b, a, { index: ['a-vs-b'], noindex: [] }), true);
 });

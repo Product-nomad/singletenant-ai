@@ -4,49 +4,120 @@ url: https://aws.amazon.com/bedrock/
 category: hyperscaler-dedicated
 tagline: Dedicated model capacity on Amazon Bedrock billed per Model Unit hourly
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: category
+    url: https://aws.amazon.com/agreement/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://aws.amazon.com/bedrock/pricing/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-thru-supported.html
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions.html
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://aws.amazon.com/compliance/services-in-scope/SOC/
+    verified: "2026-10-17"
+  - field: compliance.SOC3
+    url: https://aws.amazon.com/compliance/services-in-scope/SOC/
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://aws.amazon.com/compliance/iso-certified/
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
+    verified: "2026-10-17"
+  - field: compliance.C5
+    url: https://aws.amazon.com/compliance/services-in-scope/C5/
+    verified: "2026-10-17"
+  - field: compliance.FEDRAMP
+    url: https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://aws.amazon.com/compliance/gdpr-center/
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://aws.amazon.com/bedrock/pricing/
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://aws.amazon.com/bedrock/faqs/
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://aws.amazon.com/agreement/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: notes
+    url: https://aws.amazon.com/bedrock/faqs/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://aws.amazon.com/bedrock/pricing/
+    verified: "2026-10-17"
+
 deployment_models:
   - provisioned-throughput
   - custom-model-provisioned
 
+# Regions checked 2026-10-17: the Provisioned Throughput model table lists
+# us-east-1/us-west-2, eu-central-1/eu-west-1/eu-west-3, eu-west-2 and
+# ap-south-1/ap-southeast-2. AWS's regions page names eu-west-2 "Europe
+# (London)", United Kingdom, so uk is recorded alongside europe.
 regions:
   - us
+  - uk
   - europe
   - apac
 
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: SOC3
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: ISO27001
     evidence_url: https://aws.amazon.com/compliance/iso-certified/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: C5
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/C5/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: FEDRAMP
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://aws.amazon.com/compliance/gdpr-center/
-    verified: "2026-07-08"
+    verified: "2026-10-17"
 
 pricing:
   model: Per Model Unit (MU) per hour; no-commitment, 1-month, or 6-month terms
   public: false
   evidence_url: https://aws.amazon.com/bedrock/pricing/
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: US
   evidence_url: https://aws.amazon.com/bedrock/faqs/
-  verified: "2026-07-08"
+  verified: "2026-10-17"
 
 notes: >-
   Provisioned Throughput reserves per-model capacity in Model Units (MUs),

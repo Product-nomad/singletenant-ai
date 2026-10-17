@@ -4,12 +4,72 @@ url: https://www.civo.com
 category: uk-sovereign
 tagline: UK cloud offering single-tenant dedicated NVIDIA GPU compute and inference
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+  - field: category
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.civo.com/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    verified: "2026-10-17"
+  - field: notes
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551
+    verified: "2026-10-17"
+  - field: notes
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.civo.com/private-cloud/flexcore
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-17"
+
 deployment_models:
   - bare-metal
   - managed-kubernetes
   - dedicated-gpu-inference
 
-# Regions checked 2026-07-18 against
+# Regions checked 2026-07-18 and re-checked 2026-10-17 against
 # https://www.civo.com/uk-sovereign-cloud and https://www.civo.com/ai/cloud-gpu:
 # the UK Sovereign Cloud keeps data "securely within UK borders". Civo also
 # markets an India sovereign region, but only via testimonial on the GPU pages
@@ -20,28 +80,29 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-07-18"
+    evidence_url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
   - cert: SOC2_TYPE2
-    evidence_url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-07-18"
+    evidence_url: https://www.civo.com/ai/cloud-gpu
+    verified: "2026-10-17"
 
 pricing:
   model: Per-GPU-hour on demand, lower rates on 6-36 month commitments
   public: true
   evidence_url: https://www.civo.com/pricing
-  verified: "2026-07-18"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: UK
   evidence_url: https://www.civo.com/uk-sovereign-cloud
-  verified: "2026-07-18"
+  verified: "2026-10-17"
 
 notes: >-
   Civo Limited is UK-registered (Companies House 09568551); its sole person
   with significant control is a UK-resident individual, with no foreign parent.
-  Dedicated single-tenant GPU uses VFIO passthrough. The UK Sovereign Cloud page
+  Bare-metal GPU compute is offered, and the FlexCore private cloud supports
+  GPU passthrough. The UK Sovereign Cloud page
   states data stays in the UK under UK law only, contrasting the US CLOUD Act.
 
 featured: false

@@ -4,13 +4,58 @@ url: https://huggingface.co
 category: managed-selfhost
 tagline: Managed dedicated endpoints for deploying Hub models per instance-hour
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://huggingface.co/docs/inference-endpoints/en/about
+    verified: "2026-10-17"
+  - field: category
+    url: https://huggingface.co/privacy
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://huggingface.co/docs/inference-endpoints/en/about
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://huggingface.co/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://huggingface.co/docs/inference-endpoints/en/about
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-10-17"
+  - field: regions
+    url: https://huggingface.co/docs/inference-endpoints/en/faq
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://huggingface.co/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://huggingface.co/privacy
+    verified: "2026-10-17"
+  - field: notes
+    url: https://huggingface.co/docs/inference-endpoints/en/about
+    verified: "2026-10-17"
+  - field: notes
+    url: https://huggingface.co/docs/inference-endpoints/security
+    verified: "2026-10-17"
+  - field: notes
+    url: https://huggingface.co/privacy
+    verified: "2026-10-17"
+
 deployment_models:
   - dedicated-endpoints
   - public-endpoint
   - protected-endpoint
   - private-endpoint-privatelink
 
-# Regions verified 2026-07-12 against
+# Regions verified 2026-07-12 and re-checked 2026-10-17 against
 # https://huggingface.co/docs/inference-endpoints/en/faq which names AWS
 # us-east-1 / eu-west-1, Azure eastus and GCP us-east4. No Asia-Pacific region.
 regions:
@@ -20,22 +65,22 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://huggingface.co/docs/inference-endpoints/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: GDPR_DPA
     evidence_url: https://huggingface.co/docs/inference-endpoints/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per instance-hour (CPU, GPU, and accelerator instances); dedicated inference from $0.033/hour
   public: true
   evidence_url: https://huggingface.co/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
   evidence_url: https://huggingface.co/privacy
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Deploys Hub models on managed instances across AWS, Azure, and GCP with

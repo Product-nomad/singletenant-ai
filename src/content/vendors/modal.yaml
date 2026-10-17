@@ -4,10 +4,62 @@ url: https://modal.com
 category: dedicated-gpu
 tagline: Serverless GPU compute billed per second, with region pinning
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://modal.com/pricing
+    verified: "2026-10-17"
+  - field: category
+    url: https://modal.com/legal/terms
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://modal.com/pricing
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://modal.com/docs/guide/region-selection
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://modal.com/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://modal.com/docs/guide/dedicated-endpoints
+    verified: "2026-10-17"
+  - field: regions
+    url: https://modal.com/docs/guide/region-selection
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://modal.com/docs/guide/security
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://modal.com/docs/guide/security
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://modal.com/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://modal.com/legal/terms
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://modal.com/legal/terms
+    verified: "2026-10-17"
+  - field: notes
+    url: https://modal.com/legal/terms
+    verified: "2026-10-17"
+  - field: notes
+    url: https://modal.com/docs/guide/security
+    verified: "2026-10-17"
+  - field: notes
+    url: https://modal.com/docs/guide/dedicated-endpoints
+    verified: "2026-10-17"
+  - field: notes
+    url: https://modal.com/pricing
+    verified: "2026-10-17"
+
 deployment_models:
   - serverless
+  - dedicated-endpoints
 
-# Regions re-checked 2026-07-18 against
+# Regions re-checked 2026-07-18 and 2026-10-17 against
 # https://modal.com/docs/guide/region-selection which documents region pinning
 # across US (us), the EEA (eu -> europe), the UK (uk) and Asia-Pacific (ap) plus
 # narrower zones. Modal lists uk as a broad region distinct from eu; it was
@@ -21,26 +73,27 @@ regions:
 compliance:
   - cert: SOC2_TYPE2
     evidence_url: https://modal.com/docs/guide/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
   - cert: HIPAA_BAA
     evidence_url: https://modal.com/docs/guide/security
-    verified: "2026-07-07"
+    verified: "2026-10-17"
 
 pricing:
   model: Per-second GPU, CPU core, and memory billing
   public: true
   evidence_url: https://modal.com/pricing
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: true
   parent_jurisdiction: US
   evidence_url: https://modal.com/legal/terms
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
   Terms commit to processing customer data only in customer-specified regions.
   HIPAA BAA is Enterprise-plan only, and scoped (Volumes v2 in, some features
-  out). No dedicated/single-tenant tier on the public pricing page at review.
+  out). Dedicated Endpoints run models on isolated, autoscaling containers at
+  standard compute rates; the pricing page lists no separate dedicated tier.
 
 featured: true

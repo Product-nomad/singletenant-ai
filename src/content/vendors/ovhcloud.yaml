@@ -4,6 +4,60 @@ url: https://www.ovhcloud.com
 category: eu-sovereign
 tagline: French cloud with per-token AI Endpoints and managed model deployment
 
+last_verified: "2026-10-17"
+sources:
+  - field: category
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.ovhcloud.com/en/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.ovhcloud.com/en/public-cloud/ai-deploy/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.ovhcloud.com/en/public-cloud/ai-deploy/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
+  - field: compliance.C5
+    url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
+  - field: compliance.SecNumCloud
+    url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.ovhcloud.com/en/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.ovhcloud.com/en/public-cloud/ai-deploy/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.ovhcloud.com/en/terms-and-conditions/
+    verified: "2026-10-17"
+
 deployment_models:
   - serverless-api
   - managed-model-deployment
@@ -13,35 +67,36 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: C5
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: SecNumCloud
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://www.ovhcloud.com/en/enterprise/certification-conformity/
-    verified: "2026-07-07"
+    evidence_url: https://www.ovhcloud.com/en/compliance/
+    verified: "2026-10-17"
 
 pricing:
   model: Per 1M tokens (AI Endpoints, input/output priced separately)
   public: true
   evidence_url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: FR
   evidence_url: https://www.ovhcloud.com/en/terms-and-conditions/
-  verified: "2026-07-07"
+  verified: "2026-10-17"
 
 notes: >-
-  AI Endpoints is a serverless per-token API (40+ models) with zero data
-  retention beyond billing data; AI Deploy runs customer containers and
-  models. Certifications page lists SecNumCloud (ANSSI), BSI C5, ISO 27001
-  and GDPR compliance. Parent OVH Groupe SA is registered in Lille, France.
-  No explicit AI-product data-residency guarantee found at review.
+  AI Endpoints is a serverless per-token API (more than 20 open-weight
+  models), hosted in the EU, keeping only data needed for billing; AI Deploy
+  runs customer Docker images and models. Compliance page lists SecNumCloud
+  (ANSSI), BSI C5, ISO 27001 and GDPR compliance. Parent OVH Groupe SA is
+  registered in Lille, France. No contractual AI-product residency guarantee
+  found.
 
 featured: false

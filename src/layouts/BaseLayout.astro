@@ -12,14 +12,19 @@ import jetbrainsMonoLatin from '@fontsource-variable/jetbrains-mono/files/jetbra
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { breadcrumbSchema } from '../lib/schema.mjs';
 
 interface Props {
   title: string;
   description: string;
   ogTitle?: string;
   ogImage?: string;
+  // Keep the page out of the index while still letting crawlers follow its
+  // links (noindex, follow): low-value compare pairs and stub guides.
   noIndex?: boolean;
   schema?: Record<string, unknown>;
+  // Home > ... > this page, for pages whose own schema has no breadcrumb.
+  breadcrumbs?: { name: string; path: string }[];
 }
 
 const {
@@ -29,7 +34,9 @@ const {
   ogImage = '/og-default.png',
   noIndex = false,
   schema,
+  breadcrumbs,
 } = Astro.props;
+const crumbs = breadcrumbs && breadcrumbSchema(breadcrumbs);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImage = new URL(ogImage, Astro.site).toString();
@@ -61,7 +68,7 @@ const socialTitle = ogTitle ?? titleWithBrand;
     <title>{titleWithBrand}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    {noIndex && <meta name="robots" content="noindex, follow" />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={socialTitle} />
@@ -82,7 +89,10 @@ const socialTitle = ogTitle ?? titleWithBrand;
 
     <!-- Schema.org -->
     {schema && (
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+    {crumbs && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(crumbs)} />
     )}
 
     <!-- Cloudflare Web Analytics: paste your token after deployment -->
