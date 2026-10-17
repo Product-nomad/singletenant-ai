@@ -1,0 +1,122 @@
+---
+// Glossary of the site's working vocabulary (src/content/glossary.yaml).
+// Stub terms show their outline under an "in preparation" marker; the page is
+// noindex, outside the sitemap and unlinked until at least one term is
+// published. DefinedTermSet JSON-LD carries published definitions only.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbList } from '../lib/schema.mjs';
+
+const terms = await getCollection('glossary');
+const published = terms.filter((t) => t.data.status === 'published');
+
+const SITE = 'https://singletenant.ai';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...(published.length > 0
+      ? [
+          {
+            '@type': 'DefinedTermSet',
+            '@id': `${SITE}/glossary/#terms`,
+            name: 'singletenant.ai glossary',
+            hasDefinedTerm: published.map((t) => ({
+              '@type': 'DefinedTerm',
+              '@id': `${SITE}/glossary/#${t.data.id}`,
+              name: t.data.term,
+              description: t.data.definition,
+            })),
+          },
+        ]
+      : []),
+    breadcrumbList([
+      { name: 'Home', path: '/' },
+      { name: 'Glossary', path: '/glossary/' },
+    ]),
+  ],
+};
+---
+
+<BaseLayout
+  title="Glossary"
+  description="Plain definitions of the terms used across singletenant.ai: single-tenant, dedicated capacity, PTU, residency vs sovereignty, BYOC, and zero retention."
+  schema={schema}
+  noIndex={published.length === 0}
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Reference</p>
+      <h1 class="m-0 mb-4" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Glossary
+      </h1>
+      <p class="m-0 mb-10" style="color: var(--color-ink-soft);">
+        The terms this site uses, defined once. Vendor-specific terms link to
+        the profile that records the vendor's current wording and its source.
+      </p>
+
+      <nav aria-label="Terms" class="mb-10">
+        <ul class="term-index">
+          {terms.map((t) => (
+            <li><a href={`#${t.data.id}`}>{t.data.term}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div>
+        {terms.map((t) => (
+          <section class="term" id={t.data.id}>
+            <h2 class="m-0 mb-2" style="font-size: 1.25rem;">{t.data.term}</h2>
+            <div>
+              {t.data.status === 'published' ? (
+                <p class="m-0 mb-3">{t.data.definition}</p>
+              ) : (
+                <>
+                  <p class="stub-marker">Definition in preparation. Outline:</p>
+                  <ul class="text-sm mb-3" style="color: var(--color-ink-soft);">
+                    {t.data.outline.map((line) => <li>{line}</li>)}
+                  </ul>
+                </>
+              )}
+              {t.data.see_also.length > 0 && (
+                <p class="m-0 text-sm">
+                  See also:{' '}
+                  {t.data.see_also.map((s, i) => (
+                    <>
+                      {i > 0 && ' · '}
+                      <a href={s.href}>{s.label}</a>
+                    </>
+                  ))}
+                </p>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .term-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .term {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-rule);
+    scroll-margin-top: 1rem;
+  }
+
+  .stub-marker {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-mute);
+  }
+</style>

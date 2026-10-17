@@ -1,0 +1,95 @@
+---
+// Buyer guide page. A stub renders its outline under an "in preparation"
+// notice, noindex and outside the sitemap, so the editor can review the
+// structure on a preview without it reaching search or navigation. A published
+// guide gets the Article schema and the "Last verified" stamp.
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import VerifiedLine from '../../components/VerifiedLine.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articleSchema } from '../../lib/schema.mjs';
+
+export const getStaticPaths = (async () => {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}) satisfies GetStaticPaths;
+
+const { guide } = Astro.props;
+const { data } = guide;
+const { Content } = await render(guide);
+const isStub = data.status === 'stub';
+
+const section = { name: 'Guides', path: '/guides/' };
+const schema =
+  !isStub && data.pub_date
+    ? articleSchema({
+        title: data.title,
+        description: data.description,
+        author: 'Simon Newton',
+        pubDate: new Date(data.pub_date),
+        updated: data.updated ? new Date(data.updated) : undefined,
+        slug: guide.id,
+        section,
+      })
+    : undefined;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  schema={schema}
+  breadcrumbs={isStub
+    ? [
+        { name: 'Home', path: '/' },
+        section,
+        { name: data.title, path: `/guides/${guide.id}/` },
+      ]
+    : undefined}
+  noIndex={isStub}
+>
+  <article>
+    <header class="border-b border-[var(--color-rule)]">
+      <div class="mx-auto max-w-3xl px-6 py-14">
+        <p class="eyebrow mb-4">
+          <a href="/guides/" style="color: var(--color-accent);">Guides</a>
+        </p>
+        <h1 class="m-0 mb-5" style="font-size: clamp(2rem, 4.5vw, 3rem);">
+          {data.title}
+        </h1>
+        <p class="text-lg mb-4" style="color: var(--color-ink-soft); line-height: 1.5;">
+          {data.description}
+        </p>
+        <p class="text-sm m-0 mb-3" style="color: var(--color-mute);">
+          For: {data.audience}
+        </p>
+        {data.last_verified && <VerifiedLine date={data.last_verified} />}
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-3xl px-6 py-12">
+      {isStub && (
+        <p class="stub-notice" role="note">
+          In preparation. This guide is an outline and has not been written or
+          verified yet. Nothing below is a finding.
+        </p>
+      )}
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .stub-notice {
+    margin: 0 0 2rem;
+    padding: 0.75rem 1rem;
+    border: 1px dashed var(--color-rule);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-mute);
+  }
+</style>

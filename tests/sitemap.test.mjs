@@ -31,5 +31,6 @@ test('lastmod values are ISO days', () => {
 test('noindex compare pairs are excluded from the sitemap', () => {
   const exclude = sitemapExclude(process.cwd());
   assert.ok(exclude.size > 0);
-  for (const url of exclude) assert.match(url, /\/compare\/[^/]+-vs-[^/]+\/$/);
+  for (const url of exclude)
+    assert.match(url, /\/(compare\/[^/]+-vs-[^/]+|guides\/[^/]+|glossary)\/$/);
 });

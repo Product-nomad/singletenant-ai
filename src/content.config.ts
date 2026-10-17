@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
+import { glossaryTermSchema, guideSchema } from './schemas/guide.mjs';
 import { isoDate, vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
@@ -46,4 +47,23 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { vendors, articles };
+/* ─────────────────────────────────────────────────────────────
+   Guides: evergreen buyer guides under /guides/. Stubs are outlines
+   awaiting the editor; see src/schemas/guide.mjs for the rules.
+   ───────────────────────────────────────────────────────────── */
+
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: guideSchema,
+});
+
+/* ─────────────────────────────────────────────────────────────
+   Glossary: one YAML list of terms, rendered on /glossary/.
+   ───────────────────────────────────────────────────────────── */
+
+const glossary = defineCollection({
+  loader: file('src/content/glossary.yaml'),
+  schema: glossaryTermSchema,
+});
+
+export const collections = { vendors, articles, guides, glossary };

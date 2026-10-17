@@ -1,0 +1,82 @@
+# Glossary terms, rendered on /glossary/ in this order. Each term is a stub
+# (outline only) until the editor writes its definition and sets
+# status: published. While every term is a stub the page builds noindex,
+# stays out of the sitemap and is not linked from navigation.
+#
+# Writing rules: UK English, no em dashes, a definition of two to four
+# sentences, and any factual claim about a vendor or regulation linked to a
+# primary source (or to the vendor's profile, which carries the evidence).
+
+- id: single-tenant
+  term: Single-tenant
+  status: stub
+  outline:
+    - What "tenant" means in hosted inference, and what is not shared with other customers (GPUs, nodes, network, control plane).
+    - The spectrum, from shared serverless through dedicated endpoints to dedicated clusters and self-hosting, and where the site's inclusion line sits.
+    - Why vendors' own wording varies (dedicated, provisioned, private), so a profile records the vendor's term with its date.
+  see_also:
+    - label: What is single-tenant LLM hosting?
+      href: /blog/what-is-single-tenant-llm-hosting/
+    - label: Methodology, inclusion criteria
+      href: /methodology/
+
+- id: dedicated-capacity
+  term: Dedicated capacity
+  status: stub
+  outline:
+    - Capacity reserved for one customer, whether by GPU, by node or by throughput unit, and how it differs from rate-limit tiers on shared endpoints.
+    - Billing shapes, from per-hour reservations and commitments to minimum terms, and how they show up in the matrix pricing column.
+    - Dedicated capacity is not the same as data residency or sovereignty.
+  see_also:
+    - label: Vendor matrix
+      href: /vendors/
+
+- id: ptu
+  term: PTU (provisioned throughput unit)
+  status: stub
+  outline:
+    - Azure OpenAI's unit of reserved model throughput, as defined in Microsoft's current documentation (record the date).
+    - Equivalent units elsewhere (Bedrock Model Units, Vertex GSUs) and why they cannot be compared one for one.
+    - Deployment types that carry PTUs (global, data zone, regional) and what each means for where data is processed.
+  see_also:
+    - label: Azure OpenAI PTU profile
+      href: /vendors/azure-openai-ptu/
+    - label: AWS Bedrock Provisioned profile
+      href: /vendors/aws-bedrock-provisioned/
+    - label: Vertex AI Provisioned profile
+      href: /vendors/vertex-ai-provisioned/
+
+- id: residency-vs-sovereignty
+  term: Data residency vs data sovereignty
+  status: stub
+  outline:
+    - One-line definitions. Residency is where data sits and is processed; sovereignty is whose law governs it and who can be compelled to hand it over.
+    - Why an EU or UK region does not settle the jurisdiction question.
+    - How the matrix records each (regions, residency guarantee, parent jurisdiction) as separate fields.
+  see_also:
+    - label: Data residency vs data sovereignty vs operational sovereignty
+      href: /blog/residency-vs-sovereignty/
+    - label: The jurisdiction problem
+      href: /blog/jurisdiction-eu-region-not-sovereign/
+
+- id: byoc
+  term: BYOC (bring your own cloud)
+  status: stub
+  outline:
+    - The vendor's software runs in the customer's own cloud account, so the customer holds the infrastructure, the keys and the network boundary.
+    - How it differs from managed dedicated hosting and from fully self-hosted open-source serving.
+    - Questions to ask, such as who operates it, what telemetry leaves the account, and which control-plane components stay with the vendor.
+  see_also:
+    - label: Managed self-host vendors in the matrix
+      href: /vendors/?category=managed-selfhost
+
+- id: zero-retention
+  term: Zero (data) retention
+  status: stub
+  outline:
+    - A contractual or configurable commitment that prompts and outputs are not stored after the request completes, and what is usually excluded (abuse monitoring, logs, metadata).
+    - Where to find it in a vendor's terms or data-processing addendum, and why marketing pages are not enough.
+    - Zero retention is not the same as single tenancy or residency.
+  see_also:
+    - label: Editorial policy, sourcing
+      href: /editorial-policy/#sourcing

@@ -39,7 +39,8 @@ const newest = (...dates) => dates.filter(Boolean).sort().at(-1);
 
 /**
  * Absolute URLs that render noindex and so must not be in the sitemap:
- * low-distinctiveness compare pairs (same rule as compare/[slug].astro).
+ * low-distinctiveness compare pairs (same rule as compare/[slug].astro), stub
+ * guides, and the glossary while none of its terms is published.
  * @param {string} root project root
  * @returns {Set<string>}
  */
@@ -52,6 +53,15 @@ export const sitemapExclude = (root) => {
       if (!pairIsIndexable(a, b))
         exclude.add(`${SITE}${comparePath(a.slug, b.slug)}`);
     }
+  }
+  for (const { id, data } of frontmatterDir(join(root, 'src/content/guides'))) {
+    if (data.status !== 'published') exclude.add(`${SITE}/guides/${id}/`);
+  }
+  const terms = parse(
+    readFileSync(join(root, 'src/content/glossary.yaml'), 'utf8'),
+  );
+  if (!terms.some((t) => t.status === 'published')) {
+    exclude.add(`${SITE}/glossary/`);
   }
   return exclude;
 };
@@ -78,6 +88,13 @@ export const sitemapLastmod = (root) => {
         newest(vendorDate(a), vendorDate(b)),
       );
     }
+  }
+  for (const { id, data } of frontmatterDir(join(root, 'src/content/guides'))) {
+    if (data.status === 'published')
+      lastmod.set(
+        `${SITE}/guides/${id}/`,
+        newest(isoDay(data.updated ?? data.pub_date), data.last_verified),
+      );
   }
   for (const { id, data } of frontmatterDir(
     join(root, 'src/content/articles'),
