@@ -7,11 +7,14 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
   articleSchema,
+  breadcrumbSchema,
   latestVerified,
+  ORGANIZATION_ID,
   softwareApplication,
   vendorComparisonSchema,
   vendorDirectorySchema,
   vendorProfileSchema,
+  websiteSchema,
 } from '../src/lib/schema.mjs';
 
 const vendor = (over = {}) => ({
@@ -207,4 +210,27 @@ test('articleSchema breadcrumb is Home > Blog > title with absolute URLs', () =>
     assert.equal(el.position, i + 1);
     assert.match(el.item, /^https:\/\/singletenant\.ai\//);
   });
+});
+
+test('websiteSchema emits WebSite and Organization linked by @id', () => {
+  const graph = websiteSchema({ description: 'd' });
+  assertNoForbiddenKeys(graph);
+  const [site, org] = graph['@graph'];
+  assert.equal(site['@type'], 'WebSite');
+  assert.equal(org['@type'], 'Organization');
+  assert.equal(org['@id'], ORGANIZATION_ID);
+  assert.deepEqual(site.publisher, { '@id': ORGANIZATION_ID });
+});
+
+test('breadcrumbSchema is a single BreadcrumbList with absolute URLs', () => {
+  const graph = breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Disclosure', path: '/disclosure/' },
+  ]);
+  const [crumbs] = graph['@graph'];
+  assert.equal(crumbs['@type'], 'BreadcrumbList');
+  assert.equal(
+    crumbs.itemListElement[1].item,
+    'https://singletenant.ai/disclosure/',
+  );
 });

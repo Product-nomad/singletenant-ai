@@ -4,6 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Contact"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact/' },
+  ]}
   description="How to reach singletenant.ai: factual corrections, vendor submissions, and press enquiries."
 >
   <section class="border-b border-[var(--color-rule)]">

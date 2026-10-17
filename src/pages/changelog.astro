@@ -21,6 +21,10 @@ const formatDate = (iso: string) =>
 
 <BaseLayout
   title="Data Changelog"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Changelog', path: '/changelog/' },
+  ]}
   description="Every change to the singletenant.ai vendor database: additions, updates, and corrections, newest first, with the vendors each change touched."
 >
   <section>

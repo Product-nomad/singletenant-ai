@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { readdirSync } from 'node:fs';
 import { test } from 'node:test';
-import { sitemapLastmod } from '../src/lib/sitemap.mjs';
+import { sitemapExclude, sitemapLastmod } from '../src/lib/sitemap.mjs';
 
 const lastmod = sitemapLastmod(process.cwd());
 const vendorCount = readdirSync('src/content/vendors').filter((f) =>
@@ -26,4 +26,10 @@ test('lastmod values are ISO days', () => {
   for (const [url, date] of lastmod) {
     assert.match(date, /^\d{4}-\d{2}-\d{2}$/, url);
   }
+});
+
+test('noindex compare pairs are excluded from the sitemap', () => {
+  const exclude = sitemapExclude(process.cwd());
+  assert.ok(exclude.size > 0);
+  for (const url of exclude) assert.match(url, /\/compare\/[^/]+-vs-[^/]+\/$/);
 });

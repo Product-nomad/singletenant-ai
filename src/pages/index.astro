@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import VendorMatrix from '../components/VendorMatrix.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadChangelog } from '../lib/changelog.mjs';
+import { websiteSchema } from '../lib/schema.mjs';
 
 const vendors = await getCollection('vendors');
 
@@ -22,19 +23,7 @@ const description =
 
 // WebSite + publisher Organization JSON-LD for the homepage. Only facts the
 // site actually stands behind: name, URL, description, publisher.
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'singletenant.ai',
-  url: 'https://singletenant.ai/',
-  description,
-  publisher: {
-    '@type': 'Organization',
-    name: 'singletenant.ai',
-    url: 'https://singletenant.ai/',
-    logo: 'https://singletenant.ai/favicon.svg',
-  },
-};
+const schema = websiteSchema({ description });
 ---
 
 <BaseLayout

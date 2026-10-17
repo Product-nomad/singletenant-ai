@@ -17,6 +17,10 @@ const options = vendors.map((v) => ({ slug: v.data.slug, name: v.data.name }));
 
 <BaseLayout
   title="Compare Two Vendors"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Compare', path: '/compare/' },
+  ]}
   description="Pick two single-tenant LLM hosting vendors to compare side by side on deployment, compliance, pricing, and data residency."
 >
   <section>

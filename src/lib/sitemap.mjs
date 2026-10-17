@@ -11,7 +11,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'yaml';
-import { comparePath } from './compare.mjs';
+import { comparePath, pairIsIndexable } from './compare.mjs';
 import { latestVerified } from './schema.mjs';
 
 const SITE = 'https://singletenant.ai';
@@ -36,6 +36,25 @@ const isoDay = (d) =>
   d instanceof Date ? d.toISOString().slice(0, 10) : String(d);
 
 const newest = (...dates) => dates.filter(Boolean).sort().at(-1);
+
+/**
+ * Absolute URLs that render noindex and so must not be in the sitemap:
+ * low-distinctiveness compare pairs (same rule as compare/[slug].astro).
+ * @param {string} root project root
+ * @returns {Set<string>}
+ */
+export const sitemapExclude = (root) => {
+  const exclude = new Set();
+  const vendors = yamlDir(join(root, 'src/content/vendors'));
+  for (let i = 0; i < vendors.length; i++) {
+    for (let j = i + 1; j < vendors.length; j++) {
+      const [a, b] = [vendors[i], vendors[j]];
+      if (!pairIsIndexable(a, b))
+        exclude.add(`${SITE}${comparePath(a.slug, b.slug)}`);
+    }
+  }
+  return exclude;
+};
 
 /**
  * @param {string} root project root

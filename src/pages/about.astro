@@ -1,10 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbList, organization } from '../lib/schema.mjs';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organization(),
+    breadcrumbList([
+      { name: 'Home', path: '/' },
+      { name: 'About', path: '/about/' },
+    ]),
+  ],
+};
 ---
 
 <BaseLayout
   title="About"
   description="singletenant.ai is an independent, evidence-linked reference on single-tenant LLM hosting: editorial standards, independence, and who runs it."
+  schema={schema}
 >
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-3xl px-6 py-16">

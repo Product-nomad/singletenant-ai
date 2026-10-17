@@ -4,7 +4,7 @@ import type { GetStaticPaths } from 'astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { differencesSummary } from '../../lib/compare.mjs';
+import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
 import { oldest } from '../../lib/dates.mjs';
 import { deploymentLabel } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
@@ -60,9 +60,14 @@ const differences = differencesSummary(a.data, b.data);
 // Schema.org: the pairwise comparison as a Dataset (about the two vendor
 // SoftwareApplications) plus a BreadcrumbList. See src/lib/schema.mjs.
 const schema = vendorComparisonSchema({ a, b, description });
+
+// Low-distinctiveness pairs stay reachable (both profiles and the /compare/
+// picker link them) but are kept out of the index and the sitemap. Rule and
+// threshold: src/lib/compare.mjs, AUDIT.md section 2.
+const noIndex = !pairIsIndexable(a.data, b.data);
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema} noIndex={noIndex}>
   <!-- Header -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">
