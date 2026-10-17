@@ -3,88 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Consulting & Contact"
-  description="Book a 30-minute consultation on single-tenant LLM deployment, vendor selection, or AI delivery for regulated industries."
+  title="Contact"
+  description="How to reach singletenant.ai: factual corrections, vendor submissions, and press enquiries."
 >
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-3xl px-6 py-16">
-      <p class="eyebrow mb-3">Consulting</p>
+      <p class="eyebrow mb-3">Contact</p>
       <h1 class="m-0 mb-6" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
-        Get a second opinion.
+        Contact
       </h1>
-      <p class="text-lg max-w-2xl mb-8" style="color: var(--color-ink-soft);">
-        I help compliance-heavy buyers (financial services, healthcare,
-        defence, public sector) get from "we should look at single-tenant
-        LLMs" to "we've shipped one in production" without the usual months
-        of vendor tyre-kicking.
-      </p>
 
-      <div class="rule-double my-8">
-        <h2 class="mt-0 mb-3 pt-0 border-none">What a 30-minute call covers</h2>
-        <ul class="m-0 list-none p-0 space-y-3">
-          <li class="flex gap-3">
-            <span class="font-mono" style="color: var(--color-accent);">01</span>
-            <span>Your specific compliance perimeter: what data, what regulations, what residency.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono" style="color: var(--color-accent);">02</span>
-            <span>Workload profile: token volume, latency requirements, peak-vs-steady, model size.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono" style="color: var(--color-accent);">03</span>
-            <span>Realistic shortlist: typically two or three vendors, with the trade-offs spelled out for your buyer.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono" style="color: var(--color-accent);">04</span>
-            <span>Common pitfalls: the procurement, security, and architecture traps that catch first-time single-tenant deployers.</span>
-          </li>
-        </ul>
-      </div>
-
-      <h2>Engagement options</h2>
-
-      <div class="grid sm:grid-cols-2 gap-6 my-8">
-        <div class="border border-[var(--color-rule)] p-6">
-          <p class="eyebrow mb-2">Free</p>
-          <h3 class="mt-0 mb-3" style="font-size: 1.25rem;">Discovery call</h3>
-          <p class="text-sm mb-4" style="color: var(--color-ink-soft);">
-            30 minutes. No pitch, no slides. We talk about your situation,
-            and you walk away with a recommendation either way.
-          </p>
-          <a href="mailto:simon@singletenant.ai?subject=Discovery%20call" class="btn-primary">Email me</a>
-        </div>
-        <div class="border border-[var(--color-accent)] p-6"
-             style="background: var(--color-accent-soft);">
-          <p class="eyebrow mb-2" style="color: var(--color-accent);">Paid</p>
-          <h3 class="mt-0 mb-3" style="font-size: 1.25rem;">Vendor selection</h3>
-          <p class="text-sm mb-4" style="color: var(--color-ink-soft);">
-            Two-week engagement. Requirements doc, vendor shortlist with
-            trade-off analysis, RFP support, and a recommended path to
-            POC. Fixed fee.
-          </p>
-          <a href="mailto:simon@singletenant.ai?subject=Vendor%20selection%20engagement" class="btn-primary">Get a quote</a>
-        </div>
-      </div>
-
-      <h2>Who I work with</h2>
       <div class="prose">
+        <h2>Corrections</h2>
         <p>
-          Mid-market enterprises with a defined compliance profile. UK and EU
-          primarily; selectively US. Most engagements are with engineering
-          leaders, heads of platform, or director-of-AI roles, sometimes paired
-          with internal procurement or compliance.
-        </p>
-        <p>
-          I'm <strong>SC clearance eligible</strong> for UK government work and
-          have previously held responsibilities under classified environments.
+          If a fact on this site is wrong or out of date, email
+          <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>
+          with the page, the claim, and a link to the primary source that
+          contradicts it. How corrections are handled is set out in the
+          <a href="/editorial-policy/#corrections">editorial policy</a>.
         </p>
 
-        <h3>Other ways to reach me</h3>
-        <ul>
-          <li>Email: <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a></li>
-          <li>LinkedIn: <a href="https://www.linkedin.com/in/newton-simon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/newton-simon</a></li>
-          <li>Vendor partnership enquiries: same inbox, please mention vendor name in subject</li>
-        </ul>
+        <h2>Vendor submissions</h2>
+        <p>
+          Vendors that offer a documented dedicated or single-tenant
+          deployment option can ask to be considered for inclusion, or send
+          corrections about their own profile, at the same address. Inclusion
+          follows the criteria on the <a href="/methodology/">methodology</a>
+          page and cannot be bought.
+        </p>
+
+        <h2>Press and everything else</h2>
+        <p>
+          <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a>, or
+          <a href="https://www.linkedin.com/in/newton-simon/" target="_blank" rel="noopener noreferrer">Simon Newton on LinkedIn</a>.
+        </p>
       </div>
     </div>
   </section>

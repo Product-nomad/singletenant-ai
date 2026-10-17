@@ -1,18 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const LAST_UPDATED = '2026-07-08';
+const LAST_UPDATED = '2026-10-17';
 ---
 
 <BaseLayout
-  title="Affiliate Disclosure"
-  description="How singletenant.ai marks referral links, which vendor relationships exist, and why commission never affects the data."
+  title="Disclosure"
+  description="How singletenant.ai handles referral links, advertising, and sponsorship, which relationships exist, and why none of them affects the data."
 >
   <section>
     <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
       <p class="eyebrow mb-3">Legal</p>
       <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
-        Affiliate disclosure
+        Disclosure
       </h1>
       <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
         Last updated {LAST_UPDATED}
@@ -20,46 +20,76 @@ const LAST_UPDATED = '2026-07-08';
 
       <div class="prose">
         <p>
-          Some outbound links on this site are referral links. If you follow
-          one and become a customer of that vendor, this site may earn a
-          commission. You pay nothing extra.
+          This site is independent. It may earn money from referral links,
+          advertising, and sponsorship. This page lists every commercial
+          relationship and sets out the rules that keep them apart from the
+          data.
         </p>
 
-        <h2>How referral links are marked</h2>
+        <h2 id="independence">What money never affects</h2>
         <p>
-          Every referral link is marked where it appears: a visible
-          "Referral link" notice sits next to the link on the same page, and
-          the link carries the <code>rel="sponsored"</code> attribute. If a
-          link has no such notice, it is not a referral link. This page is
-          linked from the notice and from the footer of every page.
+          Advertising, sponsorship, and referral commission never influence:
+        </p>
+        <ul>
+          <li>the vendor matrix, or any fact recorded in it;</li>
+          <li>the ordering of vendors, which is alphabetical;</li>
+          <li>the comparison pages, which are generated from the same data;</li>
+          <li>
+            which vendors are included, which follows the published
+            <a href="/methodology/">inclusion criteria</a> only.
+          </li>
+        </ul>
+        <p>
+          Vendor facts are verified against primary sources, and every
+          populated fact links to its evidence with the date it was checked. A
+          fact that cannot be verified is shown as "Not verified" whatever the
+          vendor's commercial relationship with this site. Advertisers and
+          sponsors get no preview of, or say over, editorial content. The
+          <a href="/editorial-policy/#conflicts">editorial policy</a> covers
+          conflicts of interest in full.
         </p>
 
-        <h2>Current relationships</h2>
+        <h2 id="referral-links">Referral links</h2>
+        <p>
+          Some outbound links are referral links. If you follow one and become
+          a customer of that vendor, this site may earn a commission. You pay
+          nothing extra. Every referral link is marked where it appears: a
+          visible "Referral link" notice sits next to it, and the link carries
+          the <code>rel="sponsored"</code> attribute. A link without that
+          notice is not a referral link.
+        </p>
+
+        <h2 id="advertising">Advertising</h2>
+        <p>
+          If the site carries advertising, each ad sits in a clearly marked
+          slot labelled "Advertisement", separate from the editorial content.
+          Ads never appear inside the vendor matrix, a comparison table, or a
+          vendor's facts, and buying an ad buys nothing else.
+        </p>
+
+        <h2 id="sponsorship">Sponsored content</h2>
+        <p>
+          Sponsored content is always labelled "Sponsored" at the top, with the
+          sponsor named, and links to this page. Sponsors do not write or
+          approve the vendor data, and sponsored content is never presented as
+          independent analysis. Sponsored links carry
+          <code>rel="sponsored"</code>.
+        </p>
+
+        <h2 id="relationships">Current relationships</h2>
         <p>
           This site has an affiliate relationship with <strong>RunPod</strong>.
-          No other vendor in the database has a commercial relationship with
-          this site. This list is updated whenever a relationship starts or
-          ends, and the change is recorded in the
-          <a href="/changelog/">changelog</a>.
-        </p>
-
-        <h2>What commission does not affect</h2>
-        <p>
-          Vendor facts on this site are verified against primary sources
-          (vendor documentation, trust centres, and pricing pages), and every
-          populated fact links to its evidence with the date it was checked.
-          A fact that cannot be verified is shown as "Not verified"
-          regardless of any commercial relationship. Commission does not
-          determine which vendors are included, how they are ordered, or
-          what the data says. The <a href="/methodology/">methodology
-          page</a> describes the process.
+          It has no advertisers or sponsors, and no other vendor in the
+          database has a commercial relationship with this site. This list is
+          updated whenever a relationship starts or ends, and the change is
+          recorded in the <a href="/changelog/">changelog</a>.
         </p>
 
         <h2>Why this page exists</h2>
         <p>
-          Identifying paid-for links is required by the UK CAP Code (enforced
-          by the ASA) and, for US readers, the FTC's endorsement guides
-          (16 CFR Part 255). Questions about this policy:
+          Identifying paid-for content and links is required by the UK CAP
+          Code (enforced by the ASA) and, for US readers, the FTC's endorsement
+          guides (16 CFR Part 255). Questions about this policy:
           <a href="mailto:editor@singletenant.ai">editor@singletenant.ai</a>.
         </p>
       </div>

@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
-import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary } from '../../lib/compare.mjs';
 import { deploymentLabel } from '../../lib/labels.mjs';
@@ -173,12 +172,10 @@ const schema = vendorComparisonSchema({ a, b, description });
     </div>
   </section>
 
-  <!-- CTA + further reading -->
+  <!-- Further reading -->
   <section>
     <div class="mx-auto max-w-3xl px-6 py-12">
-      <ConsultingCTA />
-
-      <p class="eyebrow mt-12 mb-4">Read the full profiles</p>
+      <p class="eyebrow mb-4">Read the full profiles</p>
       <div class="grid sm:grid-cols-2 gap-4">
         <a href={`/vendors/${a.data.slug}/`}
            class="block p-5 border border-[var(--color-rule)] no-underline hover:border-[var(--color-ink)]">

@@ -4,7 +4,6 @@ import type { GetStaticPaths } from 'astro';
 import AffiliateLink from '../../components/AffiliateLink.astro';
 import CategoryTag from '../../components/CategoryTag.astro';
 import CertBadge from '../../components/CertBadge.astro';
-import ConsultingCTA from '../../components/ConsultingCTA.astro';
 import EvidenceLink from '../../components/EvidenceLink.astro';
 import LastVerified from '../../components/LastVerified.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -199,10 +198,6 @@ const fmtUnknown = (val: string | boolean) => {
           </div>
         )
       }
-
-      <div class="max-w-3xl">
-        <ConsultingCTA />
-      </div>
     </div>
   </section>
 </BaseLayout>

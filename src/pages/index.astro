@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import ConsultingCTA from '../components/ConsultingCTA.astro';
 import VendorMatrix from '../components/VendorMatrix.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadChangelog } from '../lib/changelog.mjs';
@@ -95,13 +94,6 @@ const schema = {
       </nav>
 
       <VendorMatrix vendors={vendors} collapsible />
-    </div>
-  </section>
-
-  <!-- Consulting CTA -->
-  <section>
-    <div class="mx-auto max-w-4xl px-6">
-      <ConsultingCTA />
     </div>
   </section>
 

@@ -1,5 +1,4 @@
 ---
-import ConsultingCTA from '../components/ConsultingCTA.astro';
 import { articleSchema } from '../lib/schema.mjs';
 import BaseLayout from './BaseLayout.astro';
 
@@ -66,7 +65,6 @@ const schema = articleSchema({
       <div class="prose">
         <slot />
       </div>
-      <ConsultingCTA />
     </div>
   </article>
 </BaseLayout>

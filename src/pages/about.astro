@@ -4,72 +4,87 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About"
-  description="singletenant.ai is an independent buyer's resource for single-tenant LLM hosting, edited by Simon Newton."
+  description="singletenant.ai is an independent, evidence-linked reference on single-tenant LLM hosting: editorial standards, independence, and who runs it."
 >
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-3xl px-6 py-16">
       <p class="eyebrow mb-3">About</p>
       <h1 class="m-0 mb-6" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
-        Independent. Specific. Useful.
+        An independent reference, not a sales site.
       </h1>
       <div class="prose">
         <p class="drop-cap">
-          singletenant.ai is an independent buyer's resource for single-tenant
-          LLM hosting, written for engineering leaders, procurement teams, and
-          compliance officers shipping AI inside boundaries that matter.
+          singletenant.ai is a reference database of dedicated and
+          single-tenant LLM hosting vendors, written for the compliance,
+          procurement, and engineering teams who have to choose one. It
+          records what each vendor documents about compliance, data residency,
+          jurisdiction, pricing, and deployment, and links every fact to the
+          primary source it came from.
+        </p>
+
+        <h2>Editorial standards</h2>
+
+        <p>
+          <strong>Primary sources only.</strong> Every populated fact links to
+          the vendor's own documentation, trust centre, legal terms, or pricing
+          page, with the date it was checked. Third-party writeups and general
+          knowledge are not sources.
         </p>
 
         <p>
-          The category is real but the buyer side of the market is poorly
-          served. Vendor pages oversell. Analyst reports lag the technology.
-          Reddit threads are rumour. We exist to fill the gap with regularly-
-          updated vendor profiles, honest comparisons, and analysis grounded in
-          real procurement and operational experience.
+          <strong>Gaps stay visible.</strong> A fact that cannot be confirmed
+          from a primary source is shown as "Not verified", not guessed. Every
+          profile shows when it was last verified, so stale data looks stale.
+        </p>
+
+        <p>
+          <strong>Corrections are public.</strong> Every addition, update, and
+          correction to the data is a dated entry in the
+          <a href="/changelog/">changelog</a>.
+        </p>
+
+        <p>
+          The full rules, covering sourcing, verification, corrections, and
+          conflicts of interest, are in the
+          <a href="/editorial-policy/">editorial policy</a>. How the data is
+          gathered is on the <a href="/methodology/">methodology</a> page.
+        </p>
+
+        <h2>Independence</h2>
+
+        <p>
+          No vendor pays to be included, to be ranked, or to change what its
+          profile says. Inclusion follows the published criteria on the
+          methodology page, and the vendor matrix is ordered alphabetically.
+          Vendors can submit corrections about their own profiles on the same
+          terms as anyone else: a correction needs a primary source.
+        </p>
+
+        <p>
+          The site may carry referral links, advertising, or sponsorship. None
+          of them influences the matrix, the comparisons, or which vendors are
+          covered, and anything paid for is labelled where it appears. Every
+          current commercial relationship is listed on the
+          <a href="/disclosure/">disclosure page</a>.
         </p>
 
         <h2>Who runs this</h2>
 
         <p>
-          singletenant.ai is written and maintained by Simon Newton. His
-          background is in military intelligence and large-scale delivery at
-          Ocado Technology, and he now works as an independent applied AI
-          builder.
+          singletenant.ai is edited by Simon Newton. His background is in
+          military intelligence and large-scale delivery at Ocado Technology,
+          and he now builds applied AI systems independently. He started the
+          site because the buyer side of this market had no neutral,
+          source-linked reference to work from.
         </p>
 
         <p>
           <a href="https://www.linkedin.com/in/newton-simon/">Simon Newton on LinkedIn ↗</a>
         </p>
 
-        <h2>Editorial principles</h2>
-
         <p>
-          <strong>Vendor neutrality.</strong> Some links on this site earn
-          referral commission; we always disclose this clearly on the relevant
-          pages. Commission never determines coverage. Our directory includes
-          vendors with no partnership relationship.
-        </p>
-
-        <p>
-          <strong>Data first.</strong> Every vendor profile is grounded in
-          structured data we maintain ourselves. We cite sources, mark review
-          dates, and update profiles when material changes happen.
-        </p>
-
-        <p>
-          <strong>Specific, not generic.</strong> "Best LLM hosting for 2026"
-          listicles aren't useful. We write for the buyer with a defined
-          deployment context: a regulated industry, a compliance regime, a
-          specific scale of workload. If a piece could apply to anyone, we
-          haven't done our job.
-        </p>
-
-        <h2>Talk to us</h2>
-
-        <p>
-          Vendor news, factual corrections, partnership enquiries, and
-          consulting requests are all welcome at <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a>.
-          For consulting specifically, the <a href="/contact/">consulting
-          page</a> has more detail.
+          Corrections, vendor submissions, and press:
+          <a href="/contact/">contact</a>.
         </p>
       </div>
     </div>
