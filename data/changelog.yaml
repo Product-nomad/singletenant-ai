@@ -22,6 +22,89 @@
     - together-ai
     - vertex-ai-provisioned
   summary: >-
+    Every field of every profile re-checked against the vendor's own pages:
+    category, summary, deployment models, regions, certifications, pricing,
+    residency, parent jurisdiction and analyst note. Each profile now lists
+    the source and check date for each field. Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - aws-bedrock-provisioned
+  summary: >-
+    UK added to Amazon Bedrock Provisioned Throughput regions. The
+    Provisioned Throughput model table lists eu-west-2, which AWS names Europe
+    (London). Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - azure-openai-ptu
+  summary: >-
+    Asia-Pacific added to Azure OpenAI Provisioned Throughput regions. Data
+    Zone deployments now cover a US, EU or APAC zone. Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: added
+  vendors:
+    - modal
+  summary: >-
+    Dedicated Endpoints added to Modal's deployment models: models on
+    isolated, autoscaling containers at standard compute rates. Verified
+    2026-10-17.
+
+- date: "2026-10-17"
+  type: added
+  vendors:
+    - nebius
+  summary: >-
+    HIPAA BAA added for Nebius. Its HIPAA guideline makes PHI use subject to
+    a signed Business Associate Agreement; the profile previously said no BAA
+    was found. Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: corrected
+  vendors:
+    - nebius
+  summary: >-
+    Nebius pricing corrected: the dedicated-endpoint billing policy makes an
+    endpoint billable while at least one replica runs, though the product page
+    still cites per-token pricing. Summary no longer says per-token for
+    dedicated endpoints. Corrected 2026-10-17.
+
+- date: "2026-10-17"
+  type: corrected
+  vendors:
+    - nvidia-nim
+    - ovhcloud
+    - runpod
+    - databricks-model-serving
+  summary: >-
+    Analyst notes corrected to current vendor wording: Hugging Face now offers
+    serverless (not dedicated) NIM endpoints; OVHcloud AI Endpoints lists more
+    than 20 models, not 40+; RunPod Secure Cloud is T3/T4 data centres;
+    Databricks names the product Model Serving. Corrected 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
+    - baseten
+    - civo
+    - coreweave
+    - databricks-model-serving
+    - fireworks-ai
+    - huggingface-inference-endpoints
+    - modal
+    - nebius
+    - nvidia-nim
+    - ovhcloud
+    - runpod
+    - scaleway
+    - together-ai
+    - vertex-ai-provisioned
+  summary: >-
     All 16 vendor profiles re-verified against primary sources. Each source was
     re-read for the claim, not just checked for a response. Moved pages were
     repointed for CoreWeave, OVHcloud, Scaleway, Civo, Nebius, Together AI and

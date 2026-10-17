@@ -126,6 +126,62 @@ export const factBlocks = (data) => [
   data.sovereignty ?? {},
 ];
 
+// Per-field provenance. Every claim-bearing field names the primary source(s)
+// that support it and the date each was last checked, so a profile can show
+// exactly which fields were confirmed when. Field keys:
+//   category, tagline, deployment_models, regions, pricing, notes,
+//   compliance.<CERT>, sovereignty.data_residency_guarantee,
+//   sovereignty.parent_jurisdiction
+export const SOURCE_FIELDS = [
+  'category',
+  'tagline',
+  'deployment_models',
+  'regions',
+  'pricing',
+  'notes',
+  'sovereignty.data_residency_guarantee',
+  'sovereignty.parent_jurisdiction',
+  ...CERTS.map((c) => `compliance.${c}`),
+];
+
+export const sourceEntrySchema = z
+  .object({
+    field: z.enum(SOURCE_FIELDS),
+    url: evidenceUrl,
+    verified: isoDate,
+  })
+  .strict();
+
+// The fields a vendor record actually claims something about. 'unknown' and
+// empty values claim nothing, so they need no source.
+export const claimedFields = (data) => {
+  const fields = ['category', 'tagline'];
+  if (data.deployment_models?.length) fields.push('deployment_models');
+  if (data.regions?.length) fields.push('regions');
+  if (data.notes) fields.push('notes');
+  for (const c of data.compliance ?? []) fields.push(`compliance.${c.cert}`);
+  const pricing = data.pricing ?? {};
+  if (pricing.model !== 'unknown' || pricing.public !== 'unknown') {
+    fields.push('pricing');
+  }
+  for (const key of ['data_residency_guarantee', 'parent_jurisdiction']) {
+    if ((data.sovereignty ?? {})[key] !== 'unknown') {
+      fields.push(`sovereignty.${key}`);
+    }
+  }
+  return fields;
+};
+
+// The source fields a fact block's own evidence_url may be filed under.
+const factFields = (data) => [
+  ...(data.compliance ?? []).map((c) => [c, [`compliance.${c.cert}`]]),
+  [data.pricing ?? {}, ['pricing']],
+  [
+    data.sovereignty ?? {},
+    ['sovereignty.data_residency_guarantee', 'sovereignty.parent_jurisdiction'],
+  ],
+];
+
 export const vendorSchema = z
   .object({
     slug: z
@@ -140,12 +196,12 @@ export const vendorSchema = z
     category: z.enum(CATEGORIES),
     tagline: maxWords(12, 'tagline').describe('Factual, no hype'),
     last_verified: isoDate.describe(
-      'Oldest verified date across the profile; never later than any fact',
+      'Oldest verified date across sources[]: the stalest confirmed field',
     ),
     sources: z
-      .array(evidenceUrl)
+      .array(sourceEntrySchema)
       .min(1)
-      .describe('Every primary source the profile relies on'),
+      .describe('Per-field primary sources, each with the date it was checked'),
     deployment_models: z.array(z.string().min(1)).default([]),
     regions: z
       .array(z.enum(REGIONS))
@@ -164,31 +220,54 @@ export const vendorSchema = z
   })
   .strict()
   .superRefine((val, ctx) => {
-    // Profile-level verification. last_verified is the headline "Last
-    // verified" date on vendor and compare pages, so it must not claim the
-    // profile is fresher than its stalest fact: re-verify every fact, then
-    // move last_verified forward.
-    for (const fact of factBlocks(val)) {
-      if (fact.verified && fact.verified < val.last_verified) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ['last_verified'],
-          message: `last_verified ${val.last_verified} is later than a fact verified ${fact.verified}`,
-        });
-      }
-      if (fact.evidence_url && !val.sources.includes(fact.evidence_url)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ['sources'],
-          message: `sources is missing evidence_url ${fact.evidence_url}`,
-        });
+    const issue = (path, message) =>
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path, message });
+
+    const seen = new Set();
+    for (const s of val.sources) {
+      const key = `${s.field} ${s.url}`;
+      if (seen.has(key)) issue(['sources'], `sources repeats ${key}`);
+      seen.add(key);
+    }
+
+    // Every claim has a source, and no source points at a field the record
+    // does not claim (catches a cert or region removed without its source).
+    const claimed = claimedFields(val);
+    const sourced = new Set(val.sources.map((s) => s.field));
+    for (const f of claimed) {
+      if (!sourced.has(f)) issue(['sources'], `no source for field ${f}`);
+    }
+    for (const f of sourced) {
+      if (!claimed.includes(f)) {
+        issue(['sources'], `source for ${f}, which the record does not claim`);
       }
     }
-    if (new Set(val.sources).size !== val.sources.length) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['sources'],
-        message: 'sources must not repeat a URL',
-      });
+
+    // A fact's rendered evidence link must be one of its field's sources,
+    // checked on the same date the fact shows.
+    for (const [fact, fields] of factFields(val)) {
+      if (!fact.evidence_url) continue;
+      const match = val.sources.find(
+        (s) => fields.includes(s.field) && s.url === fact.evidence_url,
+      );
+      if (!match) {
+        issue(['sources'], `no ${fields[0]} source for ${fact.evidence_url}`);
+      } else if (match.verified !== fact.verified) {
+        issue(
+          ['sources'],
+          `${fact.evidence_url} is dated ${match.verified} in sources but ${fact.verified} on the fact`,
+        );
+      }
+    }
+
+    // Profile-level verification. last_verified is the headline "Last
+    // verified" date on vendor and compare pages, so it is exactly the oldest
+    // source date: one stale field holds the whole profile back.
+    const oldest = val.sources.map((s) => s.verified).sort()[0];
+    if (oldest && val.last_verified !== oldest) {
+      issue(
+        ['last_verified'],
+        `last_verified ${val.last_verified} must equal the oldest source date ${oldest}`,
+      );
     }
   });

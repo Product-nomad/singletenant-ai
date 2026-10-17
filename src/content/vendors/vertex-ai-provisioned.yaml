@@ -6,11 +6,54 @@ tagline: Reserved Vertex AI model throughput purchased in generative AI scale un
 
 last_verified: "2026-10-17"
 sources:
-  - https://cloud.google.com/security/compliance/services-in-scope
-  - https://cloud.google.com/terms/data-processing-addendum
-  - https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
-  - https://policies.google.com/terms
-  - https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations
+  - field: category
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: category
+    url: https://policies.google.com/terms
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://cloud.google.com/security/compliance/services-in-scope
+    verified: "2026-10-17"
+  - field: compliance.SOC3
+    url: https://cloud.google.com/security/compliance/services-in-scope
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://cloud.google.com/security/compliance/services-in-scope
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://cloud.google.com/terms/data-processing-addendum
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://policies.google.com/terms
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    verified: "2026-10-17"
+  - field: notes
+    url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
+    verified: "2026-10-17"
+  - field: notes
+    url: https://cloud.google.com/security/compliance/services-in-scope
+    verified: "2026-10-17"
 
 deployment_models:
   - provisioned-throughput

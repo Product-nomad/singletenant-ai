@@ -13,8 +13,14 @@ import {
   CERT_LABELS,
   DEPLOYMENT_LABELS,
   REGION_LABELS,
+  sourceFieldLabel,
 } from '../src/lib/labels.mjs';
-import { CATEGORIES, CERTS, REGIONS } from '../src/schemas/vendor.mjs';
+import {
+  CATEGORIES,
+  CERTS,
+  REGIONS,
+  SOURCE_FIELDS,
+} from '../src/schemas/vendor.mjs';
 
 const vendorsDir = 'src/content/vendors';
 const vendors = readdirSync(vendorsDir)
@@ -75,3 +81,8 @@ const assertEnumLabelled = (label, values, labels) => {
 assertEnumLabelled('region', REGIONS, REGION_LABELS);
 assertEnumLabelled('category', CATEGORIES, CATEGORY_LABELS);
 assertEnumLabelled('compliance cert', CERTS, CERT_LABELS);
+
+test('every sources[] field key has a display label', () => {
+  const unlabelled = SOURCE_FIELDS.filter((f) => sourceFieldLabel(f) === f);
+  assert.deepEqual(unlabelled, [], `unlabelled field(s): ${unlabelled}`);
+});

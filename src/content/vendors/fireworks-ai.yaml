@@ -6,11 +6,51 @@ tagline: Serverless and dedicated GPU inference billed per token or GPU-second
 
 last_verified: "2026-10-17"
 sources:
-  - https://docs.fireworks.ai/guides/security_compliance/data_security
-  - https://fireworks.ai/pricing
-  - https://fireworks.ai/privacy-policy
-  - https://docs.fireworks.ai/deployments/regions
-  - https://docs.fireworks.ai/accounts/data-residency
+  - field: category
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: category
+    url: https://fireworks.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://fireworks.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://fireworks.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.fireworks.ai/deployments/regions
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://fireworks.ai/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://fireworks.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.fireworks.ai/deployments/regions
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.fireworks.ai/accounts/data-residency
+    verified: "2026-10-17"
+  - field: notes
+    url: https://fireworks.ai/privacy-policy
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
 
 deployment_models:
   - serverless
@@ -47,7 +87,7 @@ pricing:
 sovereignty:
   data_residency_guarantee: unknown
   parent_jurisdiction: US
-  evidence_url: https://fireworks.ai/privacy-policy
+  evidence_url: https://fireworks.ai/terms-of-service
   verified: "2026-10-17"
 
 notes: >-

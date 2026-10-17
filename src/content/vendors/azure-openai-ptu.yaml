@@ -6,23 +6,88 @@ tagline: Dedicated PTU capacity for Foundry Models with hourly or reserved billi
 
 last_verified: "2026-10-17"
 sources:
-  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
-  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
-  - https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
-  - https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
-  - https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
-  - https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
-  - https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+  - field: category
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.microsoft.com/en-gb/privacy/privacystatement
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
+    verified: "2026-10-17"
+  - field: regions
+    url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
+    verified: "2026-10-17"
+  - field: compliance.C5
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
+    verified: "2026-10-17"
+  - field: compliance.FEDRAMP
+    url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.microsoft.com/en-gb/privacy/privacystatement
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
+    verified: "2026-10-17"
+  - field: notes
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
+    verified: "2026-10-17"
 
 deployment_models:
   - global-provisioned
   - data-zone-provisioned
   - regional-provisioned
 
+# Regions checked 2026-10-17: Data Zone deployments process data only within
+# the US, EU or Asia Pacific (APAC) data zone; Global processes anywhere.
 regions:
   - global
   - us
   - europe
+  - apac
 
 compliance:
   - cert: SOC2_TYPE2
@@ -59,7 +124,7 @@ sovereignty:
 notes: >-
   Provisioned throughput is now a Microsoft Foundry (formerly Azure AI
   Foundry) deployment type billed hourly per PTU, with 1-month or 1-year
-  Azure Reservations. Global, Data Zone (US/EU), and Regional options set
+  Azure Reservations. Global, Data Zone (US, EU or APAC), and Regional options set
   where prompts are processed; stored data stays in the customer-designated
   geography. FedRAMP scope names Azure OpenAI; SOC 2, ISO 27001, and C5
   attest the Azure platform.

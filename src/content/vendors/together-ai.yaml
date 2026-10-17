@@ -6,11 +6,42 @@ tagline: Serverless tokens plus single-tenant dedicated endpoints and GPU cluste
 
 last_verified: "2026-10-17"
 sources:
-  - https://www.together.ai/blog/soc-2-compliance
-  - https://www.together.ai/pricing
-  - https://www.together.ai/terms-of-service
-  - https://docs.together.ai/docs/dedicated-endpoints/overview
-  - https://www.together.ai/gpu-clusters
+  - field: category
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.together.ai/docs/dedicated-endpoints/overview
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://www.together.ai/blog/soc-2-compliance
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://www.together.ai/blog/soc-2-compliance
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.together.ai/pricing
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.together.ai/terms-of-service
+    verified: "2026-10-17"
 
 deployment_models:
   - serverless

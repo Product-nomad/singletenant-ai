@@ -6,10 +6,54 @@ tagline: GPU cloud with community and secure tiers, priced per hour
 
 last_verified: "2026-10-17"
 sources:
-  - https://trust.runpod.io
-  - https://www.runpod.io/pricing
-  - https://www.runpod.io/legal/terms-of-service
-  - https://docs.runpod.io/pods/networking
+  - field: category
+    url: https://www.runpod.io/pricing
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.runpod.io/legal/terms-of-service
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.runpod.io/pricing
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://docs.runpod.io/pods/overview
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.runpod.io/pricing
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://docs.runpod.io/pods/overview
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.runpod.io/pods/networking
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: compliance.SOC3
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.runpod.io/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.runpod.io/legal/terms-of-service
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.runpod.io/pods/overview
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.runpod.io/legal/terms-of-service
+    verified: "2026-10-17"
 
 deployment_models:
   - secure-cloud
@@ -55,8 +99,9 @@ sovereignty:
   verified: "2026-10-17"
 
 notes: >-
-  Secure Cloud tier targets isolation needs; terms establish a shared
-  responsibility model with no explicit residency guarantee. This site
+  Secure Cloud runs in T3/T4 data centres for enterprise and production
+  workloads; Community Cloud uses vetted peer-to-peer providers. Terms set a
+  shared-responsibility model with no explicit residency guarantee. This site
   has an affiliate relationship with RunPod. See the disclosure page.
 
 featured: true

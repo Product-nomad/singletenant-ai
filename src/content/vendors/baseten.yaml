@@ -6,10 +6,51 @@ tagline: Inference platform with dedicated deployments, self-hosted and hybrid o
 
 last_verified: "2026-10-17"
 sources:
-  - https://trust.baseten.co
-  - https://www.baseten.co/pricing
-  - https://www.baseten.co/terms-and-conditions/
-  - https://docs.baseten.co/deployment/regional-deployments
+  - field: category
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: category
+    url: https://www.baseten.co/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: tagline
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: deployment_models
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: regions
+    url: https://docs.baseten.co/deployment/regional-deployments
+    verified: "2026-10-17"
+  - field: compliance.SOC2_TYPE2
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.SOC3
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.ISO27001
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.HIPAA_BAA
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: compliance.GDPR_DPA
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: pricing
+    url: https://www.baseten.co/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.parent_jurisdiction
+    url: https://www.baseten.co/terms-and-conditions/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.baseten.co/
+    verified: "2026-10-17"
+  - field: notes
+    url: https://trust.baseten.co
+    verified: "2026-10-17"
+  - field: notes
+    url: https://docs.baseten.co/deployment/regional-deployments
+    verified: "2026-10-17"
 
 deployment_models:
   - dedicated-deployment
