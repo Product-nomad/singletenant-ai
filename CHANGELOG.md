@@ -2,6 +2,18 @@
 
 User-visible and governance changes, newest first. Site data changes (vendor facts, verification dates) live in the public `/changelog/` page from v2; this file tracks the project itself.
 
+## v2.4 reposition as an independent reference (2026-10-17, branch `reposition/2026-10`, PR open)
+
+Turns the site from a reference site with a consulting funnel into an independent reference site, prepares monetisation surfaces that stay switched off, and acts on the findings in `AUDIT.md`. These are site, governance and schema changes, so they are recorded here only. No vendor fact changed, so nothing is added to the public `/changelog/`. Adding `last_verified` and `sources` re-recorded existing data and verified nothing new.
+
+- 2026-10-17: Audit (`AUDIT.md`). Covers self-promotion, thin and duplicate content, missing dates and broken links per page; a distinctiveness score for each of the 120 compare pairs; vendor freshness (every fact is more than 60 days old); and a structured-data review. Adds `npm run linkcheck` (internal links always; `--external` for outbound).
+- 2026-10-17: Editorial trust. Consulting and services copy removed everywhere (ConsultingCTA deleted; nav, footer, /contact/ and /about/ rewritten). New `/editorial-policy/` (sourcing, verification, corrections, conflicts), linked from the footer and /methodology/. `/disclosure/` covers advertising and sponsorship as well as referrals: none of them influences the matrix, rankings or inclusion, and sponsored content is always labelled. The methodology's category count was corrected from four to five.
+- 2026-10-17: Vendor schema gains `last_verified` (the oldest fact date, which the schema enforces) and `sources[]` (which must contain every evidence URL). "Last verified DD Mon YYYY" now shows on vendor, compare and guide pages, and each vendor profile lists its sources. The sitemap carries a data-backed `lastmod`.
+- 2026-10-17: Indexability. Compare pairs scoring below 40 on distinctiveness render `noindex, follow` and are left out of the sitemap (51 of 120). They stay reachable from vendor profiles and the /compare/ picker. Organization gains a stable `@id`, and a BreadcrumbList now appears on every page except the homepage.
+- 2026-10-17: Content scaffold. A `guides` collection and `/guides/` hub with four stub outlines (UK public sector, FCA-regulated firms, NHS/health data, TCO), and `/glossary/` with six stub terms. Stubs are noindex, left out of the sitemap and not linked until published.
+- 2026-10-17: Monetisation prep, all off. `AdSlot` (fixed sizes, so no CLS) and `SponsoredLabel` (rendered automatically for an article with a `sponsor` field), plus a newsletter signup on guides and the changelog. All three sit behind `src/config/features.mjs`, which defaults to off. The newsletter Worker in `workers/newsletter/` is built and tested but not deployed. Supersedes DECISIONS.md decision 7 (see the new ADR).
+- 2026-10-17: Lighthouse, run locally for the first time (headless Chromium, mobile emulation, `astro preview`). Six page types score 100/100/100/100 for performance, accessibility, best practices and SEO, with CLS 0. A live re-run is still advisable.
+
 ## v2.3 sovereignty sprint (2026-07-19, branch `feat/v2.3-sovereignty`, PR open)
 
 UK and sovereignty-washing content sprint (SPEC v2.3, S1 to S7): a UK region bucket, a UK-sovereign vendor category with the first UK-parented vendor (Civo), and a four-piece sovereignty article cluster. Per-vendor data changes (UK regions, Civo) are recorded in the public `/changelog/`; the schema, article and chip changes below are project or site changes recorded here only, per the data-only rule. PR open against `main` for Simon's review of the three new articles before merge.

@@ -1,9 +1,11 @@
 # singletenant.ai — STATE
 
-**Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). Credibility first; monetisation (affiliate partnerships + consulting CTA conversions into Incubate Labs engagements) is secondary to it. Newsletter sponsorships are **no longer a revenue line** (decision 7, DECISIONS.md 2026-07-06).
+**Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). An **independent reference site, not a sales site** (reposition 2026-10-17). Credibility comes first; monetisation is secondary and kept apart from the data under `/disclosure/`: affiliate links, plus labelled ads, sponsorship and a newsletter, all prepared behind flags that are off. Consulting has been removed (ADR 2026-10-17, which supersedes decision 7).
 **Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer and a 2026-07-13 polish pass are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
 **Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete; a 2026-07-13 polish pass (P1–P6) followed. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live — the two Lighthouse findings that were code-fixable (a11y heading order, perf font CLS + render-blocking) were addressed in the polish pass and now need a live re-measure to confirm the scores. Piece 14 (drift watch) still open.
-**Last touched**: 2026-07-19.
+**Last touched**: 2026-10-17.
+
+**v2.4 reposition (2026-10-17, branch `reposition/2026-10`, PR open)**: independent-reference reposition. Consulting copy removed, `/editorial-policy/` added, disclosure extended, vendor `last_verified` + `sources[]` added, "Last verified" stamps added, low-value compare pairs set to noindex,follow (51 of 120), guides and glossary scaffolded as stubs, ad slot, sponsored label and newsletter added behind flags that are off. Findings and the indexed set are in `AUDIT.md`. The ADR is in DECISIONS.md (supersedes decision 7). Gates: tests 72/72, lint, typecheck 0/0, validate 16/16, build 160 pages, linkcheck 0 broken, local Lighthouse 100 across all four categories on six page types. **Top follow-up: every vendor fact is more than 60 days old (verified 7 to 18 Jul 2026), and the profiles now show it. Re-verification is overdue.**
 
 **Canonical repo path**: `/home/vpc/projects/singletenant-ai`. This is the only working copy to use. A stale duplicate at `/home/vpc/brain/projects/singletenant-ai` caused a redundant picker implementation on 2026-07-18 and has been retired (see Lessons). Verify `pwd` against this path before any git work.
 
@@ -98,7 +100,11 @@ UK and sovereignty-washing sprint (SPEC v2.3 S1 to S7). One commit per piece, ga
 ## Open items
 
 - ~~Value checkpoints~~ — confirmed by Simon 2026-07-07 (DECISIONS.md decision 6): ≥10 referring domains; ≥15% returning-visitor share; ≥1 unsolicited consulting enquiry, at 90 days post-launch.
-- **Consulting CTA target**: which Incubate Labs engagement the CTA pitches (Local-LLM Pilot vs VPC/sovereignty advisory) — wire during shell restyle.
+- ~~**Consulting CTA target**~~: moot. Consulting copy removed in the 2026-10-17 reposition.
+- **Replace value checkpoint 3** (decision 6 "at least 1 unsolicited consulting enquiry"): needs a non-consulting metric (e.g. newsletter subscribers once live, or inbound corrections and submissions).
+- **Vendor re-verification**: all 86 facts are past the 60-day line (AUDIT.md 3). Re-check from primary sources, then move each vendor's `last_verified` forward.
+- **Compare rival pairs** (AUDIT.md 2.3): write pair-specific editorial for the hyperscaler trio and OVHcloud vs Scaleway before overriding them to indexed, or leave them noindexed.
+- **Newsletter enablement**: Email Routing on the zone, deploy `workers/newsletter`, set FORM_DESTINATION, re-date /privacy/, then flip `FEATURES.newsletter`. Decide on double opt-in and a sending service before the first send.
 - **Editorial cadence**: monthly manual review, tracked in the public `/changelog/` — formalise on `/methodology/` at piece 8.
 
 ## v3 candidates (explicitly out of scope for v2 — decision 4, spec §9)
