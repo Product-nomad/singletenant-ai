@@ -42,6 +42,10 @@ const articles = defineCollection({
       .default([])
       .describe('Target query cluster this piece is written for'),
     tags: z.array(z.string()).default([]),
+    sponsor: z
+      .string()
+      .optional()
+      .describe('Sponsor name; ArticleLayout then labels the piece Sponsored'),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),

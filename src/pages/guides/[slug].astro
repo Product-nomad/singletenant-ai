@@ -5,6 +5,8 @@
 // guide gets the Article schema and the "Last verified" stamp.
 import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AdSlot from '../../components/AdSlot.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articleSchema } from '../../lib/schema.mjs';
@@ -79,6 +81,8 @@ const schema =
       <div class="prose">
         <Content />
       </div>
+      <NewsletterSignup source={`guide:${guide.id}`} />
+      {!isStub && <AdSlot name="guide-end" />}
     </div>
   </article>
 </BaseLayout>

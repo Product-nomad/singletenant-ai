@@ -1,0 +1,67 @@
+---
+// AdSlot: a reserved, labelled advertising slot. Renders nothing unless
+// FEATURES.ads is on. When on, the box is sized before any ad loads (fixed
+// IAB dimensions per breakpoint), so filling it causes no layout shift (CLS).
+// Placement rule (/disclosure/#advertising): never inside the vendor matrix,
+// a comparison table or a vendor's facts.
+import { FEATURES } from '../config/features.mjs';
+
+interface Props {
+  // Stable slot name, passed to the ad provider as data-ad-slot.
+  name: string;
+  // leaderboard: 728x90, 320x100 on narrow screens. rectangle: 300x250.
+  size?: 'leaderboard' | 'rectangle';
+}
+
+const { name, size = 'leaderboard' } = Astro.props;
+---
+
+{
+  FEATURES.ads && (
+    <aside class={`ad-slot ad-slot--${size}`} aria-label="Advertisement">
+      <span class="ad-label">Advertisement</span>
+      <div class="ad-box" data-ad-slot={name} />
+    </aside>
+  )
+}
+
+<style>
+  .ad-slot {
+    margin: 2.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .ad-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .ad-box {
+    background: var(--color-paper-deep);
+    border: 1px solid var(--color-rule);
+    overflow: hidden;
+  }
+
+  .ad-slot--leaderboard .ad-box {
+    width: 320px;
+    height: 100px;
+  }
+
+  @media (min-width: 768px) {
+    .ad-slot--leaderboard .ad-box {
+      width: 728px;
+      height: 90px;
+    }
+  }
+
+  .ad-slot--rectangle .ad-box {
+    width: 300px;
+    height: 250px;
+  }
+</style>

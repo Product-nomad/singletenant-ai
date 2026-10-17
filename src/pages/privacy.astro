@@ -1,7 +1,12 @@
 ---
+import { FEATURES } from '../config/features.mjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const LAST_UPDATED = '2026-07-08';
+// The newsletter section renders only while the signup is live, so the policy
+// never describes processing that is not happening. Turning the flag on must
+// come with a fresh LAST_UPDATED date and, once chosen, the service that
+// sends the emails named as a processor.
+const LAST_UPDATED = '2026-10-17';
 ---
 
 <BaseLayout
@@ -33,7 +38,7 @@ const LAST_UPDATED = '2026-07-08';
         <h2>What this site collects</h2>
         <p>
           This is a static reference site. It has no user accounts, no
-          comment system, and no newsletter. The site itself sets no
+          comment system{FEATURES.newsletter ? '' : ', and no newsletter'}. The site itself sets no
           cookies and runs no advertising or cross-site tracking.
         </p>
         <p>
@@ -54,6 +59,25 @@ const LAST_UPDATED = '2026-07-08';
           initiated). Correspondence is kept for as long as needed to
           handle the matter and is not added to any marketing list.
         </p>
+
+        {FEATURES.newsletter && (
+          <>
+            <h2 id="newsletter">Newsletter</h2>
+            <p>
+              If you subscribe, we process your email address, the page you
+              signed up from, and the time and wording of your consent, in
+              order to send you the newsletter. The lawful basis is your
+              consent (UK GDPR Article 6(1)(a)), and emails are sent only with
+              that consent, as the Privacy and Electronic Communications
+              Regulations require. Every email has an unsubscribe link, and
+              you can also withdraw consent by emailing
+              <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a>.
+              Your address is kept until you unsubscribe, is not shared with
+              vendors, advertisers, or sponsors, and is used for nothing else.
+              Signup requests pass through Cloudflare, acting as a processor.
+            </p>
+          </>
+        )}
 
         <h2>What this site does not do</h2>
         <p>

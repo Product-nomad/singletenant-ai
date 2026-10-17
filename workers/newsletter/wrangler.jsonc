@@ -1,0 +1,18 @@
+// Newsletter signup Worker, deployed separately from the static site so that
+// merging site changes never alters it. NOT DEPLOYED: see README.md for the
+// steps (Email Routing, secret, route) before FEATURES.newsletter goes on.
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "singletenant-newsletter",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  // Takes /api/newsletter on the singletenant.ai zone ahead of static assets.
+  "routes": [
+    { "pattern": "singletenant.ai/api/newsletter", "zone_name": "singletenant.ai" }
+  ],
+  // Unrestricted binding: sends only to verified Email Routing destinations.
+  // The address itself is the FORM_DESTINATION secret, never in this repo.
+  "send_email": [{ "name": "SEND_EMAIL" }]
+}

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AdSlot from '../../components/AdSlot.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -208,6 +209,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
           </span>
         </a>
       </div>
+      <AdSlot name="compare-end" />
     </div>
   </section>
 </BaseLayout>

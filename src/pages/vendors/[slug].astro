@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import AdSlot from '../../components/AdSlot.astro';
 import AffiliateLink from '../../components/AffiliateLink.astro';
 import CategoryTag from '../../components/CategoryTag.astro';
 import CertBadge from '../../components/CertBadge.astro';
@@ -215,6 +216,8 @@ const fmtUnknown = (val: string | boolean) => {
           </div>
         )
       }
+
+      <AdSlot name="vendor-end" />
     </div>
   </section>
 </BaseLayout>

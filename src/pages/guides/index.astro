@@ -4,6 +4,7 @@
 // preparation without linking them, so stubs never become a reader's path.
 // The hub itself is noindex until it lists at least one published guide.
 import { getCollection } from 'astro:content';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const guides = (await getCollection('guides')).sort(
@@ -79,6 +80,8 @@ const entries = [
           </ul>
         </div>
       )}
+
+      <NewsletterSignup source="guides" />
     </div>
   </section>
 </BaseLayout>
