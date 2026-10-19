@@ -7,7 +7,7 @@ import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
 import { oldest } from '../../lib/dates.mjs';
-import { deploymentLabel } from '../../lib/labels.mjs';
+import { deploymentLabel, displayName } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
 
 export const getStaticPaths = (async () => {
@@ -36,7 +36,7 @@ export const getStaticPaths = (async () => {
 
 const { a, b } = Astro.props;
 
-const title = `${a.data.name} vs ${b.data.name}`;
+const title = `${displayName(a.data)} vs ${displayName(b.data)}`;
 const description = `Side-by-side comparison of ${a.data.name} and ${b.data.name} for single-tenant LLM hosting. Deployment options, compliance, pricing, and operational fit compared.`;
 
 // Find shared and differentiated deployment models
@@ -76,7 +76,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
         <a href="/vendors/" style="color: var(--color-accent);">Vendors</a> · Comparison
       </p>
       <h1 class="m-0 mb-3" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
-        {a.data.name} <span style="color: var(--color-mute); font-weight: 400;">vs</span> {b.data.name}
+        {displayName(a.data)} <span style="color: var(--color-mute); font-weight: 400;">vs</span> {displayName(b.data)}
       </h1>
       <p class="text-lg max-w-3xl mb-4" style="color: var(--color-ink-soft);">
         {description}
@@ -91,7 +91,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
     <div class="mx-auto max-w-5xl px-6 py-12 grid md:grid-cols-2 gap-8">
       <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
         <h2 class="mt-0 mb-2" style="font-size: 1.25rem;">
-          {a.data.name}
+          {displayName(a.data)}
         </h2>
         <p class="m-0 text-sm" style="line-height: 1.6;">
           {a.data.notes ?? a.data.tagline}
@@ -99,7 +99,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
       </div>
       <div class="p-6 bg-[var(--color-paper)] border border-[var(--color-rule)]">
         <h2 class="mt-0 mb-2" style="font-size: 1.25rem;">
-          {b.data.name}
+          {displayName(b.data)}
         </h2>
         <p class="m-0 text-sm" style="line-height: 1.6;">
           {b.data.notes ?? b.data.tagline}
@@ -196,7 +196,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
             Profile →
           </span>
           <span class="block mt-1 font-display font-semibold" style="font-size: 1.1rem;">
-            {a.data.name}
+            {displayName(a.data)}
           </span>
         </a>
         <a href={`/vendors/${b.data.slug}/`}
@@ -205,7 +205,7 @@ const noIndex = !pairIsIndexable(a.data, b.data);
             Profile →
           </span>
           <span class="block mt-1 font-display font-semibold" style="font-size: 1.1rem;">
-            {b.data.name}
+            {displayName(b.data)}
           </span>
         </a>
       </div>

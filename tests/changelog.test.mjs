@@ -21,6 +21,18 @@ test('a well-formed changelog validates', () => {
   );
 });
 
+test('entry sources must be URLs', () => {
+  assert.ok(
+    changelogSchema.safeParse([
+      entry({ sources: ['https://vendor.example/docs'] }),
+    ]).success,
+  );
+  assert.equal(
+    changelogSchema.safeParse([entry({ sources: ['not a url'] })]).success,
+    false,
+  );
+});
+
 test('an unknown change type is rejected', () => {
   const res = changelogSchema.safeParse([entry({ type: 'improved' })]);
   assert.equal(res.success, false);

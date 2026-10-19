@@ -79,6 +79,33 @@ export const regionLabel = (token) => REGION_LABELS[token] ?? token;
 
 export const NOT_VERIFIED = 'Not verified';
 
+// Evidence levels (src/schemas/vendor.mjs EVIDENCE_LEVELS); the rule is on
+// /methodology/#evidence-levels. Covered by tests/labels.test.mjs.
+export const EVIDENCE_LEVEL_LABELS = {
+  contractual: 'Contractual',
+  stated: 'Stated',
+};
+
+/** @param {string} level 'contractual' | 'stated' | 'unknown' */
+export const evidenceLevelLabel = (level) =>
+  EVIDENCE_LEVEL_LABELS[level] ?? NOT_VERIFIED;
+
+// A renamed product reads "Old name (now New name)" in titles, H1s and
+// matrix rows; the URL slug never changes.
+/** @param {{ name: string, renamed?: { from: string, to: string } }} data */
+export const displayName = (data) =>
+  data.renamed ? `${data.renamed.from} (now ${data.renamed.to})` : data.name;
+
+// Every name a reader might know the product by, for structured data
+// (alternateName) and on-site search. Excludes the primary `name`.
+/** @param {{ name: string, renamed?: { from: string, to: string } }} data */
+export const alternateNames = (data) =>
+  data.renamed
+    ? [...new Set([data.renamed.to, data.renamed.from])].filter(
+        (n) => n !== data.name,
+      )
+    : [];
+
 // Display names for the per-field keys in a vendor's sources[] (see
 // SOURCE_FIELDS in src/schemas/vendor.mjs); compliance.<CERT> reuses the cert
 // label. Covered by tests/labels.test.mjs.
@@ -89,6 +116,7 @@ export const SOURCE_FIELD_LABELS = {
   regions: 'Regions',
   pricing: 'Pricing',
   notes: 'Analyst note',
+  renamed: 'Product name',
   'sovereignty.data_residency_guarantee': 'Data residency',
   'sovereignty.parent_jurisdiction': 'Parent jurisdiction',
 };

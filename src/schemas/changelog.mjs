@@ -16,6 +16,10 @@ export const changelogEntrySchema = z
       .default([])
       .describe('Slugs of the vendor files this change touched'),
     summary: maxWords(60, 'summary').describe('Factual, no hype'),
+    sources: z
+      .array(z.string().url())
+      .default([])
+      .describe('Primary sources for the change, linked under the entry'),
   })
   .strict();
 

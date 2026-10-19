@@ -25,16 +25,16 @@ sources:
     url: https://docs.fireworks.ai/deployments/regions
     verified: "2026-10-17"
   - field: compliance.SOC2_TYPE2
-    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    url: https://trust.fireworks.ai/
     verified: "2026-10-17"
   - field: compliance.ISO27001
-    url: https://docs.fireworks.ai/guides/security_compliance/data_security
-    verified: "2026-10-17"
-  - field: compliance.HIPAA_BAA
-    url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    url: https://trust.fireworks.ai/
     verified: "2026-10-17"
   - field: pricing
     url: https://fireworks.ai/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://docs.fireworks.ai/accounts/data-residency
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://fireworks.ai/terms-of-service
@@ -50,6 +50,9 @@ sources:
     verified: "2026-10-17"
   - field: notes
     url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    verified: "2026-10-17"
+  - field: notes
+    url: https://trust.fireworks.ai/
     verified: "2026-10-17"
 
 deployment_models:
@@ -69,13 +72,12 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
-    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    level: contractual
+    evidence_url: https://trust.fireworks.ai/
     verified: "2026-10-17"
   - cert: ISO27001
-    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
-    verified: "2026-10-17"
-  - cert: HIPAA_BAA
-    evidence_url: https://docs.fireworks.ai/guides/security_compliance/data_security
+    level: contractual
+    evidence_url: https://trust.fireworks.ai/
     verified: "2026-10-17"
 
 pricing:
@@ -85,16 +87,15 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: US
-  evidence_url: https://fireworks.ai/terms-of-service
+  evidence_url: https://docs.fireworks.ai/accounts/data-residency
   verified: "2026-10-17"
 
 notes: >-
   On-demand deployments run on dedicated GPUs with region selection (US,
   Europe, APAC). Enterprise accounts can enforce US-only inference
-  account-wide, a product setting rather than a contractual guarantee, with no
-  EU option listed. The privacy policy places servers in the US, with SCCs for
-  transfers. ISO 27701/42001 also claimed in vendor docs.
+  account-wide, a product setting rather than a contract term. The trust
+  centre lists HIPAA, but no BAA was found. ISO 27701/42001 also claimed.
 
 featured: false

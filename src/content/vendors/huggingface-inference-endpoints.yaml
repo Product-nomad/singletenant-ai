@@ -64,9 +64,11 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: stated
     evidence_url: https://huggingface.co/docs/inference-endpoints/security
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: stated
     evidence_url: https://huggingface.co/docs/inference-endpoints/security
     verified: "2026-10-17"
 

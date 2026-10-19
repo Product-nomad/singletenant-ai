@@ -1,5 +1,8 @@
 slug: databricks-model-serving
 name: Databricks Model Serving
+renamed:
+  from: Databricks Mosaic AI Model Serving
+  to: Databricks Model Serving
 url: https://www.databricks.com
 category: managed-selfhost
 tagline: Serverless serving of custom and foundation models with provisioned throughput
@@ -13,6 +16,9 @@ sources:
     url: https://www.databricks.com/legal/privacynotice
     verified: "2026-10-17"
   - field: tagline
+    url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: renamed
     url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
     verified: "2026-10-17"
   - field: deployment_models
@@ -44,6 +50,9 @@ sources:
     verified: "2026-10-17"
   - field: pricing
     url: https://docs.databricks.com/aws/en/machine-learning/model-serving/
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://docs.databricks.com/aws/en/resources/databricks-geos
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://www.databricks.com/legal/privacynotice
@@ -86,18 +95,23 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://www.databricks.com/trust/compliance/soc
     verified: "2026-10-17"
   - cert: ISO27001
+    level: contractual
     evidence_url: https://www.databricks.com/trust/compliance/iso-27001
     verified: "2026-10-17"
   - cert: HIPAA_BAA
+    level: contractual
     evidence_url: https://www.databricks.com/legal/baa
     verified: "2026-10-17"
   - cert: FEDRAMP
+    level: contractual
     evidence_url: https://www.databricks.com/trust/compliance/fedramp
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://www.databricks.com/legal/dpa
     verified: "2026-10-17"
 
@@ -108,9 +122,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: US
-  evidence_url: https://www.databricks.com/legal/privacynotice
+  evidence_url: https://docs.databricks.com/aws/en/resources/databricks-geos
   verified: "2026-10-17"
 
 notes: >-

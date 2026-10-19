@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { displayName } from '../lib/labels.mjs';
 
 interface Props {
   vendor: CollectionEntry<'vendors'>;
@@ -15,7 +16,7 @@ const { data } = vendor;
     <div>
       <h3 class="m-0 mb-1" style="font-size: 1.5rem;">
         <a href={`/vendors/${data.slug}/`} class="no-underline">
-          {data.name}
+          {displayName(data)}
         </a>
       </h3>
       <p class="m-0 text-sm" style="color: var(--color-mute); font-style: italic;">

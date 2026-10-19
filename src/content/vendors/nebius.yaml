@@ -34,7 +34,7 @@ sources:
     url: https://nebius.com/trust-center
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
-    url: https://nebius.com/services/token-factory/enterprise-grade-inference
+    url: https://docs.nebius.com/legal/dpa
     verified: "2026-10-17"
   - field: compliance.HIPAA_BAA
     url: https://docs.nebius.com/legal/hipaa
@@ -46,6 +46,9 @@ sources:
     url: https://docs.tokenfactory.nebius.com/ai-models-inference/dedicated-endpoints/billing-policy
     verified: "2026-10-17"
   - field: pricing
+    url: https://nebius.com/services/token-factory/enterprise-grade-inference
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
     url: https://nebius.com/services/token-factory/enterprise-grade-inference
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
@@ -74,18 +77,23 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: stated
     evidence_url: https://nebius.com/trust-center
     verified: "2026-10-17"
   - cert: SOC3
+    level: stated
     evidence_url: https://nebius.com/trust-center
     verified: "2026-10-17"
   - cert: ISO27001
+    level: stated
     evidence_url: https://nebius.com/trust-center
     verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://nebius.com/services/token-factory/enterprise-grade-inference
+    level: contractual
+    evidence_url: https://docs.nebius.com/legal/dpa
     verified: "2026-10-17"
   - cert: HIPAA_BAA
+    level: contractual
     evidence_url: https://docs.nebius.com/legal/hipaa
     verified: "2026-10-17"
 
@@ -96,9 +104,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: NL
-  evidence_url: https://docs.nebius.com/legal/agreement
+  evidence_url: https://nebius.com/services/token-factory/enterprise-grade-inference
   verified: "2026-10-17"
 
 notes: >-

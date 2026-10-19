@@ -66,9 +66,11 @@ regions: []
 
 compliance:
   - cert: ISO27001
+    level: stated
     evidence_url: https://www.nvidia.com/en-us/ai-trust-center/security-compliance/
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://www.nvidia.com/en-us/agreements/data-processing-addendum/nvidia-cloud-services-data-processing-addendum/
     verified: "2026-10-17"
 

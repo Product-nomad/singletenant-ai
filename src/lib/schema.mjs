@@ -4,6 +4,7 @@
 // last-verified dates, and navigation. Deliberately no aggregateRating,
 // review, or offers/price, none of which the pages assert.
 import { comparePath } from './compare.mjs';
+import { alternateNames } from './labels.mjs';
 
 const SITE = 'https://singletenant.ai';
 
@@ -97,6 +98,9 @@ export const softwareApplication = (data) => {
     '@type': 'SoftwareApplication',
     '@id': `${abs(`/vendors/${data.slug}/`)}#software`,
     name: data.name,
+    ...(alternateNames(data).length > 0 && {
+      alternateName: alternateNames(data),
+    }),
     url: data.url,
     description: data.tagline,
     applicationCategory: 'AI/ML Infrastructure',

@@ -7,6 +7,129 @@
   vendors:
     - aws-bedrock-provisioned
     - azure-openai-ptu
+    - modal
+    - nebius
+    - baseten
+    - vertex-ai-provisioned
+    - scaleway
+    - databricks-model-serving
+  summary: >-
+    This week's vendor changes: AWS Provisioned Throughput now in London
+    (eu-west-2); Azure Data Zone adds APAC; Modal adds Dedicated Endpoints;
+    Nebius offers a HIPAA BAA; Baseten no longer lists UK or Australia
+    regions. Renamed: Vertex AI to Gemini Enterprise Agent Platform, Scaleway
+    Managed Inference to Generative APIs Dedicated Deployment, Databricks
+    drops Mosaic AI. Verified 2026-10-17.
+  sources:
+    - https://docs.aws.amazon.com/bedrock/latest/userguide/prov-thru-supported.html
+    - https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
+    - https://modal.com/docs/guide/dedicated-endpoints
+    - https://docs.nebius.com/legal/hipaa
+    - https://docs.baseten.co/deployment/regional-deployments
+    - https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
+    - https://www.scaleway.com/en/inference/
+    - https://docs.databricks.com/aws/en/machine-learning/model-serving/
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
+    - baseten
+    - civo
+    - coreweave
+    - databricks-model-serving
+    - fireworks-ai
+    - huggingface-inference-endpoints
+    - modal
+    - nebius
+    - nvidia-nim
+    - ovhcloud
+    - runpod
+    - scaleway
+    - together-ai
+    - vertex-ai-provisioned
+  summary: >-
+    Every certification and residency fact regraded on one evidence rule:
+    Contractual (contract terms, or a certificate, audit report or certifying
+    body), Stated (the vendor's own pages) or Not verified. Residency is now
+    an evidence level rather than yes or no. The rule is on the methodology
+    page. Verified 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - vertex-ai-provisioned
+    - ovhcloud
+    - together-ai
+  summary: >-
+    Residency regraded: Vertex AI moves from not verified to Contractual
+    (Google's Service Specific Terms commit to a chosen multi-region); OVHcloud
+    moves to Contractual (Public Cloud terms let the customer choose the
+    datacentre region); Together AI's "no guarantee" becomes not verified.
+    Verified 2026-10-17.
+  sources:
+    - https://cloud.google.com/terms/service-terms
+    - https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-we.pdf
+
+- date: "2026-10-17"
+  type: removed
+  vendors:
+    - fireworks-ai
+    - modal
+    - runpod
+  summary: >-
+    HIPAA BAA removed for Fireworks AI, Modal and RunPod. Each states a HIPAA
+    programme, but none of their docs, trust centres or terms names a BAA.
+    Verified 2026-10-17.
+  sources:
+    - https://trust.fireworks.ai/
+    - https://modal.com/docs/guide/security
+    - https://trust.runpod.io
+
+- date: "2026-10-17"
+  type: removed
+  vendors:
+    - ovhcloud
+  summary: >-
+    SecNumCloud removed from OVHcloud. The ANSSI qualification covers named
+    private-cloud and bare-metal products, not AI Endpoints or AI Deploy.
+    Verified 2026-10-17.
+  sources:
+    - https://www.ovhcloud.com/en/compliance/secnumcloud/
+
+- date: "2026-10-17"
+  type: added
+  vendors:
+    - together-ai
+  summary: >-
+    ISO 27001 added for Together AI: certified by A-LIGN, an ANAB-accredited
+    certification body. Verified 2026-10-17.
+  sources:
+    - https://www.together.ai/blog/iso-27001-2022-certification
+
+- date: "2026-10-17"
+  type: corrected
+  vendors:
+    - scaleway
+    - ovhcloud
+    - nebius
+    - civo
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
+    - modal
+    - vertex-ai-provisioned
+  summary: >-
+    Four articles corrected for the evidence levels: the jurisdiction walk,
+    Why this site says Not verified so often, the UK buyer's position, and
+    Sovereignty washing. Civo's UK residency is Stated, not contractual;
+    Scaleway, OVHcloud and Vertex AI are Contractual. Corrected 2026-10-17.
+
+- date: "2026-10-17"
+  type: updated
+  vendors:
+    - aws-bedrock-provisioned
+    - azure-openai-ptu
     - baseten
     - civo
     - coreweave

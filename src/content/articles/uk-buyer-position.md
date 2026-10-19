@@ -2,6 +2,7 @@
 title: "The UK buyer's position: adequacy, the CLOUD Act, and what UK-sovereign actually exists"
 description: "EU-UK adequacy was renewed to 2031, but adequacy settles transfers, not sovereignty. What a UK regulated buyer should weigh, and the one UK-parented option in the matrix."
 pub_date: 2026-07-19
+updated: 2026-10-17
 author: "Simon Newton"
 category: "analysis"
 target_keyword: "uk sovereign ai hosting"
@@ -94,9 +95,11 @@ So what exists at UK-parented level? On our inclusion bar, one vendor.
 [Civo](/vendors/civo/) is UK-registered (Companies House 09568551); its sole
 person with significant control is a UK-resident individual, with no foreign
 parent, so no foreign entity controls the data. It offers dedicated
-single-tenant GPU inference, and its UK Sovereign Cloud commits to keeping data
-in the UK under UK law. That makes it the only vendor in the matrix whose parent
-jurisdiction and residency guarantee point at the same place, and the only one
+single-tenant GPU inference, and its UK Sovereign Cloud page states that data
+stays in the UK under UK law (a Stated commitment in our
+[evidence levels](/methodology/#evidence-levels): it is on Civo's own pages,
+not in its service terms). That makes it the only vendor in the matrix whose
+parent jurisdiction and stated residency point at the same place, and the only one
 where the CLOUD Act question does not arise as a matter of structure.
 
 That is a narrow finding, and stated narrowly on purpose. One qualifying vendor

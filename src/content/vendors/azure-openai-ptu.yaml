@@ -37,16 +37,16 @@ sources:
     url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
     verified: "2026-10-17"
   - field: compliance.HIPAA_BAA
-    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
+    url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
-    url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
     verified: "2026-10-17"
   - field: pricing
     url: https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing
     verified: "2026-10-17"
   - field: sovereignty.data_residency_guarantee
-    url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
     verified: "2026-10-17"
   - field: sovereignty.data_residency_guarantee
     url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
@@ -91,22 +91,28 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-soc-2
     verified: "2026-10-17"
   - cert: ISO27001
+    level: contractual
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-iso-27001
     verified: "2026-10-17"
   - cert: C5
+    level: contractual
     evidence_url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-germany-c5
     verified: "2026-10-17"
   - cert: FEDRAMP
+    level: contractual
     evidence_url: https://learn.microsoft.com/en-us/azure/azure-government/compliance/azure-services-in-fedramp-auditscope
     verified: "2026-10-17"
   - cert: HIPAA_BAA
-    evidence_url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech
+    level: contractual
+    evidence_url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
     verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+    level: contractual
+    evidence_url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
     verified: "2026-10-17"
 
 pricing:
@@ -116,9 +122,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: true
+  data_residency_guarantee: contractual
   parent_jurisdiction: US
-  evidence_url: https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/openai/data-privacy
+  evidence_url: https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA
   verified: "2026-10-17"
 
 notes: >-
