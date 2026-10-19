@@ -66,6 +66,9 @@ sources:
   - field: notes
     url: https://www.scaleway.com/en/security-and-compliance/
     verified: "2026-10-17"
+  - field: notes
+    url: https://www.scaleway.com/en/generative-apis/
+    verified: "2026-10-19"
 
 deployment_models:
   - serverless-api
@@ -101,7 +104,8 @@ notes: >-
   models on dedicated GPUs at fixed hourly rates
   (e.g. Llama 3.1-8b at 0.93 EUR/hour) inside a VPC; prompts and responses
   are stated as stored only in Europe. Scaleway SAS is registered in Paris,
-  France (legal notice). Security page lists SecNumCloud as ongoing
-  ("currently undergoing qualification"); not yet qualified.
+  France. Security page lists SecNumCloud as ongoing
+  ("currently undergoing qualification"); not yet qualified. Serverless
+  tier prices cached tokens separately.
 
 featured: false

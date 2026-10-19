@@ -54,6 +54,12 @@ sources:
   - field: notes
     url: https://docs.baseten.co/deployment/regional-deployments
     verified: "2026-10-17"
+  - field: notes
+    url: https://docs.baseten.co/development/model/egress-restrictions
+    verified: "2026-10-19"
+  - field: notes
+    url: https://www.baseten.co/resources/changelog/egress-restrictions/
+    verified: "2026-10-19"
 
 deployment_models:
   - dedicated-deployment
@@ -107,9 +113,11 @@ sovereignty:
 
 notes: >-
   Dedicated deployments and an enterprise self-hosted option position Baseten
-  for single-tenant use. Trust centre lists ISO 27001:2022 alongside SOC 2
-  Type 2 and SOC 3. Regional deployments pin replicas to the US or EU, but no
-  contractual data-residency guarantee found at review; trust centre lists
-  subprocessors across multiple clouds.
+  for single-tenant use. Trust centre lists ISO 27001:2022, SOC 2 Type 2
+  and SOC 3. Regional deployments pin replicas to the US or EU, but no
+  contractual data-residency guarantee found; trust centre lists
+  subprocessors across multiple clouds. Egress allow-lists of IP ranges and
+  domains (Truss egress_restrictions; support-enabled) restrict outbound
+  traffic.
 
 featured: true

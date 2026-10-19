@@ -2,6 +2,40 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-10-19"
+  type: updated
+  vendors:
+    - baseten
+  summary: >-
+    Baseten egress restrictions added to the analyst note: deployments can
+    limit outbound traffic to allow-listed IP ranges and domains via
+    egress_restrictions in Truss, enabled by support (changelog, 12 October
+    2026). Sources: https://www.baseten.co/resources/changelog/egress-restrictions/
+    and https://docs.baseten.co/development/model/egress-restrictions.
+    Verified 2026-10-19.
+
+- date: "2026-10-19"
+  type: updated
+  vendors:
+    - vertex-ai-provisioned
+  summary: >-
+    Provisioned Throughput commitment terms updated: orders can now change
+    scope and increase term (28 September 2026) and support multiple pending
+    orders and change requests (10 September 2026). Source:
+    https://docs.cloud.google.com/gemini-enterprise-agent-platform/release-notes.
+    Verified 2026-10-19.
+
+- date: "2026-10-19"
+  type: updated
+  vendors:
+    - scaleway
+  summary: >-
+    Scaleway analyst note now records that the serverless Generative APIs tier
+    prices cached tokens separately. Source:
+    https://www.scaleway.com/en/generative-apis/ (announced 13 October 2026:
+    https://www.scaleway.com/fr/news/scaleway-accelere-pour-donner-a-leurope-les-moyens-de-ses-ambitions-dans-lia/).
+    Verified 2026-10-19.
+
 - date: "2026-10-17"
   type: updated
   vendors:
