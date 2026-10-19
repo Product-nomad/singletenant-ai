@@ -42,6 +42,9 @@ sources:
   - field: pricing
     url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/provisioned-throughput
     verified: "2026-10-17"
+  - field: pricing
+    url: https://docs.cloud.google.com/gemini-enterprise-agent-platform/release-notes
+    verified: "2026-10-19"
   - field: sovereignty.parent_jurisdiction
     url: https://policies.google.com/terms
     verified: "2026-10-17"
@@ -88,7 +91,7 @@ compliance:
     verified: "2026-10-17"
 
 pricing:
-  model: Per GSU (generative AI scale unit) fixed-cost term; 1-week terms for select models
+  model: Per GSU (generative AI scale unit) fixed-cost term; 1-week terms for select models; orders allow scope changes, term increases and multiple pending changes
   public: unknown
   evidence_url: https://cloud.google.com/blog/products/ai-machine-learning/provisioned-throughput-on-vertex-ai
   verified: "2026-10-17"
