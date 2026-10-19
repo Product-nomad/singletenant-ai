@@ -2,6 +2,7 @@
 title: "The jurisdiction problem: why an EU region is not EU sovereign"
 description: "Data residency and data sovereignty are different claims. A US-parented vendor with an EU region is still reachable under US law, and the matrix keeps the two apart."
 pub_date: 2026-07-12
+updated: 2026-10-17
 author: "Simon Newton"
 category: "analysis"
 target_keyword: "eu data sovereignty"
@@ -66,19 +67,21 @@ region reads as what it is.
 Three vendors in the database are EU-parented, and they make up the EU
 sovereign category. [Nebius](/vendors/nebius/) contracts through a Dutch entity
 (parent jurisdiction NL). [OVHcloud](/vendors/ovhcloud/) is French.
-[Scaleway](/vendors/scaleway/) is also French, and is the only one of the three
-that additionally carries a verified data residency guarantee in our data.
-Jurisdiction and residency stay separate even here: two of the three record
-their residency guarantee as not verified. EU parentage is a necessary
-condition for EU sovereignty, not a sufficient one.
+[Scaleway](/vendors/scaleway/) is also French. Scaleway and OVHcloud both
+commit in their contract terms to keeping data in the location the customer
+selects, which our [evidence levels](/methodology/#evidence-levels) record as
+Contractual; Nebius describes EU and US data-residency options only on its own
+pages, recorded as Stated. Jurisdiction and residency stay separate even here.
+EU parentage is a necessary condition for EU sovereignty, not a sufficient one.
 
 One vendor stands apart from all of these. [Civo](/vendors/civo/) is
 UK-parented: on the Companies House register its sole person with significant
 control is a UK-resident individual, with no foreign parent. That places it in
 its own category, UK sovereign, and makes it the only vendor here whose parent
-jurisdiction and residency guarantee point at the same place. Civo commits to
-keeping data in the UK under UK law, and there is no foreign parent to pull it
-into another jurisdiction. For a UK buyer that is a genuinely different position
+jurisdiction and residency point at the same place. Civo states that it keeps
+data in the UK under UK law, and there is no foreign parent to pull it into
+another jurisdiction. That statement is on Civo's own pages rather than in its
+service terms, so our data records it as Stated. For a UK buyer that is a genuinely different position
 from an EU-parented vendor, which is still foreign jurisdiction to a UK firm,
 and different again from a US-parented vendor offering a UK region, where the
 region is UK but the controlling law is not. The
@@ -96,10 +99,11 @@ region. On our current data that is
 [Hugging Face Inference Endpoints](/vendors/huggingface-inference-endpoints/),
 [Modal](/vendors/modal/), [RunPod](/vendors/runpod/) and
 [Vertex AI Provisioned Throughput](/vendors/vertex-ai-provisioned/). Every one
-has a US parent jurisdiction. Some go further and record a verified residency
-guarantee: AWS, Azure and Modal each commit to keeping data in a
-customer-chosen region. That is a real and useful commitment, but it is a
-residency commitment. It constrains where the data sits. It does not change the
+has a US parent jurisdiction. Some go further on residency: AWS, Azure, Modal
+and Vertex AI commit in their contract terms to keeping data in a
+customer-chosen region, while Baseten, Databricks, Fireworks AI and RunPod
+state it only on their own pages. A contractual commitment is real and useful,
+but it is a residency commitment. It constrains where the data sits. It does not change the
 fact that the company holding it answers to US law.
 
 That distinction is the whole point. A US-parented vendor with an EU region and
@@ -112,7 +116,7 @@ run-anywhere software: you deploy the containers on infrastructure you choose,
 so there is no vendor-published region at all, and residency is whatever your
 own hosting is. [Together AI](/vendors/together-ai/) documents no deployment
 region for its serverless or dedicated-endpoint inference, and its terms make no
-residency guarantee, which our data records as such. For both, the database
+residency commitment, so our data records residency as not verified. For both, the database
 records regions as not verified rather than guessing, so a buyer cannot lean on
 an EU-region claim.
 

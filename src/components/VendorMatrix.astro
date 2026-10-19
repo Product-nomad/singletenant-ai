@@ -7,9 +7,13 @@
 // disabled the reader gets the complete matrix, never a broken filter.
 import type { CollectionEntry } from 'astro:content';
 import {
+  alternateNames,
   CATEGORY_LABELS,
   CERT_LABELS,
   deploymentLabel,
+  displayName,
+  EVIDENCE_LEVEL_LABELS,
+  evidenceLevelLabel,
   NOT_VERIFIED,
   regionLabel,
 } from '../lib/labels.mjs';
@@ -37,10 +41,9 @@ const certsPresent = Object.keys(CERT_LABELS).filter((cert) =>
   sorted.some((v) => v.data.compliance.some((e) => e.cert === cert)),
 );
 
-const residencyLabel = (val: boolean | 'unknown') => {
-  if (val === 'unknown') return NOT_VERIFIED;
-  return val ? 'Guaranteed' : 'No guarantee';
-};
+// Search text per row: every name a reader might type, old and new.
+const searchText = (d: CollectionEntry<'vendors'>['data']) =>
+  [d.name, ...alternateNames(d), d.slug].join(' ').toLowerCase();
 const pricingLabel = (model: string) =>
   model === 'unknown' ? NOT_VERIFIED : model;
 ---
@@ -69,9 +72,46 @@ const pricingLabel = (model: string) =>
               {CERT_LABELS[cert as keyof typeof CERT_LABELS]}
             </label>
           ))}
+          <label class="cert-option level-option">
+            <input type="checkbox" data-filter-contractual-only />
+            {EVIDENCE_LEVEL_LABELS.contractual} evidence only
+          </label>
         </div>
       </fieldset>
     )}
+
+    <fieldset class="filter-group">
+      <legend>Data residency evidence</legend>
+      <div class="filter-options" role="group">
+        <button type="button" data-filter-res="all" aria-pressed="true">Any</button>
+        <button type="button" data-filter-res="contractual" aria-pressed="false">
+          {EVIDENCE_LEVEL_LABELS.contractual}
+        </button>
+        <button type="button" data-filter-res="stated" aria-pressed="false">
+          {EVIDENCE_LEVEL_LABELS.contractual} or {EVIDENCE_LEVEL_LABELS.stated.toLowerCase()}
+        </button>
+      </div>
+    </fieldset>
+
+    <fieldset class="filter-group">
+      <legend><label for="matrix-search">Find a vendor</label></legend>
+      <div class="filter-options">
+        <input
+          id="matrix-search"
+          type="search"
+          class="matrix-search"
+          placeholder="Name, old or new"
+          autocomplete="off"
+          data-filter-search
+        />
+      </div>
+    </fieldset>
+
+    <p class="matrix-legend">
+      Evidence levels: {EVIDENCE_LEVEL_LABELS.contractual} = contract terms, or a
+      certificate or audit report; {EVIDENCE_LEVEL_LABELS.stated} = the vendor's
+      own pages. <a href="/methodology/#evidence-levels">How levels are set</a>.
+    </p>
 
     <p class="matrix-count" data-matrix-count aria-live="polite"></p>
   </form>
@@ -101,9 +141,24 @@ const pricingLabel = (model: string) =>
             data-matrix-row
             data-category={data.category}
             data-certs={data.compliance.map((e) => e.cert).join(' ')}
+            data-certs-contractual={data.compliance
+              .filter((e) => e.level === 'contractual')
+              .map((e) => e.cert)
+              .join(' ')}
+            data-residency={data.sovereignty.data_residency_guarantee}
+            data-search={searchText(data)}
           >
             <th scope="row">
-              <a href={`/vendors/${data.slug}/`}>{data.name}</a>
+              <a href={`/vendors/${data.slug}/`}>
+                {data.renamed ? (
+                  <>
+                    {data.renamed.from}
+                    <span class="now-named">(now {data.renamed.to})</span>
+                  </>
+                ) : (
+                  data.name
+                )}
+              </a>
             </th>
             <td><CategoryTag category={data.category} /></td>
             <td class="matrix-col-extra">
@@ -114,14 +169,22 @@ const pricingLabel = (model: string) =>
             <td>{data.regions.length > 0 ? data.regions.map(regionLabel).join(', ') : NOT_VERIFIED}</td>
             <td>
               {data.compliance.length > 0
-                ? data.compliance
-                    .map((e) => CERT_LABELS[e.cert as keyof typeof CERT_LABELS])
-                    .join(', ')
+                ? data.compliance.map((e, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      {CERT_LABELS[e.cert as keyof typeof CERT_LABELS]}
+                      {e.level === 'stated' && (
+                        <span class="level-mark" title="Stated on the vendor's own pages, not contractual">
+                          {' '}(stated)
+                        </span>
+                      )}
+                    </>
+                  ))
                 : NOT_VERIFIED}
             </td>
             <td class="matrix-col-extra">{pricingLabel(data.pricing.model)}</td>
             <td>
-              {residencyLabel(data.sovereignty.data_residency_guarantee)}
+              {evidenceLevelLabel(data.sovereignty.data_residency_guarantee)}
               {data.sovereignty.parent_jurisdiction !== 'unknown' && (
                 <span class="jurisdiction">({data.sovereignty.parent_jurisdiction} parent)</span>
               )}
@@ -133,10 +196,10 @@ const pricingLabel = (model: string) =>
   </div>
 
   <p class="matrix-note">
-    Category reflects a vendor's parent jurisdiction; a data-residency guarantee
-    is a separate, per-vendor fact verified on its own evidence, so a
-    sovereign-category vendor (EU or UK) can still read "Not verified" for
-    residency (see
+    Category reflects a vendor's parent jurisdiction; data residency is a
+    separate, per-vendor fact graded by its own evidence (Contractual, Stated or
+    Not verified), so a sovereign-category vendor (EU or UK) can still read
+    "Stated" or "Not verified" for residency (see
     <a href="/blog/jurisdiction-eu-region-not-sovereign/">why an EU region is not
     EU sovereign</a>).
   </p>
@@ -151,7 +214,11 @@ const pricingLabel = (model: string) =>
 
     const catButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-cat]');
     const certBoxes = filters.querySelectorAll<HTMLInputElement>('[data-filter-cert]');
+    const contractualOnly = filters.querySelector<HTMLInputElement>('[data-filter-contractual-only]');
+    const resButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-res]');
+    const search = filters.querySelector<HTMLInputElement>('[data-filter-search]');
     let activeCat: string | string[] = 'all';
+    let activeRes = 'all';
 
     const apply = () => {
       const wantedCerts = [...certBoxes]
@@ -163,9 +230,19 @@ const pricingLabel = (model: string) =>
         const catOk =
           activeCat === 'all' ||
           (Array.isArray(activeCat) ? activeCat.includes(rowCat) : rowCat === activeCat);
-        const rowCerts = (row.dataset.certs ?? '').split(' ');
-        const certsOk = wantedCerts.every((c) => rowCerts.includes(c));
-        const visible = catOk && certsOk;
+        const rowCerts = (
+          contractualOnly?.checked ? row.dataset.certsContractual : row.dataset.certs
+        ) ?? '';
+        const certsOk = wantedCerts.every((c) => rowCerts.split(' ').includes(c));
+        // 'stated' means stated or better; 'contractual' means contractual only.
+        const res = row.dataset.residency ?? 'unknown';
+        const resOk =
+          activeRes === 'all' ||
+          (activeRes === 'contractual' && res === 'contractual') ||
+          (activeRes === 'stated' && res !== 'unknown');
+        const query = (search?.value ?? '').trim().toLowerCase();
+        const searchOk = query === '' || (row.dataset.search ?? '').includes(query);
+        const visible = catOk && certsOk && resOk && searchOk;
         row.hidden = !visible;
         if (visible) shown++;
       }
@@ -188,6 +265,17 @@ const pricingLabel = (model: string) =>
     }
     for (const box of certBoxes) {
       box.addEventListener('change', apply);
+    }
+    contractualOnly?.addEventListener('change', apply);
+    search?.addEventListener('input', apply);
+    for (const btn of resButtons) {
+      btn.addEventListener('click', () => {
+        activeRes = btn.dataset.filterRes ?? 'all';
+        for (const b of resButtons) {
+          b.setAttribute('aria-pressed', String(b === btn));
+        }
+        apply();
+      });
     }
 
     // Progressive enhancement for the homepage intent chips: a ?category=<slug>
@@ -314,6 +402,48 @@ const pricingLabel = (model: string) =>
   .cert-option input {
     accent-color: var(--color-accent);
     margin: 0;
+  }
+
+  .matrix-search {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+    min-height: 2.25rem;
+    width: 14rem;
+    max-width: 100%;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .matrix-search:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .level-option {
+    border-left: 1px solid var(--color-rule);
+    padding-left: 0.75rem;
+  }
+
+  .matrix-legend {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--color-mute);
+  }
+
+  .now-named {
+    display: block;
+    font-weight: 400;
+    font-size: 0.75rem;
+    white-space: normal;
+    color: var(--color-mute);
+  }
+
+  .level-mark {
+    color: var(--color-mute);
   }
 
   .matrix-count {

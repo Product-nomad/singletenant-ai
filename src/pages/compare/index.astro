@@ -8,11 +8,17 @@
 // wall of links.
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { displayName } from '../../lib/labels.mjs';
 
 const vendors = (await getCollection('vendors')).sort((a, b) =>
   a.data.name.localeCompare(b.data.name),
 );
-const options = vendors.map((v) => ({ slug: v.data.slug, name: v.data.name }));
+// Renamed products list under both names, "Old (now New)", so a reader
+// looking for either finds it.
+const options = vendors.map((v) => ({
+  slug: v.data.slug,
+  name: displayName(v.data),
+}));
 ---
 
 <BaseLayout

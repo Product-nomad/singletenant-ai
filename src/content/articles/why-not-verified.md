@@ -2,6 +2,7 @@
 title: "Why this site says Not verified so often"
 description: "Not verified is the most common label in our vendor database. Why an evidence-first comparison site advertises the gaps in its own data, and the bug our own audit caught."
 pub_date: 2026-07-12
+updated: 2026-10-17
 author: "Simon Newton"
 category: "analysis"
 target_keyword: "not verified"
@@ -51,9 +52,11 @@ certification is claimed without a way to confirm it, we record the absence
 rather than the badge. [CoreWeave](/vendors/coreweave/) is held to that line:
 its trust material references ISO 27001 with "aligned with" wording, so ISO
 27001 is not listed on its profile. Data residency is another common gap. A
-region selector is not a residency guarantee, and most terms of service make no
-geographic commitment at all, so most residency guarantees in the database read
-as not verified.
+region selector is not a residency commitment, so residency is graded by
+evidence: Contractual where the terms commit to a location, Stated where only
+the vendor's own pages say so, and Not verified where neither does. The
+[evidence levels](/methodology/#evidence-levels) apply the same rule to
+certifications.
 
 ## The bug our own audit caught
 

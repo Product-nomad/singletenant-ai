@@ -2,6 +2,7 @@
 title: "Sovereignty washing: reading hyperscaler sovereign cloud claims against the EU framework"
 description: "Sovereignty washing is sovereign cloud marketing that outruns the criteria. Here is how hyperscaler claims score against the EU Cloud Sovereignty Framework."
 pub_date: 2026-07-18
+updated: 2026-10-17
 author: "Simon Newton"
 category: "analysis"
 target_keyword: "sovereignty washing"
@@ -115,7 +116,8 @@ jurisdiction on the first.
 [AWS Bedrock Provisioned Throughput](/vendors/aws-bedrock-provisioned/),
 [Azure OpenAI Provisioned Throughput](/vendors/azure-openai-ptu/) and
 [Vertex AI Provisioned Throughput](/vendors/vertex-ai-provisioned/) each offer
-European regions, and some record a verified residency guarantee, yet each has a
+European regions, and all three commit to data residency in their contract
+terms, yet each has a
 US parent jurisdiction in the [matrix](/vendors/). That is not a mark against the
 products. It is the same distinction the EU framework draws with SOV-2:
 residency answers where the bytes sit, jurisdiction answers whose court can

@@ -36,14 +36,17 @@ sources:
   - field: compliance.ISO27001
     url: https://trust.runpod.io
     verified: "2026-10-17"
-  - field: compliance.HIPAA_BAA
-    url: https://trust.runpod.io
-    verified: "2026-10-17"
   - field: compliance.GDPR_DPA
     url: https://trust.runpod.io
     verified: "2026-10-17"
   - field: pricing
     url: https://www.runpod.io/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://trust.runpod.io
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://docs.runpod.io/pods/networking
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://www.runpod.io/legal/terms-of-service
@@ -53,6 +56,9 @@ sources:
     verified: "2026-10-17"
   - field: notes
     url: https://www.runpod.io/legal/terms-of-service
+    verified: "2026-10-17"
+  - field: notes
+    url: https://trust.runpod.io
     verified: "2026-10-17"
 
 deployment_models:
@@ -71,18 +77,19 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://trust.runpod.io
     verified: "2026-10-17"
   - cert: SOC3
+    level: contractual
     evidence_url: https://trust.runpod.io
     verified: "2026-10-17"
   - cert: ISO27001
-    evidence_url: https://trust.runpod.io
-    verified: "2026-10-17"
-  - cert: HIPAA_BAA
+    level: contractual
     evidence_url: https://trust.runpod.io
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://trust.runpod.io
     verified: "2026-10-17"
 
@@ -93,15 +100,16 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: US
-  evidence_url: https://www.runpod.io/legal/terms-of-service
+  evidence_url: https://trust.runpod.io
   verified: "2026-10-17"
 
 notes: >-
   Secure Cloud runs in T3/T4 data centres for enterprise and production
-  workloads; Community Cloud uses vetted peer-to-peer providers. Terms set a
-  shared-responsibility model with no explicit residency guarantee. This site
-  has an affiliate relationship with RunPod. See the disclosure page.
+  workloads; Community Cloud uses vetted peer-to-peer providers. Terms make no
+  residency commitment; the trust centre states workloads can be placed by
+  jurisdiction. A HIPAA programme is stated, but no BAA was found. This site
+  has an affiliate relationship with RunPod.
 
 featured: true

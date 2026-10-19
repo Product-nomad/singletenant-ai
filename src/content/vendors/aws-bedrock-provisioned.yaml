@@ -46,13 +46,16 @@ sources:
     url: https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
-    url: https://aws.amazon.com/compliance/gdpr-center/
+    url: https://aws.amazon.com/service-terms/
     verified: "2026-10-17"
   - field: pricing
     url: https://aws.amazon.com/bedrock/pricing/
     verified: "2026-10-17"
   - field: pricing
     url: https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://aws.amazon.com/agreement/
     verified: "2026-10-17"
   - field: sovereignty.data_residency_guarantee
     url: https://aws.amazon.com/bedrock/faqs/
@@ -86,25 +89,32 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
     verified: "2026-10-17"
   - cert: SOC3
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/SOC/
     verified: "2026-10-17"
   - cert: ISO27001
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/iso-certified/
     verified: "2026-10-17"
   - cert: HIPAA_BAA
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/hipaa-eligible-services-reference/
     verified: "2026-10-17"
   - cert: C5
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/C5/
     verified: "2026-10-17"
   - cert: FEDRAMP
+    level: contractual
     evidence_url: https://aws.amazon.com/compliance/services-in-scope/FedRAMP/
     verified: "2026-10-17"
   - cert: GDPR_DPA
-    evidence_url: https://aws.amazon.com/compliance/gdpr-center/
+    level: contractual
+    evidence_url: https://aws.amazon.com/service-terms/
     verified: "2026-10-17"
 
 pricing:
@@ -114,9 +124,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: true
+  data_residency_guarantee: contractual
   parent_jurisdiction: US
-  evidence_url: https://aws.amazon.com/bedrock/faqs/
+  evidence_url: https://aws.amazon.com/agreement/
   verified: "2026-10-17"
 
 notes: >-

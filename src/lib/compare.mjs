@@ -63,23 +63,28 @@ export const differencesSummary = (a, b) => {
   }
   lines.push({ topic: 'Compliance', text: certParts.join(' ') });
 
+  // Residency is an evidence level (contractual | stated | unknown), the same
+  // rule as /methodology/#evidence-levels.
   const residency = (v) => {
     const g = v.sovereignty.data_residency_guarantee;
-    if (g === true) return `${v.name} has a verified residency guarantee`;
-    if (g === false)
-      return `${v.name} offers no residency guarantee (verified)`;
-    return `${v.name}'s residency guarantee is not verified`;
+    if (g === 'contractual')
+      return `${v.name} commits to data residency in its contract terms`;
+    if (g === 'stated')
+      return `${v.name} states data residency on its own pages (not contractual)`;
+    return `${v.name}'s data residency is not verified`;
   };
   const gA = a.sovereignty.data_residency_guarantee;
   const gB = b.sovereignty.data_residency_guarantee;
   lines.push({
     topic: 'Data residency',
     text:
-      gA === gB && gA === true
-        ? 'Both have a verified data residency guarantee.'
-        : gA === gB && gA === 'unknown'
-          ? 'Neither has a verified data residency guarantee.'
-          : `${residency(a)}; ${residency(b)}.`,
+      gA === gB && gA === 'contractual'
+        ? 'Both commit to data residency in their contract terms.'
+        : gA === gB && gA === 'stated'
+          ? 'Both state data residency on their own pages; neither commits to it contractually.'
+          : gA === gB && gA === 'unknown'
+            ? 'Neither has verified data residency evidence.'
+            : `${residency(a)}; ${residency(b)}.`,
   });
 
   const jur = (v) =>

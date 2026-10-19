@@ -12,12 +12,16 @@ import {
   CATEGORY_LABELS,
   CERT_LABELS,
   DEPLOYMENT_LABELS,
+  displayName,
+  EVIDENCE_LEVEL_LABELS,
+  evidenceLevelLabel,
   REGION_LABELS,
   sourceFieldLabel,
 } from '../src/lib/labels.mjs';
 import {
   CATEGORIES,
   CERTS,
+  EVIDENCE_LEVELS,
   REGIONS,
   SOURCE_FIELDS,
 } from '../src/schemas/vendor.mjs';
@@ -85,4 +89,19 @@ assertEnumLabelled('compliance cert', CERTS, CERT_LABELS);
 test('every sources[] field key has a display label', () => {
   const unlabelled = SOURCE_FIELDS.filter((f) => sourceFieldLabel(f) === f);
   assert.deepEqual(unlabelled, [], `unlabelled field(s): ${unlabelled}`);
+});
+
+assertEnumLabelled('evidence level', EVIDENCE_LEVELS, EVIDENCE_LEVEL_LABELS);
+
+test("unknown evidence renders as 'Not verified'", () => {
+  assert.equal(evidenceLevelLabel('unknown'), 'Not verified');
+  assert.equal(evidenceLevelLabel('contractual'), 'Contractual');
+});
+
+test('a renamed product displays as "Old (now New)"; others keep their name', () => {
+  assert.equal(
+    displayName({ name: 'X', renamed: { from: 'Old X', to: 'New X' } }),
+    'Old X (now New X)',
+  );
+  assert.equal(displayName({ name: 'Plain' }), 'Plain');
 });

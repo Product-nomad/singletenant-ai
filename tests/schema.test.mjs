@@ -55,6 +55,7 @@ const valid = {
   compliance: [
     {
       cert: 'SOC2_TYPE2',
+      level: 'contractual',
       evidence_url: 'https://trust.example.com',
       verified: '2026-07-07',
     },
@@ -66,7 +67,7 @@ const valid = {
     verified: '2026-07-07',
   },
   sovereignty: {
-    data_residency_guarantee: true,
+    data_residency_guarantee: 'contractual',
     parent_jurisdiction: 'US',
     evidence_url: 'https://example.com/terms',
     verified: '2026-07-07',
@@ -303,5 +304,47 @@ test('sources must be non-empty, well-formed and unique per field', () => {
   assert.equal(
     vendorSchema.safeParse(withPatch({ sources: dup })).success,
     false,
+  );
+});
+
+test('certifications need an evidence level', () => {
+  const noLevel = structuredClone(valid);
+  delete noLevel.compliance[0].level;
+  assert.equal(vendorSchema.safeParse(noLevel).success, false);
+  const badLevel = structuredClone(valid);
+  badLevel.compliance[0].level = 'aligned';
+  assert.equal(vendorSchema.safeParse(badLevel).success, false);
+});
+
+test('residency is an evidence level, not a yes/no', () => {
+  for (const level of ['contractual', 'stated']) {
+    const v = structuredClone(valid);
+    v.sovereignty.data_residency_guarantee = level;
+    assert.ok(vendorSchema.safeParse(v).success, level);
+  }
+  for (const bad of [true, false, 'guaranteed']) {
+    const v = structuredClone(valid);
+    v.sovereignty.data_residency_guarantee = bad;
+    assert.equal(vendorSchema.safeParse(v).success, false, String(bad));
+  }
+});
+
+test('a renamed product needs a source for the rename', () => {
+  const renamed = { from: 'Old Product', to: 'New Product' };
+  assert.equal(vendorSchema.safeParse(withPatch({ renamed })).success, false);
+  assert.ok(
+    vendorSchema.safeParse(
+      withPatch({
+        renamed,
+        sources: [
+          ...valid.sources,
+          {
+            field: 'renamed',
+            url: 'https://example.com/docs',
+            verified: '2026-07-07',
+          },
+        ],
+      }),
+    ).success,
   );
 });

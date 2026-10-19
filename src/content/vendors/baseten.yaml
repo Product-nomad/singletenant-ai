@@ -31,13 +31,16 @@ sources:
     url: https://trust.baseten.co
     verified: "2026-10-17"
   - field: compliance.HIPAA_BAA
-    url: https://trust.baseten.co
+    url: https://www.baseten.co/terms-and-conditions/
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
     url: https://trust.baseten.co
     verified: "2026-10-17"
   - field: pricing
     url: https://www.baseten.co/pricing
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://docs.baseten.co/deployment/regional-deployments
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://www.baseten.co/terms-and-conditions/
@@ -76,18 +79,23 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
+    level: contractual
     evidence_url: https://trust.baseten.co
     verified: "2026-10-17"
   - cert: SOC3
+    level: contractual
     evidence_url: https://trust.baseten.co
     verified: "2026-10-17"
   - cert: ISO27001
+    level: contractual
     evidence_url: https://trust.baseten.co
     verified: "2026-10-17"
   - cert: HIPAA_BAA
-    evidence_url: https://trust.baseten.co
+    level: contractual
+    evidence_url: https://www.baseten.co/terms-and-conditions/
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: contractual
     evidence_url: https://trust.baseten.co
     verified: "2026-10-17"
 
@@ -98,9 +106,9 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: US
-  evidence_url: https://www.baseten.co/terms-and-conditions/
+  evidence_url: https://docs.baseten.co/deployment/regional-deployments
   verified: "2026-10-17"
 
 notes: >-

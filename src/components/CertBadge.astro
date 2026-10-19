@@ -1,22 +1,25 @@
 ---
-// CertBadge: a compliance certification with its evidence link and
-// verification date. A cert never renders without its source (spec §4).
-import { CERT_LABELS } from '../lib/labels.mjs';
+// CertBadge: a compliance certification with its evidence level, evidence
+// link and verification date. A cert never renders without its source
+// (spec §4); the level follows /methodology/#evidence-levels.
+import { CERT_LABELS, evidenceLevelLabel } from '../lib/labels.mjs';
 import EvidenceLink from './EvidenceLink.astro';
 import LastVerified from './LastVerified.astro';
 
 interface Props {
   cert: string;
+  level: string;
   evidenceUrl: string;
   verified: string;
 }
 
-const { cert, evidenceUrl, verified } = Astro.props;
+const { cert, level, evidenceUrl, verified } = Astro.props;
 const label = CERT_LABELS[cert as keyof typeof CERT_LABELS] ?? cert;
 ---
 
 <span class="cert-badge">
   <span class="cert-name">{label}</span>
+  <span class={`evidence-level level-${level}`}>{evidenceLevelLabel(level)}</span>
   <EvidenceLink url={evidenceUrl} />
   <LastVerified date={verified} />
 </span>
@@ -27,6 +30,20 @@ const label = CERT_LABELS[cert as keyof typeof CERT_LABELS] ?? cert;
     align-items: center;
     gap: 0.6rem;
     flex-wrap: wrap;
+  }
+
+  .evidence-level {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.05rem 0.4rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 2px;
+    color: var(--color-ink-soft);
+  }
+
+  .level-contractual {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
   }
 
   .cert-name {

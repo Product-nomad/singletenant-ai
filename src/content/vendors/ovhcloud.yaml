@@ -28,19 +28,19 @@ sources:
     url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
     verified: "2026-10-17"
   - field: compliance.ISO27001
-    url: https://www.ovhcloud.com/en/compliance/
+    url: https://www.ovhcloud.com/en/compliance/iso-27001-27017-27018/
     verified: "2026-10-17"
   - field: compliance.C5
-    url: https://www.ovhcloud.com/en/compliance/
-    verified: "2026-10-17"
-  - field: compliance.SecNumCloud
-    url: https://www.ovhcloud.com/en/compliance/
+    url: https://www.ovhcloud.com/en/compliance/c5/
     verified: "2026-10-17"
   - field: compliance.GDPR_DPA
     url: https://www.ovhcloud.com/en/compliance/
     verified: "2026-10-17"
   - field: pricing
     url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/
+    verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-we.pdf
     verified: "2026-10-17"
   - field: sovereignty.parent_jurisdiction
     url: https://www.ovhcloud.com/en/terms-and-conditions/
@@ -57,6 +57,12 @@ sources:
   - field: notes
     url: https://www.ovhcloud.com/en/terms-and-conditions/
     verified: "2026-10-17"
+  - field: notes
+    url: https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-we.pdf
+    verified: "2026-10-17"
+  - field: notes
+    url: https://www.ovhcloud.com/en/compliance/secnumcloud/
+    verified: "2026-10-17"
 
 deployment_models:
   - serverless-api
@@ -67,15 +73,15 @@ regions:
 
 compliance:
   - cert: ISO27001
-    evidence_url: https://www.ovhcloud.com/en/compliance/
+    level: contractual
+    evidence_url: https://www.ovhcloud.com/en/compliance/iso-27001-27017-27018/
     verified: "2026-10-17"
   - cert: C5
-    evidence_url: https://www.ovhcloud.com/en/compliance/
-    verified: "2026-10-17"
-  - cert: SecNumCloud
-    evidence_url: https://www.ovhcloud.com/en/compliance/
+    level: contractual
+    evidence_url: https://www.ovhcloud.com/en/compliance/c5/
     verified: "2026-10-17"
   - cert: GDPR_DPA
+    level: stated
     evidence_url: https://www.ovhcloud.com/en/compliance/
     verified: "2026-10-17"
 
@@ -86,17 +92,16 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: contractual
   parent_jurisdiction: FR
-  evidence_url: https://www.ovhcloud.com/en/terms-and-conditions/
+  evidence_url: https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-we.pdf
   verified: "2026-10-17"
 
 notes: >-
   AI Endpoints is a serverless per-token API (more than 20 open-weight
-  models), hosted in the EU, keeping only data needed for billing; AI Deploy
-  runs customer Docker images and models. Compliance page lists SecNumCloud
-  (ANSSI), BSI C5, ISO 27001 and GDPR compliance. Parent OVH Groupe SA is
-  registered in Lille, France. No contractual AI-product residency guarantee
-  found.
+  models), hosted in the EU; AI Deploy runs customer Docker images and models.
+  Public Cloud terms let the customer choose the datacentre region.
+  SecNumCloud covers named private-cloud and bare-metal products, not the AI
+  services, so it is not listed. Parent OVH Groupe SA is registered in Lille.
 
 featured: false

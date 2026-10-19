@@ -80,9 +80,11 @@ regions:
 
 compliance:
   - cert: ISO27001
+    level: stated
     evidence_url: https://www.civo.com/ai/cloud-gpu
     verified: "2026-10-17"
   - cert: SOC2_TYPE2
+    level: stated
     evidence_url: https://www.civo.com/ai/cloud-gpu
     verified: "2026-10-17"
 
@@ -93,7 +95,7 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: true
+  data_residency_guarantee: stated
   parent_jurisdiction: UK
   evidence_url: https://www.civo.com/uk-sovereign-cloud
   verified: "2026-10-17"

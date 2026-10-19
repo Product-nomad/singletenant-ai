@@ -88,6 +88,18 @@ test('softwareApplication carries provider and dateModified, no price', () => {
   assertNoForbiddenKeys(app);
 });
 
+test('a renamed product lists its other names as alternateName', () => {
+  const plain = softwareApplication(vendor().data);
+  assert.equal(plain.alternateName, undefined);
+  const renamed = softwareApplication({
+    ...vendor().data,
+    name: 'Old Product',
+    renamed: { from: 'Old Product', to: 'New Product' },
+  });
+  assert.equal(renamed.name, 'Old Product');
+  assert.deepEqual(renamed.alternateName, ['New Product']);
+});
+
 test('softwareApplication omits dateModified when unverified', () => {
   const app = softwareApplication(
     vendor({

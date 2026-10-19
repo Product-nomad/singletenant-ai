@@ -28,10 +28,7 @@ sources:
     url: https://modal.com/docs/guide/region-selection
     verified: "2026-10-17"
   - field: compliance.SOC2_TYPE2
-    url: https://modal.com/docs/guide/security
-    verified: "2026-10-17"
-  - field: compliance.HIPAA_BAA
-    url: https://modal.com/docs/guide/security
+    url: https://trust.modal.com/
     verified: "2026-10-17"
   - field: pricing
     url: https://modal.com/pricing
@@ -54,6 +51,9 @@ sources:
   - field: notes
     url: https://modal.com/pricing
     verified: "2026-10-17"
+  - field: notes
+    url: https://trust.modal.com/
+    verified: "2026-10-17"
 
 deployment_models:
   - serverless
@@ -72,10 +72,8 @@ regions:
 
 compliance:
   - cert: SOC2_TYPE2
-    evidence_url: https://modal.com/docs/guide/security
-    verified: "2026-10-17"
-  - cert: HIPAA_BAA
-    evidence_url: https://modal.com/docs/guide/security
+    level: contractual
+    evidence_url: https://trust.modal.com/
     verified: "2026-10-17"
 
 pricing:
@@ -85,15 +83,16 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: true
+  data_residency_guarantee: contractual
   parent_jurisdiction: US
   evidence_url: https://modal.com/legal/terms
   verified: "2026-10-17"
 
 notes: >-
   Terms commit to processing customer data only in customer-specified regions.
-  HIPAA BAA is Enterprise-plan only, and scoped (Volumes v2 in, some features
-  out). Dedicated Endpoints run models on isolated, autoscaling containers at
-  standard compute rates; the pricing page lists no separate dedicated tier.
+  HIPAA is offered on the Enterprise plan (Volumes v2 in scope, some features
+  out); no BAA wording was found. Dedicated Endpoints run models on isolated,
+  autoscaling containers at standard compute rates; the pricing page lists no
+  separate dedicated tier.
 
 featured: true
