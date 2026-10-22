@@ -117,7 +117,11 @@ export const differencesSummary = (a, b) => {
   };
   lines.push({ topic: 'Pricing', text: `${pricing(a)}. ${pricing(b)}.` });
 
-  return lines;
+  // Pricing leads: it is the question most searchers bring to a compare page.
+  return [
+    ...lines.filter((l) => l.topic === 'Pricing'),
+    ...lines.filter((l) => l.topic !== 'Pricing'),
+  ];
 };
 
 // Indexability: how distinctive a compare page is. A pair page is only worth
@@ -152,7 +156,28 @@ export const INDEX_MIN_SCORE = 40;
 // Editorial overrides by canonical pair slug ('a-vs-b'), applied after the
 // score. Use `index` once a low-scoring pair has pair-specific written content
 // (AUDIT.md 2.3); `noindex` to drop a pair the score keeps.
-export const INDEX_OVERRIDES = { index: [], noindex: [] };
+// Every `index` entry must have written analysis in src/content/pairs/
+// (enforced by tests/pairs.test.mjs). 2026-10-22: the pairs with search demand
+// (Search Console, 21 Jul to 20 Oct 2026) that the score excluded.
+export const INDEX_OVERRIDES = {
+  index: [
+    'aws-bedrock-provisioned-vs-azure-openai-ptu',
+    'aws-bedrock-provisioned-vs-vertex-ai-provisioned',
+    'azure-openai-ptu-vs-modal',
+    'azure-openai-ptu-vs-together-ai',
+    'azure-openai-ptu-vs-vertex-ai-provisioned',
+    'baseten-vs-coreweave',
+    'baseten-vs-databricks-model-serving',
+    'baseten-vs-nebius',
+    'baseten-vs-together-ai',
+    'coreweave-vs-fireworks-ai',
+    'databricks-model-serving-vs-fireworks-ai',
+    'fireworks-ai-vs-nebius',
+    'huggingface-inference-endpoints-vs-nvidia-nim',
+    'nebius-vs-together-ai',
+  ],
+  noindex: [],
+};
 
 const jaccardDistance = (x, y) => {
   if (x.length === 0 || y.length === 0) return 0;

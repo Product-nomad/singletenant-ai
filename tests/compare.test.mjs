@@ -28,14 +28,14 @@ const vendor = (over = {}) => ({
   ...over,
 });
 
-test('summary covers category, compliance, residency, jurisdiction, pricing', () => {
+test('summary covers pricing first, then category, compliance, residency, jurisdiction', () => {
   const lines = differencesSummary(
     vendor(),
     vendor({ name: 'B', category: 'managed-selfhost' }),
   );
   assert.deepEqual(
     lines.map((l) => l.topic),
-    ['Category', 'Compliance', 'Data residency', 'Jurisdiction', 'Pricing'],
+    ['Pricing', 'Category', 'Compliance', 'Data residency', 'Jurisdiction'],
   );
 });
 

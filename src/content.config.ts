@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { glossaryTermSchema, guideSchema } from './schemas/guide.mjs';
 import { isJurisdiction } from './schemas/jurisdictions.mjs';
+import { pairSchema } from './schemas/pair.mjs';
 import { isoDate, vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
@@ -81,4 +82,14 @@ const glossary = defineCollection({
   schema: glossaryTermSchema,
 });
 
-export const collections = { vendors, articles, guides, glossary };
+/* ─────────────────────────────────────────────────────────────
+   Pairs: written analysis for individual compare pages, keyed by
+   the canonical <a>-vs-<b> slug. See src/schemas/pair.mjs.
+   ───────────────────────────────────────────────────────────── */
+
+const pairs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pairs' }),
+  schema: pairSchema,
+});
+
+export const collections = { vendors, articles, guides, glossary, pairs };
