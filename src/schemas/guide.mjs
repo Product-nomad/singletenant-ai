@@ -6,6 +6,7 @@
 // sitemap and are not linked from navigation; a published guide must carry its
 // publish date and the date its facts were last verified.
 import { z } from 'astro/zod';
+import { isJurisdiction } from './jurisdictions.mjs';
 import { isoDate } from './vendor.mjs';
 
 export const STATUSES = ['stub', 'published'];
@@ -20,6 +21,18 @@ export const guideSchema = z
     updated: isoDate.optional(),
     last_verified: isoDate.optional(),
     order: z.number().int().default(0).describe('Position on the /guides/ hub'),
+    jurisdiction: z
+      .array(z.string().refine(isJurisdiction, 'not in jurisdictions.mjs'))
+      .default([])
+      .describe('Jurisdictions the guide is specific to; empty means global'),
+    vendors: z
+      .array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))
+      .default([])
+      .describe('Vendor slugs whose profiles link back to this guide'),
+    sources: z
+      .array(z.object({ url: z.string().url(), verified: isoDate }).strict())
+      .default([])
+      .describe('Primary sources, each with the date it was checked'),
   })
   .strict()
   .superRefine((val, ctx) => {
@@ -30,6 +43,24 @@ export const guideSchema = z
           code: z.ZodIssueCode.custom,
           path: [key],
           message: `a published guide needs ${key}`,
+        });
+      }
+    }
+    // Same evidence rule as vendor data: a published guide lists its sources,
+    // and its "Last verified" date is the oldest of them.
+    if (val.sources.length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['sources'],
+        message: 'a published guide needs sources',
+      });
+    } else {
+      const oldest = val.sources.map((x) => x.verified).sort()[0];
+      if (val.last_verified !== oldest) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['last_verified'],
+          message: `last_verified must equal the oldest source date ${oldest}`,
         });
       }
     }

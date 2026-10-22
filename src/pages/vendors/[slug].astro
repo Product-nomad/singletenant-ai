@@ -43,6 +43,14 @@ const pageTitle = withBrand(vendorTitle(data));
 // Every comparison involving this vendor, each of the 105 canonical compare
 // pages is linked from both of its vendors' profiles.
 const allVendors = await getCollection('vendors');
+
+// Published guides that cover this vendor link back from its profile.
+const guides = (
+  await getCollection(
+    'guides',
+    (g) => g.data.status === 'published' && g.data.vendors.includes(data.slug),
+  )
+).sort((x, y) => x.data.order - y.data.order);
 const compareCandidates = allVendors
   .filter((v) => v.data.slug !== data.slug)
   .sort((x, y) => x.data.name.localeCompare(y.data.name));
@@ -225,6 +233,21 @@ const fmtUnknown = (val: string | boolean) => {
             <p class="m-0 max-w-3xl" style="color: var(--color-ink-soft);">
               {data.notes}
             </p>
+          </div>
+        )
+      }
+
+      {
+        guides.length > 0 && (
+          <div>
+            <div class="fact-section-head">
+              <h2 class="m-0">Guides</h2>
+            </div>
+            <ul class="m-0 pl-5">
+              {guides.map((g) => (
+                <li><a href={`/guides/${g.id}/`}>{g.data.title}</a></li>
+              ))}
+            </ul>
           </div>
         )
       }

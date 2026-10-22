@@ -10,6 +10,7 @@ import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articleSchema } from '../../lib/schema.mjs';
+import { withBrand } from '../../lib/titles.mjs';
 
 export const getStaticPaths = (async () => {
   const guides = await getCollection('guides');
@@ -35,12 +36,14 @@ const schema =
         updated: data.updated ? new Date(data.updated) : undefined,
         slug: guide.id,
         section,
+        jurisdiction: data.jurisdiction,
       })
     : undefined;
 ---
 
 <BaseLayout
   title={data.title}
+  brand={withBrand(data.title).brand}
   description={data.description}
   schema={schema}
   breadcrumbs={isStub
@@ -81,6 +84,16 @@ const schema =
       <div class="prose">
         <Content />
       </div>
+      {data.sources.length > 0 && (
+        <details class="guide-sources">
+          <summary>Sources ({data.sources.length}), each checked on the date shown</summary>
+          <ul>
+            {data.sources.map((src) => (
+              <li><a href={src.url} rel="noopener noreferrer">{src.url}</a> ({src.verified})</li>
+            ))}
+          </ul>
+        </details>
+      )}
       <NewsletterSignup source={`guide:${guide.id}`} />
       {!isStub && <AdSlot name="guide-end" />}
     </div>
@@ -88,6 +101,16 @@ const schema =
 </BaseLayout>
 
 <style>
+  .guide-sources {
+    margin: 2rem 0;
+    font-size: 0.8rem;
+    color: var(--color-mute);
+  }
+
+  .guide-sources a {
+    overflow-wrap: anywhere;
+  }
+
   .stub-notice {
     margin: 0 0 2rem;
     padding: 0.75rem 1rem;
