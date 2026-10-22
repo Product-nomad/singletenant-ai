@@ -1,5 +1,6 @@
 slug: huggingface-inference-endpoints
 name: Hugging Face Inference Endpoints
+short_name: Hugging Face Endpoints
 url: https://huggingface.co
 category: managed-selfhost
 tagline: Managed dedicated endpoints for deploying Hub models per instance-hour

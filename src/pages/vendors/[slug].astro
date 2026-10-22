@@ -20,6 +20,7 @@ import {
   sourceFieldLabel,
 } from '../../lib/labels.mjs';
 import { vendorProfileSchema } from '../../lib/schema.mjs';
+import { vendorTitle, withBrand } from '../../lib/titles.mjs';
 
 export const getStaticPaths = (async () => {
   const vendors = await getCollection('vendors');
@@ -35,6 +36,9 @@ const { data } = vendor;
 // Schema.org: the SoftwareApplication (now with provider + last-verified date)
 // plus a BreadcrumbList, emitted as one @graph. See src/lib/schema.mjs.
 const schema = vendorProfileSchema(data);
+
+// Search title names pricing and the deployment type (src/lib/titles.mjs).
+const pageTitle = withBrand(vendorTitle(data));
 
 // Every comparison involving this vendor, each of the 105 canonical compare
 // pages is linked from both of its vendors' profiles.
@@ -61,7 +65,8 @@ const fmtUnknown = (val: string | boolean) => {
 ---
 
 <BaseLayout
-  title={`${displayName(data)}: Single-Tenant LLM Hosting Profile`}
+  title={pageTitle.title}
+  brand={pageTitle.brand}
   description={data.tagline}
   schema={schema}
 >
@@ -94,6 +99,27 @@ const fmtUnknown = (val: string | boolean) => {
   <!-- Facts: every populated claim carries evidence; gaps say "Not verified" -->
   <section>
     <div class="mx-auto max-w-5xl px-6 py-10 space-y-10">
+      <!-- Pricing first: the most-searched question (Search Console, Oct 2026) -->
+      <div>
+        <div class="fact-section-head">
+          <h2 class="m-0">Pricing</h2>
+          {data.pricing.evidence_url && <EvidenceLink url={data.pricing.evidence_url} />}
+          <LastVerified date={data.pricing.verified} />
+        </div>
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="fact-label">Pricing model</td>
+              <td>{fmtUnknown(data.pricing.model)}</td>
+            </tr>
+            <tr>
+              <td class="fact-label">Public pricing</td>
+              <td>{fmtUnknown(data.pricing.public)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div>
         <div class="fact-section-head">
           <h2 class="m-0">Deployment</h2>
@@ -150,26 +176,6 @@ const fmtUnknown = (val: string | boolean) => {
             </table>
           )
         }
-      </div>
-
-      <div>
-        <div class="fact-section-head">
-          <h2 class="m-0">Pricing</h2>
-          {data.pricing.evidence_url && <EvidenceLink url={data.pricing.evidence_url} />}
-          <LastVerified date={data.pricing.verified} />
-        </div>
-        <table class="data-table">
-          <tbody>
-            <tr>
-              <td class="fact-label">Pricing model</td>
-              <td>{fmtUnknown(data.pricing.model)}</td>
-            </tr>
-            <tr>
-              <td class="fact-label">Public pricing</td>
-              <td>{fmtUnknown(data.pricing.public)}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
       <div>

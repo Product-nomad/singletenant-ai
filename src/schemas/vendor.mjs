@@ -230,6 +230,12 @@ export const vendorSchema = z
         "slug must not contain '-vs-', it breaks /compare/[a]-vs-[b] routing",
       ),
     name: z.string().min(1),
+    short_name: z
+      .string()
+      .min(1)
+      .max(32)
+      .optional()
+      .describe('Name for search titles; display only, not a claim'),
     renamed: z
       .object({ from: z.string().min(1), to: z.string().min(1) })
       .strict()

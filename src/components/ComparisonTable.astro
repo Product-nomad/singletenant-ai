@@ -26,6 +26,8 @@ const rows: Array<{
   get: (d: VendorData) => CellValue;
   type?: 'tags' | 'list';
 }> = [
+  { label: 'Pricing model', get: (d) => d.pricing.model },
+  { label: 'Public pricing', get: (d) => d.pricing.public },
   {
     label: 'Category',
     get: (d) =>
@@ -46,8 +48,6 @@ const rows: Array<{
       ),
     type: 'tags',
   },
-  { label: 'Pricing model', get: (d) => d.pricing.model },
-  { label: 'Public pricing', get: (d) => d.pricing.public },
   {
     label: 'Data residency evidence',
     get: (d) => evidenceLevelLabel(d.sovereignty.data_residency_guarantee),

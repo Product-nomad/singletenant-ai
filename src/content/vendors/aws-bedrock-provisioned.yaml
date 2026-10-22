@@ -1,5 +1,6 @@
 slug: aws-bedrock-provisioned
 name: Amazon Bedrock Provisioned Throughput
+short_name: Bedrock Provisioned Throughput
 url: https://aws.amazon.com/bedrock/
 category: hyperscaler-dedicated
 tagline: Dedicated model capacity on Amazon Bedrock billed per Model Unit hourly

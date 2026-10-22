@@ -1,5 +1,6 @@
 slug: azure-openai-ptu
 name: Azure OpenAI Provisioned Throughput (PTU)
+short_name: Azure OpenAI PTU
 url: https://azure.microsoft.com
 category: hyperscaler-dedicated
 tagline: Dedicated PTU capacity for Foundry Models with hourly or reserved billing

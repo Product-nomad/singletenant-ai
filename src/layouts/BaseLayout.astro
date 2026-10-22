@@ -25,6 +25,9 @@ interface Props {
   schema?: Record<string, unknown>;
   // Home > ... > this page, for pages whose own schema has no breadcrumb.
   breadcrumbs?: { name: string; path: string }[];
+  // false: render the title as given, without " | singletenant.ai" (for
+  // titles already at the ~60-character search-result limit).
+  brand?: boolean;
 }
 
 const {
@@ -35,13 +38,14 @@ const {
   noIndex = false,
   schema,
   breadcrumbs,
+  brand = true,
 } = Astro.props;
 const crumbs = breadcrumbs && breadcrumbSchema(breadcrumbs);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImage = new URL(ogImage, Astro.site).toString();
 const titleWithBrand =
-  title === 'singletenant.ai' ? title : `${title} | singletenant.ai`;
+  !brand || title === 'singletenant.ai' ? title : `${title} | singletenant.ai`;
 // Social title falls back to the branded <title>; the homepage overrides it
 // with a descriptive value so its card is not just the bare brand name.
 const socialTitle = ogTitle ?? titleWithBrand;

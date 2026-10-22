@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import AdSlot from '../../components/AdSlot.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
@@ -9,6 +9,11 @@ import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
 import { oldest } from '../../lib/dates.mjs';
 import { deploymentLabel, displayName } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
+import {
+  compareDescription,
+  compareTitle,
+  withBrand,
+} from '../../lib/titles.mjs';
 
 export const getStaticPaths = (async () => {
   // One page per unordered pair, canonically ordered alphabetically by slug
@@ -36,8 +41,18 @@ export const getStaticPaths = (async () => {
 
 const { a, b } = Astro.props;
 
-const title = `${displayName(a.data)} vs ${displayName(b.data)}`;
-const description = `Side-by-side comparison of ${a.data.name} and ${b.data.name} for single-tenant LLM hosting. Deployment options, compliance, pricing, and operational fit compared.`;
+// Search title and meta description come from the data (src/lib/titles.mjs):
+// the title names pricing, the description leads with the biggest verified
+// difference. The H1 keeps the full display names.
+const { title, brand } = withBrand(compareTitle(a.data, b.data));
+const description = compareDescription(a.data, b.data);
+
+// Written, sourced analysis for this pair, when it exists (src/content/pairs).
+const pairSlug = `${a.data.slug}-vs-${b.data.slug}`;
+const analysis = (await getCollection('pairs')).find(
+  (p) => p.data.pair === pairSlug,
+);
+const Analysis = analysis ? (await render(analysis)).Content : undefined;
 
 // Find shared and differentiated deployment models
 const sharedDeployment = a.data.deployment_models.filter((opt) =>
@@ -68,7 +83,13 @@ const schema = vendorComparisonSchema({ a, b, description });
 const noIndex = !pairIsIndexable(a.data, b.data);
 ---
 
-<BaseLayout title={title} description={description} schema={schema} noIndex={noIndex}>
+<BaseLayout
+  title={title}
+  brand={brand}
+  description={description}
+  schema={schema}
+  noIndex={noIndex}
+>
   <!-- Header -->
   <section class="border-b border-[var(--color-rule)]">
     <div class="mx-auto max-w-5xl px-6 py-12">
@@ -82,6 +103,49 @@ const noIndex = !pairIsIndexable(a.data, b.data);
         {description}
       </p>
       <VerifiedLine date={lastVerified} note="(older of the two profiles)" />
+    </div>
+  </section>
+
+  {analysis && Analysis && (
+    <section class="border-b border-[var(--color-rule)]">
+      <div class="mx-auto max-w-3xl px-6 py-12">
+        <p class="eyebrow mb-3">Analysis</p>
+        <h2 class="mt-0 mb-4 pt-0 border-none">What separates them</h2>
+        <div class="prose pair-analysis">
+          <Analysis />
+        </div>
+        <VerifiedLine date={analysis.data.last_verified} note="(every source below)" />
+        <details class="pair-sources">
+          <summary>Sources ({analysis.data.sources.length})</summary>
+          <ul>
+            {analysis.data.sources.map((src) => (
+              <li><a href={src.url} rel="noopener noreferrer">{src.url}</a> (checked {src.verified})</li>
+            ))}
+          </ul>
+        </details>
+      </div>
+    </section>
+  )}
+
+  <!-- Key differences: generated from the vendor data, not written prose -->
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">From the data</p>
+      <h2 class="mt-0 mb-6 pt-0 border-none">Key differences</h2>
+      <ul class="list-none p-0 m-0 max-w-3xl">
+        {differences.map((line) => (
+          <li class="diff-line">
+            <span class="diff-topic">{line.topic}</span>
+            <span class="text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
+              {line.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="m-0 mt-4 text-xs font-mono" style="color: var(--color-mute);">
+        Generated from the verified vendor data below; sources and dates on each
+        vendor profile.
+      </p>
     </div>
   </section>
 
@@ -105,28 +169,6 @@ const noIndex = !pairIsIndexable(a.data, b.data);
           {b.data.notes ?? b.data.tagline}
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Key differences: generated from the vendor data, not written prose -->
-  <section class="border-b border-[var(--color-rule)]">
-    <div class="mx-auto max-w-5xl px-6 py-12">
-      <p class="eyebrow mb-3">From the data</p>
-      <h2 class="mt-0 mb-6 pt-0 border-none">Key differences</h2>
-      <ul class="list-none p-0 m-0 max-w-3xl">
-        {differences.map((line) => (
-          <li class="diff-line">
-            <span class="diff-topic">{line.topic}</span>
-            <span class="text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
-              {line.text}
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p class="m-0 mt-4 text-xs font-mono" style="color: var(--color-mute);">
-        Generated from the verified vendor data below; sources and dates on each
-        vendor profile.
-      </p>
     </div>
   </section>
 
@@ -226,6 +268,16 @@ const noIndex = !pairIsIndexable(a.data, b.data);
 
   .diff-line:last-child {
     border-bottom: 1px solid var(--color-rule);
+  }
+
+  .pair-sources {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--color-mute);
+  }
+
+  .pair-sources a {
+    overflow-wrap: anywhere;
   }
 
   .diff-topic {
