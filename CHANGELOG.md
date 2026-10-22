@@ -2,6 +2,16 @@
 
 User-visible and governance changes, newest first. Site data changes (vendor facts, verification dates) live in the public `/changelog/` page from v2; this file tracks the project itself.
 
+## v2.6 search optimisation 1 (2026-10-22, branch `gsc-optimise-1`, merged to main)
+
+Driven by Search Console data Simon supplied (21 Jul to 20 Oct 2026: compare pages 72% of impressions, 87% of clicks, CTR 0.7%, position ~19-25; unclicked Azure PTU, Bedrock PT and pricing clusters). Every new claim re-fetched and checked 2026-10-22.
+
+- 2026-10-22: Data corrections found while re-fetching: Nebius residency Stated to Contractual (DPA 6.1), Together AI residency Not verified to Stated (dedicated endpoints page). Public changelog entries; jurisdiction article corrected.
+- 2026-10-22: Pair analysis. New `pairs` collection; 14 compare pages carry sourced, pair-specific analysis and are indexed via `INDEX_OVERRIDES.index` (the two restored pairs plus the 12 threshold-excluded pairs with at least 100 impressions). Indexed compare pages 68 to 83.
+- 2026-10-22: Titles and meta. Compare titles "{A} vs {B}: pricing & compliance compared", trimmed to ~60 characters; vendor titles "{name}: {type} pricing, regions & compliance"; brand suffix only when it fits. Compare meta descriptions lead with the biggest verified difference. Optional `short_name` for long product names. Pricing is the first data block on vendor and compare pages.
+- 2026-10-22: Guides. Three published guides (Azure OpenAI PTU, Bedrock provisioned throughput, provisioned vs pay-per-token) with per-source dates, vendor back-links and guide sources lists.
+- Checks: tests 118/118, lint, typecheck, validate 16/16, build 164 pages, linkcheck 0 broken, JSON-LD valid on new and restored pages, sitemap includes them, built output has only simon@singletenant.ai and no LinkedIn.
+
 ## v2.5 jurisdiction-neutral model (2026-10-22, branch `generic-jurisdiction-model`, merged to main)
 
 - 2026-10-22: Single contact address. Every email and mailto: is simon@singletenant.ai (editor@ and newsletter@ retired); LinkedIn links removed from /about/, /contact/, README and the linkcheck comment.
