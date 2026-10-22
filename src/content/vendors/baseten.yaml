@@ -74,8 +74,8 @@ deployment_models:
 # https://docs.baseten.co/deployment/regional-deployments
 # Regions carry no evidence field in schema v2.
 regions:
-  - us
-  - europe
+  - US
+  - EU
 
 compliance:
   - cert: SOC2_TYPE2

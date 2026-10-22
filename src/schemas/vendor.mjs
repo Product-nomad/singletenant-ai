@@ -6,13 +6,20 @@
 // date; 'unknown' is the only value allowed without evidence. The UI renders
 // 'unknown' as "Not verified", never as an unsourced claim.
 import { z } from 'astro/zod';
+import {
+  covers,
+  isCountry,
+  isJurisdiction,
+  isRegionCode,
+} from './jurisdictions.mjs';
 
+// Category is functional only: how the single-tenant service is delivered.
+// Geography lives in sovereignty.parent_jurisdiction, sovereign_for and
+// regions, never in the category.
 export const CATEGORIES = [
   'dedicated-gpu',
   'hyperscaler-dedicated',
   'managed-selfhost',
-  'eu-sovereign',
-  'uk-sovereign',
 ];
 
 export const CERTS = [
@@ -26,12 +33,15 @@ export const CERTS = [
   'FEDRAMP',
 ];
 
-// Region buckets: a small closed vocabulary of coarse geographies. 'europe'
-// means the EU/EEA excluding the UK; 'uk' is tracked separately because a UK
-// placement is a distinct jurisdiction question post-adequacy (see
-// /methodology/ for the bucket definitions). Every value here must also have a
-// display label in src/lib/labels.mjs (enforced by tests/labels.test.mjs).
-export const REGIONS = ['us', 'uk', 'europe', 'apac', 'global'];
+// Region codes come from the jurisdiction vocabulary in jurisdictions.mjs:
+// ISO 3166-1 alpha-2 countries, blocs (EU = EU/EEA) and areas (APAC,
+// GLOBAL). A code missing from that map fails validation.
+const regionCode = z
+  .string()
+  .refine(isRegionCode, 'region code not in src/schemas/jurisdictions.mjs');
+const jurisdictionCode = z
+  .string()
+  .refine(isJurisdiction, 'jurisdiction not in src/schemas/jurisdictions.mjs');
 
 // Evidence levels, one rule for every certification and residency fact
 // (documented on /methodology/#evidence-levels):
@@ -115,9 +125,12 @@ export const sovereigntySchema = z
       .describe('Evidence level for keeping data in a customer-chosen region'),
     parent_jurisdiction: z
       .string()
-      .min(1)
+      .refine(
+        (s) => s === 'unknown' || isCountry(s),
+        "parent_jurisdiction must be an ISO 3166-1 alpha-2 code in src/schemas/jurisdictions.mjs, or 'unknown'",
+      )
       .default('unknown')
-      .describe("ISO country code of the parent company, or 'unknown'"),
+      .describe("ISO 3166-1 alpha-2 code of the parent company, or 'unknown'"),
     evidence_url: evidenceUrl.optional(),
     verified: isoDate.optional(),
   })
@@ -143,7 +156,7 @@ export const factBlocks = (data) => [
 // exactly which fields were confirmed when. Field keys:
 //   category, tagline, deployment_models, regions, pricing, notes,
 //   compliance.<CERT>, sovereignty.data_residency_guarantee,
-//   sovereignty.parent_jurisdiction
+//   sovereignty.parent_jurisdiction, sovereign_for.<CODE>
 export const SOURCE_FIELDS = [
   'category',
   'tagline',
@@ -157,9 +170,18 @@ export const SOURCE_FIELDS = [
   ...CERTS.map((c) => `compliance.${c}`),
 ];
 
+// sovereign_for.<CODE>: one source key per jurisdiction claimed.
+const sovereignForField = z
+  .string()
+  .regex(/^sovereign_for\.[A-Z]+$/)
+  .refine(
+    (s) => isJurisdiction(s.slice('sovereign_for.'.length)),
+    'sovereign_for jurisdiction not in src/schemas/jurisdictions.mjs',
+  );
+
 export const sourceEntrySchema = z
   .object({
-    field: z.enum(SOURCE_FIELDS),
+    field: z.union([z.enum(SOURCE_FIELDS), sovereignForField]),
     url: evidenceUrl,
     verified: isoDate,
   })
@@ -174,6 +196,7 @@ export const claimedFields = (data) => {
   if (data.notes) fields.push('notes');
   if (data.renamed) fields.push('renamed');
   for (const c of data.compliance ?? []) fields.push(`compliance.${c.cert}`);
+  for (const j of data.sovereign_for ?? []) fields.push(`sovereign_for.${j}`);
   const pricing = data.pricing ?? {};
   if (pricing.model !== 'unknown' || pricing.public !== 'unknown') {
     fields.push('pricing');
@@ -224,12 +247,18 @@ export const vendorSchema = z
       .describe('Per-field primary sources, each with the date it was checked'),
     deployment_models: z.array(z.string().min(1)).default([]),
     regions: z
-      .array(z.enum(REGIONS))
+      .array(regionCode)
       .default([])
-      .describe('Coarse region buckets; europe excludes the UK, which is uk'),
+      .describe('Where compute can run: country, bloc or area codes'),
     compliance: z.array(complianceEntrySchema).default([]),
     pricing: pricingSchema,
     sovereignty: sovereigntySchema,
+    sovereign_for: z
+      .array(jurisdictionCode)
+      .default([])
+      .describe(
+        'Jurisdictions the vendor is sovereign for; evidence rule on /methodology/#sovereign-for',
+      ),
     notes: maxWords(60, 'notes')
       .optional()
       .describe('Analyst note; no adjectives without evidence'),
@@ -277,6 +306,23 @@ export const vendorSchema = z
           ['sources'],
           `${fact.evidence_url} is dated ${match.verified} in sources but ${fact.verified} on the fact`,
         );
+      }
+    }
+
+    // Sovereign for X is recorded only when the parent is in X (or a member
+    // of bloc X), the vendor documents capacity in X and a residency
+    // commitment exists. Each condition is a sourced fact elsewhere in the
+    // record; the per-code source carries the vendor's own sovereignty claim.
+    const parent = val.sovereignty.parent_jurisdiction;
+    for (const j of val.sovereign_for) {
+      if (!covers(j, parent)) {
+        issue(['sovereign_for'], `${j}: parent ${parent} is not in ${j}`);
+      }
+      if (!val.regions.some((r) => r === j || covers(j, r))) {
+        issue(['sovereign_for'], `${j}: no region in ${j}`);
+      }
+      if (val.sovereignty.data_residency_guarantee === 'unknown') {
+        issue(['sovereign_for'], `${j}: data residency is not verified`);
       }
     }
 

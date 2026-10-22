@@ -71,9 +71,9 @@ deployment_models:
 # list: US and Canada, Europe (CZ, FR, NL, RO, SE, IS) and Australia. Coarse
 # buckets; more data centres exist elsewhere.
 regions:
-  - us
-  - europe
-  - apac
+  - US
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

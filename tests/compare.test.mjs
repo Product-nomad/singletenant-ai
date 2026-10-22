@@ -31,7 +31,7 @@ const vendor = (over = {}) => ({
 test('summary covers category, compliance, residency, jurisdiction, pricing', () => {
   const lines = differencesSummary(
     vendor(),
-    vendor({ name: 'B', category: 'eu-sovereign' }),
+    vendor({ name: 'B', category: 'managed-selfhost' }),
   );
   assert.deepEqual(
     lines.map((l) => l.topic),
@@ -80,8 +80,8 @@ test('no summary line leaks empty or undefined text', () => {
 // Indexability scoring (reposition 2026-10, AUDIT.md section 2).
 test('pairDistinctiveness rewards verified differences only', () => {
   const same = pairDistinctiveness(
-    { ...vendor(), slug: 'a', regions: ['us'] },
-    { ...vendor({ name: 'B' }), slug: 'b', regions: ['us'] },
+    { ...vendor(), slug: 'a', regions: ['US'] },
+    { ...vendor({ name: 'B' }), slug: 'b', regions: ['US'] },
   );
   assert.equal(same.score, 0);
 
@@ -95,20 +95,20 @@ test('pairDistinctiveness rewards verified differences only', () => {
         pricing: { model: 'x', public: false },
       }),
       slug: 'a',
-      regions: ['us'],
+      regions: ['US'],
     },
     {
       ...vendor({
         name: 'B',
-        category: 'uk-sovereign',
+        category: 'managed-selfhost',
         compliance: [{ cert: 'ISO27001' }],
         sovereignty: {
           data_residency_guarantee: 'stated',
-          parent_jurisdiction: 'UK',
+          parent_jurisdiction: 'GB',
         },
       }),
       slug: 'b',
-      regions: ['uk'],
+      regions: ['GB'],
     },
   );
   assert.equal(apart.score, 100);
@@ -134,8 +134,8 @@ test('unknown jurisdiction never counts as a difference', () => {
 });
 
 test('pairIsIndexable honours the threshold and overrides', () => {
-  const a = { ...vendor(), slug: 'a', regions: ['us'] };
-  const b = { ...vendor({ name: 'B' }), slug: 'b', regions: ['us'] };
+  const a = { ...vendor(), slug: 'a', regions: ['US'] };
+  const b = { ...vendor({ name: 'B' }), slug: 'b', regions: ['US'] };
   assert.ok(INDEX_MIN_SCORE > 0);
   assert.equal(pairIsIndexable(a, b, { index: [], noindex: [] }), false);
   assert.equal(pairIsIndexable(b, a, { index: ['a-vs-b'], noindex: [] }), true);

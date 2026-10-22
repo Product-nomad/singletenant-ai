@@ -84,10 +84,10 @@ deployment_models:
 # Regions checked 2026-10-17: Data Zone deployments process data only within
 # the US, EU or Asia Pacific (APAC) data zone; Global processes anywhere.
 regions:
-  - global
-  - us
-  - europe
-  - apac
+  - GLOBAL
+  - US
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

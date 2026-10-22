@@ -88,10 +88,10 @@ deployment_models:
 # EU (Frankfurt, Ireland), EU (London) and Asia-Pacific regions. London names a
 # UK location, so uk is recorded alongside europe.
 regions:
-  - us
-  - uk
-  - europe
-  - apac
+  - US
+  - GB
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

@@ -65,10 +65,10 @@ deployment_models:
 # regions in the US, Europe (Frankfurt, Iceland) and APAC (Tokyo, Malaysia, New
 # South Wales). Regions carry no evidence field in schema v2.
 regions:
-  - global
-  - us
-  - europe
-  - apac
+  - GLOBAL
+  - US
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

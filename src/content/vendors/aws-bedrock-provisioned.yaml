@@ -82,10 +82,10 @@ deployment_models:
 # ap-south-1/ap-southeast-2. AWS's regions page names eu-west-2 "Europe
 # (London)", United Kingdom, so uk is recorded alongside europe.
 regions:
-  - us
-  - uk
-  - europe
-  - apac
+  - US
+  - GB
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

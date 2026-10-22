@@ -2,6 +2,28 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-10-22"
+  type: updated
+  vendors:
+    - civo
+    - nebius
+    - ovhcloud
+    - scaleway
+  summary: >-
+    Schema change: category is now functional only; geography moves to parent
+    jurisdiction (ISO codes, Civo UK to GB), regions (country/bloc codes) and
+    a new sourced Sovereign for field. Recategorised: Civo, Nebius, Scaleway
+    to Dedicated GPU; OVHcloud to Managed self-host. Sovereign for: Civo GB;
+    OVHcloud, Scaleway EU; Nebius none (no claim found). Verified 2026-10-22.
+  sources:
+    - https://www.civo.com/uk-sovereign-cloud
+    - https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    - https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    - https://www.ovhcloud.com/en/terms-and-conditions/
+    - https://www.scaleway.com/en/inference/
+    - https://www.scaleway.com/en/legal-notice/
+    - https://nebius.com/services/token-factory/enterprise-grade-inference
+
 - date: "2026-10-19"
   type: updated
   vendors:

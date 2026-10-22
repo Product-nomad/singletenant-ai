@@ -1,16 +1,13 @@
 slug: civo
 name: Civo
 url: https://www.civo.com
-category: uk-sovereign
+category: dedicated-gpu
 tagline: UK cloud offering single-tenant dedicated NVIDIA GPU compute and inference
 
 last_verified: "2026-10-17"
 sources:
   - field: category
-    url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
-  - field: category
-    url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    url: https://www.civo.com/ai/cloud-gpu
     verified: "2026-10-17"
   - field: tagline
     url: https://www.civo.com/ai/cloud-gpu
@@ -48,6 +45,12 @@ sources:
   - field: sovereignty.parent_jurisdiction
     url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
     verified: "2026-10-17"
+  - field: sovereign_for.GB
+    url: https://www.civo.com/uk-sovereign-cloud
+    verified: "2026-10-22"
+  - field: sovereign_for.GB
+    url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+    verified: "2026-10-22"
   - field: notes
     url: https://find-and-update.company-information.service.gov.uk/company/09568551
     verified: "2026-10-17"
@@ -76,7 +79,7 @@ deployment_models:
 # checked, so it is not recorded here. Regions carry no evidence field in schema
 # v2.
 regions:
-  - uk
+  - GB
 
 compliance:
   - cert: ISO27001
@@ -96,9 +99,14 @@ pricing:
 
 sovereignty:
   data_residency_guarantee: stated
-  parent_jurisdiction: UK
+  parent_jurisdiction: GB
   evidence_url: https://www.civo.com/uk-sovereign-cloud
   verified: "2026-10-17"
+
+# Sovereign for: parent in the jurisdiction, capacity there, a residency
+# commitment, and the vendor's own sovereignty claim (sources dated 2026-10-22).
+sovereign_for:
+  - GB
 
 notes: >-
   Civo Limited is UK-registered (Companies House 09568551); its sole person

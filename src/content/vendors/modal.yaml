@@ -65,10 +65,10 @@ deployment_models:
 # narrower zones. Modal lists uk as a broad region distinct from eu; it was
 # omitted before the uk bucket existed.
 regions:
-  - us
-  - uk
-  - europe
-  - apac
+  - US
+  - GB
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2

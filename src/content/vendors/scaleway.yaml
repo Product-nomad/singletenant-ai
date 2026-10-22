@@ -4,16 +4,13 @@ renamed:
   from: Scaleway Managed Inference
   to: Generative APIs Dedicated Deployment
 url: https://www.scaleway.com
-category: eu-sovereign
+category: dedicated-gpu
 tagline: French cloud offering serverless and dedicated-GPU managed LLM inference
 
 last_verified: "2026-10-17"
 sources:
   - field: category
     url: https://www.scaleway.com/en/inference/
-    verified: "2026-10-17"
-  - field: category
-    url: https://www.scaleway.com/en/legal-notice/
     verified: "2026-10-17"
   - field: tagline
     url: https://www.scaleway.com/en/inference/
@@ -57,6 +54,12 @@ sources:
   - field: sovereignty.parent_jurisdiction
     url: https://www.scaleway.com/en/legal-notice/
     verified: "2026-10-17"
+  - field: sovereign_for.EU
+    url: https://www.scaleway.com/en/inference/
+    verified: "2026-10-22"
+  - field: sovereign_for.EU
+    url: https://www.scaleway.com/en/legal-notice/
+    verified: "2026-10-22"
   - field: notes
     url: https://www.scaleway.com/en/inference/
     verified: "2026-10-17"
@@ -75,7 +78,7 @@ deployment_models:
   - dedicated-gpu-inference
 
 regions:
-  - europe
+  - EU
 
 compliance:
   - cert: ISO27001
@@ -98,6 +101,11 @@ sovereignty:
   parent_jurisdiction: FR
   evidence_url: https://www-uploads.scaleway.com/DPA_2024_ENG_b0abb5cc26.pdf
   verified: "2026-10-17"
+
+# Sovereign for: parent in the jurisdiction, capacity there, a residency
+# commitment, and the vendor's own sovereignty claim (sources dated 2026-10-22).
+sovereign_for:
+  - EU
 
 notes: >-
   Generative APIs Dedicated Deployment (formerly Managed Inference) runs

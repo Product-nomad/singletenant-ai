@@ -1,12 +1,11 @@
 // Display labels for schema v2 enums, shared by matrix, detail, and
 // compare templates so vendor-facing wording is defined once.
+import { jurisdictionName } from '../schemas/jurisdictions.mjs';
 
 export const CATEGORY_LABELS = {
   'dedicated-gpu': 'Dedicated GPU',
   'hyperscaler-dedicated': 'Hyperscaler dedicated',
   'managed-selfhost': 'Managed self-host',
-  'eu-sovereign': 'EU sovereign',
-  'uk-sovereign': 'UK sovereign',
 };
 
 export const CERT_LABELS = {
@@ -61,21 +60,13 @@ export const DEPLOYMENT_LABELS = {
   spot: 'Spot',
 };
 
-// Region buckets are a small controlled vocabulary too (coarse geographies,
-// see the region-verification notes in the vendor YAML). Same mapping contract
-// as deployment models: covered by tests/labels.test.mjs.
-export const REGION_LABELS = {
-  apac: 'Asia-Pacific',
-  europe: 'Europe',
-  global: 'Global',
-  uk: 'UK',
-  us: 'US',
-};
-
 /** @param {string} token */
 export const deploymentLabel = (token) => DEPLOYMENT_LABELS[token] ?? token;
-/** @param {string} token */
-export const regionLabel = (token) => REGION_LABELS[token] ?? token;
+// Regions, parent jurisdictions and sovereign_for share one vocabulary
+// (src/schemas/jurisdictions.mjs), so they share one display name.
+/** @param {string} code */
+export const regionLabel = (code) => jurisdictionName(code);
+export { jurisdictionName };
 
 export const NOT_VERIFIED = 'Not verified';
 
@@ -122,10 +113,15 @@ export const SOURCE_FIELD_LABELS = {
 };
 
 /** @param {string} field */
-export const sourceFieldLabel = (field) =>
-  field.startsWith('compliance.')
-    ? (CERT_LABELS[field.slice('compliance.'.length)] ?? field)
-    : (SOURCE_FIELD_LABELS[field] ?? field);
+export const sourceFieldLabel = (field) => {
+  if (field.startsWith('compliance.')) {
+    return CERT_LABELS[field.slice('compliance.'.length)] ?? field;
+  }
+  if (field.startsWith('sovereign_for.')) {
+    return `Sovereign for ${jurisdictionName(field.slice('sovereign_for.'.length))}`;
+  }
+  return SOURCE_FIELD_LABELS[field] ?? field;
+};
 
 export const CHANGE_TYPE_LABELS = {
   added: 'Added',

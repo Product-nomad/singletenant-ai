@@ -28,10 +28,6 @@
   --color-cat-hyperscaler-dedicated-soft:#f0e8f8;
   --color-cat-managed-selfhost:          #92600d;
   --color-cat-managed-selfhost-soft:     #f6eddd;
-  --color-cat-eu-sovereign:              #166534;
-  --color-cat-eu-sovereign-soft:         #e5f0e8;
-  --color-cat-uk-sovereign:              #1e40af;
-  --color-cat-uk-sovereign-soft:         #e6ecf9;
 
   /* Typography: display/body kept as aliases until the piece 3–5
      template rebuild removes their last usages */

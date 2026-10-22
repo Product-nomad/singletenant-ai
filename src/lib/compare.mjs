@@ -1,7 +1,12 @@
 // Compare-page helpers: canonical pair routing and the data-derived
 // differences summary (thin-page mitigation, SPEC §9): every sentence is
 // computed from the two vendor YAML records. No invented prose.
-import { CATEGORY_LABELS, CERT_LABELS, NOT_VERIFIED } from './labels.mjs';
+import {
+  CATEGORY_LABELS,
+  CERT_LABELS,
+  jurisdictionName,
+  NOT_VERIFIED,
+} from './labels.mjs';
 
 // Canonical compare URL: the pair is ordered alphabetically by slug, so each
 // unordered pair has exactly one page. The reverse ordering 301s to this
@@ -90,7 +95,7 @@ export const differencesSummary = (a, b) => {
   const jur = (v) =>
     v.sovereignty.parent_jurisdiction === 'unknown'
       ? NOT_VERIFIED.toLowerCase()
-      : v.sovereignty.parent_jurisdiction;
+      : jurisdictionName(v.sovereignty.parent_jurisdiction);
   lines.push({
     topic: 'Jurisdiction',
     text:

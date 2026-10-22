@@ -51,7 +51,7 @@ const valid = {
     { field: 'notes', url: 'https://example.com', verified: '2026-07-07' },
   ],
   deployment_models: ['dedicated-endpoint'],
-  regions: ['us'],
+  regions: ['US'],
   compliance: [
     {
       cert: 'SOC2_TYPE2',
@@ -85,11 +85,100 @@ test('a fully-evidenced vendor validates', () => {
   assert.ok(vendorSchema.safeParse(valid).success);
 });
 
-test('uk is an accepted region bucket', () => {
-  assert.ok(vendorSchema.safeParse(withPatch({ regions: ['uk'] })).success);
+test('country, bloc and area region codes are accepted', () => {
+  assert.ok(
+    vendorSchema.safeParse(withPatch({ regions: ['GB', 'EU', 'APAC'] }))
+      .success,
+  );
 });
 
-test('a region outside the bucket enum is rejected', () => {
+test('a region code missing from the jurisdiction map is rejected', () => {
+  for (const bad of ['uk', 'UK', 'europe', 'DE']) {
+    assert.equal(
+      vendorSchema.safeParse(withPatch({ regions: [bad] })).success,
+      false,
+      bad,
+    );
+  }
+});
+
+test('parent_jurisdiction must be a mapped ISO 3166 code', () => {
+  const parent = (code) =>
+    vendorSchema.safeParse(
+      withPatch({
+        sovereignty: { ...valid.sovereignty, parent_jurisdiction: code },
+      }),
+    ).success;
+  assert.ok(parent('GB'));
+  assert.equal(parent('UK'), false, 'UK is not ISO 3166-1; use GB');
+  assert.equal(parent('EU'), false, 'a parent company is in a country');
+  assert.equal(parent('ZZ'), false);
+});
+
+// A vendor sovereign for `code`, with the per-code source the record needs.
+const sovereign = (code, patch = {}) =>
+  vendorSchema.safeParse(
+    withPatch({
+      sovereign_for: [code],
+      sources: [
+        ...valid.sources,
+        {
+          field: `sovereign_for.${code}`,
+          url: 'https://example.com/sovereign',
+          verified: '2026-07-07',
+        },
+      ],
+      ...patch,
+    }),
+  );
+
+test('sovereign_for is accepted when parent, region and residency line up', () => {
+  assert.ok(sovereign('US').success);
+});
+
+test('sovereign_for needs its own source', () => {
+  assert.equal(
+    vendorSchema.safeParse(withPatch({ sovereign_for: ['US'] })).success,
+    false,
+  );
+});
+
+test('sovereign_for is rejected when the parent is elsewhere', () => {
+  assert.equal(sovereign('GB', { regions: ['GB'] }).success, false);
+});
+
+test('sovereign_for a bloc covers a member-state parent', () => {
+  const res = sovereign('EU', {
+    regions: ['EU'],
+    sovereignty: { ...valid.sovereignty, parent_jurisdiction: 'FR' },
+  });
+  assert.ok(res.success, JSON.stringify(res.error?.issues));
+});
+
+test('sovereign_for is rejected without capacity or residency there', () => {
+  assert.equal(sovereign('US', { regions: ['EU'] }).success, false);
+  assert.equal(
+    sovereign('US', {
+      sovereignty: {
+        parent_jurisdiction: 'US',
+        data_residency_guarantee: 'unknown',
+        evidence_url: valid.sovereignty.evidence_url,
+        verified: valid.sovereignty.verified,
+      },
+      sources: [
+        ...withoutSources('sovereignty.data_residency_guarantee'),
+        {
+          field: 'sovereign_for.US',
+          url: 'https://example.com/sovereign',
+          verified: '2026-07-07',
+        },
+      ],
+    }).success,
+    false,
+  );
+});
+
+test('a region outside the jurisdiction map is rejected (legacy)', () => {
   assert.equal(
     vendorSchema.safeParse(withPatch({ regions: ['emea'] })).success,
     false,

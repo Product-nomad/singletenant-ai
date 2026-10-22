@@ -59,8 +59,8 @@ deployment_models:
 # https://huggingface.co/docs/inference-endpoints/en/faq which names AWS
 # us-east-1 / eu-west-1, Azure eastus and GCP us-east4. No Asia-Pacific region.
 regions:
-  - us
-  - europe
+  - US
+  - EU
 
 compliance:
   - cert: SOC2_TYPE2

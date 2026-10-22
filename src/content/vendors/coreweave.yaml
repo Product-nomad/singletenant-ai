@@ -71,9 +71,9 @@ deployment_models:
 # https://www.coreweave.com/news/coreweave-announces-two-initial-data-centers-in-the-uk-are-now-operational
 # Regions carry no evidence field in schema v2.
 regions:
-  - us
-  - uk
-  - europe
+  - US
+  - GB
+  - EU
 
 compliance:
   - cert: SOC2_TYPE2

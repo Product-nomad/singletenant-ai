@@ -1,16 +1,16 @@
 slug: ovhcloud
 name: OVHcloud
 url: https://www.ovhcloud.com
-category: eu-sovereign
+category: managed-selfhost
 tagline: French cloud with per-token AI Endpoints and managed model deployment
 
 last_verified: "2026-10-17"
 sources:
   - field: category
-    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    url: https://www.ovhcloud.com/en/public-cloud/ai-deploy/
     verified: "2026-10-17"
   - field: category
-    url: https://www.ovhcloud.com/en/terms-and-conditions/
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
     verified: "2026-10-17"
   - field: tagline
     url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
@@ -45,6 +45,12 @@ sources:
   - field: sovereignty.parent_jurisdiction
     url: https://www.ovhcloud.com/en/terms-and-conditions/
     verified: "2026-10-17"
+  - field: sovereign_for.EU
+    url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
+    verified: "2026-10-22"
+  - field: sovereign_for.EU
+    url: https://www.ovhcloud.com/en/terms-and-conditions/
+    verified: "2026-10-22"
   - field: notes
     url: https://www.ovhcloud.com/en/public-cloud/ai-endpoints/
     verified: "2026-10-17"
@@ -69,7 +75,7 @@ deployment_models:
   - managed-model-deployment
 
 regions:
-  - europe
+  - EU
 
 compliance:
   - cert: ISO27001
@@ -96,6 +102,11 @@ sovereignty:
   parent_jurisdiction: FR
   evidence_url: https://contract.eu.ovhapis.com/1.0/pdf/Conditions_particulieres_OVH_Stack-we.pdf
   verified: "2026-10-17"
+
+# Sovereign for: parent in the jurisdiction, capacity there, a residency
+# commitment, and the vendor's own sovereignty claim (sources dated 2026-10-22).
+sovereign_for:
+  - EU
 
 notes: >-
   AI Endpoints is a serverless per-token API (more than 20 open-weight

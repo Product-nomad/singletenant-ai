@@ -15,14 +15,12 @@ import {
   displayName,
   EVIDENCE_LEVEL_LABELS,
   evidenceLevelLabel,
-  REGION_LABELS,
   sourceFieldLabel,
 } from '../src/lib/labels.mjs';
 import {
   CATEGORIES,
   CERTS,
   EVIDENCE_LEVELS,
-  REGIONS,
   SOURCE_FIELDS,
 } from '../src/schemas/vendor.mjs';
 
@@ -62,7 +60,6 @@ assertMapped(
   (d) => d.deployment_models ?? [],
 );
 assertMapped('category', CATEGORY_LABELS, (d) => [d.category]);
-assertMapped('region', REGION_LABELS, (d) => d.regions ?? []);
 assertMapped('compliance cert', CERT_LABELS, (d) =>
   (d.compliance ?? []).map((c) => c.cert),
 );
@@ -82,7 +79,6 @@ const assertEnumLabelled = (label, values, labels) => {
   });
 };
 
-assertEnumLabelled('region', REGIONS, REGION_LABELS);
 assertEnumLabelled('category', CATEGORIES, CATEGORY_LABELS);
 assertEnumLabelled('compliance cert', CERTS, CERT_LABELS);
 

@@ -87,9 +87,9 @@ deployment_models:
 # checked 2026-07-13; re-checked 2026-10-17 after the page moved to the Gemini
 # Enterprise Agent Platform docs.
 regions:
-  - us
-  - europe
-  - apac
+  - US
+  - EU
+  - APAC
 
 compliance:
   - cert: SOC2_TYPE2
