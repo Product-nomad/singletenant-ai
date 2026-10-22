@@ -156,7 +156,6 @@ Then in the Cloudflare dashboard:
 
 1. Cloudflare: Email → Email Routing → Routes
 2. Forward `simon@singletenant.ai` → your personal inbox
-3. Optional: also forward `partnerships@`, `editor@`, `hello@`
 
 ### 5. Search Console
 
@@ -168,7 +167,6 @@ Then in the Cloudflare dashboard:
 ### 6. Social handles
 
 - X / Twitter: `@singletenantai`
-- LinkedIn: company page
 - GitHub: organisation `singletenant-ai`
 
 ### 7. Legal pages — LIVE 404s (urgent, site is already deployed)

@@ -102,7 +102,7 @@ if (external) {
           headers: { 'user-agent': 'singletenant.ai link check' },
         });
         if (res.ok) return null;
-        // LinkedIn answers automated requests with a non-standard 999; that
+        // Some sites answer automated requests with a non-standard 999; that
         // is bot blocking, not a dead page, so it is reported as a warning.
         if (res.status === 999) {
           warnings.push(`${href} (HTTP 999, bot-blocked; check by hand)`);

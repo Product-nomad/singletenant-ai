@@ -37,7 +37,7 @@ There is no first-party server or database. The site holds no visitor data; the 
 |---|---|---|
 | Cloudflare Workers Static Assets | Standard request metadata (IP, user agent, timestamp) | Hosting + CDN |
 | Cloudflare Web Analytics | Aggregated, cookieless page-view events | Traffic insight (token pending) |
-| Cloudflare Email Routing | Inbound mail to `editor@` / `hello@` aliases | Corrections + contact channel |
+| Cloudflare Email Routing | Inbound mail to `simon@singletenant.ai` | Corrections + contact channel |
 | Affiliate networks (e.g. Partnerstack for RunPod) | Click-through referral attribution, on their side of the link | Affiliate revenue |
 
 Disclosed on the public `/privacy/` page (spec piece 8).
@@ -55,7 +55,7 @@ Disclosed on the public `/privacy/` page (spec piece 8).
 | R1 | Secret committed to the repo | No build-time secrets exist; drift-watch Telegram token lives in `~/.hermes/.env` outside the repo; affiliate IDs are public-by-design URL parameters. |
 | R2 | npm supply chain attack | Dependencies pinned via committed `package-lock.json`; lefthook pre-commit keeps history buildable; audit before dependency bumps. |
 | R3 | Build pipeline compromise | Cloudflare builds from the repo; build commands visible in `package.json`; no secrets to exfiltrate at build time. |
-| R4 | **A published vendor fact is wrong or unsourced** — the core reputational/legal risk | Schema v2: every populated fact requires an `evidence_url` + verified date, enforced by Zod at build time; unverifiable fields render "Not verified", never a guess; no field filled from model memory; correction process + `editor@` channel on `/methodology/`. |
+| R4 | **A published vendor fact is wrong or unsourced** — the core reputational/legal risk | Schema v2: every populated fact requires an `evidence_url` + verified date, enforced by Zod at build time; unverifiable fields render "Not verified", never a guess; no field filled from model memory; correction process + `simon@singletenant.ai` channel on `/methodology/`. |
 | R5 | Affiliate non-disclosure (UK ASA CAP Code, US FTC) / missing privacy notice (UK GDPR Art 13) | Piece 8 ships `/privacy/`, `/terms/`, `/disclosure/` with disclosure rendered on every page an affiliate link appears; piece 8 lands before RunPod's affiliate link is exposed in v2. |
 | R6 | Google manual action against thin programmatic compare pages | Each of the 105 compare pages carries a data-derived differences summary generated from YAML deltas, not bare side-by-side tables. |
 | R7 | Vendor data drift — stale claims presented as current | Visible per-section last-verified dates; public `/changelog/`; weekly report-only drift watch HTTP-checks every evidence URL and flags status/redirect changes for manual review. |

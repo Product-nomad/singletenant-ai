@@ -103,7 +103,7 @@ export const handle = async (request, env, send) => {
   if (!result.ok) return respond(request, false, 400);
   if (result.bot) return respond(request, true, 200);
 
-  const from = env.FROM_ADDRESS ?? 'newsletter@singletenant.ai';
+  const from = env.FROM_ADDRESS ?? 'simon@singletenant.ai';
   try {
     await send(
       from,
