@@ -8,8 +8,10 @@ import { test } from 'node:test';
 import {
   articleSchema,
   breadcrumbSchema,
+  jurisdictionsSchema,
   latestVerified,
   ORGANIZATION_ID,
+  place,
   softwareApplication,
   vendorComparisonSchema,
   vendorDirectorySchema,
@@ -245,4 +247,73 @@ test('breadcrumbSchema is a single BreadcrumbList with absolute URLs', () => {
     crumbs.itemListElement[1].item,
     'https://singletenant.ai/disclosure/',
   );
+});
+
+// Jurisdiction fields (2026-10-22): parent jurisdiction as the provider's
+// addressCountry, article spatialCoverage, and the /jurisdictions/ page.
+
+test('provider carries addressCountry only for a known parent jurisdiction', () => {
+  const base = {
+    slug: 'x',
+    name: 'X',
+    url: 'https://x.example',
+    tagline: 't',
+    compliance: [],
+    pricing: {},
+  };
+  const known = softwareApplication({
+    ...base,
+    sovereignty: { parent_jurisdiction: 'GB' },
+  });
+  assert.equal(known.provider.address.addressCountry, 'GB');
+  const unknown = softwareApplication({
+    ...base,
+    sovereignty: { parent_jurisdiction: 'unknown' },
+  });
+  assert.equal(unknown.provider.address, undefined);
+});
+
+test('place names a jurisdiction and keeps its code', () => {
+  assert.deepEqual(place('EU'), {
+    '@type': 'Place',
+    name: 'EU/EEA',
+    identifier: 'EU',
+  });
+});
+
+test('articles list their jurisdictions as spatialCoverage', () => {
+  const g = articleSchema({
+    title: 't',
+    description: 'd',
+    author: 'a',
+    pubDate: new Date('2026-01-01'),
+    slug: 's',
+    jurisdiction: ['GB'],
+  });
+  assert.deepEqual(
+    g['@graph'][0].spatialCoverage.map((p) => p.identifier),
+    ['GB'],
+  );
+  const none = articleSchema({
+    title: 't',
+    description: 'd',
+    author: 'a',
+    pubDate: new Date('2026-01-01'),
+    slug: 's',
+  });
+  assert.equal(none['@graph'][0].spatialCoverage, undefined);
+});
+
+test('jurisdictionsSchema is a CollectionPage about each listed jurisdiction', () => {
+  const g = jurisdictionsSchema({
+    groups: [{ code: 'GB' }, { code: 'US' }],
+    description: 'd',
+  });
+  const [page, crumbs] = g['@graph'];
+  assert.equal(page['@type'], 'CollectionPage');
+  assert.deepEqual(
+    page.about.map((p) => p.identifier),
+    ['GB', 'US'],
+  );
+  assert.equal(crumbs['@type'], 'BreadcrumbList');
 });

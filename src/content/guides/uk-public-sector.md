@@ -36,11 +36,11 @@ writing time. Set status: published, pub_date and last_verified when done. -->
 ## Sovereignty and jurisdiction
 
 - Residency is not sovereignty. Link the UK buyer's position article and the residency vs sovereignty guide.
-- The UK-sovereign category in the matrix, and why it is short.
+- Vendors recorded as sovereign for the United Kingdom, and why the list is short.
 
 ## Using the matrix
 
-- Filter on the UK region and the UK and EU sovereign categories.
+- Filter on parent jurisdiction GB and Sovereign for: United Kingdom; check UK regions on each profile.
 - Read "Not verified" as a question to put to the vendor, not as a no.
 
 ## Sources to cite

@@ -2,10 +2,12 @@
 title: "The jurisdiction problem: why an EU region is not EU sovereign"
 description: "Data residency and data sovereignty are different claims. A US-parented vendor with an EU region is still reachable under US law, and the matrix keeps the two apart."
 pub_date: 2026-07-12
-updated: 2026-10-17
+updated: 2026-10-22
 author: "Simon Newton"
 category: "analysis"
 target_keyword: "eu data sovereignty"
+jurisdiction:
+  - EU
 tags:
   - sovereignty
   - compliance
@@ -64,21 +66,25 @@ region reads as what it is.
 
 ## Walking the sixteen
 
-Three vendors in the database are EU-parented, and they make up the EU
-sovereign category. [Nebius](/vendors/nebius/) contracts through a Dutch entity
+Three vendors in the database are EU-parented.
+[Nebius](/vendors/nebius/) contracts through a Dutch entity
 (parent jurisdiction NL). [OVHcloud](/vendors/ovhcloud/) is French.
 [Scaleway](/vendors/scaleway/) is also French. Scaleway and OVHcloud both
 commit in their contract terms to keeping data in the location the customer
 selects, which our [evidence levels](/methodology/#evidence-levels) record as
 Contractual; Nebius describes EU and US data-residency options only on its own
 pages, recorded as Stated. Jurisdiction and residency stay separate even here.
-EU parentage is a necessary condition for EU sovereignty, not a sufficient one.
+OVHcloud and Scaleway also claim sovereignty for their EU services on their own
+pages, so the data records them as sovereign for the EU; Nebius makes no such
+claim on the pages checked, so it is EU-parented without being recorded as EU
+sovereign. EU parentage is a necessary condition for EU sovereignty, not a
+sufficient one.
 
 One vendor stands apart from all of these. [Civo](/vendors/civo/) is
 UK-parented: on the Companies House register its sole person with significant
-control is a UK-resident individual, with no foreign parent. That places it in
-its own category, UK sovereign, and makes it the only vendor here whose parent
-jurisdiction and residency point at the same place. Civo states that it keeps
+control is a UK-resident individual, with no foreign parent. The data records
+it as sovereign for the United Kingdom, and it is the only vendor here whose
+parent jurisdiction and residency point at the same country. Civo states that it keeps
 data in the UK under UK law, and there is no foreign parent to pull it into
 another jurisdiction. That statement is on Civo's own pages rather than in its
 service terms, so our data records it as Stated. For a UK buyer that is a genuinely different position
@@ -143,9 +149,9 @@ None of these is answered by a region selector.
 ## Read the two columns separately
 
 You can see the shape of this across the market on the
-[vendor matrix](/vendors/): set the Category filter to EU sovereign for the
-three EU-parented options or UK sovereign for the UK-parented one, and read the
-parent jurisdiction shown against each vendor's residency column for everyone
-else. Residency and sovereignty are
+[vendor matrix](/vendors/): filter by parent jurisdiction or by sovereign for,
+and read the parent jurisdiction shown against each vendor's residency column.
+The [jurisdictions index](/jurisdictions/) groups the same data by
+jurisdiction. Residency and sovereignty are
 different columns because they are different questions. Treating an EU region as
 EU sovereignty is the most common way to get this wrong.

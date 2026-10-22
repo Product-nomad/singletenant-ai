@@ -6,6 +6,7 @@ import {
   deploymentLabel,
   displayName,
   evidenceLevelLabel,
+  jurisdictionName,
   regionLabel,
 } from '../lib/labels.mjs';
 
@@ -53,7 +54,17 @@ const rows: Array<{
   },
   {
     label: 'Parent jurisdiction',
-    get: (d) => d.sovereignty.parent_jurisdiction,
+    get: (d) =>
+      d.sovereignty.parent_jurisdiction === 'unknown'
+        ? 'unknown'
+        : jurisdictionName(d.sovereignty.parent_jurisdiction),
+  },
+  {
+    label: 'Sovereign for',
+    get: (d) =>
+      d.sovereign_for.length > 0
+        ? d.sovereign_for.map(jurisdictionName).join(', ')
+        : 'Not recorded',
   },
   { label: 'Analyst note', get: (d) => d.notes },
 ];

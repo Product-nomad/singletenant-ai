@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { glossaryTermSchema, guideSchema } from './schemas/guide.mjs';
+import { isJurisdiction } from './schemas/jurisdictions.mjs';
 import { isoDate, vendorSchema } from './schemas/vendor.mjs';
 
 /* ─────────────────────────────────────────────────────────────
@@ -42,6 +43,16 @@ const articles = defineCollection({
       .default([])
       .describe('Target query cluster this piece is written for'),
     tags: z.array(z.string()).default([]),
+    jurisdiction: z
+      .array(
+        z
+          .string()
+          .refine(isJurisdiction, 'not in src/schemas/jurisdictions.mjs'),
+      )
+      .default([])
+      .describe(
+        'Jurisdictions the piece is specific to; lists it on /jurisdictions/',
+      ),
     sponsor: z
       .string()
       .optional()

@@ -11,6 +11,8 @@ keywords:
   - "is hyperscaler sovereign cloud really sovereign"
   - "eu cloud sovereignty framework levels explained"
   - "cloud act sovereign cloud"
+jurisdiction:
+  - EU
 tags:
   - sovereignty
   - compliance

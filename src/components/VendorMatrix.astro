@@ -11,9 +11,9 @@ import {
   CATEGORY_LABELS,
   CERT_LABELS,
   deploymentLabel,
-  displayName,
   EVIDENCE_LEVEL_LABELS,
   evidenceLevelLabel,
+  jurisdictionName,
   NOT_VERIFIED,
   regionLabel,
 } from '../lib/labels.mjs';
@@ -40,6 +40,18 @@ const categoriesPresent = Object.keys(CATEGORY_LABELS).filter((c) =>
 const certsPresent = Object.keys(CERT_LABELS).filter((cert) =>
   sorted.some((v) => v.data.compliance.some((e) => e.cert === cert)),
 );
+const byName = (a: string, b: string) =>
+  jurisdictionName(a).localeCompare(jurisdictionName(b));
+const parentsPresent = [
+  ...new Set(
+    sorted
+      .map((v) => v.data.sovereignty.parent_jurisdiction)
+      .filter((j) => j !== 'unknown'),
+  ),
+].sort(byName);
+const sovereignPresent = [
+  ...new Set(sorted.flatMap((v) => v.data.sovereign_for)),
+].sort(byName);
 
 // Search text per row: every name a reader might type, old and new.
 const searchText = (d: CollectionEntry<'vendors'>['data']) =>
@@ -61,6 +73,32 @@ const pricingLabel = (model: string) =>
         ))}
       </div>
     </fieldset>
+
+    <fieldset class="filter-group">
+      <legend>Parent jurisdiction</legend>
+      <div class="filter-options" role="group">
+        <button type="button" data-filter-jur="all" aria-pressed="true">All</button>
+        {parentsPresent.map((j) => (
+          <button type="button" data-filter-jur={j} aria-pressed="false">
+            {jurisdictionName(j)}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+
+    {sovereignPresent.length > 0 && (
+      <fieldset class="filter-group">
+        <legend>Sovereign for</legend>
+        <div class="filter-options" role="group">
+          <button type="button" data-filter-sov="all" aria-pressed="true">Any</button>
+          {sovereignPresent.map((j) => (
+            <button type="button" data-filter-sov={j} aria-pressed="false">
+              {jurisdictionName(j)}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+    )}
 
     {certsPresent.length > 0 && (
       <fieldset class="filter-group">
@@ -146,6 +184,8 @@ const pricingLabel = (model: string) =>
               .map((e) => e.cert)
               .join(' ')}
             data-residency={data.sovereignty.data_residency_guarantee}
+            data-jurisdiction={data.sovereignty.parent_jurisdiction}
+            data-sovereign-for={data.sovereign_for.join(' ')}
             data-search={searchText(data)}
           >
             <th scope="row">
@@ -186,7 +226,14 @@ const pricingLabel = (model: string) =>
             <td>
               {evidenceLevelLabel(data.sovereignty.data_residency_guarantee)}
               {data.sovereignty.parent_jurisdiction !== 'unknown' && (
-                <span class="jurisdiction">({data.sovereignty.parent_jurisdiction} parent)</span>
+                <span class="jurisdiction">
+                  ({jurisdictionName(data.sovereignty.parent_jurisdiction)} parent)
+                </span>
+              )}
+              {data.sovereign_for.length > 0 && (
+                <span class="jurisdiction">
+                  Sovereign for {data.sovereign_for.map(jurisdictionName).join(', ')}
+                </span>
               )}
             </td>
           </tr>
@@ -196,12 +243,15 @@ const pricingLabel = (model: string) =>
   </div>
 
   <p class="matrix-note">
-    Category reflects a vendor's parent jurisdiction; data residency is a
-    separate, per-vendor fact graded by its own evidence (Contractual, Stated or
-    Not verified), so a sovereign-category vendor (EU or UK) can still read
-    "Stated" or "Not verified" for residency (see
-    <a href="/blog/jurisdiction-eu-region-not-sovereign/">why an EU region is not
-    EU sovereign</a>).
+    Three separate facts: <strong>category</strong> is how the service is
+    delivered; <strong>parent jurisdiction</strong> is the country whose law
+    governs the parent company; <strong>data residency</strong> is whether the
+    vendor commits to keeping data in a chosen region, graded Contractual,
+    Stated or Not verified. A region in one country does not change the
+    parent's jurisdiction. "Sovereign for" is recorded only where parent,
+    capacity, residency and the vendor's own claim all point at the same
+    jurisdiction (<a href="/methodology/#sovereign-for">how it is set</a>;
+    <a href="/jurisdictions/">by jurisdiction</a>).
   </p>
 </div>
 
@@ -217,8 +267,19 @@ const pricingLabel = (model: string) =>
     const contractualOnly = filters.querySelector<HTMLInputElement>('[data-filter-contractual-only]');
     const resButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-res]');
     const search = filters.querySelector<HTMLInputElement>('[data-filter-search]');
+    const jurButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-jur]');
+    const sovButtons = filters.querySelectorAll<HTMLButtonElement>('[data-filter-sov]');
+    // Each single-choice group holds 'all' or a set of wanted values (a
+    // comma-separated deep link can select several).
     let activeCat: string | string[] = 'all';
+    let activeJur: string | string[] = 'all';
+    let activeSov: string | string[] = 'all';
     let activeRes = 'all';
+    const matches = (active: string | string[], values: string[]) =>
+      active === 'all' ||
+      (Array.isArray(active)
+        ? active.some((a) => values.includes(a))
+        : values.includes(active));
 
     const apply = () => {
       const wantedCerts = [...certBoxes]
@@ -226,10 +287,12 @@ const pricingLabel = (model: string) =>
         .map((b) => b.dataset.filterCert ?? '');
       let shown = 0;
       for (const row of rows) {
-        const rowCat = row.dataset.category ?? '';
-        const catOk =
-          activeCat === 'all' ||
-          (Array.isArray(activeCat) ? activeCat.includes(rowCat) : rowCat === activeCat);
+        const catOk = matches(activeCat, [row.dataset.category ?? '']);
+        const jurOk = matches(activeJur, [row.dataset.jurisdiction ?? '']);
+        const sovOk = matches(
+          activeSov,
+          (row.dataset.sovereignFor ?? '').split(' ').filter(Boolean),
+        );
         const rowCerts = (
           contractualOnly?.checked ? row.dataset.certsContractual : row.dataset.certs
         ) ?? '';
@@ -242,7 +305,7 @@ const pricingLabel = (model: string) =>
           (activeRes === 'stated' && res !== 'unknown');
         const query = (search?.value ?? '').trim().toLowerCase();
         const searchOk = query === '' || (row.dataset.search ?? '').includes(query);
-        const visible = catOk && certsOk && resOk && searchOk;
+        const visible = catOk && jurOk && sovOk && certsOk && resOk && searchOk;
         row.hidden = !visible;
         if (visible) shown++;
       }
@@ -254,57 +317,80 @@ const pricingLabel = (model: string) =>
       }
     };
 
-    for (const btn of catButtons) {
-      btn.addEventListener('click', () => {
-        activeCat = btn.dataset.filterCat ?? 'all';
-        for (const b of catButtons) {
-          b.setAttribute('aria-pressed', String(b === btn));
-        }
-        apply();
-      });
-    }
+    // Single-choice button groups share one wiring: press one, unpress the rest.
+    const wireGroup = (
+      buttons: NodeListOf<HTMLButtonElement>,
+      key: string,
+      set: (v: string) => void,
+    ) => {
+      for (const btn of buttons) {
+        btn.addEventListener('click', () => {
+          set(btn.dataset[key] ?? 'all');
+          for (const b of buttons) {
+            b.setAttribute('aria-pressed', String(b === btn));
+          }
+          apply();
+        });
+      }
+    };
+    wireGroup(catButtons, 'filterCat', (v) => { activeCat = v; });
+    wireGroup(jurButtons, 'filterJur', (v) => { activeJur = v; });
+    wireGroup(sovButtons, 'filterSov', (v) => { activeSov = v; });
     for (const box of certBoxes) {
       box.addEventListener('change', apply);
     }
     contractualOnly?.addEventListener('change', apply);
     search?.addEventListener('input', apply);
-    for (const btn of resButtons) {
-      btn.addEventListener('click', () => {
-        activeRes = btn.dataset.filterRes ?? 'all';
-        for (const b of resButtons) {
-          b.setAttribute('aria-pressed', String(b === btn));
-        }
-        apply();
-      });
+    wireGroup(resButtons, 'filterRes', (v) => { activeRes = v; });
+
+    // Deep links (progressive enhancement; without JS the full table shows):
+    //   ?category=<slug>, ?jurisdiction=<CODE>, ?sovereign=<CODE>
+    // each comma-separated for several values. Retired geographic categories
+    // (eu-sovereign, uk-sovereign) map to the equivalent Sovereign for filter
+    // and the address bar is rewritten to the new URL.
+    const LEGACY_CATEGORY: Record<string, string> = {
+      'eu-sovereign': 'EU',
+      'uk-sovereign': 'GB',
+    };
+    const params = new URLSearchParams(window.location.search);
+    const split = (v: string | null) =>
+      (v ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+    const cats = split(params.get('category'));
+    const legacy = cats.filter((c) => c in LEGACY_CATEGORY);
+    if (legacy.length > 0) {
+      const sov = new Set([
+        ...split(params.get('sovereign')),
+        ...legacy.map((c) => LEGACY_CATEGORY[c]),
+      ]);
+      const rest = cats.filter((c) => !(c in LEGACY_CATEGORY));
+      if (rest.length > 0) params.set('category', rest.join(','));
+      else params.delete('category');
+      params.set('sovereign', [...sov].join(','));
+      history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}?${params.toString().replaceAll('%2C', ',')}${window.location.hash}`,
+      );
     }
 
-    // Progressive enhancement for the homepage intent chips: a ?category=<slug>
-    // deep link pre-activates that category filter. A comma-separated value
-    // (?category=eu-sovereign,uk-sovereign, the UK & EU sovereignty chip) filters
-    // to that set of categories, with no single button pressed. Without JS the
-    // link simply lands on the full, unfiltered table (this block never runs), so
-    // the chip still works, it just does not narrow the view.
-    const wantedCatParam = new URLSearchParams(window.location.search).get('category');
-    if (wantedCatParam) {
-      const wanted = wantedCatParam
-        .split(',')
-        .map((s) => s.trim())
-        .filter((w) => [...catButtons].some((b) => b.dataset.filterCat === w));
-      if (wanted.length === 1) {
-        const target = [...catButtons].find((b) => b.dataset.filterCat === wanted[0]);
-        if (target) {
-          activeCat = wanted[0];
-          for (const b of catButtons) {
-            b.setAttribute('aria-pressed', String(b === target));
-          }
-        }
-      } else if (wanted.length > 1) {
-        activeCat = wanted;
-        for (const b of catButtons) {
-          b.setAttribute('aria-pressed', 'false');
-        }
+    // Press the matching button for one value; several values filter to the
+    // set with no single button pressed. Unknown values are ignored.
+    const preselect = (
+      buttons: NodeListOf<HTMLButtonElement>,
+      key: string,
+      wanted: string[],
+      set: (v: string | string[]) => void,
+    ) => {
+      const valid = wanted.filter((w) => [...buttons].some((b) => b.dataset[key] === w));
+      if (valid.length === 0) return;
+      set(valid.length === 1 ? valid[0] : valid);
+      for (const b of buttons) {
+        b.setAttribute('aria-pressed', String(valid.length === 1 && b.dataset[key] === valid[0]));
       }
-    }
+    };
+    preselect(catButtons, 'filterCat', split(params.get('category')), (v) => { activeCat = v; });
+    preselect(jurButtons, 'filterJur', split(params.get('jurisdiction')), (v) => { activeJur = v; });
+    preselect(sovButtons, 'filterSov', split(params.get('sovereign')), (v) => { activeSov = v; });
 
     // First-visit column set (homepage only): collapse to the 5-column scan set
     // and offer a toggle that reveals Deployment + Pricing. Progressive

@@ -12,6 +12,8 @@ keywords:
   - "uk gdpr llm hosting"
   - "fca cloud outsourcing ai"
   - "does uk adequacy cover ai hosting"
+jurisdiction:
+  - GB
 tags:
   - sovereignty
   - compliance
@@ -104,7 +106,7 @@ where the CLOUD Act question does not arise as a matter of structure.
 
 That is a narrow finding, and stated narrowly on purpose. One qualifying vendor
 is not a market. The bar was the existing [methodology](/methodology/) inclusion
-criteria, applied without loosening to fill the category: UK-parented ownership
+criteria, applied without loosening to fill the list: UK-parented ownership
 verified on the register, a single-tenant GPU product, and primary-sourced
 compliance and residency claims. Civo cleared it. The marketing listicles that
 prompted the search did not count as evidence and were not cited. A UK buyer who

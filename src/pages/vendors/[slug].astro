@@ -14,6 +14,7 @@ import {
   deploymentLabel,
   displayName,
   evidenceLevelLabel,
+  jurisdictionName,
   NOT_VERIFIED,
   regionLabel,
   sourceFieldLabel,
@@ -188,7 +189,22 @@ const fmtUnknown = (val: string | boolean) => {
             </tr>
             <tr>
               <td class="fact-label">Parent jurisdiction</td>
-              <td>{fmtUnknown(data.sovereignty.parent_jurisdiction)}</td>
+              <td>
+                {data.sovereignty.parent_jurisdiction === 'unknown'
+                  ? NOT_VERIFIED
+                  : `${jurisdictionName(data.sovereignty.parent_jurisdiction)} (${data.sovereignty.parent_jurisdiction})`}
+              </td>
+            </tr>
+            <tr>
+              <td class="fact-label">
+                Sovereign for
+                (<a href="/methodology/#sovereign-for">rule</a>)
+              </td>
+              <td>
+                {data.sovereign_for.length > 0
+                  ? data.sovereign_for.map(jurisdictionName).join(', ')
+                  : 'Not recorded'}
+              </td>
             </tr>
           </tbody>
         </table>

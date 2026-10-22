@@ -1,0 +1,139 @@
+---
+// Jurisdictions index: vendors and analysis grouped by jurisdiction. One page,
+// no per-jurisdiction pages: a jurisdiction is listed only when verified data
+// puts a vendor or article in it (src/lib/jurisdictions.mjs).
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { groupByJurisdiction } from '../lib/jurisdictions.mjs';
+import { displayName } from '../lib/labels.mjs';
+import { jurisdictionsSchema } from '../lib/schema.mjs';
+
+const vendors = (await getCollection('vendors')).map((v) => v.data);
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const groups = groupByJurisdiction(vendors, articles);
+
+const description =
+  'Single-tenant LLM hosting vendors grouped by jurisdiction: where the parent company is incorporated, which vendors are sovereign for a jurisdiction, and who has capacity there.';
+const schema = jurisdictionsSchema({ groups, description });
+
+type V = (typeof vendors)[number];
+const vendorLinks = (list: V[]) =>
+  list.map((v) => ({ href: `/vendors/${v.slug}/`, name: displayName(v) }));
+---
+
+<BaseLayout title="Jurisdictions" description={description} schema={schema}>
+  <section class="border-b border-[var(--color-rule)]">
+    <div class="mx-auto max-w-4xl px-6 py-14">
+      <p class="eyebrow mb-3">Jurisdictions</p>
+      <h1 class="m-0 mb-4" style="font-size: clamp(2rem, 4.5vw, 3rem);">
+        By jurisdiction
+      </h1>
+      <p class="text-lg m-0 max-w-3xl" style="color: var(--color-ink-soft);">
+        Which vendors answer to which law, which are sovereign for a
+        jurisdiction, and who can run workloads there. A jurisdiction appears
+        only when verified data puts a vendor or article in it; parent
+        jurisdiction, regions and sovereign for are defined on the
+        <a href="/methodology/#jurisdiction">methodology</a> page.
+      </p>
+      <nav class="jur-toc" aria-label="Jurisdictions">
+        {groups.map((g) => <a href={`#${g.code.toLowerCase()}`}>{g.name}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-4xl px-6 py-10">
+      {groups.map((g) => (
+        <article class="jur" id={g.code.toLowerCase()}>
+          <h2 class="m-0 mb-4">
+            {g.name} <span class="jur-code">{g.code}</span>
+          </h2>
+          <dl>
+            {g.sovereign.length > 0 && (
+              <>
+                <dt>Sovereign for {g.name}</dt>
+                <dd>
+                  {vendorLinks(g.sovereign).map((l, i) => (
+                    <>{i > 0 && ', '}<a href={l.href}>{l.name}</a></>
+                  ))}
+                  {' '}<a class="jur-filter" href={`/vendors/?sovereign=${g.code}`} aria-label={`Show vendors sovereign for ${g.name} in the matrix`}>view in matrix</a>
+                </dd>
+              </>
+            )}
+            <dt>{g.isBloc ? `Parent in a ${g.name} member state` : `Parent company in ${g.name}`}</dt>
+            <dd>
+              {g.parented.length > 0
+                ? vendorLinks(g.parented).map((l, i) => (
+                    <>{i > 0 && ', '}<a href={l.href}>{l.name}</a></>
+                  ))
+                : 'None recorded'}
+              {!g.isBloc && g.parented.length > 0 && (
+                <> <a class="jur-filter" href={`/vendors/?jurisdiction=${g.code}`} aria-label={`Show vendors with a parent in ${g.name} in the matrix`}>view in matrix</a></>
+              )}
+            </dd>
+            <dt>Documented capacity in {g.name}</dt>
+            <dd>
+              {g.capacity.length > 0
+                ? vendorLinks(g.capacity).map((l, i) => (
+                    <>{i > 0 && ', '}<a href={l.href}>{l.name}</a></>
+                  ))
+                : 'None recorded'}
+            </dd>
+            {g.articles.length > 0 && (
+              <>
+                <dt>Analysis</dt>
+                <dd>
+                  <ul class="m-0">
+                    {g.articles.map((a) => (
+                      <li><a href={`/blog/${a.id}/`}>{a.data.title}</a></li>
+                    ))}
+                  </ul>
+                </dd>
+              </>
+            )}
+          </dl>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .jur-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .jur {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .jur-code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-mute);
+  }
+
+  .jur dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    margin-top: 1rem;
+  }
+
+  .jur dd {
+    margin: 0.3rem 0 0;
+  }
+
+  .jur-filter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+</style>

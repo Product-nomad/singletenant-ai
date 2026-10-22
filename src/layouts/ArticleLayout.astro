@@ -16,6 +16,7 @@ interface Props {
   category: string;
   slug: string;
   target_keyword?: string;
+  jurisdiction?: string[];
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   author,
   category,
   slug,
+  jurisdiction = [],
 } = Astro.props;
 
 // Schema.org: the Article (headline, author, publish/modified dates) plus a
@@ -39,6 +41,7 @@ const schema = articleSchema({
   pubDate: pub_date,
   updated,
   slug,
+  jurisdiction,
 });
 ---
 

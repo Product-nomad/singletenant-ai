@@ -4,7 +4,7 @@
 // last-verified dates, and navigation. Deliberately no aggregateRating,
 // review, or offers/price, none of which the pages assert.
 import { comparePath } from './compare.mjs';
-import { alternateNames } from './labels.mjs';
+import { alternateNames, jurisdictionName } from './labels.mjs';
 
 const SITE = 'https://singletenant.ai';
 
@@ -56,7 +56,17 @@ export const MEASURED_VARIABLES = [
   'Pricing model',
   'Data residency guarantee',
   'Parent jurisdiction',
+  'Regions',
+  'Sovereign for',
 ];
+
+// A jurisdiction code as a schema.org Place: the display name plus the code
+// (ISO 3166-1 alpha-2 for countries, or a bloc code such as EU).
+export const place = (code) => ({
+  '@type': 'Place',
+  name: jurisdictionName(code),
+  identifier: code,
+});
 
 // Licence for the vendor dataset. Business decision (2026-07-13): the data may
 // be reused with attribution, so the directory and comparison Datasets declare
@@ -109,6 +119,14 @@ export const softwareApplication = (data) => {
       '@type': 'Organization',
       name: data.name,
       url: data.url,
+      // Parent jurisdiction, only when verified.
+      ...(data.sovereignty?.parent_jurisdiction &&
+        data.sovereignty.parent_jurisdiction !== 'unknown' && {
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: data.sovereignty.parent_jurisdiction,
+          },
+        }),
     },
   };
   const modified = latestVerified(data);
@@ -234,6 +252,7 @@ export const articleSchema = ({
   updated,
   slug,
   section = { name: 'Blog', path: '/blog/' },
+  jurisdiction = /** @type {string[]} */ ([]),
 }) => ({
   '@context': 'https://schema.org',
   '@graph': [
@@ -249,11 +268,35 @@ export const articleSchema = ({
         name: author,
       },
       publisher: organization(),
+      ...(jurisdiction.length > 0 && {
+        spatialCoverage: jurisdiction.map(place),
+      }),
     },
     breadcrumbList([
       { name: 'Home', path: '/' },
       section,
       { name: title, path: `${section.path}${slug}/` },
+    ]),
+  ],
+});
+
+// /jurisdictions/: a CollectionPage about each listed jurisdiction, plus a
+// Home > Jurisdictions trail. `groups` come from groupByJurisdiction.
+export const jurisdictionsSchema = ({ groups, description }) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${abs('/jurisdictions/')}#page`,
+      name: 'Single-tenant LLM hosting by jurisdiction',
+      description,
+      url: abs('/jurisdictions/'),
+      publisher: organization(),
+      about: groups.map((g) => place(g.code)),
+    },
+    breadcrumbList([
+      { name: 'Home', path: '/' },
+      { name: 'Jurisdictions', path: '/jurisdictions/' },
     ]),
   ],
 });

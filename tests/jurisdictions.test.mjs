@@ -75,3 +75,56 @@ test('UK is not a code; GB is the United Kingdom', () => {
   assert.equal(jurisdictionName('GB'), 'United Kingdom');
   assert.equal(jurisdictionName('EU'), 'EU/EEA');
 });
+
+// Grouping for /jurisdictions/ (src/lib/jurisdictions.mjs).
+import { groupByJurisdiction } from '../src/lib/jurisdictions.mjs';
+
+const v = (name, parent, regions = [], sovereign_for = []) => ({
+  name,
+  regions,
+  sovereign_for,
+  sovereignty: { parent_jurisdiction: parent },
+});
+
+test('a jurisdiction appears only with a parent, sovereign vendor or article', () => {
+  const groups = groupByJurisdiction(
+    [v('A', 'US', ['US', 'GB']), v('B', 'FR', ['EU'], ['EU'])],
+    [],
+  );
+  assert.deepEqual(
+    groups.map((g) => g.code),
+    ['EU', 'FR', 'US'],
+    'GB has only region capacity, so no section',
+  );
+});
+
+test('a bloc lists member-state parents, sovereign vendors and capacity', () => {
+  const [eu] = groupByJurisdiction(
+    [
+      v('A', 'US', ['US', 'EU']),
+      v('B', 'FR', ['EU'], ['EU']),
+      v('C', 'NL', ['EU']),
+    ],
+    [{ id: 'x', data: { jurisdiction: ['EU'] } }],
+  ).filter((g) => g.code === 'EU');
+  assert.deepEqual(
+    eu.parented.map((x) => x.name),
+    ['B', 'C'],
+  );
+  assert.deepEqual(
+    eu.sovereign.map((x) => x.name),
+    ['B'],
+  );
+  assert.deepEqual(
+    eu.capacity.map((x) => x.name),
+    ['A', 'B', 'C'],
+  );
+  assert.equal(eu.articles.length, 1);
+});
+
+test('a bloc region is not capacity in any one member country', () => {
+  const fr = groupByJurisdiction([v('B', 'FR', ['EU'])], []).find(
+    (g) => g.code === 'FR',
+  );
+  assert.deepEqual(fr?.capacity, []);
+});
