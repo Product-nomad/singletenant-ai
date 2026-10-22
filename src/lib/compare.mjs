@@ -128,7 +128,8 @@ export const differencesSummary = (a, b) => {
 // differs between vendors, so it carries no signal. Each dimension scores 0-1;
 // the total is scaled to 0-100.
 //   category      1 if the categories differ
-//   jurisdiction  1 if both parents are known and differ
+//   jurisdiction  1 if both parents are known and differ, or the two
+//                 sovereign_for sets differ (counted once, never twice)
 //   residency     1 if both guarantees are known and differ; 0.5 if one is
 //                 verified and the other is not
 //   compliance    Jaccard distance of the two cert sets (0 if either is empty)
@@ -162,6 +163,9 @@ const jaccardDistance = (x, y) => {
   return 1 - shared / union;
 };
 
+const sameSet = (x, y) =>
+  x.length === y.length && x.every((v) => y.includes(v));
+
 const knownAndDiffer = (x, y) => x !== 'unknown' && y !== 'unknown' && x !== y;
 
 /**
@@ -174,12 +178,13 @@ export const pairDistinctiveness = (a, b) => {
   const resB = b.sovereignty.data_residency_guarantee;
   const parts = {
     category: a.category === b.category ? 0 : 1,
-    jurisdiction: knownAndDiffer(
-      a.sovereignty.parent_jurisdiction,
-      b.sovereignty.parent_jurisdiction,
-    )
-      ? 1
-      : 0,
+    jurisdiction:
+      knownAndDiffer(
+        a.sovereignty.parent_jurisdiction,
+        b.sovereignty.parent_jurisdiction,
+      ) || !sameSet(a.sovereign_for ?? [], b.sovereign_for ?? [])
+        ? 1
+        : 0,
     residency: knownAndDiffer(resA, resB)
       ? 1
       : (resA === 'unknown') !== (resB === 'unknown')

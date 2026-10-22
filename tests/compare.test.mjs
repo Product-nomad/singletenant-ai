@@ -133,6 +133,33 @@ test('unknown jurisdiction never counts as a difference', () => {
   assert.equal(r.parts.regions, 0);
 });
 
+test('jurisdiction scores once for a differing parent or sovereign_for', () => {
+  const pair = (a, b) =>
+    pairDistinctiveness(
+      { ...vendor(a), slug: 'a', regions: [] },
+      { ...vendor({ name: 'B', ...b }), slug: 'b', regions: [] },
+    ).parts.jurisdiction;
+  const parent = (j) => ({
+    sovereignty: {
+      data_residency_guarantee: 'unknown',
+      parent_jurisdiction: j,
+    },
+  });
+  // Same parent, same (empty) sovereign_for: no difference.
+  assert.equal(pair({}, {}), 0);
+  // Same parent, sovereign_for differs: counts.
+  assert.equal(pair({ sovereign_for: ['US'] }, {}), 1);
+  // Parent differs only: counts.
+  assert.equal(pair({}, parent('GB')), 1);
+  // Both differ: still counts once, not twice.
+  assert.equal(pair({}, { ...parent('GB'), sovereign_for: ['GB'] }), 1);
+  // Same sovereign_for in a different order is not a difference.
+  assert.equal(
+    pair({ sovereign_for: ['EU', 'GB'] }, { sovereign_for: ['GB', 'EU'] }),
+    0,
+  );
+});
+
 test('pairIsIndexable honours the threshold and overrides', () => {
   const a = { ...vendor(), slug: 'a', regions: ['US'] };
   const b = { ...vendor({ name: 'B' }), slug: 'b', regions: ['US'] };
