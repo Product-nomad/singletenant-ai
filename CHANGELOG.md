@@ -2,6 +2,14 @@
 
 User-visible and governance changes, newest first. Site data changes (vendor facts, verification dates) live in the public `/changelog/` page from v2; this file tracks the project itself.
 
+## v2.5 jurisdiction-neutral model (2026-10-22, branch `generic-jurisdiction-model`, merged to main)
+
+- 2026-10-22: Single contact address. Every email and mailto: is simon@singletenant.ai (editor@ and newsletter@ retired); LinkedIn links removed from /about/, /contact/, README and the linkcheck comment.
+- 2026-10-22: Data model (ADR in DECISIONS.md). Category is functional only; `eu-sovereign` and `uk-sovereign` removed. New `src/schemas/jurisdictions.mjs` vocabulary (GB, US, NL, FR, EU bloc, APAC/GLOBAL areas). `parent_jurisdiction` ISO-only (Civo UK to GB); regions as codes; new sourced `sovereign_for` with schema-enforced consistency. Public `/changelog/` entry for the four recategorised vendors.
+- 2026-10-22: UI. Matrix gains Parent jurisdiction and Sovereign for filters (`?jurisdiction=`, `?sovereign=` deep links; legacy `?category=eu-sovereign|uk-sovereign` rewritten). Homepage chip is "Filter by jurisdiction"; matrix footnote explains category vs parent jurisdiction vs residency without naming countries; methodology rewritten (regions, jurisdiction, sovereign-for rule); profile and compare tables show Sovereign for; header links Jurisdictions.
+- 2026-10-22: Content. Articles take a `jurisdiction` front-matter field (two EU, one GB). New `/jurisdictions/` index grouping vendors (parent, sovereign for, capacity) and articles; only jurisdictions with verified data appear, and no per-jurisdiction pages. The jurisdiction article, UK buyer article and UK public sector stub are reworded to the new model (Nebius is EU-parented but not recorded as EU sovereign).
+- 2026-10-22: Structured data. Provider `address.addressCountry` from parent jurisdiction; Dataset `variableMeasured` adds Regions and Sovereign for; articles carry `spatialCoverage`; `/jurisdictions/` emits a CollectionPage. Tests 101/101; build 161 pages; linkcheck 0 broken; local Lighthouse 100/100/100/100 on five pages. Compare pairs indexed 75 to 68.
+
 ## v2.4 reposition as an independent reference (2026-10-17, branch `reposition/2026-10`, PR open)
 
 Turns the site from a reference site with a consulting funnel into an independent reference site, prepares monetisation surfaces that stay switched off, and acts on the findings in `AUDIT.md`. These are site, governance and schema changes, so they are recorded here only. No vendor fact changed, so nothing is added to the public `/changelog/`. Adding `last_verified` and `sources` re-recorded existing data and verified nothing new.

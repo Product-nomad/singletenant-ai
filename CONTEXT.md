@@ -18,18 +18,19 @@ Single source of truth for the site's vocabulary. Site copy, vendor YAML, spec w
 | **Single-tenant** | Inference infrastructure where the customer's workload runs on capacity not shared with other customers. The umbrella term for the site's scope. |
 | **Dedicated** | A vendor's own word for single-tenant capacity (dedicated instances, dedicated endpoints). Use the vendor's current term on their profile, with the date it was recorded. |
 | **Multi-tenant** | Shared serverless inference — out of scope except as contrast. |
-| **Sovereign / EU sovereign** | Hosting under EU jurisdiction and ownership guarantees, marketed for data-sovereignty requirements. The site's differentiator category. |
+| **Parent jurisdiction** | The country (ISO 3166-1 alpha-2, e.g. `GB`, never `UK`) where the vendor's parent company is incorporated. The law that can compel the company. |
+| **Sovereign for** | A sourced per-vendor field naming jurisdictions (country or bloc) the vendor is sovereign for: parent there, capacity there, residency at least Stated, and the vendor's own sovereignty claim. Never inferred; never a category. Avoid "EU sovereign"/"UK sovereign" as category names. |
+| **Region code** | Where compute can run: a country code, a bloc (`EU` = EU/EEA) or an area (`APAC`, `GLOBAL`). Vocabulary in `src/schemas/jurisdictions.mjs`, extended by hand. |
 | **PTU (provisioned throughput unit)** | Azure OpenAI's unit of dedicated capacity. Hyperscaler terms rename constantly — always record the vendor's current term + the date. |
 | **Data residency** | Where data can be pinned geographically. A verifiable fact with an evidence URL, not a marketing adjective. |
 
-## Category tags (schema enum — exact slugs)
+## Category tags (schema enum — exact slugs; functional only, never geographic)
 
 | Slug | Meaning |
 |---|---|
 | `dedicated-gpu` | Dedicated GPU / inference clouds (Baseten, Modal, RunPod, …) |
 | `hyperscaler-dedicated` | Hyperscaler dedicated capacity (Bedrock provisioned, Azure PTU, Vertex provisioned) |
 | `managed-selfhost` | Managed self-host platforms (HF dedicated endpoints, NVIDIA NIM/DGX) |
-| `eu-sovereign` | EU sovereign clouds (OVHcloud, Scaleway, Nebius, IONOS) |
 
 ## Evidence vocabulary
 
