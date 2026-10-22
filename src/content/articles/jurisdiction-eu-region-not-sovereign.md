@@ -72,8 +72,10 @@ Three vendors in the database are EU-parented.
 [Scaleway](/vendors/scaleway/) is also French. Scaleway and OVHcloud both
 commit in their contract terms to keeping data in the location the customer
 selects, which our [evidence levels](/methodology/#evidence-levels) record as
-Contractual; Nebius describes EU and US data-residency options only on its own
-pages, recorded as Stated. Jurisdiction and residency stay separate even here.
+Contractual. Nebius's
+[Data Processing Agreement](https://docs.nebius.com/legal/dpa) (section 6.1,
+checked 22 October 2026) now commits dedicated endpoints to the region the
+customer selects, so it is Contractual too. Jurisdiction and residency stay separate even here.
 OVHcloud and Scaleway also claim sovereignty for their EU services on their own
 pages, so the data records them as sovereign for the EU; Nebius makes no such
 claim on the pages checked, so it is EU-parented without being recorded as EU
@@ -120,9 +122,11 @@ A final pair is US-parented and offers no region a buyer can pin from a primary
 source, for different reasons. [NVIDIA NIM](/vendors/nvidia-nim/) is
 run-anywhere software: you deploy the containers on infrastructure you choose,
 so there is no vendor-published region at all, and residency is whatever your
-own hosting is. [Together AI](/vendors/together-ai/) documents no deployment
-region for its serverless or dedicated-endpoint inference, and its terms make no
-residency commitment, so our data records residency as not verified. For both, the database
+own hosting is. [Together AI](/vendors/together-ai/) says on its
+[dedicated endpoints page](https://www.together.ai/dedicated-endpoints) that
+customers choose the deployment region for data residency, but names no regions
+and its terms make no residency commitment, so our data records residency as
+Stated and regions as not verified. For both, the database
 records regions as not verified rather than guessing, so a buyer cannot lean on
 an EU-region claim.
 

@@ -5,6 +5,31 @@
 - date: "2026-10-22"
   type: updated
   vendors:
+    - nebius
+  summary: >-
+    Nebius data residency upgraded from Stated to Contractual: Data Processing
+    Agreement section 6.1 now commits Token Factory dedicated endpoints to
+    process Customer Content in the region the customer selects (public model
+    endpoints follow the processing location shown in the API). Verified
+    2026-10-22.
+  sources:
+    - https://docs.nebius.com/legal/dpa
+
+- date: "2026-10-22"
+  type: updated
+  vendors:
+    - together-ai
+  summary: >-
+    Together AI data residency moves from Not verified to Stated: the dedicated
+    endpoints page says customers choose the deployment region for data
+    residency. Its terms still make no geographic commitment, and no regions
+    are named, so regions stay not verified. Verified 2026-10-22.
+  sources:
+    - https://www.together.ai/dedicated-endpoints
+
+- date: "2026-10-22"
+  type: updated
+  vendors:
     - civo
     - nebius
     - ovhcloud

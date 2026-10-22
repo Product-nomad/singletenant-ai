@@ -33,9 +33,15 @@ sources:
   - field: pricing
     url: https://www.together.ai/pricing
     verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://www.together.ai/dedicated-endpoints
+    verified: "2026-10-22"
   - field: sovereignty.parent_jurisdiction
     url: https://www.together.ai/terms-of-service
     verified: "2026-10-17"
+  - field: notes
+    url: https://www.together.ai/dedicated-endpoints
+    verified: "2026-10-22"
   - field: notes
     url: https://www.together.ai/pricing
     verified: "2026-10-17"
@@ -83,15 +89,16 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: unknown
+  data_residency_guarantee: stated
   parent_jurisdiction: US
-  evidence_url: https://www.together.ai/terms-of-service
-  verified: "2026-10-17"
+  evidence_url: https://www.together.ai/dedicated-endpoints
+  verified: "2026-10-22"
 
 notes: >-
   Dedicated endpoints are explicitly single-tenant GPU instances with public
-  per-hour pricing. Terms make no geographic storage commitment, so residency
-  is not verified. ISO 27001:2022 certified by A-LIGN, an ANAB-accredited
+  per-hour pricing. The dedicated endpoints page says customers choose the
+  deployment region for data residency; the terms make no geographic
+  commitment, so residency is Stated. ISO 27001:2022 certified by A-LIGN, an ANAB-accredited
   body. Reserved dedicated capacity is also sold in throughput units (PTUs).
 
 featured: true

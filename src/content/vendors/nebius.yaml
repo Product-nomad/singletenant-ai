@@ -48,6 +48,9 @@ sources:
   - field: sovereignty.data_residency_guarantee
     url: https://nebius.com/services/token-factory/enterprise-grade-inference
     verified: "2026-10-17"
+  - field: sovereignty.data_residency_guarantee
+    url: https://docs.nebius.com/legal/dpa
+    verified: "2026-10-22"
   - field: sovereignty.parent_jurisdiction
     url: https://docs.nebius.com/legal/agreement
     verified: "2026-10-17"
@@ -101,10 +104,12 @@ pricing:
   verified: "2026-10-17"
 
 sovereignty:
-  data_residency_guarantee: stated
+  # DPA 6.1 (checked 2026-10-22): for Token Factory dedicated endpoints,
+  # Customer Content is processed in the region the customer selects.
+  data_residency_guarantee: contractual
   parent_jurisdiction: NL
-  evidence_url: https://nebius.com/services/token-factory/enterprise-grade-inference
-  verified: "2026-10-17"
+  evidence_url: https://docs.nebius.com/legal/dpa
+  verified: "2026-10-22"
 
 notes: >-
   Token Factory offers shared or single-tenant endpoints with optional
