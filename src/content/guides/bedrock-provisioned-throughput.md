@@ -1,5 +1,5 @@
 ---
-title: "Amazon Bedrock provisioned throughput: model units, commitment terms, pricing"
+title: "Amazon Bedrock provisioned throughput: model units, pricing"
 description: "How Amazon Bedrock Provisioned Throughput works: what a model unit buys, the three commitment terms, how it is billed and what AWS publishes about price."
 audience: "Teams sizing or procuring reserved Bedrock capacity, including for customised models"
 order: 11

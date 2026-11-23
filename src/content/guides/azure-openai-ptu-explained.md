@@ -1,6 +1,6 @@
 ---
-title: "Azure OpenAI PTU explained: provisioned throughput vs pay-as-you-go, pricing model, global/data-zone/regional deployments"
-description: "What an Azure OpenAI PTU buys, how it is billed against pay-as-you-go, what it costs at published rates, and where Global, Data Zone and Regional deployments process data."
+title: "Azure OpenAI PTU: what a provisioned throughput unit is"
+description: "A PTU is Azure OpenAI's unit of reserved model capacity, billed hourly whether used or not, or cheaper on a reservation. Costs and deployment types explained."
 audience: "Teams pricing or procuring Azure OpenAI capacity for production workloads"
 order: 10
 jurisdiction: []
@@ -19,6 +19,13 @@ sources:
   - url: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types
     verified: "2026-10-22"
 ---
+
+**In short:** a PTU (provisioned throughput unit) is what Microsoft calls a
+[generic unit of model processing capacity](https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput-billing)
+for Azure OpenAI. You choose how many PTUs a provisioned deployment gets,
+Microsoft reserves that capacity, and you pay for it by the hour whether or not
+it handles requests, or at a discount through a monthly or yearly Azure
+Reservation.
 
 Azure OpenAI offers two ways to pay for the same models: by the token on a
 Standard deployment, or by reserved capacity on a provisioned deployment
