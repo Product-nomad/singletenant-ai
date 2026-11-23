@@ -6,6 +6,10 @@ moving it to **Done** with the date.
 
 ## Open
 
+> **Affiliate asks deferred to a review with Simon at the end of December 2026** (decided 2026-11-23; Telegram
+> reminder on 30 Dec). Until then, don't re-raise the two affiliate items below. For the review, the monthly run on
+> 1 Dec should note each vendor's outbound clicks or impressions, where measurable, in `docs/owner-log.md`.
+
 - **2026-11-23 · RunPod referral link.** You're already a RunPod referrer. Send your referral link, or your
   PartnerStack affiliate link if you have that tier, and it goes on `/vendors/runpod/` through the
   disclosure-gated `affiliate_url`. RunPod's docs: 3% of Pod spend and 5% of Serverless spend for 6 months, paid in
