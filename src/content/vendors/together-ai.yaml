@@ -51,6 +51,9 @@ sources:
   - field: notes
     url: https://www.together.ai/blog/iso-27001-2022-certification
     verified: "2026-10-17"
+  - field: notes
+    url: https://docs.together.ai/docs/dedicated-endpoints/manage
+    verified: "2026-11-23"
 
 deployment_models:
   - serverless
@@ -96,9 +99,9 @@ sovereignty:
 
 notes: >-
   Dedicated endpoints are explicitly single-tenant GPU instances with public
-  per-hour pricing. The dedicated endpoints page says customers choose the
-  deployment region for data residency; the terms make no geographic
-  commitment, so residency is Stated. ISO 27001:2022 certified by A-LIGN, an ANAB-accredited
-  body. Reserved dedicated capacity is also sold in throughput units (PTUs).
+  per-hour pricing. Placement can be restricted to named regions or region
+  patterns at deploy time, but the docs list no EU or UK region and the terms
+  make no geographic commitment, so residency is Stated. ISO 27001:2022
+  certified by A-LIGN. Reserved capacity is also sold in throughput units (PTUs).
 
 featured: true
