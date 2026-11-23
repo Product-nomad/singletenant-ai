@@ -90,3 +90,27 @@ test('repo guides and glossary validate', () => {
     assert.ok(glossaryTermSchema.safeParse(t).success, t.id);
   }
 });
+
+// Compare and vendor pages link the published guides that cover their vendors,
+// so a guide collects the internal links for its topic instead of competing
+// with a dozen compare pages for it.
+import { guidesCovering } from '../src/lib/guides.mjs';
+
+const g = (id, vendors, status = 'published', order = 0) => ({
+  id,
+  data: { vendors, status, order },
+});
+
+test('guidesCovering returns published guides for any of the vendors, in guide order', () => {
+  const all = [
+    g('bedrock', ['aws-bedrock-provisioned'], 'published', 20),
+    g('ptu', ['azure-openai-ptu'], 'published', 10),
+    g('both', ['azure-openai-ptu', 'aws-bedrock-provisioned'], 'published', 30),
+    g('draft', ['aws-bedrock-provisioned'], 'stub', 5),
+  ];
+  assert.deepEqual(
+    guidesCovering(all, ['aws-bedrock-provisioned', 'modal']).map((x) => x.id),
+    ['bedrock', 'both'],
+  );
+  assert.deepEqual(guidesCovering(all, ['modal']), []);
+});
