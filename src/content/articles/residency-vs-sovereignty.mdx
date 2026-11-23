@@ -1,7 +1,8 @@
 ---
 title: "Data residency vs data sovereignty vs operational sovereignty"
-description: "Data residency is where data sits. Data sovereignty is whose law governs it. Operational sovereignty is who can run and reach the system. Three terms, three questions, kept apart."
+description: "Data residency is where data sits; data sovereignty is whose law governs it; operational sovereignty is who can reach it. How the LLM hosts we track compare on each."
 pub_date: 2026-07-19
+updated: 2026-11-23
 author: "Simon Newton"
 category: "guide"
 target_keyword: "data residency vs data sovereignty"
@@ -9,6 +10,7 @@ keywords:
   - "data residency vs data sovereignty"
   - "data sovereignty vs operational sovereignty"
   - "what is data sovereignty ai"
+  - "data sovereignty vs data residency"
 tags:
   - sovereignty
   - compliance
@@ -17,12 +19,21 @@ featured: false
 draft: false
 ---
 
+import ResidencyTable from '../../components/ResidencyTable.astro';
+
 **Data residency** is where your data physically sits and is processed. **Data
 sovereignty** is which country's laws govern that data and the company holding
 it. **Operational sovereignty** is who can run, administer and reach the system
 that processes it. They are three separate questions, and a vendor can give a
 strong answer to one while failing another. Most of the confusion in regulated
 AI procurement comes from treating them as a single question.
+
+| | Data residency | Data sovereignty | Operational sovereignty |
+|---|---|---|---|
+| The question | Where is the data stored and processed? | Whose law governs the data and the company holding it? | Who can run, administer and reach the system? |
+| Decided by | The region, and any contractual location commitment | The parent company's jurisdiction | Who holds admin access, keys and the control plane |
+| Evidence to ask for | A contract or DPA clause naming the location | Corporate ownership and where the parent is incorporated | Staffing, key custody and support arrangements |
+| What it doesn't settle | Who can compel access to the data | Who operates the system day to day | Which law the parent company answers to |
 
 ## Data residency: a question of place
 
@@ -62,6 +73,15 @@ raise the practical difficulty of foreign access; they do not change which law
 the controlling company answers to. That gap is what the
 [sovereignty washing](/blog/sovereignty-washing/) analysis is about.
 
+## How the LLM hosts in this database answer them
+
+Residency and sovereignty come apart in practice, not just in theory. This is
+how every host in the database answers the first two questions, from the
+sourced vendor profiles. Operational sovereignty isn't recorded as a field,
+because vendors rarely document it well enough to verify.
+
+<ResidencyTable />
+
 ## Reading the three together
 
 The three stack rather than compete:
@@ -73,9 +93,10 @@ The three stack rather than compete:
   day-to-day control may not be.
 - **All three aligned**: a domestically parented vendor that keeps data
   in-country and operates it with domestic staff and control plane. In this
-  database, [Civo](/vendors/civo/) is the one vendor whose parent jurisdiction
-  and residency guarantee point at the same place, a different position for a UK
-  buyer than any EU- or US-parented option. The
+  database, [Civo](/vendors/civo/) is the only UK-parented host and the only
+  one recorded as sovereign for the UK, a different position for a UK buyer
+  than any EU- or US-parented option; [OVHcloud](/vendors/ovhcloud/) and
+  [Scaleway](/vendors/scaleway/) are recorded as sovereign for the EU. The
   [UK buyer's position](/blog/uk-buyer-position/) sets out what that does and
   does not settle.
 
@@ -86,6 +107,29 @@ system needs operational sovereignty. The [matrix](/vendors/) keeps residency
 and parent jurisdiction in separate columns so you can read them apart;
 operational sovereignty is the question you carry into due diligence once the
 first two are settled.
+
+## Common questions
+
+**Does a UK or EU region make an LLM host sovereign?** No. A region settles
+residency. Sovereignty depends on the parent company's jurisdiction, and a
+US-parented provider remains subject to
+[18 U.S.C. &sect; 2713](https://www.law.cornell.edu/uscode/text/18/2713)
+wherever its data centres are. The table above shows several hosts with a UK
+region and a US parent.
+
+**Does UK GDPR require personal data to stay in the UK?** No. Personal data can
+leave the UK, but every restricted transfer must be covered by UK adequacy
+regulations, an appropriate safeguard (such as the International Data Transfer
+Agreement or the Addendum, with a transfer risk assessment) or an exception,
+according to the
+[ICO's guide to international transfers](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/international-transfers-a-guide/)
+(updated 15 January 2026).
+
+**Which matters more for AI procurement?** It depends on the risk you are
+managing. Residency answers latency and location-specific contract terms;
+sovereignty answers exposure to foreign legal process; operational sovereignty
+answers who can reach the system. Most regulated buyers need to know all
+three, and to know which one a vendor's claim actually covers.
 
 This piece is analysis, not legal advice. A specific procurement should be
 checked against the current rules and with counsel.
