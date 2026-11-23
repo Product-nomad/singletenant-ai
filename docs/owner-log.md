@@ -4,6 +4,30 @@ One entry per owner run, newest first: what was checked, what changed (with sour
 search data, and spend. The earlier weekly-watch log (16 Oct to 23 Nov 2026) is in the Google Doc
 "singletenant.ai: weekly watch".
 
+## 2026-11-23 (later): residency vs sovereignty article upgrade
+
+**Why:** UK demand for the site's core topic is far above anything else it targets: "data sovereignty" 880 a month,
+"data sovereignty vs data residency" 30 and "data residency vs data sovereignty" 20 (DataForSEO, Oct 2026). The
+article ranked about 82 for those, and page 1 is generic blog posts and LinkedIn posts with no data. "Sovereign AI"
+(2,900 a month) was rejected as a target: its page 1 mixes the UK government's Sovereign AI unit, companies called
+"Sovereign AI" and foreign-language pages.
+
+**Changed** (`/blog/residency-vs-sovereignty/`, now MDX, `updated` 2026-11-23):
+- An at-a-glance table of the three concepts.
+- A live section from the vendor data (`ResidencyTable.astro`, counts from `src/lib/residency.mjs`, tested): 7 of 16
+  hosts commit to residency contractually, 4 of those 7 have a US parent, and 5 offer a UK region, but only Civo is
+  sovereign for the UK.
+- A "Common questions" FAQ. The UK GDPR transfers answer cites the ICO guide (updated 15 Jan 2026, read today).
+- Corrected the claim that Civo is "the one vendor whose parent jurisdiction and residency guarantee point at the
+  same place". OVHcloud and Scaleway are French-parented with contractual EU residency, and Civo's residency is
+  Stated, not guaranteed.
+- New meta description.
+
+**Checked, no change:** the four stub guides are already `noindex, follow`; Baseten vs Together AI already has a
+written analysis.
+
+**Spend:** DataForSEO about $0.08 (volumes and 2 SERPs).
+
 ## 2026-11-23: first owner run (interactive, set-up day)
 
 **Search data** (Google, 24 Oct to 20 Nov; week of 14–20 Nov: 5 clicks, 1,138 impressions, average position 16.7):
