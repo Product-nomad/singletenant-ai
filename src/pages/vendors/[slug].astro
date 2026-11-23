@@ -10,6 +10,7 @@ import LastVerified from '../../components/LastVerified.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { comparePath } from '../../lib/compare.mjs';
+import { guidesCovering } from '../../lib/guides.mjs';
 import {
   deploymentLabel,
   displayName,
@@ -45,12 +46,7 @@ const pageTitle = withBrand(vendorTitle(data));
 const allVendors = await getCollection('vendors');
 
 // Published guides that cover this vendor link back from its profile.
-const guides = (
-  await getCollection(
-    'guides',
-    (g) => g.data.status === 'published' && g.data.vendors.includes(data.slug),
-  )
-).sort((x, y) => x.data.order - y.data.order);
+const guides = guidesCovering(await getCollection('guides'), [data.slug]);
 const compareCandidates = allVendors
   .filter((v) => v.data.slug !== data.slug)
   .sort((x, y) => x.data.name.localeCompare(y.data.name));

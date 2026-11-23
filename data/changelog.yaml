@@ -2,6 +2,20 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-11-23"
+  type: updated
+  vendors:
+    - together-ai
+  summary: >-
+    Together AI notes updated: dedicated endpoint placement can now be
+    restricted to named regions or region patterns (such as us-*) when a
+    deployment is created, and can't be changed afterwards. The docs list no
+    EU or UK region and the terms still make no geographic commitment, so
+    residency stays Stated and regions stay not verified. Verified 2026-11-23.
+  sources:
+    - https://docs.together.ai/docs/dedicated-endpoints/manage
+    - https://docs.together.ai/docs/changelog
+
 - date: "2026-10-22"
   type: updated
   vendors:

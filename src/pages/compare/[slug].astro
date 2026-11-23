@@ -7,6 +7,7 @@ import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
 import { oldest } from '../../lib/dates.mjs';
+import { guidesCovering } from '../../lib/guides.mjs';
 import { deploymentLabel, displayName } from '../../lib/labels.mjs';
 import { vendorComparisonSchema } from '../../lib/schema.mjs';
 import {
@@ -53,6 +54,12 @@ const analysis = (await getCollection('pairs')).find(
   (p) => p.data.pair === pairSlug,
 );
 const Analysis = analysis ? (await render(analysis)).Content : undefined;
+
+// Guides on either vendor's product, so the guide collects the links for its topic.
+const guides = guidesCovering(await getCollection('guides'), [
+  a.data.slug,
+  b.data.slug,
+]);
 
 // Find shared and differentiated deployment models
 const sharedDeployment = a.data.deployment_models.filter((opt) =>
@@ -146,6 +153,19 @@ const noIndex = !pairIsIndexable(a.data, b.data);
         Generated from the verified vendor data below; sources and dates on each
         vendor profile.
       </p>
+      {
+        guides.length > 0 && (
+          <p class="m-0 mt-6 text-sm">
+            <span class="font-mono text-xs" style="color: var(--color-mute);">Guide{guides.length > 1 ? 's' : ''}: </span>
+            {guides.map((g, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={`/guides/${g.id}/`}>{g.data.title}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
     </div>
   </section>
 
