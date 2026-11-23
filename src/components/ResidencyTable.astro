@@ -1,0 +1,82 @@
+---
+// How every host in the database answers the residency and sovereignty questions, from the vendor data at build
+// time (used by the residency-vs-sovereignty article). Unverified regions read "Not verified", never "No".
+import { type CollectionEntry, getCollection } from 'astro:content';
+import {
+  evidenceLevelLabel,
+  jurisdictionName,
+  NOT_VERIFIED,
+} from '../lib/labels.mjs';
+import { residencySummary } from '../lib/residency.mjs';
+
+type VendorData = CollectionEntry<'vendors'>['data'];
+
+const vendors = (await getCollection('vendors'))
+  .map((v) => v.data)
+  .sort(
+    (a, b) =>
+      a.sovereignty.parent_jurisdiction.localeCompare(
+        b.sovereignty.parent_jurisdiction,
+      ) || a.name.localeCompare(b.name),
+  );
+const s = residencySummary(vendors);
+const nameOf = (slug: string) => {
+  const d = vendors.find((v) => v.slug === slug);
+  return d?.short_name ?? d?.name ?? slug;
+};
+const list = (slugs: string[]) =>
+  slugs.length <= 1
+    ? (slugs.map(nameOf)[0] ?? 'none')
+    : `${slugs.slice(0, -1).map(nameOf).join(', ')} and ${nameOf(slugs[slugs.length - 1])}`;
+const ukRegion = (d: VendorData) =>
+  d.regions.length === 0
+    ? NOT_VERIFIED
+    : d.regions.includes('GB')
+      ? 'Yes'
+      : 'No';
+const sovereign = (d: VendorData) =>
+  (d.sovereign_for ?? []).length
+    ? d.sovereign_for.map(jurisdictionName).join(', ')
+    : 'None recorded';
+---
+
+<p>
+  Of the {s.total} hosts in this database, {s.contractual} commit to data residency in a contract, {s.stated}
+  state it without a contractual commitment, and {s.unknown} have no verified residency position.
+  {s.contractualUsParent} of the {s.contractual} with contractual residency have a US parent company, so their
+  residency guarantee still sits under US law. {s.gbRegion} offer a UK region, but only {list(s.sovereignFor.GB)}
+  {s.sovereignFor.GB.length === 1 ? 'is' : 'are'} recorded as sovereign for the UK, and {list(s.sovereignFor.EU)}
+  for the EU.
+</p>
+
+<div class="overflow-x-auto">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Host</th>
+        <th scope="col">Parent company</th>
+        <th scope="col">Data residency</th>
+        <th scope="col">UK region</th>
+        <th scope="col">Sovereign for</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        vendors.map((d) => (
+          <tr>
+            <td>
+              <a href={`/vendors/${d.slug}/`}>{d.short_name ?? d.name}</a>
+            </td>
+            <td>{jurisdictionName(d.sovereignty.parent_jurisdiction)}</td>
+            <td>{evidenceLevelLabel(d.sovereignty.data_residency_guarantee)}</td>
+            <td>{ukRegion(d)}</td>
+            <td>{sovereign(d)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<p class="text-xs font-mono" style="color: var(--color-mute);">
+  Generated from the vendor profiles; each profile links the source and check date for every value.
+</p>
