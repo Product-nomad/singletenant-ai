@@ -36,7 +36,6 @@ const articles = defineCollection({
       .describe(
         'Date every factual claim was last checked against its source; renders "Last verified"',
       ),
-    author: z.string().default('Simon Newton'),
     category: z.enum(['guide', 'comparison', 'analysis', 'vertical', 'news']),
     target_keyword: z.string().optional(),
     keywords: z

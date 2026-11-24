@@ -15,6 +15,8 @@ const abs = (path) => new URL(path, `${SITE}/`).toString();
 // Publisher identity, asserted once and reused as creator/publisher. The
 // stable @id lets every page's nodes refer to the one entity that the
 // homepage and /about/ emit as a top-level node.
+import { CREDIT_TEXT, OWNER } from './authorship.mjs';
+
 export const ORGANIZATION_ID = `${SITE}/#organization`;
 
 export const organization = () => ({
@@ -23,6 +25,7 @@ export const organization = () => ({
   name: 'singletenant.ai',
   url: `${SITE}/`,
   logo: `${SITE}/favicon.svg`,
+  founder: { '@type': 'Person', name: OWNER },
 });
 
 // Breadcrumb-only graph for pages without a richer schema (policy pages,
@@ -247,7 +250,6 @@ export const vendorComparisonSchema = ({ a, b, description }) => {
 export const articleSchema = ({
   title,
   description,
-  author,
   pubDate,
   updated,
   slug,
@@ -263,10 +265,10 @@ export const articleSchema = ({
       description,
       datePublished: pubDate.toISOString(),
       dateModified: (updated ?? pubDate).toISOString(),
-      author: {
-        '@type': 'Person',
-        name: author,
-      },
+      // schema.org has no author type for an AI model, so the publishing
+      // organisation is the author and creditText names who wrote it.
+      author: organization(),
+      creditText: CREDIT_TEXT,
       publisher: organization(),
       ...(jurisdiction.length > 0 && {
         spatialCoverage: jurisdiction.map(place),

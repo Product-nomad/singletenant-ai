@@ -3,7 +3,6 @@ title: "Sovereignty washing: reading hyperscaler sovereign cloud claims against 
 description: "Sovereignty washing is sovereign cloud marketing that outruns the criteria. Here is how hyperscaler claims score against the EU Cloud Sovereignty Framework."
 pub_date: 2026-07-18
 updated: 2026-10-17
-author: "Simon Newton"
 category: "analysis"
 target_keyword: "sovereignty washing"
 keywords:

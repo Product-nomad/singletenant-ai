@@ -180,7 +180,6 @@ test('vendorComparisonSchema is a Dataset about both vendors, canonically ordere
 const article = (over = {}) => ({
   title: 'Why an EU region is not EU sovereign',
   description: 'The jurisdiction problem, worked through.',
-  author: 'Simon Newton',
   slug: 'jurisdiction-eu-region-not-sovereign',
   pubDate: new Date('2026-07-12T00:00:00Z'),
   ...over,
@@ -191,8 +190,13 @@ test('articleSchema carries headline, author, and ISO dates, no price', () => {
   assert.equal(g['@context'], 'https://schema.org');
   const node = g['@graph'].find((n) => n['@type'] === 'Article');
   assert.equal(node.headline, 'Why an EU region is not EU sovereign');
-  assert.equal(node.author['@type'], 'Person');
-  assert.equal(node.author.name, 'Simon Newton');
+  // Claude writes the site; schema.org has no author type for an AI model, so
+  // the author is the publishing organisation and creditText names the writer.
+  assert.equal(node.author['@type'], 'Organization');
+  assert.equal(node.author.name, 'singletenant.ai');
+  assert.match(node.creditText, /Claude, an AI model made by Anthropic/);
+  assert.match(node.creditText, /Simon Newton/);
+  assert.equal(node.publisher.founder.name, 'Simon Newton');
   assert.equal(node.datePublished, '2026-07-12T00:00:00.000Z');
   assert.match(node['@id'], /\/blog\/[a-z-]+\/#article$/);
   assert.equal(node.publisher.name, 'singletenant.ai');
@@ -285,7 +289,6 @@ test('articles list their jurisdictions as spatialCoverage', () => {
   const g = articleSchema({
     title: 't',
     description: 'd',
-    author: 'a',
     pubDate: new Date('2026-01-01'),
     slug: 's',
     jurisdiction: ['GB'],
@@ -297,7 +300,6 @@ test('articles list their jurisdictions as spatialCoverage', () => {
   const none = articleSchema({
     title: 't',
     description: 'd',
-    author: 'a',
     pubDate: new Date('2026-01-01'),
     slug: 's',
   });

@@ -3,7 +3,6 @@ title: "The jurisdiction problem: why an EU region is not EU sovereign"
 description: "Data residency and data sovereignty are different claims. A US-parented vendor with an EU region is still reachable under US law, and the matrix keeps the two apart."
 pub_date: 2026-07-12
 updated: 2026-10-22
-author: "Simon Newton"
 category: "analysis"
 target_keyword: "eu data sovereignty"
 jurisdiction:

@@ -6,6 +6,7 @@
 import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import AdSlot from '../../components/AdSlot.astro';
+import Byline from '../../components/Byline.astro';
 import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -31,7 +32,6 @@ const schema =
     ? articleSchema({
         title: data.title,
         description: data.description,
-        author: 'Simon Newton',
         pubDate: new Date(data.pub_date),
         updated: data.updated ? new Date(data.updated) : undefined,
         slug: guide.id,
@@ -70,6 +70,11 @@ const schema =
         <p class="text-sm m-0 mb-3" style="color: var(--color-mute);">
           For: {data.audience}
         </p>
+        {!isStub && (
+          <p class="text-sm font-mono m-0 mb-3" style="color: var(--color-mute);">
+            <Byline />
+          </p>
+        )}
         {data.last_verified && <VerifiedLine date={data.last_verified} />}
       </div>
     </header>

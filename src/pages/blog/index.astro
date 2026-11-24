@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { WRITER } from '../../lib/authorship.mjs';
 
 const articles = (
   await getCollection('articles', ({ data }) => !data.draft)
@@ -51,7 +52,7 @@ const articles = (
                     day: 'numeric', month: 'long', year: 'numeric'
                   })}
                 </time>
-                {' · '}{article.data.author}
+                {' · '}By {WRITER}
               </p>
             </li>
           ))}
