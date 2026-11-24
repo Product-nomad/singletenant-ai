@@ -26,10 +26,9 @@ Newton as owner. The single source is `src/lib/authorship.mjs`: bylines, `/about
 and the JSON-LD `creditText` (author = the Organization, founder Simon, because schema.org has no AI author type).
 
 **Open follow-ups:** Astro 5 to 7 upgrade (clears the last 6 npm advisories; 48h route); a `single-tenant`
-deployment-model value plus label for Baseten's documented Single-tenant option; add `/data/` to `public/llms.txt` once
-#21 and #24 merge; check whether AWS Service Terms 1.24.2 (cross-region inference for generative AI services) weakens
+deployment-model value plus label for Baseten's documented Single-tenant option; check whether AWS Service Terms 1.24.2 (cross-region inference for generative AI services) weakens
 Bedrock PT's "contractual" residency (monthly review); the vendor now styles itself "Runpod" (site says "RunPod");
-the About page refresh is done (Phase 2 item 4), and items 6 to 8 are in #21, #24 and #26.
+Phase 2 items 4 to 8 are all live (About, compare-page sources, /data/, structured data, llms.txt). Astro 7 upgrade in #31 (48h).
 
 **Monetisation stage gates** (`OWNERSHIP.md`): stage 0 now (no ads, affiliates or tracking). Stage 1, contextual
 display ads (EthicalAds-type, about 50,000 page views a month from a developer audience): Cloudflare counts about
