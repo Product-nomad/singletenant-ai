@@ -23,6 +23,11 @@ Budget: about ${{BUDGET}} of Claude usage and at most {{MAX_TURNS}} turns. {{DFS
 Search data: the newest local snapshot is {{SNAPSHOT}}; you may also query the search-console tools (read-only) for
 sc-domain:singletenant.ai and https://singletenant.ai/.
 
+To read a source that WebFetch can't (a JavaScript trust centre, text in an iframe, a PDF or a .docx), run
+`node scripts/render-text.mjs <url> [term ...]`: it renders the page in headless Chromium, or extracts the document
+text, and with terms prints only the matching lines. Use it before you call a field unverifiable. If a source still
+can't be read, record it in `docs/owner-log.md` as "unreadable source" with the URL, and keep the field's old date.
+
 Shell commands must be plain (`npm test`, `npm run build`, `node scripts/x.mjs`). Pipes, redirects, `&&`, git, gh,
 curl and sudo are blocked. The wrapper commits, pushes, opens the PR and decides how it merges.
 

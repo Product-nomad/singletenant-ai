@@ -9,7 +9,8 @@
    the primary source before every edit. A change with nowhere to go is logged as "No field on site", not forced in.
    Company-wide region or GPU news isn't a site change until the vendor's page for the specific dedicated or inference
    product shows it.
-3. **Rotation re-verify.** Fully re-verify these profiles, every field against its source: {{ROTATION}}. Move each
+3. **Rotation re-verify.** Fully re-verify these profiles, every field against its source: {{ROTATION}}. (They're
+   the profiles whose newest source date is oldest, so a profile you can't finish moves to the back of the queue.) Move each
    field's source date only once you have re-read it. If every field on a profile checks out, `last_verified` moves to
    today; if a source no longer supports a field, correct it (a `corrected` entry in `data/changelog.yaml`) or set it
    `unknown`.
