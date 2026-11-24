@@ -5,6 +5,21 @@
 - date: "2026-11-24"
   type: updated
   vendors:
+    - baseten
+  summary: >-
+    Baseten re-verified field by field. Its docs now describe a Single-tenant
+    hosting option (dedicated, fully managed infrastructure with isolated
+    compute and networking) alongside Self-hosted, which keeps inference
+    payloads in the customer's VPC; the analyst note says so. All other facts
+    were confirmed, including SOC 3, ISO 27001 and GDPR on the trust centre.
+  sources:
+    - https://docs.baseten.co/hosting-options/single-tenant
+    - https://docs.baseten.co/hosting-options/self-hosted
+    - https://trust.baseten.co
+
+- date: "2026-11-24"
+  type: updated
+  vendors:
     - runpod
   summary: >-
     RunPod re-verified field by field; every fact still holds (SOC 2 Type 2,
