@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadChangelog } from '../lib/changelog.mjs';
+import { corrections } from '../lib/corrections.mjs';
+
+const LAST_UPDATED = '2026-11-24';
+const log: ReturnType<typeof loadChangelog> = corrections(loadChangelog());
+const vendors = await getCollection('vendors');
+const vendorNames = new Map(vendors.map((v) => [v.data.slug, v.data.name]));
+
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+---
+
+<BaseLayout
+  title="Corrections"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Corrections', path: '/corrections/' },
+  ]}
+  description="How to report an error on singletenant.ai, how vendors can reply to what their profile says, and a dated log of every correction made."
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Editorial</p>
+      <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Corrections
+      </h1>
+      <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
+        Last updated {LAST_UPDATED}
+      </p>
+
+      <div class="prose">
+        <p>
+          Every correction to this site is logged below with its date. Facts
+          are never changed silently: a corrected vendor fact gets a new
+          source and date, and a corrected article carries a note in the text
+          saying what changed.
+        </p>
+
+        <h2 id="report">Reporting an error</h2>
+        <p>
+          Email <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a>
+          with the page, the claim you think is wrong, and a link to the
+          primary source that contradicts it, such as the vendor's own
+          documentation, terms or trust centre. The claim is re-checked
+          against that source. If it fails, the page is corrected and the
+          correction is logged here.
+        </p>
+
+        <h2 id="right-of-reply">For vendors: right of reply</h2>
+        <p>
+          A vendor that thinks its profile or a comparison is wrong, out of
+          date or missing something can write to the same address. Send the
+          primary source that supports the change: your own published
+          documentation, terms, pricing or trust centre page. If it supports
+          the change, the profile is updated, its source and date are
+          recorded, and the change is logged. If it doesn't, you'll be told
+          which source the site relied on and why the fact stands.
+        </p>
+        <p>
+          Corrections are free and are treated the same whether or not a
+          vendor has any commercial relationship with the site. Vendors never
+          see or approve copy before it is published. The full rules are in
+          the <a href="/editorial-policy/">editorial policy</a>.
+        </p>
+
+        <h2 id="log">Corrections log</h2>
+        <p>
+          {log.length} corrections, newest first. Routine updates, where a
+          vendor changed something and the site followed, are in the
+          <a href="/changelog/">changelog</a>, not here.
+        </p>
+      </div>
+
+      <ol class="list-none m-0 mt-6 p-0">
+        {log.map((entry) => (
+          <li class="entry">
+            <time datetime={entry.date} class="font-mono text-sm block mb-2" style="color: var(--color-ink);">
+              {formatDate(entry.date)}
+            </time>
+            <p class="m-0 mb-2 text-sm" style="color: var(--color-ink-soft); line-height: 1.6;">
+              {entry.summary}
+            </p>
+            {entry.vendors.length > 0 && (
+              <p class="m-0 text-xs font-mono">
+                {entry.vendors.map((slug, i) => (
+                  <>
+                    {i > 0 && <span style="color: var(--color-mute);">{' · '}</span>}
+                    <a href={`/vendors/${slug}/`}>{vendorNames.get(slug) ?? slug}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .entry {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .entry:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+</style>

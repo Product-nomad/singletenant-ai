@@ -3,6 +3,19 @@
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
 - date: "2026-11-23"
+  type: corrected
+  vendors:
+    - civo
+    - ovhcloud
+    - scaleway
+  summary: >-
+    Residency vs sovereignty article corrected: it said Civo was the one host
+    whose parent jurisdiction and residency guarantee point at the same place.
+    OVHcloud and Scaleway are French-parented with contractual EU residency,
+    and Civo's residency is Stated, not guaranteed. Corrected 2026-11-23;
+    logged and noted in the article 2026-11-24.
+
+- date: "2026-11-23"
   type: updated
   vendors:
     - together-ai
