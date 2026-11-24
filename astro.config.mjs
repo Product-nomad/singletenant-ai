@@ -29,8 +29,6 @@ export default defineConfig({
     }),
   ],
   vite: {
-    // @ts-expect-error plugin type identity clash between astro's bundled
-    // vite and @tailwindcss/vite's peer — runtime is fine
     plugins: [tailwindcss()],
   },
   build: {
