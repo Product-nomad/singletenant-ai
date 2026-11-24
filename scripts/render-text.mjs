@@ -57,11 +57,23 @@ if (/pdf/.test(type) || /\.pdf(\?|$)/i.test(url)) {
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
-    const res = await page.goto(url, {
-      waitUntil: 'networkidle',
-      timeout: 45000,
-    });
-    await page.waitForTimeout(1500);
+    // Pages that hold connections open (chat widgets, analytics) never reach
+    // network idle, so fall back to the load event; retry once on a transient
+    // network error such as a DNS miss.
+    const open = async () => {
+      try {
+        return await page.goto(url, {
+          waitUntil: 'networkidle',
+          timeout: 30000,
+        });
+      } catch (e) {
+        if (!/Timeout/.test(String(e)))
+          await new Promise((r) => setTimeout(r, 3000));
+        return page.goto(url, { waitUntil: 'load', timeout: 45000 });
+      }
+    };
+    const res = await open();
+    await page.waitForTimeout(2500);
     const parts = [`HTTP ${res?.status() ?? '?'} ${page.url()}`];
     for (const frame of page.frames()) {
       const t = await frame
