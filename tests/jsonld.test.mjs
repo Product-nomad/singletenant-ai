@@ -8,6 +8,7 @@ import { test } from 'node:test';
 import {
   articleSchema,
   breadcrumbSchema,
+  dataPageSchema,
   jurisdictionsSchema,
   latestVerified,
   ORGANIZATION_ID,
@@ -152,6 +153,56 @@ test('vendorDirectorySchema enumerates every vendor in an ItemList', () => {
     list.itemListElement[1].url,
     'https://singletenant.ai/vendors/beta/',
   );
+  assertNoForbiddenKeys(g);
+});
+
+test('the vendor Dataset offers the CSV and JSON downloads, versioned by the last data change', () => {
+  const g = vendorDirectorySchema({
+    vendors: [vendor()],
+    description: 'dir',
+    dateModified: '2026-11-23',
+  });
+  const dataset = g['@graph'].find((n) => n['@type'] === 'Dataset');
+  assert.equal(dataset.version, '2026-11-23');
+  assert.deepEqual(
+    dataset.distribution.map((d) => [
+      d['@type'],
+      d.encodingFormat,
+      d.contentUrl,
+    ]),
+    [
+      ['DataDownload', 'text/csv', 'https://singletenant.ai/data/vendors.csv'],
+      [
+        'DataDownload',
+        'application/json',
+        'https://singletenant.ai/data/vendors.json',
+      ],
+    ],
+  );
+});
+
+test('the ItemList is alphabetical by name, matching the matrix', () => {
+  const g = vendorDirectorySchema({
+    vendors: [
+      vendor({ slug: 'zeta', name: 'Zeta' }),
+      vendor({ slug: 'beta', name: 'Beta' }),
+    ],
+    description: 'dir',
+  });
+  const list = g['@graph'].find((n) => n['@type'] === 'ItemList');
+  assert.deepEqual(
+    list.itemListElement.map((i) => i.name),
+    ['Beta', 'Zeta'],
+  );
+});
+
+test('dataPageSchema is the dataset landing page with downloads and a breadcrumb', () => {
+  const g = dataPageSchema({ description: 'd', version: '2026-11-23' });
+  const dataset = g['@graph'].find((n) => n['@type'] === 'Dataset');
+  assert.equal(dataset.url, 'https://singletenant.ai/data/');
+  assert.equal(dataset.distribution.length, 2);
+  assert.equal(dataset.license, 'https://creativecommons.org/licenses/by/4.0/');
+  assert.match(dataset.creditText, /Claude/);
   assertNoForbiddenKeys(g);
 });
 
