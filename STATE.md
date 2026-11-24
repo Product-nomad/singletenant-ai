@@ -3,9 +3,61 @@
 **Goal**: An evidence-linked reference database for dedicated/single-tenant LLM hosting, aimed at compliance and procurement buyers in regulated industries (legal, healthcare, regulated finance, public sector). An **independent reference site, not a sales site** (reposition 2026-10-17). Credibility comes first; monetisation is secondary and kept apart from the data under `/disclosure/`: affiliate links, plus labelled ads, sponsorship and a newsletter, all prepared behind flags that are off. Consulting has been removed (ADR 2026-10-17, which supersedes decision 7).
 **Phase**: **Shipped, iterating**. v2 plus the v2.1 audit-fix/analysis layer and a 2026-07-13 polish pass are live on `main` (15-vendor bench, legal pages, 105 compare pages, sitemap, three articles, RSS). Auto-deploys to `singletenant.ai` from `main`.
 **Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete; a 2026-07-13 polish pass (P1–P6) followed. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live — the two Lighthouse findings that were code-fixable (a11y heading order, perf font CLS + render-blocking) were addressed in the polish pass and now need a live re-measure to confirm the scores. Piece 14 (drift watch) still open.
-**Last touched**: 2026-11-23.
+**Last touched**: 2026-11-24.
 
 **Ownership (2026-11-23)**: Claude owns day-to-day operation under `OWNERSHIP.md` (ADR 2026-11-23, supersedes decision 4). Owner runs: weekly Mon 10:00, monthly first Tue 10:00 (re-verification; the 60-day line is 2026-12-16, so the 1 Dec run covers it). Wrapper and units in vpc-config `scripts/singletenant/`; spend ledger `/root/.local/state/singletenant-owner/spend.jsonl`; log `docs/owner-log.md`; asks `docs/OWNER_ASKS.md`. Cloud weekly-watch routine disabled.
+
+## Watch-doc audit (2026-11-24)
+
+Every item in the Google Doc "singletenant.ai: weekly watch" from 19 Oct to 23 Nov 2026, checked against `main`
+(`2c566d7`), all PRs (#1 to #13 are merged; none open) and every branch. Statuses:
+**APPLIED** (on `main`, PR named); **IN OPEN PR**; **NOT APPLIED** (a change is due but not made);
+**NO FIELD ON SITE** (nothing on the site holds this fact); **NO CHANGE DUE** (the item was conditional, such as "only
+if the profile says X", and the site doesn't say X). Searches covered `src/content`, `src/pages`, `src/components`,
+`src/layouts` and `data/`.
+
+| Week | Item | Status | Evidence |
+|---|---|---|---|
+| 19 Oct | Scaleway Milan 3 AZs; Stockholm, Frankfurt planned 2027 | NO FIELD ON SITE | No AZ field; regions are buckets (EU). Scaleway's availability page lists Dedicated Deployment in Paris only (PR #7) |
+| 19 Oct | Scaleway B300 Copenhagen, MI355X Stockholm | NO FIELD ON SITE | No general-GPU field; not Managed Inference hardware (PR #7) |
+| 19 Oct | Scaleway cached-token pricing (serverless) | APPLIED | PR #7, notes |
+| 19 Oct | Baseten egress allow-lists (12 Oct) | APPLIED | PR #7, notes |
+| 19 Oct | Google rename to Gemini Enterprise Agent Platform | APPLIED | PR #6 `renamed` field, notes |
+| 19 Oct | Google PT order changes (10 and 28 Sep) | APPLIED | PR #7, `pricing.model` |
+| 26 Oct | Together dedicated inference GA, beta paths retired (22 Oct) | NO CHANGE DUE | Site never calls it beta or links beta paths |
+| 26 Oct | Fireworks serverless removals (effective 7 Nov) | NO CHANGE DUE | Site names none of the removed models |
+| 26 Oct | Databricks DeepSeek V4.1 Flash retirement | NO FIELD ON SITE | Profile lists no models |
+| 26 Oct | Baseten metrics, API-key revocation | NO FIELD ON SITE | |
+| 26 Oct | Exoscale Dedicated Inference (candidate vendor) | Review only | Phase 4 candidate assessment |
+| 2 Nov | CoreWeave Denmark, EU-NORTH-05A (27 Oct) | NO CHANGE DUE | Regions already include EU; no page lists CoreWeave locations by country |
+| 2 Nov | RunPod October rate rises | NO CHANGE DUE | `pricing.model` quotes no rates; no page quotes RunPod rates |
+| 2 Nov | Google metadata-only request logging (30 Oct) | NO CHANGE DUE | No text says nothing is logged |
+| 2 Nov | Databricks retirements, Unity Gateway | NO FIELD ON SITE | |
+| 2 Nov | Baseten, Fireworks product changes | NO FIELD ON SITE | |
+| 2 Nov | UK Budget Data Centre Covenant | Review only | Criteria not yet published |
+| 9 Nov | Google PT for fine-tuned models with premium (4 Nov); tuned models on global endpoints (2 Nov) | NO CHANGE DUE | `pricing.model` doesn't say base models only; residency text doesn't discuss global endpoints |
+| 9 Nov | Together Messages and Responses APIs (3 Nov) | NO CHANGE DUE | Site never says Chat Completions only |
+| 9 Nov | RunPod Serverless rises; "save 25%" and worker discount dropped | NO CHANGE DUE | Site never quoted rates, the 25% claim or worker discounts |
+| 9 Nov | Fireworks Ultra-fast Serverless, removals effective | NO FIELD ON SITE | |
+| 9 Nov | CADA Irish compromise; telemetry carve-out | NO CHANGE DUE; carve-out review only | No page mentions the Cloud and AI Development Act |
+| 16 Nov | Together Messages and Responses on dedicated (4 to 5 Nov) | NO CHANGE DUE | As above |
+| 16 Nov | Fireworks no longer stores datasets (15 Nov) | NO CHANGE DUE | Profile covers no dataset storage |
+| 16 Nov | Baseten Responses, Chat Completions, Messages GA on BIS (9 Nov) | NO CHANGE DUE | Site never says Chat Completions only |
+| 16 Nov | Google order statuses, new PT models | NO FIELD ON SITE | |
+| 16 Nov | RunPod 12 Nov rates, Batch discount | NO CHANGE DUE | As above |
+| 16 Nov | Databricks retirements | NO FIELD ON SITE | |
+| 16 Nov | European Parliament CADA draft report | Review only | Draft, subscription source |
+| 23 Nov | Together region and region-pattern pinning (26 Oct, 18 Nov) | APPLIED | PR #9, notes |
+| 23 Nov | Google Gemini 4 Neon, Deferred tier | NO FIELD ON SITE | Checked in PR #9 |
+| 23 Nov | OVHcloud AI Summit (B300, SNC) | NO CHANGE DUE | No AI Deploy page lists B300 or SecNumCloud |
+| 23 Nov | Databricks retirements, system-table retention | NO FIELD ON SITE | Checked in PR #9 |
+| 23 Nov | CADA Council compromise (13 Nov) | NO CHANGE DUE | No page mentions CADA. A dated "where it stands" tracker is a Phase 4 candidate |
+
+**Result: nothing is NOT APPLIED or IN OPEN PR.** No vendor data changes from the catch-up, so no `last_verified`
+dates moved. Review-only items carried forward: Exoscale Dedicated Inference as a candidate vendor; the UK Budget Data
+Centre Covenant; the EU telemetry carve-out; the European Parliament draft report. Content ideas carried forward:
+"What is a single-tenant AI system?" (check `/blog/what-is-single-tenant-llm-hosting/` and `/methodology/` first),
+"Dedicated isn't the same as isolated" and "Cloud and AI Development Act: where it stands".
 
 **v2.6 search optimisation 1 (2026-10-22, branch `gsc-optimise-1`, merged to `main`)**: 14 compare pages with sourced pair analysis indexed by override (83 of 120 indexed); pricing-led titles and data-led meta descriptions (`src/lib/titles.mjs`); pricing first on vendor and compare pages; three published guides (`/guides/azure-openai-ptu-explained/`, `/guides/bedrock-provisioned-throughput/`, `/guides/provisioned-throughput-vs-pay-per-token/`). Data corrections: Nebius residency Contractual (DPA 6.1), Together Stated. **Re-check GSC on or after 2026-11-19**: compare-page CTR (baseline 0.7%), Azure PTU cluster clicks (baseline 0 of ~350 impressions), fireworks-ai-vs-nebius (146 imp, 2 clicks) and nebius-vs-together-ai (58 imp). Gotcha: after a schema default is added, clear `node_modules/.astro/data-store.json` locally or the build reads stale entries.
 
