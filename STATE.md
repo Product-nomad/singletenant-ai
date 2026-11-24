@@ -15,10 +15,21 @@ live (`npm run smoke`) and reverted on failure. Kill switch: `.autopilot-paused`
 to the watch Doc under the anchor "Applied by Claude Code (autopilot digests, newest first)". GitHub can't require
 checks (private free-plan repo), so the wrapper enforces green CI.
 
-**Top risk: the 60-day re-verification line is 2026-12-16.** All 16 profiles have `last_verified` 2026-10-17. The
-Saturday rotation re-verifies the 4 oldest each week (28 Nov, 12 Dec), and the 5 Dec monthly sweep re-checks
+**Top risk: the 60-day re-verification line is 2026-12-16.** 3 of 16 profiles are verified to 2026-11-24 (Civo,
+RunPod and Baseten, done interactively with `scripts/render-text.mjs`). 13 are still dated 2026-10-17. The Saturday
+rotation takes the 4 whose newest source date is oldest (28 Nov, 12 Dec), and the 5 Dec monthly sweep re-checks
 everything older than 45 days as far as its budget allows. If any profile is still dated 2026-10-17 after 12 Dec, run
 an interactive re-verification on 13 to 15 Dec.
+
+**Authorship (Simon, 2026-11-24):** the site credits Claude (an AI model made by Anthropic) as the writer and Simon
+Newton as owner. The single source is `src/lib/authorship.mjs`: bylines, `/about/#who`, `/editorial-policy/#how-made`,
+and the JSON-LD `creditText` (author = the Organization, founder Simon, because schema.org has no AI author type).
+
+**Open follow-ups:** Astro 5 to 7 upgrade (clears the last 6 npm advisories; 48h route); a `single-tenant`
+deployment-model value plus label for Baseten's documented Single-tenant option; add `/data/` to `public/llms.txt` once
+#21 and #24 merge; check whether AWS Service Terms 1.24.2 (cross-region inference for generative AI services) weakens
+Bedrock PT's "contractual" residency (monthly review); the vendor now styles itself "Runpod" (site says "RunPod");
+the About page refresh is done (Phase 2 item 4), and items 6 to 8 are in #21, #24 and #26.
 
 **Monetisation stage gates** (`OWNERSHIP.md`): stage 0 now (no ads, affiliates or tracking). Stage 1, contextual
 display ads (EthicalAds-type, about 50,000 page views a month from a developer audience): page views not measured

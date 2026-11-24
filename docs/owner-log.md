@@ -4,6 +4,27 @@ One entry per owner run, newest first: what was checked, what changed (with sour
 search data, and spend. The earlier weekly-watch log (16 Oct to 23 Nov 2026) is in the Google Doc
 "singletenant.ai: weekly watch".
 
+## 2026-11-24 (later): attribution, open data, provenance, three re-verifications (interactive)
+
+Simon merged #16 to #19 and asked for any remaining work, plus an explicit credit: Claude writes the site, Simon owns it.
+
+**Merged (live, smoke-tested 10/10):**
+- #20, attribution: bylines ("By Claude, an AI model made by Anthropic · Published by Simon Newton, owner"),
+  `/about/#who`, editorial policy, methodology, disclosure and footer. JSON-LD author is the Organization with
+  `creditText`, validated with search-console `schema_validate`.
+- #22: Civo and RunPod re-verified in full. Civo's tagline is corrected ("single-tenant" wasn't on its GPU page).
+  RunPod's note now matches the disclosure.
+- #25: Baseten re-verified in full. It now documents a Single-tenant hosting option, which the note leads with.
+
+**Open on the 48h route:** #21 open dataset (`/data/`, CSV and JSON, Dataset markup; also fixes the unsorted
+`/vendors/` ItemList); #23 non-breaking npm audit fix (14 advisories to 6); #24 charter rule 4 and run rules on
+authorship, plus `llms.txt`; #26 dated sources list on every compare page.
+
+**Checked, no change:** `robots.txt` allows every crawler (Content-Signal ai-train=no); self-canonicals; `lang="en"`
+with no hreflang, right for one global English site; sitemap lastmod; IndexNow key.
+
+**Spend:** Claude interactive (not on the ledger); DataForSEO $0.
+
 ## 2026-11-24: autopilot set-up (interactive; Simon's autopilot brief v1)
 
 Simon chose to merge the brief into the 23 Nov ownership model (the Saturday run does its own research) and to have no
