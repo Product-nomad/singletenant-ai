@@ -43,8 +43,10 @@ independence.
 3. Ads and sponsorship are labelled per the ASA/CAP/CMA guide ("Advertisement", "Advertisement feature", "Ad"; never
    "Sponsored" alone), sit outside the data (never in the matrix, compare tables or vendor facts) and follow
    `/disclosure/`. Sponsors and advertisers never see or approve editorial content before publication.
-4. Readers are told that an AI agent researches and applies updates (`/methodology/`). Simon remains the
-   accountable operator, and corrections go to simon@singletenant.ai.
+4. Readers are told plainly who makes the site (Simon, 2026-11-24): Claude, an AI model made by Anthropic,
+   researches, writes and maintains the content; Simon Newton owns it, set its direction and is accountable. Bylines,
+   `/about/#who`, `/editorial-policy/#how-made` and the JSON-LD `creditText` all come from `src/lib/authorship.mjs`;
+   never byline a page to Simon or imply a person wrote it. Corrections go to simon@singletenant.ai.
 
 ## House rules (learned; keep them)
 

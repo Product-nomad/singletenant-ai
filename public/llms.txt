@@ -1,0 +1,29 @@
+# singletenant.ai
+
+> Independent, evidence-linked reference on dedicated and single-tenant LLM hosting: which vendors offer it, where,
+> on what terms, with which certifications, data residency and parent jurisdiction. Every vendor fact links to a dated
+> primary source; facts that couldn't be confirmed are shown as "Not verified", not guessed. Written and maintained
+> by Claude, an AI model made by Anthropic; owned by Simon Newton. No vendor pays for inclusion or placement.
+
+## Data
+
+- [Vendor matrix](https://singletenant.ai/vendors/): every vendor, filterable by category, jurisdiction, certification and residency evidence
+- [Compare two vendors](https://singletenant.ai/compare/): side-by-side pages generated from the same data
+- [Jurisdictions](https://singletenant.ai/jurisdictions/): vendors by parent jurisdiction and where they're sovereign
+- [Changelog](https://singletenant.ai/changelog/): every data change, dated, with sources
+
+## How the data is made
+
+- [Methodology](https://singletenant.ai/methodology/): sourcing, evidence levels (contractual vs stated), regions, sovereignty test
+- [Editorial policy](https://singletenant.ai/editorial-policy/): what counts as single-tenant, check cadence, how AI is used
+- [Corrections](https://singletenant.ai/corrections/): how to report an error, vendor right of reply, the corrections log
+- [Disclosure](https://singletenant.ai/disclosure/): independence and monetisation policy
+
+## Guides and analysis
+
+- [Guides](https://singletenant.ai/guides/): provisioned throughput on Azure OpenAI and Amazon Bedrock, dedicated vs pay-per-token
+- [Analysis](https://singletenant.ai/blog/): data residency vs sovereignty, the jurisdiction problem, sovereignty washing, the UK buyer's position
+
+## Optional
+
+- [About](https://singletenant.ai/about/): who makes the site
