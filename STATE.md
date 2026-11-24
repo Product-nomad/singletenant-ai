@@ -32,15 +32,15 @@ Bedrock PT's "contractual" residency (monthly review); the vendor now styles its
 the About page refresh is done (Phase 2 item 4), and items 6 to 8 are in #21, #24 and #26.
 
 **Monetisation stage gates** (`OWNERSHIP.md`): stage 0 now (no ads, affiliates or tracking). Stage 1, contextual
-display ads (EthicalAds-type, about 50,000 page views a month from a developer audience): page views not measured
-until the Cloudflare token gets Analytics Read (`docs/OWNER_ASKS.md`); about 5 Google clicks a week today, so far off.
-Stage 2, sponsorship: needs steady growth, external citations and a working vendor-correction loop; none yet.
+display ads (EthicalAds-type, about 50,000 page views a month from a developer audience): Cloudflare counts about
+3,800 edge page views a week (17 to 23 Nov), but that includes crawlers; Google sends about 5 clicks a week, so human
+readership is far below the gate. Stage 2, sponsorship: needs steady growth, external citations and a working vendor-correction loop; none yet.
 
 **Monthly metrics** (the monthly run appends a row):
 
-| Month | Google clicks/wk | Impressions/wk | Avg position | Pages indexed | Bing clicks/impr. | AI referrals | Dataset downloads | Source |
-|---|---|---|---|---|---|---|---|---|
-| Baseline, week 15 to 21 Nov 2026 | 5 | 1,076 | 16.9 | not measured | 0 / 14 | not measured | not measured | snapshot 2026-11-24 |
+| Month | Google clicks/wk | Impressions/wk | Avg position | Pages indexed | Bing clicks/impr. | Edge page views/wk (incl. crawlers) | AI referrals | Dataset downloads | Source |
+|---|---|---|---|---|---|---|---|---|---|
+| Baseline, week 15 to 21 Nov 2026 | 5 | 1,076 | 16.9 | not measured | 0 / 14 | 3,797 (17 to 23 Nov) | not measurable (no referrer data on this Cloudflare plan) | 0 (/data/ not yet live) | snapshot 2026-11-24; Cloudflare GraphQL 2026-11-24 |
 
 ## Watch-doc audit (2026-11-24)
 
