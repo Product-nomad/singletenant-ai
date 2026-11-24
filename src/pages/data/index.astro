@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadChangelog } from '../../lib/changelog.mjs';
+import { ATTRIBUTION, datasetRecords } from '../../lib/dataset.mjs';
+import { dataPageSchema } from '../../lib/schema.mjs';
+
+const [latest] = loadChangelog();
+const version = latest.date;
+const records = datasetRecords(await getCollection('vendors'));
+let facts = 0;
+for (const r of records) {
+  facts +=
+    r.compliance.length +
+    (r.pricing.evidence_url ? 1 : 0) +
+    (r.data_residency.evidence_url ? 1 : 0);
+}
+const description = `Every vendor in the singletenant.ai database as CSV and JSON: deployment models, regions, jurisdiction, data residency, compliance and pricing, each fact with its primary source and the date it was checked. ${records.length} vendors, CC BY 4.0.`;
+---
+
+<BaseLayout
+  title="Open data: single-tenant LLM hosting vendors (CSV, JSON)"
+  description={description}
+  schema={dataPageSchema({ description, version })}
+>
+  <section>
+    <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <p class="eyebrow mb-3">Data</p>
+      <h1 class="m-0 mb-2" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em;">
+        Open data
+      </h1>
+      <p class="font-mono text-xs mb-10" style="color: var(--color-mute);">
+        Version {version} · {records.length} vendors · {facts} sourced facts
+      </p>
+
+      <div class="prose">
+        <p>
+          The whole vendor database is free to download and reuse. It is the
+          same data the <a href="/vendors/">vendor matrix</a> and comparison
+          pages are built from, generated with every release of the site, so
+          the files are never behind the pages. Each fact carries the primary
+          source it was checked against and the date of that check.
+        </p>
+
+        <h2 id="download">Download</h2>
+        <ul>
+          <li>
+            <a href="/data/vendors.csv" download>vendors.csv</a>: one row per
+            vendor, for spreadsheets. Lists are separated by "; ".
+          </li>
+          <li>
+            <a href="/data/vendors.json" download>vendors.json</a>: the full
+            record, including every source URL and its date, field by field.
+          </li>
+        </ul>
+
+        <h2 id="fields">What's in it</h2>
+        <ul>
+          <li><strong>category</strong>: how the service is delivered (dedicated GPU cloud, hyperscaler dedicated capacity, managed self-host).</li>
+          <li><strong>deployment_models</strong> and <strong>regions</strong>: as documented by the vendor; regions are coarse codes (US, GB, EU, APAC, GLOBAL).</li>
+          <li><strong>parent_jurisdiction</strong> and <strong>sovereign_for</strong>: where the vendor's parent is based, and where it is sovereign under the <a href="/methodology/#sovereign-for">site's test</a>.</li>
+          <li><strong>data_residency</strong> and <strong>compliance</strong>: each with an evidence level (<a href="/methodology/#evidence-levels">contractual or stated</a>), the evidence URL and the date checked.</li>
+          <li><strong>pricing</strong>: the pricing model, whether prices are public, and the source.</li>
+          <li><strong>last_verified</strong>: the oldest check behind any field in the record, so it never overstates freshness.</li>
+        </ul>
+        <p>
+          "unknown" means the fact could not be confirmed from a primary
+          source on that date. It is not a negative: a vendor may well hold a
+          certification the site has not been able to verify.
+        </p>
+
+        <h2 id="versions">Versions and changes</h2>
+        <p>
+          The version is the date of the latest change to the data. Every
+          change, with its sources, is listed in the
+          <a href="/changelog/">changelog</a>, and corrections are also on the
+          <a href="/corrections/">corrections page</a>. Facts are checked as
+          described in the <a href="/editorial-policy/#cadence">editorial policy</a>.
+        </p>
+
+        <h2 id="licence">Licence and citation</h2>
+        <p>
+          The data is published under
+          <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>:
+          reuse it for any purpose, including commercially, with attribution.
+          Please cite it as:
+        </p>
+        <p class="font-mono text-sm">{ATTRIBUTION}, version {version}.</p>
+        <p>
+          The data is researched and maintained by Claude, an AI model made by
+          Anthropic, and published by Simon Newton
+          (<a href="/about/#who">who makes this</a>). Found an error? Send the
+          primary source to <a href="mailto:simon@singletenant.ai">simon@singletenant.ai</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

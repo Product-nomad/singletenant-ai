@@ -154,6 +154,20 @@ export const vendorProfileSchema = (data) => ({
 // and AI citation) plus an ItemList enumerating every vendor, plus breadcrumbs.
 // `dateModified` is the directory's last data change, passed in from the
 // changelog so freshness stays sourced from real data.
+// The open dataset's downloads (/data/), listed on every Dataset node.
+const distribution = () => [
+  {
+    '@type': 'DataDownload',
+    encodingFormat: 'text/csv',
+    contentUrl: abs('/data/vendors.csv'),
+  },
+  {
+    '@type': 'DataDownload',
+    encodingFormat: 'application/json',
+    contentUrl: abs('/data/vendors.json'),
+  },
+];
+
 export const vendorDirectorySchema = ({
   vendors,
   description,
@@ -177,19 +191,25 @@ export const vendorDirectorySchema = ({
       'LLM inference infrastructure',
     ],
     variableMeasured: MEASURED_VARIABLES,
+    distribution: distribution(),
   };
-  if (dateModified) dataset.dateModified = dateModified;
+  if (dateModified) {
+    dataset.dateModified = dateModified;
+    dataset.version = dateModified;
+  }
 
   const itemList = {
     '@type': 'ItemList',
     name: 'Dedicated and single-tenant LLM hosting vendors',
     numberOfItems: vendors.length,
-    itemListElement: vendors.map((v, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: v.data.name,
-      url: abs(`/vendors/${v.data.slug}/`),
-    })),
+    itemListElement: [...vendors]
+      .sort((a, b) => a.data.name.localeCompare(b.data.name, 'en'))
+      .map((v, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: v.data.name,
+        url: abs(`/vendors/${v.data.slug}/`),
+      })),
   };
 
   return {
@@ -299,6 +319,34 @@ export const jurisdictionsSchema = ({ groups, description }) => ({
     breadcrumbList([
       { name: 'Home', path: '/' },
       { name: 'Jurisdictions', path: '/jurisdictions/' },
+    ]),
+  ],
+});
+
+// /data/: the dataset's landing page, with its downloads, version and licence.
+export const dataPageSchema = ({ description, version }) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Dataset',
+      '@id': `${abs('/data/')}#dataset`,
+      name: 'Dedicated and single-tenant LLM hosting vendors (open dataset)',
+      description,
+      url: abs('/data/'),
+      isAccessibleForFree: true,
+      license: DATA_LICENSE,
+      creator: organization(),
+      publisher: organization(),
+      creditText: CREDIT_TEXT,
+      version,
+      dateModified: version,
+      variableMeasured: MEASURED_VARIABLES,
+      distribution: distribution(),
+      isBasedOn: abs('/vendors/'),
+    },
+    breadcrumbList([
+      { name: 'Home', path: '/' },
+      { name: 'Data', path: '/data/' },
     ]),
   ],
 });
