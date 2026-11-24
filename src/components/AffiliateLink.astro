@@ -22,7 +22,7 @@ const rel = link.isAffiliate
 
 <span class="inline-flex flex-col gap-2">
   <a href={link.href} target="_blank" rel={rel} class="btn-secondary">
-    Visit {vendor.name} ↗
+    {link.isAffiliate && <span class="font-mono text-xs">Ad · </span>}Visit {vendor.name} ↗
   </a>
   {
     link.isAffiliate && (
