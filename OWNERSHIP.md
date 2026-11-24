@@ -13,9 +13,17 @@ independence.
 
 ## Authority
 
-- **May, without review:** edit content, vendor data, code, tests and design; add pages; add schema fields (with
-  tests and an ADR); merge to `main`, which deploys live, once every gate passes. The gates are `npm test`,
-  `npm run lint`, `npm run typecheck`, `npm run validate`, `npm run build` and `npm run linkcheck`.
+- **May:** edit content, vendor data, code, tests and design; add pages; add schema fields (with tests, an ADR and
+  every vendor back-filled); merge to `main`, which deploys live. The gates are `npm test`, `npm run lint`,
+  `npm run typecheck`, `npm run validate`, `npm run build`, `npm run linkcheck` and, on PRs, the source check, all run
+  by the `ci` workflow.
+- **Merge policy (since 2026-11-24, `ops/README.md`):** low-risk changes (sourced data refreshes, typos, link fixes,
+  metadata, corrections) merge when CI is green. Higher-risk changes (new or removed vendor, new or deleted page,
+  policy, legal interpretation, methodology, schema, monetisation, redesign) are labelled `autopilot-48h` and merge
+  after 48 hours only if CI is green and nobody has added `autopilot-hold` or commented. Every merge is smoke-tested
+  live and reverted automatically if the test fails.
+- **Kill switch:** `.autopilot-paused` in the repo root pauses every write action; the label `autopilot-hold` freezes
+  one PR.
 - **Spend caps per calendar month:** DataForSEO $20 and Claude runs $40. The ledger is at
   `/root/.local/state/singletenant-owner/spend.jsonl`. When a cap would be passed, stop and ask.
 - **Ask Simon first** (append to `docs/OWNER_ASKS.md`; he gets them in one Telegram message):
@@ -32,9 +40,9 @@ independence.
 1. No paid placement. Money never changes a vendor's data, ranking, inclusion, compare verdict or "Not verified" status.
 2. Every vendor fact links its primary source with a verified date. A fact that can't be verified is `unknown` and is
    rendered as "Not verified", never filled in from memory or from an aggregator.
-3. Affiliate links, sponsorship and ads are labelled, sit outside the data (never in the matrix, compare tables or
-   vendor facts) and follow `/disclosure/`. A vendor with an affiliate link is held to the same standard as one
-   without.
+3. Ads and sponsorship are labelled per the ASA/CAP/CMA guide ("Advertisement", "Advertisement feature", "Ad"; never
+   "Sponsored" alone), sit outside the data (never in the matrix, compare tables or vendor facts) and follow
+   `/disclosure/`. Sponsors and advertisers never see or approve editorial content before publication.
 4. Readers are told that an AI agent researches and applies updates (`/methodology/`). Simon remains the
    accountable operator, and corrections go to simon@singletenant.ai.
 
@@ -73,8 +81,10 @@ independence.
   - EU: Data Act, cloud sovereignty framework, Cloud and AI Development Act, GPAI obligations relevant to hosts
   - US: CLOUD Act and FISA 702
   - sovereignty-washing claims in the news
-- **Archive:** the Google Doc "singletenant.ai: weekly watch" (Drive `1-YbcPlRAd2H47wXYQZNGpGzJJmJwCHIpytW4pdxegp0`)
-  holds the weekly log from 16 Oct to 23 Nov 2026. It's no longer updated; the log continues in `docs/owner-log.md`.
+- **Watch Doc:** "singletenant.ai: weekly watch" (Drive `1-YbcPlRAd2H47wXYQZNGpGzJJmJwCHIpytW4pdxegp0`) holds the
+  weekly watch log from 16 Oct to 23 Nov 2026. Since 24 Nov it receives the Saturday digest ("Applied by Claude Code")
+  under its anchor paragraph; the cloud watch that wrote to it is disabled, so the Saturday run does its own
+  research. The detailed log stays in `docs/owner-log.md`.
 
 ## Goals and checkpoints
 
@@ -87,34 +97,24 @@ independence.
 
 Review them on every monthly run. If a metric is off track, write down why before changing tactics.
 
-## Monetisation ladder
+## Monetisation stages (decided by Simon 2026-11-24; supersedes the 23 Nov affiliate ladder)
 
-Climb a rung only when the traffic condition holds for 4 consecutive weeks. Each rung that needs an account is an ask.
+Credibility first, over 12 to 18 months. Prepare only: never apply, sign or add ad code. When a gate is met, the
+monthly run puts "apply to X" in the asks. Gates and progress are tracked in `STATE.md`.
 
-1. **Now:** affiliate links for vendors with referral programmes (RunPod is already one). Rendered only through the
-   existing disclosure-gated `affiliate_url`.
-2. **About 300 Google clicks a month:** newsletter (the Worker in `workers/newsletter/` plus a sending service), monthly
-   dispatch from `src/content/templates/monthly-dispatch.md`.
-3. **About 1,000 visits a month:** a paid due-diligence pack (every vendor's evidence, sources and dates as PDF and
-   CSV) and/or one labelled sponsor slot per page type.
-4. **Never:** paid placement, paid "verified" badges, or pay-to-correct.
+0. **Now:** nothing. No ad code, no affiliate or referral links, no tracking. (Simon holds a RunPod referral account;
+   it's disclosed, and no link is used.)
+1. **Display ads** once traffic qualifies for a contextual, cookie-free network. For example, EthicalAds asks for
+   about 50,000 page views a month from a developer audience and serves one ad per page; check its current terms
+   when the gate is near.
+2. **Sponsorship** once credibility is established (steady growth, citations, a working vendor-correction loop): draft
+   a media kit and terms consistent with `/disclosure/` for Simon to approve.
+3. **Never:** paid placement, paid "verified" badges, or pay-to-correct.
 
 ## Run procedure
 
-**Weekly (Monday 10:00):**
-1. Read this file, `STATE.md` (top), `docs/owner-log.md` (last entry), `docs/OWNER_ASKS.md`.
-2. Pull Search Console and Bing data for the last 7 and 28 days (search-console MCP, read-only). Find
-   striking-distance queries (positions 8–20), pages losing clicks, and indexing problems.
-3. Research the watch scope for the last 7 days.
-4. Make the highest-value changes the budget allows: accuracy first, then striking-distance improvements, then new
-   content.
-5. Run all gates. Write `.owner-commits.json`, `.owner-summary.md` and, if needed, `.owner-asks.md` (see the
-   wrapper). The wrapper commits, pushes, opens a PR and merges it when the gates pass.
+The schedule, prompts, caps and merge machinery are in `ops/README.md` (daily health 06:50, Thursday search snapshot
+23:20, Saturday apply 07:40, monthly review on the first Saturday, quarterly report). Each run reads this file first.
 
-**Monthly (first Tuesday 10:00):** everything weekly does, plus:
-- re-verify every vendor field older than 45 days against its source
-- review the checkpoints and the monetisation ladder
-- check the affiliate programmes of listed vendors
-- prune or refresh thin pages
-
-**Rollback:** every change is a merge commit on `main`. `git revert -m 1 <merge>` and push to undo.
+**Rollback:** every change is a squash commit on `main`. `git revert <sha>` and push to undo; the wrapper does this
+itself when the post-deploy smoke test fails.
