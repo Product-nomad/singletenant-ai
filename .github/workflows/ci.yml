@@ -1,0 +1,37 @@
+# Gates for every PR and push to main. The same six gates OWNERSHIP.md names,
+# plus the source check on PRs (a changed vendor field needs a new or
+# re-dated source). The repo is private on a free plan, so GitHub cannot make
+# these required checks; the autopilot wrapper refuses to merge unless this
+# workflow is green (ops/README.md).
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run validate
+      - name: source check
+        if: github.event_name == 'pull_request'
+        run: node scripts/source-check.mjs "origin/${{ github.base_ref }}"
+      - run: npm run build
+      - run: npm run linkcheck

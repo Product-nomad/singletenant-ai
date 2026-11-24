@@ -16,7 +16,8 @@
     "typecheck": "astro check",
     "validate": "node scripts/validate.mjs",
     "linkcheck": "node scripts/linkcheck.mjs",
-    "gen:og": "node scripts/gen-og.mjs"
+    "gen:og": "node scripts/gen-og.mjs",
+    "source-check": "node scripts/source-check.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
