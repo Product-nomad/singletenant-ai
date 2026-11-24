@@ -1,0 +1,85 @@
+---
+// Every field of a vendor profile with the primary sources checked for it and
+// the date of each check. Static HTML, so readers and crawlers that don't run
+// JavaScript see the provenance too. Used on vendor and compare pages.
+import { sourceFieldLabel } from '../lib/labels.mjs';
+import LastVerified from './LastVerified.astro';
+
+interface Source {
+  field: string;
+  url: string;
+  verified: string;
+}
+interface Props {
+  sources: Source[];
+}
+
+const { sources } = Astro.props;
+const byField = [
+  ...sources
+    .reduce(
+      (groups, s) => groups.set(s.field, [...(groups.get(s.field) ?? []), s]),
+      new Map<string, Source[]>(),
+    )
+    .entries(),
+];
+---
+
+<dl class="sources-list">
+  {byField.map(([field, entries]) => (
+    <div class="sources-row">
+      <dt>{sourceFieldLabel(field)}</dt>
+      <dd>
+        <ul>
+          {entries.map((s) => (
+            <li>
+              <a href={s.url} target="_blank" rel="noopener noreferrer">{s.url}</a>{' '}
+              <LastVerified date={s.verified} />
+            </li>
+          ))}
+        </ul>
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .sources-list {
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1.9;
+  }
+
+  .sources-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 14rem) 1fr;
+    gap: 0 1rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .sources-row dt {
+    font-family: var(--font-sans);
+    color: var(--color-mute);
+  }
+
+  .sources-row dd {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .sources-row ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 40rem) {
+    .sources-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
