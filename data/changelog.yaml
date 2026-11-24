@@ -2,6 +2,36 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-11-24"
+  type: updated
+  vendors:
+    - runpod
+  summary: >-
+    RunPod re-verified field by field; every fact still holds (SOC 2 Type 2,
+    SOC 3, ISO 27001:2022, Secure and Community Cloud tiers, hourly billing,
+    US, EU and Australian data centres, Delaware-law terms). The note now says
+    the site's owner holds a referral account and no referral link is used.
+  sources:
+    - https://trust.runpod.io
+    - https://www.runpod.io/pricing
+    - https://docs.runpod.io/pods/networking
+
+- date: "2026-11-24"
+  type: corrected
+  vendors:
+    - civo
+  summary: >-
+    Civo re-verified field by field. Tagline corrected: it said
+    "single-tenant dedicated" GPU compute and inference, but Civo's Cloud GPU
+    page describes bare-metal and managed Kubernetes NVIDIA GPU compute and
+    doesn't say single-tenant. All other fields were confirmed (UK residency
+    and law, ISO 27001 and SOC 2 Type II as stated, 6 to 36 month commitment
+    pricing, UK-resident sole PSC).
+  sources:
+    - https://www.civo.com/ai/cloud-gpu
+    - https://www.civo.com/pricing
+    - https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
+
 - date: "2026-11-23"
   type: corrected
   vendors:

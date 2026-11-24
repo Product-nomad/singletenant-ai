@@ -4,69 +4,69 @@ url: https://www.runpod.io
 category: dedicated-gpu
 tagline: GPU cloud with community and secure tiers, priced per hour
 
-last_verified: "2026-10-17"
+last_verified: "2026-11-24"
 sources:
   - field: category
     url: https://www.runpod.io/pricing
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: category
     url: https://www.runpod.io/legal/terms-of-service
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: tagline
     url: https://www.runpod.io/pricing
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: tagline
     url: https://docs.runpod.io/pods/overview
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: deployment_models
     url: https://www.runpod.io/pricing
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: deployment_models
     url: https://docs.runpod.io/pods/overview
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: regions
     url: https://docs.runpod.io/pods/networking
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.SOC2_TYPE2
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.SOC3
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.ISO27001
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.GDPR_DPA
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: pricing
     url: https://www.runpod.io/pricing
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.data_residency_guarantee
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.data_residency_guarantee
     url: https://docs.runpod.io/pods/networking
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.parent_jurisdiction
     url: https://www.runpod.io/legal/terms-of-service
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://docs.runpod.io/pods/overview
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://www.runpod.io/legal/terms-of-service
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
 
 deployment_models:
   - secure-cloud
   - community-cloud
   - reserved-clusters
 
-# Regions verified 2026-07-12 and re-checked 2026-10-17 against
+# Regions verified 2026-07-12, re-checked 2026-10-17 and 2026-11-24 against
 # https://docs.runpod.io/pods/networking, the Global Networking data-centre
 # list: US and Canada, Europe (CZ, FR, NL, RO, SE, IS) and Australia. Coarse
 # buckets; more data centres exist elsewhere.
@@ -79,37 +79,37 @@ compliance:
   - cert: SOC2_TYPE2
     level: contractual
     evidence_url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - cert: SOC3
     level: contractual
     evidence_url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - cert: ISO27001
     level: contractual
     evidence_url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - cert: GDPR_DPA
     level: contractual
     evidence_url: https://trust.runpod.io
-    verified: "2026-10-17"
+    verified: "2026-11-24"
 
 pricing:
   model: Per GPU-hour (per-second display available); reserved clusters via sales
   public: true
   evidence_url: https://www.runpod.io/pricing
-  verified: "2026-10-17"
+  verified: "2026-11-24"
 
 sovereignty:
   data_residency_guarantee: stated
   parent_jurisdiction: US
   evidence_url: https://trust.runpod.io
-  verified: "2026-10-17"
+  verified: "2026-11-24"
 
 notes: >-
   Secure Cloud runs in T3/T4 data centres for enterprise and production
   workloads; Community Cloud uses vetted peer-to-peer providers. Terms make no
   residency commitment; the trust centre states workloads can be placed by
-  jurisdiction. A HIPAA programme is stated, but no BAA was found. This site
-  has an affiliate relationship with RunPod.
+  jurisdiction. A HIPAA programme is stated, but no BAA was found. The site's
+  owner holds a RunPod referral account; no referral link is used.
 
 featured: true
