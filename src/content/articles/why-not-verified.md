@@ -3,7 +3,6 @@ title: "Why this site says Not verified so often"
 description: "Not verified is the most common label in our vendor database. Why an evidence-first comparison site advertises the gaps in its own data, and the bug our own audit caught."
 pub_date: 2026-07-12
 updated: 2026-10-17
-author: "Simon Newton"
 category: "analysis"
 target_keyword: "not verified"
 tags:

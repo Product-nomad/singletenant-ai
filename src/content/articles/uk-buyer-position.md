@@ -3,7 +3,6 @@ title: "The UK buyer's position: adequacy, the CLOUD Act, and what UK-sovereign 
 description: "EU-UK adequacy was renewed to 2031, but adequacy settles transfers, not sovereignty. What a UK regulated buyer should weigh, and the one UK-parented option in the matrix."
 pub_date: 2026-07-19
 updated: 2026-10-17
-author: "Simon Newton"
 category: "analysis"
 target_keyword: "uk sovereign ai hosting"
 keywords:

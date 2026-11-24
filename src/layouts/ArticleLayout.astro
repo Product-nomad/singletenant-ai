@@ -1,5 +1,6 @@
 ---
 import AdSlot from '../components/AdSlot.astro';
+import Byline from '../components/Byline.astro';
 import SponsoredLabel from '../components/SponsoredLabel.astro';
 import VerifiedLine from '../components/VerifiedLine.astro';
 import { articleSchema } from '../lib/schema.mjs';
@@ -12,7 +13,6 @@ interface Props {
   updated?: Date;
   last_verified?: string;
   sponsor?: string;
-  author: string;
   category: string;
   slug: string;
   target_keyword?: string;
@@ -26,7 +26,6 @@ const {
   updated,
   last_verified,
   sponsor,
-  author,
   category,
   slug,
   jurisdiction = [],
@@ -37,7 +36,6 @@ const {
 const schema = articleSchema({
   title,
   description,
-  author,
   pubDate: pub_date,
   updated,
   slug,
@@ -59,7 +57,7 @@ const schema = articleSchema({
           {description}
         </p>
         <div class="text-sm font-mono pb-2" style="color: var(--color-mute);">
-          By {author} ·
+          <Byline /> ·
           <time datetime={pub_date.toISOString()}>
             {pub_date.toLocaleDateString('en-GB', {
               day: 'numeric', month: 'long', year: 'numeric'
