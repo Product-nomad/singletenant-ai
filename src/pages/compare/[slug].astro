@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import AdSlot from '../../components/AdSlot.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
+import SourcesList from '../../components/SourcesList.astro';
 import VerifiedLine from '../../components/VerifiedLine.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { differencesSummary, pairIsIndexable } from '../../lib/compare.mjs';
@@ -198,6 +199,27 @@ const noIndex = !pairIsIndexable(a.data, b.data);
       <p class="eyebrow mb-3">Side by side</p>
       <h2 class="mt-0 mb-8 pt-0 border-none">Capabilities compared</h2>
       <ComparisonTable vendors={[a, b]} />
+    </div>
+  </section>
+
+  <!-- Provenance: every field's primary source and check date, both vendors -->
+  <section class="border-b border-[var(--color-rule)]" id="sources">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="eyebrow mb-3">Provenance</p>
+      <h2 class="mt-0 mb-2 pt-0 border-none">Sources</h2>
+      <p class="m-0 mb-6 text-sm" style="color: var(--color-mute);">
+        Each field on this page and the primary source checked for it, with
+        the date of the check. Last verified {lastVerified}, the older of the
+        two profiles.
+      </p>
+      {[a, b].map((v) => (
+        <div class="mb-8">
+          <h3 class="mt-0 mb-2" style="font-size: 1rem;">
+            <a href={`/vendors/${v.data.slug}/`}>{displayName(v.data)}</a>
+          </h3>
+          <SourcesList sources={v.data.sources} />
+        </div>
+      ))}
     </div>
   </section>
 
