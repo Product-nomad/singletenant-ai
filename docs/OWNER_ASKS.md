@@ -6,14 +6,16 @@ moving it to **Done** with the date.
 
 ## Open
 
-- **2026-11-24 · Required checks on GitHub (optional).** Branch protection and required checks aren't available on a
-  private repo on the free plan (API 403). The autopilot enforces green CI itself. Making the repo public, or GitHub
-  Pro (paid), would let GitHub enforce it too. Your call; nothing breaks either way.
 - **2026-11-24 · Conflict wording.** The brief says "conflicts of interest: none at present", but you hold a RunPod
   referral account, so the editorial policy and disclosure PRs (#16, #18) say so and add that no referral link is used.
   If you've closed that account, say so and I'll remove the line.
 
 ## Done
+
+- **2026-11-24 · Required checks on GitHub.** Simon made the repo public. `main` now requires the `gates` check;
+  force-pushes and deletion are blocked, and auto-merge is on. A history scan found no secrets. Three early commits
+  (April and May 2026) carry a personal email as author, which was left alone: removing it would mean rewriting public
+  history.
 
 - **2026-11-24 · Cloudflare token Zone Analytics Read.** Added by Simon 2026-11-24 and confirmed working (GraphQL
   analytics answers for the zone). The daily health check now reports real 404s; runs get weekly page views and

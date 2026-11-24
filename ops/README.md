@@ -36,9 +36,12 @@ The wrapper decides the route. It takes the stricter of the run's own `.autopilo
   `npm run smoke` against the live site. On failure it reverts the merge commit on `main` (`git revert`, pushed as
   `vpc`), runs the smoke test again and alerts on Telegram.
 
-GitHub can't enforce any of this. The repo is private on a free plan, so branch protection, required checks and
-auto-merge are unavailable (API 403). The wrapper does the enforcing: it never merges unless the PR's `gates` check
-is `SUCCESS`. Making the repo public, or upgrading to GitHub Pro, would let GitHub require the checks too.
+GitHub enforces the gate too (since 2026-11-24, when Simon made the repo public): `main` is protected and requires
+the `gates` check, force-pushes and branch deletion are blocked, and auto-merge is enabled. Reviews aren't required,
+because the autopilot merges its own low-risk PRs. Admins aren't bound (`enforce_admins: false`), which is how the
+wrapper's automatic revert can still push to `main`. The wrapper keeps its own check as well: it never merges unless
+the PR's `gates` check is `SUCCESS`. Because the repo is public, nothing secret may ever be committed, including in
+`docs/`, logs and commit bodies.
 
 ## Kill switch
 
