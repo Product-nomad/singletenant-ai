@@ -4,6 +4,12 @@ One entry per owner run, newest first: what was checked, what changed (with sour
 search data, and spend. The earlier weekly-watch log (16 Oct to 23 Nov 2026) is in the Google Doc
 "singletenant.ai: weekly watch".
 
+## 2026-11-24: catch-up audit of the weekly-watch Doc (autopilot brief, Phase 1)
+
+Checked all 34 items logged from 19 Oct to 23 Nov against `main`, PRs and branches. Six were already applied (PRs #6, #7, #9). The rest are either NO FIELD ON SITE or conditional items whose condition the site doesn't meet (it never quoted RunPod rates, never called Together's dedicated inference beta, never said Chat Completions only, and never mentions the Cloud and AI Development Act). No data edits, so no source dates moved. The full table is in `STATE.md` under "Watch-doc audit (2026-11-24)".
+
+**Spend:** DataForSEO $0. Claude: interactive session, not metered by the ledger.
+
 ## 2026-11-23 (later): residency vs sovereignty article upgrade
 
 **Why:** UK demand for the site's core topic is far above anything else it targets: "data sovereignty" 880 a month,
