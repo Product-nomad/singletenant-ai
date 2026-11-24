@@ -8,6 +8,7 @@
 ## Data
 
 - [Vendor matrix](https://singletenant.ai/vendors/): every vendor, filterable by category, jurisdiction, certification and residency evidence
+- [Open data](https://singletenant.ai/data/): the whole database as CSV and JSON (CC BY 4.0), every fact with its source URL and check date
 - [Compare two vendors](https://singletenant.ai/compare/): side-by-side pages generated from the same data
 - [Jurisdictions](https://singletenant.ai/jurisdictions/): vendors by parent jurisdiction and where they're sovereign
 - [Changelog](https://singletenant.ai/changelog/): every data change, dated, with sources
