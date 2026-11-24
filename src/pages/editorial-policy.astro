@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const LAST_UPDATED = '2026-10-17';
+const LAST_UPDATED = '2026-11-24';
 ---
 
 <BaseLayout
@@ -10,7 +10,7 @@ const LAST_UPDATED = '2026-10-17';
     { name: 'Home', path: '/' },
     { name: 'Editorial policy', path: '/editorial-policy/' },
   ]}
-  description="How singletenant.ai sources and verifies vendor facts, how corrections are made, and how conflicts of interest are handled."
+  description="What singletenant.ai counts as single-tenant, how vendor facts are sourced and re-checked, how AI is used to make the site, and how corrections and conflicts are handled."
 >
   <section>
     <div class="mx-auto max-w-3xl px-6 py-12 md:py-16">
@@ -29,6 +29,55 @@ const LAST_UPDATED = '2026-10-17';
           and analysis. The <a href="/methodology/">methodology</a> page
           describes how the database is built; this page sets out the rules
           the editor holds it to.
+        </p>
+
+        <h2 id="what-qualifies">What counts as single-tenant</h2>
+        <p>
+          "Dedicated" and "single-tenant" are used loosely in vendor
+          marketing, so this site separates the layers at which a service can
+          be kept apart from other customers. From the least to the most
+          isolated:
+        </p>
+        <ol>
+          <li>
+            <strong>Dedicated GPUs.</strong> The accelerators serving your
+            model are reserved for you, but the host, network and control
+            plane may be shared with other customers.
+          </li>
+          <li>
+            <strong>Dedicated nodes.</strong> Whole servers (or bare-metal
+            nodes) run only your workload, so no other customer's code runs on
+            the same machine.
+          </li>
+          <li>
+            <strong>Isolated network.</strong> Your deployment sits in its own
+            network segment, with traffic to and from it controlled, for
+            example by private endpoints or egress allow-lists.
+          </li>
+          <li>
+            <strong>Customer VPC.</strong> The service runs inside a cloud
+            account or virtual private cloud that you control, with the
+            vendor operating the software.
+          </li>
+          <li>
+            <strong>On-premises.</strong> The software runs on hardware you
+            own or lease, in a data centre you choose, with no vendor-operated
+            infrastructure in the data path.
+          </li>
+        </ol>
+        <p>
+          A vendor qualifies for the database when it publicly documents
+          inference capacity reserved for one customer rather than pooled.
+          Most qualify at the first level or above. The hyperscalers'
+          provisioned throughput products (the "hyperscaler dedicated
+          capacity" category) are included because the capacity is reserved
+          for one customer, but they sit below the first level: they reserve
+          throughput, and the vendors do not say which hardware serves it.
+          Shared per-token APIs alone do not qualify. Each level is a claim
+          the vendor has to document; the site does not infer a level from
+          pricing, branding or a sales conversation. The vendor profiles do
+          not yet record a level per vendor; when they do, it will be added
+          to every profile at once, each with its own source.
         </p>
 
         <h2 id="sourcing">Sourcing</h2>
@@ -62,6 +111,49 @@ const LAST_UPDATED = '2026-10-17';
           own dates. Comparison pages show the older of the two vendors' dates.
         </p>
 
+        <h2 id="cadence">How often things are checked</h2>
+        <p>
+          Every week, each vendor's own changelog, pricing, documentation and
+          trust pages are checked for changes, and a change goes on the site
+          only after its primary source has been read. Separately, a few
+          profiles are re-checked in full each week, field by field. Every
+          field on every profile is re-checked at least every 60 days; the
+          target from January 2027 is every six weeks. A profile's "Last
+          verified" date moves only when every field on it has been
+          re-checked, so a partial check never makes a profile look fresher
+          than it is.
+        </p>
+
+        <h2 id="how-made">How this site is made</h2>
+        <p>
+          The site is researched and drafted with AI tools (Claude, made by
+          Anthropic), and every claim is checked against a dated primary
+          source before it is published. The same rule covers the parts
+          readers rarely see: page titles, search descriptions, structured
+          data and image alt text. The AI agent works to written rules set by
+          the editor, Simon Newton, who is accountable for everything
+          published.
+        </p>
+        <p>
+          Simon reviews the site's changes in a weekly digest. Routine changes
+          (a re-sourced fact, a broken link, a correction) go live once the
+          automated checks pass and are reviewed in that digest. Larger
+          changes, such as a new vendor, a new page, or a change to this
+          policy or the methodology, are held for 48 hours before
+          publication so that they can be reviewed or stopped first. Every
+          change is kept in version history and can be reversed, and every
+          change to the data is listed in the public
+          <a href="/changelog/">changelog</a>.
+        </p>
+        <p>
+          The automated checks refuse a vendor fact without a source link and
+          a date, refuse an edited fact whose source was not re-checked, and
+          cap analyst notes at 60 words. No page is generated in bulk without
+          its own sourced data behind it: comparison pages are offered to search
+          engines only when the two vendors differ on enough verified facts,
+          or when the pair has its own written, sourced analysis.
+        </p>
+
         <h2 id="corrections">Corrections</h2>
         <p>
           Anyone can request a correction, vendors included, by emailing
@@ -93,6 +185,11 @@ const LAST_UPDATED = '2026-10-17';
           site. If the editor has a financial relationship with a vendor
           covered here, it is listed on the disclosure page, and that vendor's
           profile is not edited until the relationship is disclosed.
+        </p>
+        <p>
+          At present there is one: Simon holds a RunPod referral account. The
+          site carries no referral links, advertising or sponsorship, and
+          RunPod's profile is held to the same sourcing rules as every other.
         </p>
         <p>
           Vendors do not review or approve copy before publication. A vendor
