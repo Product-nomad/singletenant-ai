@@ -6,20 +6,20 @@ moving it to **Done** with the date.
 
 ## Open
 
-> **Affiliate asks deferred to a review with Simon at the end of December 2026** (decided 2026-11-23; Telegram
-> reminder on 30 Dec). Until then, don't re-raise the two affiliate items below. For the review, the monthly run on
-> 1 Dec should note each vendor's outbound clicks or impressions, where measurable, in `docs/owner-log.md`.
-
-- **2026-11-23 · RunPod referral link.** You're already a RunPod referrer. Send your referral link, or your
-  PartnerStack affiliate link if you have that tier, and it goes on `/vendors/runpod/` through the
-  disclosure-gated `affiliate_url`. RunPod's docs: 3% of Pod spend and 5% of Serverless spend for 6 months, paid in
-  credits; 10% cash on the affiliate tier after 25 paying referrals
-  (https://docs.runpod.io/accounts-billing/referrals, https://www.runpod.io/affiliate).
-- **2026-11-23 · Optional sign-ups: Nebius and Civo.** Both run referral programmes with unpublished rates
-  (https://nebius.com/referral, https://www.civo.com/partners). Each needs your identity and payout details. Worth
-  doing now only because it's free and the links must exist before traffic does; at about 20 visitors a month,
-  expect close to nothing for now. OVHcloud's referral path is aimed at consultancies, so I'd skip it. Scaleway,
-  Modal, Together AI, Baseten, Fireworks AI, CoreWeave and the hyperscaler products have no affiliate programme
-  that I could find.
+- **2026-11-24 · Required checks on GitHub (optional).** Branch protection and required checks aren't available on a
+  private repo on the free plan (API 403). The autopilot enforces green CI itself. Making the repo public, or GitHub
+  Pro (paid), would let GitHub enforce it too. Your call; nothing breaks either way.
+- **2026-11-24 · One Cloudflare token permission (about 1 minute).** In the Cloudflare dashboard, edit the
+  "Product-nomad sites" API token and add **Zone > Analytics > Read**. That lets the daily health check find 404s
+  (including URLs AI tools invent, so they can be 301'd) and count page views and dataset downloads from Cloudflare's
+  server-side request data, with no script, cookies or tracking on the site. Today the API refuses it: "does not
+  have permission ...zone.analytics.read". Until then those metrics show "not measured".
+- **2026-11-24 · Conflict wording.** The brief says "conflicts of interest: none at present", but you hold a RunPod
+  referral account, so the editorial policy and disclosure PRs (#16, #18) say so and add that no referral link is used.
+  If you've closed that account, say so and I'll remove the line.
 
 ## Done
+
+- **2026-11-24 · RunPod referral link; Nebius and Civo sign-ups.** Dropped: Simon decided on 2026-11-24 that there will
+  be no affiliate links for now (stage 0 in `OWNERSHIP.md`). The 30 Dec affiliate review is cancelled.
+

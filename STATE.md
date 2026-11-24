@@ -5,7 +5,31 @@
 **Status**: v2 serves on `singletenant.ai` via Cloudflare Workers static assets. A read-only post-ship integrity audit (`docs/example_runs/v2-launch/audit-report.md`) found two medium issues, both fixed in v2.1; pieces A1–G merged from `feat/v2.1-analysis` into `main` via PR #3 on 2026-07-13. Pieces 0–13 (v2) plus A1–G (v2.1) complete; a 2026-07-13 polish pass (P1–P6) followed. **Still owed** (browser-gated, deferred to Simon): Lighthouse ≥ 90 perf/SEO/a11y and screenshots against live — the two Lighthouse findings that were code-fixable (a11y heading order, perf font CLS + render-blocking) were addressed in the polish pass and now need a live re-measure to confirm the scores. Piece 14 (drift watch) still open.
 **Last touched**: 2026-11-24.
 
-**Ownership (2026-11-23)**: Claude owns day-to-day operation under `OWNERSHIP.md` (ADR 2026-11-23, supersedes decision 4). Owner runs: weekly Mon 10:00, monthly first Tue 10:00 (re-verification; the 60-day line is 2026-12-16, so the 1 Dec run covers it). Wrapper and units in vpc-config `scripts/singletenant/`; spend ledger `/root/.local/state/singletenant-owner/spend.jsonl`; log `docs/owner-log.md`; asks `docs/OWNER_ASKS.md`. Cloud weekly-watch routine disabled.
+**Operating model (autopilot, since 2026-11-24)**: Simon's autopilot brief merged into the 23 Nov ownership model (ADR
+2026-11-24; machinery in `ops/README.md`, charter `OWNERSHIP.md`). Root systemd timers on the Minisforum: daily health
+06:50 (also merges qualified `autopilot-48h` PRs), Thursday 23:20 search snapshot, Saturday 07:40 apply, first-Saturday
+09:40 monthly review, quarterly report. Wrapper `vpc-config/scripts/singletenant/autopilot.sh`; prompts `ops/prompts/`;
+logs `/root/logs/singletenant/`; spend ledger `/root/.local/state/singletenant-owner/spend.jsonl` (Claude $40,
+DataForSEO $20 a month). Low-risk PRs merge on green CI; higher-risk ones wait 48 hours. Every merge is smoke-tested
+live (`npm run smoke`) and reverted on failure. Kill switch: `.autopilot-paused`, or label `autopilot-hold`. Digests go
+to the watch Doc under the anchor "Applied by Claude Code (autopilot digests, newest first)". GitHub can't require
+checks (private free-plan repo), so the wrapper enforces green CI.
+
+**Top risk: the 60-day re-verification line is 2026-12-16.** All 16 profiles have `last_verified` 2026-10-17. The
+Saturday rotation re-verifies the 4 oldest each week (28 Nov, 12 Dec), and the 5 Dec monthly sweep re-checks
+everything older than 45 days as far as its budget allows. If any profile is still dated 2026-10-17 after 12 Dec, run
+an interactive re-verification on 13 to 15 Dec.
+
+**Monetisation stage gates** (`OWNERSHIP.md`): stage 0 now (no ads, affiliates or tracking). Stage 1, contextual
+display ads (EthicalAds-type, about 50,000 page views a month from a developer audience): page views not measured
+until the Cloudflare token gets Analytics Read (`docs/OWNER_ASKS.md`); about 5 Google clicks a week today, so far off.
+Stage 2, sponsorship: needs steady growth, external citations and a working vendor-correction loop; none yet.
+
+**Monthly metrics** (the monthly run appends a row):
+
+| Month | Google clicks/wk | Impressions/wk | Avg position | Pages indexed | Bing clicks/impr. | AI referrals | Dataset downloads | Source |
+|---|---|---|---|---|---|---|---|---|
+| Baseline, week 15 to 21 Nov 2026 | 5 | 1,076 | 16.9 | not measured | 0 / 14 | not measured | not measured | snapshot 2026-11-24 |
 
 ## Watch-doc audit (2026-11-24)
 
