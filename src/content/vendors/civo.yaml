@@ -2,77 +2,77 @@ slug: civo
 name: Civo
 url: https://www.civo.com
 category: dedicated-gpu
-tagline: UK cloud offering single-tenant dedicated NVIDIA GPU compute and inference
+tagline: UK cloud offering bare-metal and managed Kubernetes NVIDIA GPU compute
 
-last_verified: "2026-10-17"
+last_verified: "2026-11-24"
 sources:
   - field: category
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: tagline
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: tagline
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: deployment_models
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: regions
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: regions
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.ISO27001
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: compliance.SOC2_TYPE2
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: pricing
     url: https://www.civo.com/pricing
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.data_residency_guarantee
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.parent_jurisdiction
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.parent_jurisdiction
     url: https://find-and-update.company-information.service.gov.uk/company/09568551
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereignty.parent_jurisdiction
     url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: sovereign_for.GB
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-22"
+    verified: "2026-11-24"
   - field: sovereign_for.GB
     url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
-    verified: "2026-10-22"
+    verified: "2026-11-24"
   - field: notes
     url: https://find-and-update.company-information.service.gov.uk/company/09568551
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://find-and-update.company-information.service.gov.uk/company/09568551/persons-with-significant-control
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://www.civo.com/private-cloud/flexcore
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - field: notes
     url: https://www.civo.com/uk-sovereign-cloud
-    verified: "2026-10-17"
+    verified: "2026-11-24"
 
 deployment_models:
   - bare-metal
   - managed-kubernetes
   - dedicated-gpu-inference
 
-# Regions checked 2026-07-18 and re-checked 2026-10-17 against
+# Regions checked 2026-07-18, re-checked 2026-10-17 and 2026-11-24 against
 # https://www.civo.com/uk-sovereign-cloud and https://www.civo.com/ai/cloud-gpu:
 # the UK Sovereign Cloud keeps data "securely within UK borders". Civo also
 # markets an India sovereign region, but only via testimonial on the GPU pages
@@ -85,26 +85,26 @@ compliance:
   - cert: ISO27001
     level: stated
     evidence_url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
   - cert: SOC2_TYPE2
     level: stated
     evidence_url: https://www.civo.com/ai/cloud-gpu
-    verified: "2026-10-17"
+    verified: "2026-11-24"
 
 pricing:
   model: Per-GPU-hour on demand, lower rates on 6-36 month commitments
   public: true
   evidence_url: https://www.civo.com/pricing
-  verified: "2026-10-17"
+  verified: "2026-11-24"
 
 sovereignty:
   data_residency_guarantee: stated
   parent_jurisdiction: GB
   evidence_url: https://www.civo.com/uk-sovereign-cloud
-  verified: "2026-10-17"
+  verified: "2026-11-24"
 
 # Sovereign for: parent in the jurisdiction, capacity there, a residency
-# commitment, and the vendor's own sovereignty claim (sources dated 2026-10-22).
+# commitment, and the vendor's own sovereignty claim (re-checked 2026-11-24).
 sovereign_for:
   - GB
 
