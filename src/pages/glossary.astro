@@ -1,13 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
 // Glossary of the site's working vocabulary (src/content/glossary.yaml).
 // Stub terms show their outline under an "in preparation" marker; the page is
 // noindex, outside the sitemap and unlinked until at least one term is
 // published. DefinedTermSet JSON-LD carries published definitions only.
-import { getCollection } from 'astro:content';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbList } from '../lib/schema.mjs';
 
-const terms = await getCollection('glossary');
+// Terms render in the order they are written in glossary.yaml (a deliberate
+// reading order). Astro 7 no longer guarantees collection order, so sort by it.
+const fileOrder = [
+  ...readFileSync(
+    join(process.cwd(), 'src/content/glossary.yaml'),
+    'utf8',
+  ).matchAll(/^- id: (\S+)/gm),
+].map((m) => m[1]);
+const terms = (await getCollection('glossary')).sort(
+  (a, b) => fileOrder.indexOf(a.id) - fileOrder.indexOf(b.id),
+);
 const published = terms.filter((t) => t.data.status === 'published');
 
 const SITE = 'https://singletenant.ai';

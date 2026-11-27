@@ -41,11 +41,12 @@ const sovereign = (d: VendorData) =>
 ---
 
 <p>
-  Of the {s.total} hosts in this database, {s.contractual} commit to data residency in a contract, {s.stated}
-  state it without a contractual commitment, and {s.unknown} have no verified residency position.
+  {/* Astro 7 drops the line break after an expression that ends a line, so those spaces are explicit. */}
+  Of the {s.total} hosts in this database, {s.contractual} commit to data residency in a contract, {s.stated}{' '}
+  state it without a contractual commitment, and {s.unknown} have no verified residency position.{' '}
   {s.contractualUsParent} of the {s.contractual} with contractual residency have a US parent company, so their
-  residency guarantee still sits under US law. {s.gbRegion} offer a UK region, but only {list(s.sovereignFor.GB)}
-  {s.sovereignFor.GB.length === 1 ? 'is' : 'are'} recorded as sovereign for the UK, and {list(s.sovereignFor.EU)}
+  residency guarantee still sits under US law. {s.gbRegion} offer a UK region, but only {list(s.sovereignFor.GB)}{' '}
+  {s.sovereignFor.GB.length === 1 ? 'is' : 'are'} recorded as sovereign for the UK, and {list(s.sovereignFor.EU)}{' '}
   for the EU.
 </p>
 
