@@ -4,6 +4,32 @@ One entry per owner run, newest first: what was checked, what changed (with sour
 search data, and spend. The earlier weekly-watch log (16 Oct to 23 Nov 2026) is in the Google Doc
 "singletenant.ai: weekly watch".
 
+## 2026-11-28: Saturday apply (limited by tooling)
+
+**Blocker:** in this run `node scripts/render-text.mjs` was refused with "requires approval" on every call, although
+`node scripts/` is on the allowlist, and the WebFetch tool wasn't available directly. I read pages through the
+web-fetch subagent instead, which returns summaries of the static HTML and can't see JavaScript-rendered trust centres.
+That isn't enough to re-read every field, so no profile was fully re-verified and no `last_verified` moved.
+
+**Changed:** CoreWeave note corrected. The CKS docs (read 2026-11-28) say Kubernetes runs directly on bare metal and
+that Kata runtimes can run Pods inside VMs, so "without a hypervisor" was dropped. Only the CKS docs source date for
+`notes` moved. Changelog entry type `corrected`.
+
+**Checked, CoreWeave:** security page still says "every node is single-tenant" (CKS); pricing page still shows
+on-demand and spot per-hour prices and "up to 60% discounts over our On-Demand prices for committed usage". The
+security page's body (as the static fetch sees it) no longer carries SOC 2 or ISO wording, and the AI data centres
+page names no UK sites. Both may be rendered by JavaScript, so those fields keep their 2026-10-17 dates; **unreadable
+source** (static fetch only): https://www.coreweave.com/ai-data-centers and the SOC 2 and ISO text on
+https://www.coreweave.com/security.
+
+**Skipped:** Azure OpenAI PTU, AWS Bedrock provisioned and Databricks re-verification, the vendor watch sweep and
+search tightening (no way to read sources reliably; the budget wasn't the limit). They stay at the front of the queue.
+Policy scope not researched.
+
+**Asks added:** check why `node scripts/render-text.mjs` needs approval in the headless apply run.
+
+**Spend:** Claude about $0.4; DataForSEO $0.
+
 ## 2026-11-24 (later): attribution, open data, provenance, three re-verifications (interactive)
 
 Simon merged #16 to #19 and asked for any remaining work, plus an explicit credit: Claude writes the site, Simon owns it.
