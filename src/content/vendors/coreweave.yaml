@@ -47,7 +47,7 @@ sources:
     verified: "2026-10-17"
   - field: notes
     url: https://docs.coreweave.com/products/cks
-    verified: "2026-10-17"
+    verified: "2026-11-28"
   - field: notes
     url: https://www.coreweave.com/blog/how-coreweave-builds-security-into-the-architecture-that-powers-modern-ai
     verified: "2026-10-17"
@@ -99,7 +99,7 @@ sovereignty:
 
 notes: >-
   Security page states every CKS node is single-tenant; CKS runs Kubernetes
-  directly on bare-metal nodes without a hypervisor. SOC 2 Type II scope covers
+  directly on bare-metal nodes. SOC 2 Type II scope covers
   Bare Metal and CKS. Trust centre shows ISO 27001/27017/27018 badges but the
   security page uses "aligned with" wording, so ISO 27001 is excluded
   (https://www.coreweave.com/security). Terms name CoreWeave, Inc. under New

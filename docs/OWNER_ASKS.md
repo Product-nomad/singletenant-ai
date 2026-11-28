@@ -6,6 +6,12 @@ moving it to **Done** with the date.
 
 ## Open
 
+- **2026-11-28 · Apply run couldn't use `render-text.mjs`.** Every `node scripts/render-text.mjs ...` call in the
+  28 Nov apply run was refused as "requires approval", though `.claude/settings.json` allows `node scripts/:*`, and
+  WebFetch wasn't available directly. The rotation re-verify (Azure PTU, Bedrock PT, Databricks, most of CoreWeave) and
+  the vendor sweep were skipped. Please check the wrapper's `--allowedTools` and re-run, or ask me to do it
+  interactively before the 16 Dec line.
+
 - **2026-11-24 · Conflict wording.** The brief says "conflicts of interest: none at present", but you hold a RunPod
   referral account, so the editorial policy and disclosure PRs (#16, #18) say so and add that no referral link is used.
   If you've closed that account, say so and I'll remove the line.
