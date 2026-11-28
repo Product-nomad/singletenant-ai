@@ -2,6 +2,20 @@
 # Drives /changelog/ and the homepage "Last data change" stat.
 # Validated by npm run validate against src/schemas/changelog.mjs.
 
+- date: "2026-11-28"
+  type: corrected
+  vendors:
+    - coreweave
+  summary: >-
+    CoreWeave note corrected: it said CKS runs Kubernetes on bare-metal nodes
+    "without a hypervisor", but the CKS docs only say it runs Kubernetes
+    directly on bare metal, and add that Kata runtimes can run individual Pods
+    inside VMs. The single-tenant node statement on the security page still
+    holds.
+  sources:
+    - https://docs.coreweave.com/products/cks
+    - https://www.coreweave.com/security
+
 - date: "2026-11-24"
   type: updated
   vendors:
